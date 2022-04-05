@@ -6,3 +6,6 @@
 *swift linguist-detectable=false
 *.kt linguist-detectable=false
 *.h linguist-detectable=false
+*.rc linguist-detectable=false
+*.manifest linguist-detectable=false
+*.cmake linguist-detectable=false
