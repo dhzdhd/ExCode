@@ -1,0 +1,6 @@
+{
+  "appTitle": "code_executor",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}

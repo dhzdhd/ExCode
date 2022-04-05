@@ -1,0 +1,3 @@
+*.cpp -linguist-detectable
+*.c -linguist-detectable
+*.html -linguist-detectable
