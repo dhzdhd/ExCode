@@ -1,6 +1,6 @@
-# code_executor
+# ExCode
 
-A new Flutter project.
+A online code execution multi-platform app that supports lots of languages
 
 ## Getting Started
 
