@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.0.0-dev.5
   flutter_localizations:
     sdk: flutter
 
