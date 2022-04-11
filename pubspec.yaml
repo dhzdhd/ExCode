@@ -29,5 +29,11 @@ flutter:
   # Enable generation of localized Strings from arb files.
   generate: true
 
+  fonts:
+    - family: FiraCode
+      fonts:
+        - asset: assets/fonts/FiraCode.ttf
+          weight: 700
+
   assets:
     - assets/images/
