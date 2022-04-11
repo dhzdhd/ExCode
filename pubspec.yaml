@@ -16,6 +16,7 @@ dependencies:
   hooks_riverpod: ^2.0.0-dev.5
   flutter_localizations:
     sdk: flutter
+  linked_scroll_controller: ^0.2.0
 
 dev_dependencies:
   flutter_test:

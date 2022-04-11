@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class EditorWidget extends StatefulWidget {
   const EditorWidget({Key? key}) : super(key: key);
@@ -11,17 +12,26 @@ class _EditorWidgetState extends State<EditorWidget> {
   var _lineCount = 2;
   var _selectedLine = 1;
   late final TextEditingController _controller;
+  late final LinkedScrollControllerGroup _controllerGroup;
+  late final ScrollController _numberScrollController;
+  late final ScrollController _editorScrollController;
 
   @override
   void initState() {
     super.initState();
 
     _controller = TextEditingController();
+
+    _controllerGroup = LinkedScrollControllerGroup();
+    _numberScrollController = _controllerGroup.addAndGet();
+    _editorScrollController = _controllerGroup.addAndGet();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _numberScrollController.dispose();
+    _editorScrollController.dispose();
 
     super.dispose();
   }
@@ -34,6 +44,7 @@ class _EditorWidgetState extends State<EditorWidget> {
         child: SizedBox(
           width: 25,
           child: ListView(
+            controller: _numberScrollController,
             children: [
               for (int i = 1; i < _lineCount + 1; i++)
                 Padding(
@@ -43,7 +54,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                       fontSize: 14,
-                      color: i == _selectedLine ? Colors.white : Colors.grey,
+                      color: i == _selectedLine ? Colors.green : Colors.grey,
                     ),
                   ),
                 ),
@@ -60,8 +71,11 @@ class _EditorWidgetState extends State<EditorWidget> {
           enableInteractiveSelection: true,
           expands: true,
           maxLines: null,
+          scrollController: _editorScrollController,
+          readOnly: false,
           onChanged: ((text) {
             setState(() {
+              // Get line count by counting number of newlines.
               newLineMatches(text) => '\n'.allMatches(text);
               _lineCount = newLineMatches(text).length + 1;
               _selectedLine = newLineMatches(text.substring(
@@ -71,7 +85,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                   1;
             });
           }),
-          style: const TextStyle(fontFamily: 'FiraCode'),
+          style: const TextStyle(fontFamily: 'FiraCode', fontSize: 14.0),
         ),
       )
     ]);
