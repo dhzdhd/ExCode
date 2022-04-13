@@ -1,3 +1,4 @@
+import 'src/factory.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,6 +8,7 @@ import 'src/settings/services/settings_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initialise();
 
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();

@@ -1,7 +1,10 @@
+import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import '../../helpers.dart';
 
-class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
+class AppBarWidget extends HookWidget with PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
 
   @override
@@ -9,14 +12,28 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = useState(Languages.python);
+
     return AppBar(
-      title: const Text('Language'),
+      title: DropdownButton<Languages>(
+        value: lang.value,
+        items: Languages.values
+            .map((e) => DropdownMenuItem<Languages>(
+                  child: Text(e.name.capitalize()),
+                  value: e,
+                ))
+            .toList(),
+        onChanged: (val) {
+          lang.value = val!;
+        },
+      ),
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.blueAccent,
       actions: [
         IconButton(
           icon: const Icon(Icons.play_arrow),
           onPressed: () {
-            Navigator.restorablePushNamed(context, SettingsView.routeName);
+            ApiHandler.executeCode(lang.value);
           },
         ),
         IconButton(

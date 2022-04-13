@@ -20,16 +20,16 @@ class _OutputWidgetState extends State<OutputWidget> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 100),
       height: selected ? MediaQuery.of(context).size.height : 130,
-      width: selected ? MediaQuery.of(context).size.width : 20,
+      width: selected ? MediaQuery.of(context).size.width : 30,
       right: pressed ? 10 : 0,
       top: selected ? 0 : 100,
       child: GestureDetector(
         onHorizontalDragUpdate: (details) {
-          if (details.primaryDelta! < -15 && !selected) {
+          if (details.primaryDelta! < -5 && !selected) {
             setState(() {
               selected = true;
             });
-          } else if (details.primaryDelta! > 15 && selected) {
+          } else if (details.primaryDelta! > 5 && selected) {
             setState(() {
               selected = false;
             });
@@ -44,7 +44,8 @@ class _OutputWidgetState extends State<OutputWidget> {
           ),
           child: Visibility(
             visible: selected,
-            child: Text('HELELLEOO'),
+            child: const Text('HELELLEOO'),
+            replacement: const Icon(Icons.arrow_left_sharp),
           ),
         ),
       ),

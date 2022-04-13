@@ -3,6 +3,8 @@ import 'package:excode/src/home/widgets/output.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
+import 'package:multi_split_view/multi_split_view.dart';
+import 'package:resizable_widget/resizable_widget.dart';
 
 class EditorWidget extends StatefulWidget {
   const EditorWidget({Key? key}) : super(key: key);
@@ -31,14 +33,36 @@ class _EditorWidgetState extends State<EditorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CodeField(
-          controller: _controller,
-          expands: true,
-        ),
-        OutputWidget(),
-      ],
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 700) {
+        return MultiSplitViewTheme(
+          data: MultiSplitViewThemeData(
+              dividerPainter: DividerPainters.grooved1(
+                  color: Colors.indigo[100]!,
+                  highlightedColor: Colors.indigo[900]!)),
+          child: MultiSplitView(
+            minimalWeight: 0.2,
+            children: [
+              CodeField(
+                controller: _controller,
+                expands: true,
+              ),
+              Container(
+                  // child: OutputWidget(),
+                  )
+            ],
+          ),
+        );
+      }
+      return Stack(
+        children: [
+          CodeField(
+            controller: _controller,
+            expands: true,
+          ),
+          OutputWidget(),
+        ],
+      );
+    });
   }
 }
