@@ -11,7 +11,14 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: const Text('Language'),
+      backgroundColor: Colors.blueAccent,
       actions: [
+        IconButton(
+          icon: const Icon(Icons.play_arrow),
+          onPressed: () {
+            Navigator.restorablePushNamed(context, SettingsView.routeName);
+          },
+        ),
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {

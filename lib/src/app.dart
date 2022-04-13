@@ -1,14 +1,16 @@
+import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'home/views/home_view.dart';
 import 'settings/views/settings_view.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       restorationScopeId: 'app',
       debugShowCheckedModeBanner: false,
@@ -20,10 +22,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en', ''),
       ],
-
-      theme: ThemeData(),
-      darkTheme: ThemeData.dark(),
-
+      theme: ref.watch(themeStateProvider),
+      // darkTheme: ThemeData.dark(),
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.
       onGenerateRoute: (RouteSettings routeSettings) {
