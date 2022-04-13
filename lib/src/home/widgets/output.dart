@@ -1,22 +1,28 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OutputWidget extends StatefulWidget {
-  const OutputWidget({
-    Key? key,
-  }) : super(key: key);
+class OutputWrapperWidget extends StatefulWidget {
+  final bool wideScreen;
+
+  const OutputWrapperWidget({Key? key, required this.wideScreen})
+      : super(key: key);
 
   @override
-  State<OutputWidget> createState() => _OutputWidgetState();
+  State<OutputWrapperWidget> createState() => _OutputWrapperWidgetState();
 }
 
-class _OutputWidgetState extends State<OutputWidget> {
+class _OutputWrapperWidgetState extends State<OutputWrapperWidget> {
   var selected = false;
   var pressed = false;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.wideScreen) {
+      return const _OutputWidget();
+    }
+
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 100),
       height: selected ? MediaQuery.of(context).size.height : 130,
@@ -44,10 +50,58 @@ class _OutputWidgetState extends State<OutputWidget> {
           ),
           child: Visibility(
             visible: selected,
-            child: const Text('HELELLEOO'),
+            child: const _OutputWidget(),
             replacement: const Icon(Icons.arrow_left_sharp),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _OutputWidget extends ConsumerWidget {
+  const _OutputWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListView(
+      children: const [
+        _OutputListItem(icon: Icons.code, title: 'Output', content: 'e'),
+        _OutputListItem(icon: Icons.error, title: 'Error', content: 'e'),
+      ],
+    );
+  }
+}
+
+class _OutputListItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String content;
+
+  const _OutputListItem({
+    Key? key,
+    required this.icon,
+    required this.title,
+    required this.content,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(icon),
+            title: Text(title),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10, left: 20),
+              child: Text(content),
+            ),
+          )
+        ],
       ),
     );
   }

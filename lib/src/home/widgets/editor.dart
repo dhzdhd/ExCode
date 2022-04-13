@@ -47,9 +47,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                 controller: _controller,
                 expands: true,
               ),
-              Container(
-                  // child: OutputWidget(),
-                  )
+              OutputWrapperWidget(wideScreen: true)
             ],
           ),
         );
@@ -60,7 +58,7 @@ class _EditorWidgetState extends State<EditorWidget> {
             controller: _controller,
             expands: true,
           ),
-          OutputWidget(),
+          OutputWrapperWidget(wideScreen: false),
         ],
       );
     });
