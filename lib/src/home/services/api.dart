@@ -85,12 +85,17 @@ class ApiHandler {
     switch (lang) {
       case Languages.python:
         return {'version': '3.10.0'};
+      case Languages.fSharp:
+        return {'language': 'fsharp.net', 'version': '5.0.201'};
+      case Languages.rust:
+        return {'version': '1.50.0'};
       default:
         return {};
     }
   }
 
-  static Future<Map<String, String>> executeCode(Languages lang) async {
+  static Future<Map<String, String>> executeCode(
+      Languages lang, String content) async {
     late final Response res;
 
     try {
@@ -98,7 +103,7 @@ class ApiHandler {
         'language': lang.name,
         ...getDataFromLang(lang),
         'files': [
-          {'content': 'print("HELLO")'}
+          {'content': content}
         ],
         'stdin': '',
         'args': ['1', '2', '3'],

@@ -18,7 +18,7 @@ class SettingsView extends StatelessWidget {
         child: Consumer(builder: (_, WidgetRef ref, __) {
           return DropdownButton<ThemeMode>(
             onChanged: ((value) => value),
-            onTap: () => {ref.read(themeStateProvider.notifier).changeTheme()},
+            onTap: () => {ref.watch(themeStateProvider.notifier).changeTheme()},
             items: const [
               DropdownMenuItem(
                 value: ThemeMode.system,
