@@ -42,6 +42,9 @@ flutter:
       fonts:
         - asset: assets/fonts/FiraCode.ttf
           weight: 700
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik.ttf
 
   assets:
     - assets/images/

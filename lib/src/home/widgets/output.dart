@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:excode/src/home/providers/output_provider.dart';
+import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,8 +27,9 @@ class _OutputWrapperWidgetState extends State<OutputWrapperWidget> {
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 100),
-      height: selected ? MediaQuery.of(context).size.height : 130,
-      width: selected ? MediaQuery.of(context).size.width : 30,
+      height:
+          selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
+      width: selected ? MediaQuery.of(context).size.width : 70,
       right: pressed ? 10 : 0,
       top: selected ? 0 : 100,
       child: GestureDetector(
@@ -45,14 +47,30 @@ class _OutputWrapperWidgetState extends State<OutputWrapperWidget> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(selected ? 0 : 5),
+              left: Radius.circular(selected ? 0 : 20),
             ),
-            color: Colors.blueAccent,
+            color: selected ? ThemeData.dark().primaryColor : accentColor,
           ),
           child: Visibility(
             visible: selected,
             child: const _OutputWidget(),
-            replacement: const Icon(Icons.arrow_left_sharp),
+            replacement: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -67,13 +85,16 @@ class _OutputWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(outputStateProvider);
 
-    return ListView(
-      children: [
-        _OutputListItem(
-            icon: Icons.code, title: 'Output', content: data['output']),
-        _OutputListItem(
-            icon: Icons.error, title: 'Error', content: data['err']),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 2.0),
+      child: ListView(
+        children: [
+          _OutputListItem(
+              icon: Icons.code, title: 'Output', content: data['output']),
+          _OutputListItem(
+              icon: Icons.error, title: 'Error', content: data['err']),
+        ],
+      ),
     );
   }
 }
@@ -92,21 +113,24 @@ class _OutputListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: Icon(icon),
-            title: Text(title),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10, left: 20),
-              child: Text(content),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 2, 5, 0),
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              leading: Icon(icon),
+              title: Text(title),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10, left: 20),
+                child: Text(content),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

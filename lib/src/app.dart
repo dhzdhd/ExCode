@@ -22,8 +22,12 @@ class MyApp extends ConsumerWidget {
       supportedLocales: const [
         Locale('en', ''),
       ],
-      theme: ref.watch(themeStateProvider),
-      darkTheme: ThemeData.dark(),
+      theme: lightTheme.theme,
+      themeMode:
+          ref.watch(themeStateProvider).theme.brightness == Brightness.dark
+              ? ThemeMode.dark
+              : ThemeMode.light,
+      darkTheme: darkTheme.theme,
       // darkTheme: ThemeData.dark(),
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.

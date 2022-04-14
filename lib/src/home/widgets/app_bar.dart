@@ -30,7 +30,6 @@ class AppBarWidget extends HookWidget with PreferredSizeWidget {
         },
       ),
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.blueAccent,
       actions: [
         Consumer(builder: (_, ref, __) {
           return IconButton(

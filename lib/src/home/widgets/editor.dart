@@ -2,6 +2,7 @@ import 'package:code_text_field/code_text_field.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
+import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
@@ -38,22 +39,26 @@ class _EditorWidgetState extends State<EditorWidget> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
-        return MultiSplitViewTheme(
-          data: MultiSplitViewThemeData(
-            dividerPainter: DividerPainters.grooved1(
-              backgroundColor: Colors.grey[400],
-              color: Colors.indigo[100]!,
-              highlightedColor: Colors.indigo[900]!,
+        return Consumer(builder: (_, WidgetRef ref, __) {
+          final provider = ref.watch(themeStateProvider);
+
+          return MultiSplitViewTheme(
+            data: MultiSplitViewThemeData(
+              dividerPainter: DividerPainters.grooved1(
+                backgroundColor: provider.primaryColor,
+                color: provider.invertedColor,
+                highlightedColor: provider.invertedColor,
+              ),
             ),
-          ),
-          child: MultiSplitView(
-            minimalWeight: 0.2,
-            children: [
-              _CodeFieldWidget(controller: _controller),
-              const OutputWrapperWidget(wideScreen: true)
-            ],
-          ),
-        );
+            child: MultiSplitView(
+              minimalWeight: 0.2,
+              children: [
+                _CodeFieldWidget(controller: _controller),
+                const OutputWrapperWidget(wideScreen: true)
+              ],
+            ),
+          );
+        });
       }
       return Stack(
         children: [
@@ -76,11 +81,24 @@ class _CodeFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CodeFieldWidget(
-      controller: _controller,
-      onChanged: (value) =>
-          ref.watch(editorContentStateProvider.notifier).setContent(value),
-      expands: true,
+    return Column(
+      children: [
+        Expanded(
+          child: CodeFieldWidget(
+            controller: _controller,
+            onChanged: (value) => ref
+                .watch(editorContentStateProvider.notifier)
+                .setContent(value),
+            expands: true,
+          ),
+        ),
+        Container(
+          height: 20,
+          child: Row(
+            children: [TextButton(onPressed: () {}, child: Text('TAB'))],
+          ),
+        )
+      ],
     );
   }
 }
