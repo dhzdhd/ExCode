@@ -5,7 +5,7 @@ import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editorStateProvider = StateNotifierProvider<_EditorModel, CodeController>(
-    ((ref) => _EditorModel()));
+    (ref) => _EditorModel());
 
 class _EditorModel extends StateNotifier<CodeController> {
   _EditorModel()
@@ -14,7 +14,11 @@ class _EditorModel extends StateNotifier<CodeController> {
 
   void setLanguage(String language) {
     state = CodeController(
-        language: allLanguages[language], theme: state.theme, text: state.text);
+      language: allLanguages[language],
+      theme: state.theme,
+      text: state.text,
+      onChange: state.onChange,
+    );
   }
 
   void setTheme(Map<String, TextStyle> theme) {

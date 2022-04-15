@@ -16,19 +16,8 @@ class EditorWidget extends ConsumerStatefulWidget {
 }
 
 class _EditorWidgetState extends ConsumerState<EditorWidget> {
-  late CodeController _controller;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _controller = ref.watch(editorStateProvider);
-
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
         final theme = ref.watch(themeStateProvider);
@@ -43,34 +32,37 @@ class _EditorWidgetState extends ConsumerState<EditorWidget> {
           ),
           child: MultiSplitView(
             minimalWeight: 0.2,
-            children: [
-              _CodeFieldWidget(controller: _controller),
-              const OutputWrapperWidget(wideScreen: true)
+            children: const [
+              _CodeFieldWidget(),
+              OutputWrapperWidget(wideScreen: true)
             ],
           ),
         );
       }
       return Stack(
-        children: [
-          _CodeFieldWidget(controller: _controller),
-          const OutputWrapperWidget(wideScreen: false),
+        children: const [
+          _CodeFieldWidget(),
+          OutputWrapperWidget(wideScreen: false),
         ],
       );
     });
   }
 }
 
-class _CodeFieldWidget extends ConsumerWidget {
-  const _CodeFieldWidget({
-    Key? key,
-    required CodeController controller,
-  })  : _controller = controller,
-        super(key: key);
-
-  final CodeController _controller;
+class _CodeFieldWidget extends StatefulHookConsumerWidget {
+  const _CodeFieldWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_CodeFieldWidget> createState() => _CodeFieldWidgetState();
+}
+
+class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
+  late CodeController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    _controller = ref.watch(editorStateProvider);
+
     return Column(
       children: [
         Expanded(
