@@ -8,7 +8,6 @@ import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
-import 'package:resizable_widget/resizable_widget.dart';
 
 class EditorWidget extends StatefulWidget {
   const EditorWidget({Key? key}) : super(key: key);
@@ -92,10 +91,10 @@ class _CodeFieldWidget extends ConsumerWidget {
             expands: true,
           ),
         ),
-        Container(
+        SizedBox(
           height: 20,
           child: Row(
-            children: [TextButton(onPressed: () {}, child: Text('TAB'))],
+            children: [TextButton(onPressed: () {}, child: const Text('TAB'))],
           ),
         )
       ],

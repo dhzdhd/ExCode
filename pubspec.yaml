@@ -1,14 +1,13 @@
 name: excode
 description: A new Flutter project.
 
-# Prevent accidental publishing to pub.dev.
 publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
-  flutter: ^2.12.0-4.2.pre
+  flutter: ^2.13.0-0.1.pre
 
 dependencies:
   flutter:

@@ -1,0 +1,58 @@
+name: Build and Release app
+
+on:
+  push:
+    branches: [ stable ]
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'beta'
+        run: flutter --version
+
+      - name: Build Windows
+        run: |
+          flutter config --enable-windows-desktop
+          flutter pub get
+          flutter build windows
+
+      - name: Create zip
+        run: |
+          7z -tZip a exec\ExCode.zip build\windows\runner\Release\
+
+      - name : Build Android
+        run : |
+          flutter build apk
+          flutter build appbundle
+
+      - name : Move build files
+        run : |
+          mv build/app/outputs/flutter-apk/app-release.apk exec/excode.apk
+          mv build/app/outputs/bundle/release/app-release.aab exec/excode.aab
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+#         if: startsWith(github.ref, 'refs/tags/')
+        with:
+          name: ExCode
+          tag_name: v0.0.1
+          prerelease: true
+          generate_release_notes: true
+          files: exec/*
+          body_path: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_REPOSITORY: dhzdhd/ExCode
