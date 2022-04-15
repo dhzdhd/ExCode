@@ -1,5 +1,5 @@
 name: excode
-description: A new Flutter project.
+description: A code execution editor which supports multiple languages.
 
 publish_to: 'none'
 

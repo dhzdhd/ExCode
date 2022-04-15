@@ -1,19 +1,22 @@
+import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
+import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
-class AppBarWidget extends HookWidget with PreferredSizeWidget {
+class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final editorLang = ref.watch(editorStateProvider).languageId;
     final lang = useState(Languages.python);
 
     return AppBar(
@@ -27,6 +30,9 @@ class AppBarWidget extends HookWidget with PreferredSizeWidget {
             .toList(),
         onChanged: (val) {
           lang.value = val!;
+          ref
+              .watch(editorStateProvider.notifier)
+              .setLanguage(getThemeLangFromEnum(val));
         },
       ),
       automaticallyImplyLeading: false,

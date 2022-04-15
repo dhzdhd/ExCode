@@ -1,31 +1,22 @@
 import 'package:code_text_field/code_text_field.dart';
+import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_highlight/themes/nord.dart';
-import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
-class EditorWidget extends StatefulWidget {
+class EditorWidget extends ConsumerStatefulWidget {
   const EditorWidget({Key? key}) : super(key: key);
 
   @override
-  State<EditorWidget> createState() => _EditorWidgetState();
+  ConsumerState<EditorWidget> createState() => _EditorWidgetState();
 }
 
-class _EditorWidgetState extends State<EditorWidget> {
-  late final CodeController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller =
-        CodeController(language: allLanguages['python'], theme: nordTheme);
-  }
+class _EditorWidgetState extends ConsumerState<EditorWidget> {
+  late CodeController _controller;
 
   @override
   void dispose() {
@@ -36,28 +27,28 @@ class _EditorWidgetState extends State<EditorWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _controller = ref.watch(editorStateProvider);
+
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
-        return Consumer(builder: (_, WidgetRef ref, __) {
-          final provider = ref.watch(themeStateProvider);
+        final theme = ref.watch(themeStateProvider);
 
-          return MultiSplitViewTheme(
-            data: MultiSplitViewThemeData(
-              dividerPainter: DividerPainters.grooved1(
-                backgroundColor: provider.primaryColor,
-                color: provider.invertedColor,
-                highlightedColor: provider.invertedColor,
-              ),
+        return MultiSplitViewTheme(
+          data: MultiSplitViewThemeData(
+            dividerPainter: DividerPainters.grooved1(
+              backgroundColor: theme.primaryColor,
+              color: theme.invertedColor,
+              highlightedColor: theme.invertedColor,
             ),
-            child: MultiSplitView(
-              minimalWeight: 0.2,
-              children: [
-                _CodeFieldWidget(controller: _controller),
-                const OutputWrapperWidget(wideScreen: true)
-              ],
-            ),
-          );
-        });
+          ),
+          child: MultiSplitView(
+            minimalWeight: 0.2,
+            children: [
+              _CodeFieldWidget(controller: _controller),
+              const OutputWrapperWidget(wideScreen: true)
+            ],
+          ),
+        );
       }
       return Stack(
         children: [

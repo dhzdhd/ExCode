@@ -4,7 +4,6 @@ import 'package:excode/src/factory.dart';
 enum Languages {
   bash,
   brainfuck,
-  cjam,
   clojure,
   cobol,
   coffeeScript,
@@ -90,7 +89,7 @@ class ApiHandler {
       case Languages.rust:
         return {'version': '1.50.0'};
       default:
-        return {};
+        return {'language': 'python', 'version': '3.10.0'};
     }
   }
 
