@@ -26,7 +26,7 @@ jobs:
         run: |
           flutter config --enable-web
           flutter pub get
-          flutter build web --release
+          flutter build web --release --base-href /ExCode/
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
