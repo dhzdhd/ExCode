@@ -39,8 +39,8 @@ jobs:
 
       - name : Move build files
         run : |
-          mv build/app/outputs/flutter-apk/app-release.apk exec/excode.apk
-          mv build/app/outputs/bundle/release/app-release.aab exec/excode.aab
+          mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
+          mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
 
       - name: Create release
         uses: softprops/action-gh-release@v1
