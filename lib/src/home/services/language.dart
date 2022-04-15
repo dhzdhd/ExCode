@@ -165,10 +165,8 @@ Map<String, TextStyle> getThemeFromEnum(Themes theme) {
 String getThemeLangFromEnum(Languages lang) {
   switch (lang) {
     case Languages.cobol: // ?
-    case Languages.denoTS:
     case Languages.nodeTS:
       return 'typescript';
-    case Languages.denoJS:
     case Languages.nodeJS:
     case Languages.golfScript:
       return 'javascript';
@@ -227,6 +225,7 @@ String getThemeLangFromEnum(Languages lang) {
     case Languages.vlang: // ?
     case Languages.zig: // ?
       return 'markdown';
+    default:
+      return Languages.values[lang.index].name.toLowerCase();
   }
-  return Languages.values[lang.index].name.toLowerCase();
 }
