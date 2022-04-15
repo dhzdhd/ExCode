@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.2 / 15-04-2022
+
+### Added
+
+- Added support for execution of multiple languages
+- Added themes and per language themeing support
+
 ## 0.0.1 / 15-04-2022
 
 ### Added
