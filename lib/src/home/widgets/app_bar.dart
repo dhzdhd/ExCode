@@ -16,7 +16,6 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editorLang = ref.watch(editorStateProvider).languageId;
     final lang = useState(Languages.python);
 
     return AppBar(
@@ -31,22 +30,20 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         onChanged: (val) {
           lang.value = val!;
           ref
-              .watch(editorStateProvider.notifier)
+              .watch(editorThemeStateProvider.notifier)
               .setLanguage(getThemeLangFromEnum(val));
         },
       ),
       automaticallyImplyLeading: false,
       actions: [
-        Consumer(builder: (_, ref, __) {
-          return IconButton(
-            icon: const Icon(Icons.play_arrow),
-            onPressed: () async {
-              final res = await ApiHandler.executeCode(
-                  lang.value, ref.watch(editorContentStateProvider));
-              ref.watch(outputStateProvider.notifier).setOutput(res);
-            },
-          );
-        }),
+        IconButton(
+          icon: const Icon(Icons.play_arrow),
+          onPressed: () async {
+            final res = await ApiHandler.executeCode(
+                lang.value, ref.watch(editorContentStateProvider));
+            ref.watch(outputStateProvider.notifier).setOutput(res);
+          },
+        ),
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {

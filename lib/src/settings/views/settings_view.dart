@@ -2,7 +2,6 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_highlight/themes/nord.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
@@ -15,7 +14,7 @@ class SettingsView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = useState(ThemeMode.system);
-    final editorTheme = ref.watch(editorStateProvider).theme;
+    final editorTheme = ref.watch(editorThemeStateProvider)['theme'];
 
     return Scaffold(
       appBar: AppBar(
@@ -47,20 +46,12 @@ class SettingsView extends HookConsumerWidget {
               }),
             ),
             ListTile(
-              leading: const Icon(Icons.font_download),
-              title: const Text('Editor font'),
-              trailing: DropdownButton<String>(
-                onChanged: (value) => value,
-                value: '',
-                items: [DropdownMenuItem(child: Text(''), value: '')],
-              ),
-            ),
-            ListTile(
               leading: const Icon(Icons.palette_outlined),
               title: const Text('Editor theme'),
               trailing: DropdownButton<Map<String, TextStyle>>(
-                onChanged: (value) =>
-                    ref.watch(editorStateProvider.notifier).setTheme(value!),
+                onChanged: (value) => ref
+                    .watch(editorThemeStateProvider.notifier)
+                    .setTheme(value!),
                 value: editorTheme,
                 items: Themes.values
                     .map((e) => DropdownMenuItem(

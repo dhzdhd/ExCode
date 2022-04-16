@@ -4,25 +4,30 @@ import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final editorStateProvider = StateNotifierProvider<_EditorModel, CodeController>(
-    (ref) => _EditorModel());
+final editorThemeStateProvider =
+    StateNotifierProvider<_EditorNotifier, Map<String, dynamic>>(
+        (ref) => _EditorNotifier());
 
-class _EditorModel extends StateNotifier<CodeController> {
-  _EditorModel()
-      : super(
-            CodeController(language: allLanguages['python'], theme: nordTheme));
+class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
+  _EditorNotifier()
+      : super({
+          'language': allLanguages['python'],
+          'theme': nordTheme,
+          'langName': 'python'
+        });
 
   void setLanguage(String language) {
-    state = CodeController(
-      language: allLanguages[language],
-      theme: state.theme,
-      text: state.text,
-      onChange: state.onChange,
-    );
+    state = {
+      ...state,
+      'language': allLanguages[language],
+      'langName': language
+    };
   }
 
   void setTheme(Map<String, TextStyle> theme) {
-    state = CodeController(
-        language: state.language, theme: theme, text: state.text);
+    state = {
+      ...state,
+      'theme': theme,
+    };
   }
 }

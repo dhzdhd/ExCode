@@ -10,7 +10,6 @@ class _OutputModel extends StateNotifier<Map> {
   _OutputModel() : super({'output': 'Execute code to see output', 'err': '-'});
 
   void setOutput(Map<String, String> data) {
-    if (data['err']!.isEmpty) data['err'] = 'No errors';
     state = data;
   }
 }

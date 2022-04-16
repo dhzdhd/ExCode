@@ -5,23 +5,20 @@ import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:highlight/highlight.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
-class EditorWidget extends ConsumerStatefulWidget {
+class EditorWidget extends ConsumerWidget {
   const EditorWidget({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<EditorWidget> createState() => _EditorWidgetState();
-}
-
-class _EditorWidgetState extends ConsumerState<EditorWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 700) {
-        final theme = ref.watch(themeStateProvider);
+      final theme = ref.watch(themeStateProvider);
+      final editorTheme = ref.watch(editorThemeStateProvider);
 
+      if (constraints.maxWidth > 700) {
         return MultiSplitViewTheme(
           data: MultiSplitViewThemeData(
             dividerPainter: DividerPainters.grooved1(
@@ -32,17 +29,23 @@ class _EditorWidgetState extends ConsumerState<EditorWidget> {
           ),
           child: MultiSplitView(
             minimalWeight: 0.2,
-            children: const [
-              _CodeFieldWidget(),
-              OutputWrapperWidget(wideScreen: true)
+            children: [
+              _CodeFieldWidget(
+                theme: editorTheme['theme'],
+                lang: editorTheme['language'],
+              ),
+              const OutputWrapperWidget(wideScreen: true)
             ],
           ),
         );
       }
       return Stack(
-        children: const [
-          _CodeFieldWidget(),
-          OutputWrapperWidget(wideScreen: false),
+        children: [
+          _CodeFieldWidget(
+            theme: editorTheme['theme'],
+            lang: editorTheme['language'],
+          ),
+          const OutputWrapperWidget(wideScreen: false),
         ],
       );
     });
@@ -50,7 +53,11 @@ class _EditorWidgetState extends ConsumerState<EditorWidget> {
 }
 
 class _CodeFieldWidget extends StatefulHookConsumerWidget {
-  const _CodeFieldWidget({Key? key}) : super(key: key);
+  final Map<String, TextStyle> theme;
+  final Mode lang;
+
+  const _CodeFieldWidget({Key? key, required this.theme, required this.lang})
+      : super(key: key);
 
   @override
   ConsumerState<_CodeFieldWidget> createState() => _CodeFieldWidgetState();
@@ -60,13 +67,32 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
   late CodeController _controller;
 
   @override
-  Widget build(BuildContext context) {
-    _controller = ref.watch(editorStateProvider);
+  void initState() {
+    super.initState();
+    _controller = CodeController(
+      text: ref.read(editorContentStateProvider),
+      theme: widget.theme,
+      language: widget.lang,
+    );
+  }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: CodeFieldWidget(
+            textStyle: const TextStyle(fontFamily: 'FiraCode'),
+            textSelectionTheme: TextSelectionThemeData(
+              selectionColor: ref.watch(themeStateProvider).invertedColor,
+              selectionHandleColor: ref.watch(themeStateProvider).primaryColor,
+            ),
             controller: _controller,
             onChanged: (value) => ref
                 .watch(editorContentStateProvider.notifier)

@@ -20,6 +20,9 @@ final lightTheme = ThemeDataModel(
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(_primaryDarkColor),
+        backgroundColor: MaterialStateProperty.all(_primaryLightColor),
+        splashFactory: InkRipple.splashFactory,
+        shape: MaterialStateProperty.all(const BeveledRectangleBorder()),
       ),
     ),
     colorScheme: const ColorScheme.light(
@@ -43,6 +46,9 @@ final darkTheme = ThemeDataModel(
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(_primaryLightColor),
+        backgroundColor: MaterialStateProperty.all(_primaryDarkColor),
+        splashFactory: InkRipple.splashFactory,
+        shape: MaterialStateProperty.all(const BeveledRectangleBorder()),
       ),
     ),
     colorScheme: const ColorScheme.dark(

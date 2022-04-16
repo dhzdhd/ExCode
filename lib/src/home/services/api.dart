@@ -78,38 +78,63 @@ enum Languages {
 class ApiHandler {
   static const _executeUrl = 'https://emkc.org/api/v2/piston/execute';
   static const _runtimeUrl = 'https://emkc.org/api/v2/piston/runtimes';
-  static final Map<String, String> _data = {};
+  static final Map<String, String> langVersionMap = {};
 
   static Future<void> initRuntimeVersionData() async {
     final res = await dio.get(_runtimeUrl);
     for (var i in res.data) {
-      _data[i['language']] = i['version'];
+      langVersionMap[i['language']] = i['version'];
     }
   }
 
   static Map<String, dynamic> getDataFromLang(Languages lang) {
     switch (lang) {
       case Languages.coffeeScript:
-        return {'language': 'coffeescript', 'version': _data['coffeescript']};
+        return {
+          'language': 'coffeescript',
+          'version': langVersionMap['coffeescript']
+        };
       case Languages.nodeTS:
-        return {'language': 'typescript', 'version': _data['typescript']};
+        return {
+          'language': 'typescript',
+          'version': langVersionMap['typescript']
+        };
       case Languages.nodeJS:
-        return {'language': 'javascript', 'version': _data['javascript']};
+        return {
+          'language': 'javascript',
+          'version': langVersionMap['javascript']
+        };
       case Languages.basic:
-        return {'language': 'basic.net', 'version': _data['basic.net']};
+        return {
+          'language': 'basic.net',
+          'version': langVersionMap['basic.net']
+        };
       case Languages.cSharp:
-        return {'language': 'csharp.net', 'version': _data['csharp.net']};
+        return {
+          'language': 'csharp.net',
+          'version': langVersionMap['csharp.net']
+        };
       case Languages.fSharp:
-        return {'language': 'fsharp.net', 'version': _data['fsharp.net']};
+        return {
+          'language': 'fsharp.net',
+          'version': langVersionMap['fsharp.net']
+        };
       case Languages.cpp:
-        return {'language': 'c++', 'version': _data['c++']};
+        return {'language': 'c++', 'version': langVersionMap['c++']};
       case Languages.golfScript:
-        return {'language': 'golfscript', 'version': _data['golfscript']};
+        return {
+          'language': 'golfscript',
+          'version': langVersionMap['golfscript']
+        };
       case Languages.oCaml:
-        return {'language': 'ocaml', 'version': _data['ocaml']};
+        return {'language': 'ocaml', 'version': langVersionMap['ocaml']};
       default:
-        return {'language': 'python', 'version': _data['python']};
+        return {'language': 'python', 'version': langVersionMap['python']};
     }
+  }
+
+  static String sanitizeContent(String content) {
+    return content.replaceAll('.', ' ');
   }
 
   static Future<Map<String, String>> executeCode(
@@ -117,29 +142,47 @@ class ApiHandler {
     late final Response res;
     final data = {
       'language': lang.name,
-      'version': _data.containsKey(lang.name) ? _data[lang.name] : '',
+      'version': langVersionMap.containsKey(lang.name)
+          ? langVersionMap[lang.name]
+          : '',
       'files': [
-        {'content': content}
+        {'content': sanitizeContent(content)}
       ],
       'stdin': '',
       'args': ['1', '2', '3'],
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };
-    if (!_data.containsKey(lang.name)) data.addAll(getDataFromLang(lang));
+    if (!langVersionMap.containsKey(lang.name)) {
+      data.addAll(getDataFromLang(lang));
+    }
 
     try {
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
       print(err.message);
       return {'error': err.message};
+    } catch (err) {
+      print(err);
+      return {'error': err.toString()};
     }
 
     print(res.data);
 
+    if (res.data.contains('compile')) {
+      return {'output': ''};
+    }
+
+    if (res.data['run']['stdout'].isEmpty) {
+      res.data['run']['stdout'] = 'No output';
+    }
+    if (res.data['run']['stderr'].isEmpty) {
+      res.data['run']['stderr'] = 'No errors';
+    }
+
     return {
-      'output': res.data['run']['output'],
-      'err': res.data['run']['stderr']
+      'output': res.data['run']['stdout'],
+      'err': res.data['run']['stderr'],
     };
   }
 }

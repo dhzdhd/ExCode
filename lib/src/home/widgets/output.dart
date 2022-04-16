@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
