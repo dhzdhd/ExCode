@@ -78,12 +78,12 @@ enum Languages {
 class ApiHandler {
   static const _executeUrl = 'https://emkc.org/api/v2/piston/execute';
   static const _runtimeUrl = 'https://emkc.org/api/v2/piston/runtimes';
-  static final Map<String, String> langVersionMap = {};
+  static final Map<String, String> _langVersionMap = {};
 
   static Future<void> initRuntimeVersionData() async {
     final res = await dio.get(_runtimeUrl);
     for (var i in res.data) {
-      langVersionMap[i['language']] = i['version'];
+      _langVersionMap[i['language']] = i['version'];
     }
   }
 
@@ -92,58 +92,58 @@ class ApiHandler {
       case Languages.coffeeScript:
         return {
           'language': 'coffeescript',
-          'version': langVersionMap['coffeescript']
+          'version': _langVersionMap['coffeescript']
         };
       case Languages.nodeTS:
         return {
           'language': 'typescript',
-          'version': langVersionMap['typescript']
+          'version': _langVersionMap['typescript']
         };
       case Languages.nodeJS:
         return {
           'language': 'javascript',
-          'version': langVersionMap['javascript']
+          'version': _langVersionMap['javascript']
         };
       case Languages.basic:
         return {
           'language': 'basic.net',
-          'version': langVersionMap['basic.net']
+          'version': _langVersionMap['basic.net']
         };
       case Languages.cSharp:
         return {
           'language': 'csharp.net',
-          'version': langVersionMap['csharp.net']
+          'version': _langVersionMap['csharp.net']
         };
       case Languages.fSharp:
         return {
           'language': 'fsharp.net',
-          'version': langVersionMap['fsharp.net']
+          'version': _langVersionMap['fsharp.net']
         };
       case Languages.cpp:
-        return {'language': 'c++', 'version': langVersionMap['c++']};
+        return {'language': 'c++', 'version': _langVersionMap['c++']};
       case Languages.golfScript:
         return {
           'language': 'golfscript',
-          'version': langVersionMap['golfscript']
+          'version': _langVersionMap['golfscript']
         };
       case Languages.oCaml:
-        return {'language': 'ocaml', 'version': langVersionMap['ocaml']};
+        return {'language': 'ocaml', 'version': _langVersionMap['ocaml']};
       default:
-        return {'language': 'python', 'version': langVersionMap['python']};
+        return {'language': 'python', 'version': _langVersionMap['python']};
     }
   }
 
   static String sanitizeContent(String content) {
-    return content.replaceAll('.', ' ');
+    return content;
   }
 
   static Future<Map<String, String>> executeCode(
       Languages lang, String content) async {
-    late final Response res;
+    late final Response<Map<String, dynamic>> res;
     final data = {
       'language': lang.name,
-      'version': langVersionMap.containsKey(lang.name)
-          ? langVersionMap[lang.name]
+      'version': _langVersionMap.containsKey(lang.name)
+          ? _langVersionMap[lang.name]
           : '',
       'files': [
         {'content': sanitizeContent(content)}
@@ -153,7 +153,7 @@ class ApiHandler {
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };
-    if (!langVersionMap.containsKey(lang.name)) {
+    if (!_langVersionMap.containsKey(lang.name)) {
       data.addAll(getDataFromLang(lang));
     }
 
@@ -161,28 +161,45 @@ class ApiHandler {
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
       print(err.message);
-      return {'error': err.message};
+      return {'output': 'No output', 'err': err.message};
     } catch (err) {
       print(err);
-      return {'error': err.toString()};
+      return {'output': 'No output', 'err': err.toString()};
     }
 
     print(res.data);
 
-    if (res.data.contains('compile')) {
-      return {'output': ''};
+    if (res.data!['run']['stdout'].isEmpty) {
+      res.data!['run']['stdout'] = 'No output';
+    }
+    if (res.data!['run']['stderr'].isEmpty) {
+      res.data!['run']['stderr'] = 'No errors';
     }
 
-    if (res.data['run']['stdout'].isEmpty) {
-      res.data['run']['stdout'] = 'No output';
-    }
-    if (res.data['run']['stderr'].isEmpty) {
-      res.data['run']['stderr'] = 'No errors';
+    if (res.data!.containsKey('compile')) {
+      if (res.data!['compile']['stdout'].isEmpty &&
+          res.data!['compile']['stderr'].isEmpty) {
+        return {
+          'output': res.data!['run']['stdout'],
+          'err': res.data!['run']['stderr'],
+        };
+      } else {
+        if (res.data!['compile']['stdout'].isEmpty) {
+          res.data!['compile']['stdout'] = 'No output';
+        }
+        if (res.data!['compile']['stderr'].isEmpty) {
+          res.data!['compile']['stderr'] = 'No errors';
+        }
+        return {
+          'output': res.data!['compile']['stdout'],
+          'err': res.data!['compile']['stderr'],
+        };
+      }
     }
 
     return {
-      'output': res.data['run']['stdout'],
-      'err': res.data['run']['stderr'],
+      'output': res.data!['run']['stdout'],
+      'err': res.data!['run']['stderr'],
     };
   }
 }

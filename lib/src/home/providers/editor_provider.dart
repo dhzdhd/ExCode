@@ -1,4 +1,3 @@
-import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
