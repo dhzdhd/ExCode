@@ -14,10 +14,10 @@ class EditorWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final theme = ref.watch(themeStateProvider);
-      final editorTheme = ref.watch(editorThemeStateProvider);
+    final theme = ref.watch(themeStateProvider);
+    final editorTheme = ref.watch(editorThemeStateProvider);
 
+    return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
         return MultiSplitViewTheme(
           data: MultiSplitViewThemeData(
@@ -74,6 +74,26 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
       theme: widget.theme,
       language: widget.lang,
     );
+  }
+
+  @override
+  void didUpdateWidget(_CodeFieldWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.theme != _controller.theme ||
+        widget.lang != _controller.language) {
+      final text = _controller.text;
+      _controller = CodeController(
+        text: text,
+        theme: widget.theme,
+        language: widget.lang,
+        patternMap: _controller.patternMap,
+        stringMap: _controller.stringMap,
+        params: _controller.params,
+        modifiers: _controller.modifiers,
+        webSpaceFix: _controller.webSpaceFix,
+        onChange: _controller.onChange,
+      );
+    }
   }
 
   @override
