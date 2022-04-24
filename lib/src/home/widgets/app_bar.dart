@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
@@ -19,14 +20,12 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
     final lang = useState(Languages.python);
 
     return AppBar(
-      title: DropdownButton<Languages>(
-        value: lang.value,
-        items: Languages.values
-            .map((e) => DropdownMenuItem<Languages>(
-                  child: Text(e.name.capitalize()),
-                  value: e,
-                ))
-            .toList(),
+      title: DropdownSearch<Languages>(
+        mode: Mode.MENU,
+        showSearchBox: true,
+        selectedItem: lang.value,
+        items: Languages.values,
+        itemAsString: (Languages? e) => e.toString().substring(10).capitalize(),
         onChanged: (val) {
           lang.value = val!;
           ref
