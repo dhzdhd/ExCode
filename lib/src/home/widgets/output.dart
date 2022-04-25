@@ -1,24 +1,26 @@
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OutputWrapperWidget extends StatefulWidget {
+class OutputWrapperWidget extends StatefulHookConsumerWidget {
   final bool wideScreen;
 
   const OutputWrapperWidget({Key? key, required this.wideScreen})
       : super(key: key);
 
   @override
-  State<OutputWrapperWidget> createState() => _OutputWrapperWidgetState();
+  ConsumerState<OutputWrapperWidget> createState() =>
+      _OutputWrapperWidgetState();
 }
 
-class _OutputWrapperWidgetState extends State<OutputWrapperWidget> {
-  var selected = false;
-  var pressed = false;
-
+class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
   @override
   Widget build(BuildContext context) {
+    final pressed = useState(false);
+    var selected = ref.watch(outputIsVisibleStateProvider);
+
     if (widget.wideScreen) {
       return const _OutputWidget();
     }
@@ -28,18 +30,14 @@ class _OutputWrapperWidgetState extends State<OutputWrapperWidget> {
       height:
           selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
       width: selected ? MediaQuery.of(context).size.width : 70,
-      right: pressed ? 10 : 0,
+      right: pressed.value ? 10 : 0,
       top: selected ? 0 : 100,
       child: GestureDetector(
         onHorizontalDragUpdate: (details) {
           if (details.primaryDelta! < -5 && !selected) {
-            setState(() {
-              selected = true;
-            });
+            ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
           } else if (details.primaryDelta! > 5 && selected) {
-            setState(() {
-              selected = false;
-            });
+            ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
           }
         },
         child: Container(
