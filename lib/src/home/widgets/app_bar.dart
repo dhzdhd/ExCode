@@ -50,14 +50,12 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
           },
         ),
         Consumer(builder: (_, ref, __) {
-          final provider = ref.watch(editorContentStateProvider.notifier);
           return PopupMenuButton<String>(itemBuilder: ((context) {
             return [
               PopupMenuItem(
-                child: Text('Clear'),
+                child: const Text('Clear'),
                 onTap: () {
                   print('e');
-                  provider.clear;
                 },
               ),
             ];

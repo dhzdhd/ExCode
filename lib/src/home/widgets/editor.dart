@@ -33,7 +33,6 @@ class EditorWidget extends ConsumerWidget {
               _CodeFieldWidget(
                 theme: editorTheme['theme'],
                 lang: editorTheme['language'],
-                text: ref.watch(editorContentStateProvider),
               ),
               const OutputWrapperWidget(wideScreen: true)
             ],
@@ -45,7 +44,6 @@ class EditorWidget extends ConsumerWidget {
           _CodeFieldWidget(
             theme: editorTheme['theme'],
             lang: editorTheme['language'],
-            text: ref.watch(editorContentStateProvider),
           ),
           const OutputWrapperWidget(wideScreen: false),
         ],
@@ -57,10 +55,8 @@ class EditorWidget extends ConsumerWidget {
 class _CodeFieldWidget extends StatefulHookConsumerWidget {
   final Map<String, TextStyle> theme;
   final Mode lang;
-  final String text;
 
-  const _CodeFieldWidget(
-      {Key? key, required this.theme, required this.lang, required this.text})
+  const _CodeFieldWidget({Key? key, required this.theme, required this.lang})
       : super(key: key);
 
   @override
@@ -68,13 +64,12 @@ class _CodeFieldWidget extends StatefulHookConsumerWidget {
 }
 
 class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
-  late final CodeController _controller;
+  late CodeController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = CodeController(
-      text: widget.text,
       theme: widget.theme,
       language: widget.lang,
     );
@@ -84,10 +79,9 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
   void didUpdateWidget(_CodeFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.theme != _controller.theme ||
-        widget.lang != _controller.language ||
-        widget.text != _controller.text) {
+        widget.lang != _controller.language) {
       _controller = CodeController(
-        text: widget.text,
+        text: _controller.text,
         theme: widget.theme,
         language: widget.lang,
       );
