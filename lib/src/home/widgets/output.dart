@@ -18,7 +18,6 @@ class OutputWrapperWidget extends StatefulHookConsumerWidget {
 class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
   @override
   Widget build(BuildContext context) {
-    final pressed = useState(false);
     var selected = ref.watch(outputIsVisibleStateProvider);
 
     if (widget.wideScreen) {
@@ -26,11 +25,12 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
     }
 
     return AnimatedPositioned(
+      curve: Curves.bounceIn,
       duration: const Duration(milliseconds: 100),
       height:
           selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
       width: selected ? MediaQuery.of(context).size.width : 70,
-      right: pressed.value ? 10 : 0,
+      right: 0,
       top: selected ? 0 : 100,
       child: GestureDetector(
         onHorizontalDragUpdate: (details) {
@@ -39,6 +39,9 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
           } else if (details.primaryDelta! > 5 && selected) {
             ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
           }
+        },
+        onLongPress: () {
+          ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
         },
         child: Container(
           decoration: BoxDecoration(
