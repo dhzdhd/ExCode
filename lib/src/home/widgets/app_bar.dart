@@ -41,6 +41,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
             final res = await ApiHandler.executeCode(
                 lang.value, ref.watch(editorContentStateProvider));
             ref.watch(outputStateProvider.notifier).setOutput(res);
+            ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
           },
         ),
         IconButton(
