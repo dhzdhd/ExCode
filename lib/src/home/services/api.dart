@@ -134,7 +134,7 @@ class ApiHandler {
   }
 
   static String sanitizeContent(String content) {
-    return content;
+    return content.replaceAll('\u{00B7}', ' ');
   }
 
   static Future<Map<String, String>> executeCode(
