@@ -20,4 +20,8 @@ class _EditorContentModel extends StateNotifier<String> {
   void setContent(String content) {
     state = content;
   }
+
+  void clear() {
+    state = '';
+  }
 }

@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService {
-  Future<ThemeMode> themeMode() async => ThemeMode.system;
+  static late final SharedPreferences prefs;
 
-  Future<void> updateThemeMode(ThemeMode theme) async {
-    // Use the shared_preferences package to persist settings locally or the
+  static Future<void> initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  static String getTheme() {
+    return prefs.getString('theme') ?? 'light';
+  }
+
+  static Future<void> setTheme(String theme) async {
+    /// Accepts dark or light only
+    await prefs.setString('theme', theme);
   }
 }

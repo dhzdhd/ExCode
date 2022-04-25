@@ -1,3 +1,4 @@
+import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -72,11 +73,26 @@ class ThemeDataModel {
   });
 }
 
+ThemeDataModel getThemeFromString(String? theme) {
+  return theme == null
+      ? ThemeMode.system == ThemeMode.dark
+          ? darkTheme
+          : lightTheme
+      : theme == 'dark'
+          ? darkTheme
+          : lightTheme;
+}
+
 class _ThemeModel extends StateNotifier<ThemeDataModel> {
-  _ThemeModel()
-      : super(ThemeMode.system == ThemeMode.dark ? darkTheme : lightTheme);
+  _ThemeModel() : super(getThemeFromString(SettingsService.getTheme()));
 
   void changeTheme(ThemeMode mode) {
-    state = mode == ThemeMode.light ? lightTheme : darkTheme;
+    if (mode == ThemeMode.light) {
+      SettingsService.setTheme('light');
+      state = lightTheme;
+    } else {
+      SettingsService.setTheme('dark');
+      state = darkTheme;
+    }
   }
 }
