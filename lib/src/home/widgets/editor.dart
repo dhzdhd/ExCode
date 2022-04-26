@@ -3,6 +3,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:highlight/highlight.dart';
@@ -110,6 +111,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 .watch(editorContentStateProvider.notifier)
                 .setContent(value),
             expands: true,
+            wrap: ref.watch(settingsProvider).isWordWrapped,
           ),
         ),
         SizedBox(

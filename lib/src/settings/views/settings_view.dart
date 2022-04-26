@@ -1,5 +1,6 @@
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -14,7 +15,6 @@ class SettingsView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = useState(ThemeMode.system);
-    final textWrapSwitch = useState(false);
     final editorTheme = ref.watch(editorThemeStateProvider)['theme'];
 
     return Scaffold(
@@ -66,18 +66,18 @@ class SettingsView extends HookConsumerWidget {
               leading: const Icon(Icons.text_format),
               title: const Text('Word wrap'),
               trailing: Switch(
-                  value: textWrapSwitch.value,
+                  value: ref.watch(settingsProvider).isWordWrapped,
                   onChanged: (val) {
-                    textWrapSwitch.value = !textWrapSwitch.value;
+                    ref.watch(settingsProvider.notifier).setWordWrapped();
                   }),
             ),
             ListTile(
               leading: const Icon(Icons.keyboard),
               title: const Text('Always on keyboard'),
               trailing: Switch(
-                  value: textWrapSwitch.value,
+                  value: false,
                   onChanged: (val) {
-                    textWrapSwitch.value = !textWrapSwitch.value;
+                    // textWrapSwitch.value = !textWrapSwitch.value;
                   }),
             ),
           ],
