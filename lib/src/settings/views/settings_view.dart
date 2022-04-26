@@ -14,6 +14,7 @@ class SettingsView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = useState(ThemeMode.system);
+    final textWrapSwitch = useState(false);
     final editorTheme = ref.watch(editorThemeStateProvider)['theme'];
 
     return Scaffold(
@@ -60,7 +61,25 @@ class SettingsView extends HookConsumerWidget {
                         ))
                     .toList(),
               ),
-            )
+            ),
+            ListTile(
+              leading: const Icon(Icons.text_format),
+              title: const Text('Word wrap'),
+              trailing: Switch(
+                  value: textWrapSwitch.value,
+                  onChanged: (val) {
+                    textWrapSwitch.value = !textWrapSwitch.value;
+                  }),
+            ),
+            ListTile(
+              leading: const Icon(Icons.keyboard),
+              title: const Text('Always on keyboard'),
+              trailing: Switch(
+                  value: textWrapSwitch.value,
+                  onChanged: (val) {
+                    textWrapSwitch.value = !textWrapSwitch.value;
+                  }),
+            ),
           ],
         ),
       ),
