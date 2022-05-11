@@ -12,7 +12,7 @@ class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
       : super({
           'language': allLanguages['python'],
           'theme': nordTheme,
-          'langName': 'python'
+          'langName': 'python',
         });
 
   void setLanguage(String language) {

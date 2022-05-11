@@ -17,6 +17,7 @@ class EditorWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeStateProvider);
     final editorTheme = ref.watch(editorThemeStateProvider);
+    final content = ref.watch(editorContentStateProvider);
 
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
@@ -34,6 +35,7 @@ class EditorWidget extends ConsumerWidget {
               _CodeFieldWidget(
                 theme: editorTheme['theme'],
                 lang: editorTheme['language'],
+                content: content,
               ),
               const OutputWrapperWidget(wideScreen: true)
             ],
@@ -45,6 +47,7 @@ class EditorWidget extends ConsumerWidget {
           _CodeFieldWidget(
             theme: editorTheme['theme'],
             lang: editorTheme['language'],
+            content: content,
           ),
           const OutputWrapperWidget(wideScreen: false),
         ],
@@ -56,9 +59,14 @@ class EditorWidget extends ConsumerWidget {
 class _CodeFieldWidget extends StatefulHookConsumerWidget {
   final Map<String, TextStyle> theme;
   final Mode lang;
+  final String content;
 
-  const _CodeFieldWidget({Key? key, required this.theme, required this.lang})
-      : super(key: key);
+  const _CodeFieldWidget({
+    Key? key,
+    required this.theme,
+    required this.lang,
+    required this.content,
+  }) : super(key: key);
 
   @override
   ConsumerState<_CodeFieldWidget> createState() => _CodeFieldWidgetState();
@@ -73,6 +81,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
     _controller = CodeController(
       theme: widget.theme,
       language: widget.lang,
+      text: widget.content,
     );
   }
 
@@ -80,9 +89,10 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
   void didUpdateWidget(_CodeFieldWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.theme != _controller.theme ||
-        widget.lang != _controller.language) {
+        widget.lang != _controller.language ||
+        widget.content != _controller.text) {
       _controller = CodeController(
-        text: _controller.text,
+        text: widget.content,
         theme: widget.theme,
         language: widget.lang,
       );
