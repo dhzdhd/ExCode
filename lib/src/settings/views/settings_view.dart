@@ -71,15 +71,6 @@ class SettingsView extends HookConsumerWidget {
                     ref.watch(settingsProvider.notifier).setWordWrapped();
                   }),
             ),
-            ListTile(
-              leading: const Icon(Icons.keyboard),
-              title: const Text('Always on keyboard'),
-              trailing: Switch(
-                  value: false,
-                  onChanged: (val) {
-                    // textWrapSwitch.value = !textWrapSwitch.value;
-                  }),
-            ),
           ],
         ),
       ),
