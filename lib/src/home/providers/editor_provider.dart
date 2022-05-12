@@ -6,6 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final editorThemeStateProvider =
     StateNotifierProvider<_EditorNotifier, Map<String, dynamic>>(
         (ref) => _EditorNotifier());
+final editorContentStateProvider =
+    StateNotifierProvider<_EditorContentModel, String>(
+        (ref) => _EditorContentModel());
 
 class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
   _EditorNotifier()
@@ -28,5 +31,21 @@ class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
       ...state,
       'theme': theme,
     };
+  }
+}
+
+class _EditorContentModel extends StateNotifier<String> {
+  _EditorContentModel() : super('');
+
+  void setContent(String content) {
+    state = content;
+  }
+
+  void addContent(String content) {
+    state = state + content;
+  }
+
+  void replaceAll(String old, String new_) {
+    state = state.replaceAll(old, new_);
   }
 }

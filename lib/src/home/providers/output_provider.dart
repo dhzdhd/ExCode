@@ -5,9 +5,6 @@ final outputIsVisibleStateProvider =
         (ref) => _OutputIsVisibleNotifier());
 final outputStateProvider = StateNotifierProvider<_OutputContentModel, Map>(
     (ref) => _OutputContentModel());
-final editorContentStateProvider =
-    StateNotifierProvider<_EditorContentModel, String>(
-        (ref) => _EditorContentModel());
 
 class _OutputIsVisibleNotifier extends StateNotifier<bool> {
   _OutputIsVisibleNotifier() : super(false);
@@ -27,21 +24,5 @@ class _OutputContentModel extends StateNotifier<Map> {
 
   void setOutput(Map<String, String> data) {
     state = data;
-  }
-}
-
-class _EditorContentModel extends StateNotifier<String> {
-  _EditorContentModel() : super('');
-
-  void setContent(String content) {
-    state = content;
-  }
-
-  void addContent(String content) {
-    state = state + content;
-  }
-
-  void replaceAll(String old, String new_) {
-    state = state.replaceAll(old, new_);
   }
 }
