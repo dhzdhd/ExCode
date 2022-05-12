@@ -36,4 +36,12 @@ class _EditorContentModel extends StateNotifier<String> {
   void setContent(String content) {
     state = content;
   }
+
+  void addContent(String content) {
+    state = state + content;
+  }
+
+  void replaceAll(String old, String new_) {
+    state = state.replaceAll(old, new_);
+  }
 }

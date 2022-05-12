@@ -126,8 +126,46 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         ),
         SizedBox(
           height: 20,
-          child: Row(
-            children: [TextButton(onPressed: () {}, child: const Text('TAB'))],
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('    '),
+                child: const Text('TAB'),
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('()'),
+                child: const Text('( )'),
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('{}'),
+                child: const Text('{ }'),
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('[]'),
+                child: const Text('[ ]'),
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('""'),
+                child: const Text('"'),
+              ),
+              TextButton(
+                onPressed: () => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .addContent('\'\''),
+                child: const Text('\''),
+              )
+            ],
           ),
         )
       ],

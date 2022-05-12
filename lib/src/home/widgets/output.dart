@@ -17,7 +17,7 @@ class OutputWrapperWidget extends StatefulHookConsumerWidget {
 class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
   @override
   Widget build(BuildContext context) {
-    var selected = ref.watch(outputIsVisibleStateProvider);
+    final selected = ref.watch(outputIsVisibleStateProvider);
 
     if (widget.wideScreen) {
       return const _OutputWidget();
