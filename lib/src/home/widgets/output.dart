@@ -24,8 +24,8 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
     }
 
     return AnimatedPositioned(
-      curve: Curves.bounceIn,
-      duration: const Duration(milliseconds: 100),
+      curve: Curves.linear,
+      duration: const Duration(milliseconds: 1000),
       height:
           selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
       width: selected ? MediaQuery.of(context).size.width : 70,

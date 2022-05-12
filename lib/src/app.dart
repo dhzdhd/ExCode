@@ -28,7 +28,6 @@ class MyApp extends ConsumerWidget {
               ? ThemeMode.dark
               : ThemeMode.light,
       darkTheme: darkTheme.theme,
-      // darkTheme: ThemeData.dark(),
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.
       onGenerateRoute: (RouteSettings routeSettings) {
