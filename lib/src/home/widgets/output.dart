@@ -18,6 +18,7 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
   @override
   Widget build(BuildContext context) {
     final selected = ref.watch(outputIsVisibleStateProvider);
+    final globalTheme = ref.watch(themeStateProvider);
 
     if (widget.wideScreen) {
       return const _OutputWidget();
@@ -50,7 +51,7 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
             borderRadius: BorderRadius.horizontal(
               left: Radius.circular(selected ? 0 : 20),
             ),
-            color: selected ? ThemeData.dark().primaryColor : accentColor,
+            color: selected ? globalTheme.secondaryColor : accentColor,
           ),
           child: Visibility(
             visible: selected,
