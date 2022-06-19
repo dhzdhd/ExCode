@@ -47,7 +47,7 @@ jobs:
 #         if: startsWith(github.ref, 'refs/tags/')
         with:
           name: ExCode
-          tag_name: v0.0.3
+          tag_name: v0.0.4
           prerelease: true
           generate_release_notes: true
           files: exec/*

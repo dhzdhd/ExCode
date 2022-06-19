@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.0.4 | 19-06-2022
+
+### Additions
+
+- Add tab space switching (2 and 4 spaces)
+
+### Fixes / Improvements
+
+- Fix janky output animation in mobile-like screen sizes.
+- Make themes more uniform throughout the app.
+- Minor QOL updates.
+- Switched to stable flutter 3.0 release from dev branch.
+
+### Deletions
+
+- Removed useless always-on-keyboard switch.
+
+### Known issues
+
+- Bottom bar buttons append text to end of editor text.
+- Second point of 0.0.3 issues.
+
 ## 0.0.3 | 12-05-2022
 
 ### Additions
