@@ -21,15 +21,15 @@ class _SettingsNotifier extends StateNotifier<_SettingsModel> {
 }
 
 enum TabEnum {
-  twoSpace('  '),
-  fourSpace('    ');
+  two('  '),
+  four('    ');
 
   const TabEnum(this.space);
   final String space;
 }
 
 class _TabSpaceNotifier extends StateNotifier<TabEnum> {
-  _TabSpaceNotifier() : super(TabEnum.twoSpace); // ! Get from local storage
+  _TabSpaceNotifier() : super(TabEnum.two); // ! Get from local storage
 
   void setTabSpace(TabEnum tab) {
     state = tab;

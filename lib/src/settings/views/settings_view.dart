@@ -35,7 +35,7 @@ class SettingsView extends HookConsumerWidget {
                 child: DropdownButton<ThemeMode>(
                   dropdownColor: globalTheme.primaryColor,
                   focusColor: globalTheme.secondaryColor,
-                  underline: const SizedBox(),
+                  isExpanded: true,
                   onChanged: ((val) {
                     theme.value = val!;
                     ref
@@ -55,39 +55,45 @@ class SettingsView extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.palette_outlined),
               title: const Text('Editor theme'),
-              trailing: DropdownButton<Map<String, TextStyle>>(
-                dropdownColor: globalTheme.primaryColor,
-                focusColor: globalTheme.secondaryColor,
-                onChanged: (value) => ref
-                    .watch(editorThemeStateProvider.notifier)
-                    .setTheme(value!),
-                value: editorTheme,
-                items: Themes.values
-                    .map((e) => DropdownMenuItem(
-                          child: Text(e.name.capitalize()),
-                          value: getThemeFromEnum(e),
-                        ))
-                    .toList(),
+              trailing: StyledDropdownContainer(
+                child: DropdownButton<Map<String, TextStyle>>(
+                  dropdownColor: globalTheme.primaryColor,
+                  focusColor: globalTheme.secondaryColor,
+                  isExpanded: true,
+                  onChanged: (value) => ref
+                      .watch(editorThemeStateProvider.notifier)
+                      .setTheme(value!),
+                  value: editorTheme,
+                  items: Themes.values
+                      .map((e) => DropdownMenuItem(
+                            child: Text(e.name.capitalize()),
+                            value: getThemeFromEnum(e),
+                          ))
+                      .toList(),
+                ),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.space_bar),
               title: const Text('Tab space'),
-              trailing: DropdownButton<TabEnum>(
-                dropdownColor: globalTheme.primaryColor,
-                focusColor: globalTheme.secondaryColor,
-                items: TabEnum.values
-                    .map(
-                      (e) => DropdownMenuItem(
-                        child: Text(e.name.capitalize()),
-                        value: e,
-                      ),
-                    )
-                    .toList(),
-                value: ref.watch(tabSpaceProvider),
-                onChanged: (val) {
-                  tabSpaceNotifier.setTabSpace(val!);
-                },
+              trailing: StyledDropdownContainer(
+                child: DropdownButton<TabEnum>(
+                  dropdownColor: globalTheme.primaryColor,
+                  focusColor: globalTheme.secondaryColor,
+                  isExpanded: true,
+                  items: TabEnum.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          child: Text(e.name.capitalize()),
+                          value: e,
+                        ),
+                      )
+                      .toList(),
+                  value: ref.watch(tabSpaceProvider),
+                  onChanged: (val) {
+                    tabSpaceNotifier.setTabSpace(val!);
+                  },
+                ),
               ),
             ),
             ListTile(
