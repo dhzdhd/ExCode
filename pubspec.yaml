@@ -12,8 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.0
-  hooks_riverpod: ^2.0.0-dev.5
+  flutter_hooks: ^0.18.4
+  hooks_riverpod: ^2.0.0-dev.7
   flutter_localizations:
     sdk: flutter
   linked_scroll_controller: ^0.2.0
@@ -21,10 +21,11 @@ dependencies:
   highlight: ^0.7.0
   flutter_highlight: ^0.7.0
   resizable_widget: ^1.0.5
-  multi_split_view: ^1.11.0+1
+  multi_split_view: ^2.0.0
   dio: ^4.0.6
   dropdown_search: ^3.0.1
   shared_preferences: ^2.0.13
+  sqflite_common_ffi: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -18,10 +19,12 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lang = useState(Languages.python);
+    final globalTheme = ref.watch(themeStateProvider);
 
     return AppBar(
       title: DropdownSearch<Languages>(
         mode: Mode.MENU,
+        popupBackgroundColor: globalTheme.primaryColor,
         showSearchBox: true,
         selectedItem: lang.value,
         items: Languages.values,

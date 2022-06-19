@@ -1,9 +1,60 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:code_text_field/code_text_field.dart';
+import 'package:code_text_field/code_text_field.dart' show CodeController;
 import 'package:flutter/material.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+
+class LineNumberController extends TextEditingController {
+  final TextSpan Function(int, TextStyle?)? lineNumberBuilder;
+
+  LineNumberController(this.lineNumberBuilder);
+
+  @override
+  TextSpan buildTextSpan(
+      {required BuildContext context, TextStyle? style, bool? withComposing}) {
+    final children = <TextSpan>[];
+    final list = text.split('\n');
+    for (int index = 0; index < list.length; index++) {
+      final item = list[index];
+      final number = int.parse(item);
+      var textSpan = TextSpan(text: item, style: style);
+      if (lineNumberBuilder != null) {
+        textSpan = lineNumberBuilder!(number, style);
+      }
+      children.add(textSpan);
+      if (index < list.length - 1) {
+        children.add(const TextSpan(text: '\n'));
+      }
+    }
+    return TextSpan(children: children, style: style);
+  }
+}
+
+class LineNumberStyle {
+  /// Width of the line number column
+  final double width;
+
+  /// Alignment of the numbers in the column
+  final TextAlign textAlign;
+
+  /// Style of the numbers
+  final TextStyle? textStyle;
+
+  /// Background of the line number column
+  final Color? background;
+
+  /// Central horizontal margin between the numbers and the code
+  final double margin;
+
+  const LineNumberStyle({
+    this.width = 42.0,
+    this.textAlign = TextAlign.right,
+    this.margin = 10.0,
+    this.textStyle,
+    this.background,
+  });
+}
 
 class CodeFieldWidget extends StatefulWidget {
   /// {@macro flutter.widgets.textField.minLines}
@@ -78,7 +129,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   StreamSubscription<bool>? _keyboardVisibilitySubscription;
   FocusNode? _focusNode;
   String? lines;
-  String longestLine = "";
+  String longestLine = '';
 
   @override
   void initState() {
@@ -114,15 +165,15 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
 
   void _onTextChanged() {
     // Rebuild line number
-    final str = widget.controller.text.split("\n");
+    final str = widget.controller.text.split('\n');
     final buf = <String>[];
-    for (var k = 0; k < str.length; k++) {
-      buf.add((k + 1).toString());
+    for (var index = 0; index < str.length; index++) {
+      buf.add((index + 1).toString());
     }
-    _numberController?.text = buf.join("\n");
+    _numberController!.text = buf.join('\n');
     // Find longest line
-    longestLine = "";
-    widget.controller.text.split("\n").forEach((line) {
+    longestLine = '';
+    widget.controller.text.split('\n').forEach((line) {
       if (line.length > longestLine.length) longestLine = line;
     });
     setState(() {});
@@ -165,25 +216,25 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   @override
   Widget build(BuildContext context) {
     // Default color scheme
-    const ROOT_KEY = 'root';
+    const rootKey = 'root';
     final defaultBg = Colors.grey.shade900;
     final defaultText = Colors.grey.shade200;
 
     final theme = widget.controller.theme;
     Color? backgroundCol =
-        widget.background ?? theme?[ROOT_KEY]?.backgroundColor ?? defaultBg;
+        widget.background ?? theme?[rootKey]?.backgroundColor ?? defaultBg;
     if (widget.decoration != null) {
       backgroundCol = null;
     }
     TextStyle textStyle = widget.textStyle ?? const TextStyle();
     textStyle = textStyle.copyWith(
-      color: textStyle.color ?? theme?[ROOT_KEY]?.color ?? defaultText,
+      color: textStyle.color ?? theme?[rootKey]?.color ?? defaultText,
       fontSize: textStyle.fontSize ?? 16.0,
     );
     TextStyle numberTextStyle =
         widget.lineNumberStyle.textStyle ?? const TextStyle();
     final numberColor =
-        (theme?[ROOT_KEY]?.color ?? defaultText).withOpacity(0.7);
+        (theme?[rootKey]?.color ?? defaultText).withOpacity(0.7);
     // Copy important attributes
     numberTextStyle = numberTextStyle.copyWith(
       color: numberTextStyle.color ?? numberColor,
@@ -191,7 +242,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
       fontFamily: textStyle.fontFamily,
     );
     final cursorColor =
-        widget.cursorColor ?? theme?[ROOT_KEY]?.color ?? defaultText;
+        widget.cursorColor ?? theme?[rootKey]?.color ?? defaultText;
 
     final lineNumberCol = TextField(
       scrollPadding: widget.padding,

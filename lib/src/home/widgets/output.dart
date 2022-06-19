@@ -23,24 +23,27 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
       return const _OutputWidget();
     }
 
-    return AnimatedPositioned(
-      curve: Curves.linear,
-      duration: const Duration(milliseconds: 1000),
+    return Positioned(
       height:
           selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
-      width: selected ? MediaQuery.of(context).size.width : 70,
+      width: selected ? MediaQuery.of(context).size.width : 100,
       right: 0,
       top: selected ? 0 : 100,
-      child: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          if (details.primaryDelta! < -5 && !selected) {
+      child: Dismissible(
+        background: selected
+            ? null
+            : Container(
+                color: accentColor,
+              ),
+        key: UniqueKey(),
+        resizeDuration: const Duration(milliseconds: 2000),
+        confirmDismiss: (direction) {
+          if (direction == DismissDirection.endToStart) {
             ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
-          } else if (details.primaryDelta! > 5 && selected) {
+          } else if (direction == DismissDirection.startToEnd) {
             ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
           }
-        },
-        onLongPress: () {
-          ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+          return Future.value(false);
         },
         child: Container(
           decoration: BoxDecoration(

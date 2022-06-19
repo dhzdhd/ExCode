@@ -1,6 +1,5 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
-import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
@@ -30,7 +29,6 @@ class EditorWidget extends ConsumerWidget {
             ),
           ),
           child: MultiSplitView(
-            minimalWeight: 0.2,
             children: [
               _CodeFieldWidget(
                 theme: editorTheme['theme'],
@@ -132,7 +130,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('    '),
+                    .addContent(ref.watch(tabSpaceProvider).space),
                 child: const Text('TAB'),
               ),
               TextButton(

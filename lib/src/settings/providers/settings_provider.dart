@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final settingsProvider =
     StateNotifierProvider<_SettingsNotifier, _SettingsModel>(
         ((ref) => _SettingsNotifier()));
+final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
+    (ref) => _TabSpaceNotifier());
 
 class _SettingsModel {
   final bool isWordWrapped;
@@ -15,5 +17,21 @@ class _SettingsNotifier extends StateNotifier<_SettingsModel> {
 
   void setWordWrapped() {
     state = _SettingsModel(isWordWrapped: !state.isWordWrapped);
+  }
+}
+
+enum TabEnum {
+  twoSpace('  '),
+  fourSpace('    ');
+
+  const TabEnum(this.space);
+  final String space;
+}
+
+class _TabSpaceNotifier extends StateNotifier<TabEnum> {
+  _TabSpaceNotifier() : super(TabEnum.twoSpace); // ! Get from local storage
+
+  void setTabSpace(TabEnum tab) {
+    state = tab;
   }
 }
