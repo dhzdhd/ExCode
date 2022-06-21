@@ -14,9 +14,11 @@ class _SettingsModel {
 }
 
 class _SettingsNotifier extends StateNotifier<_SettingsModel> {
-  _SettingsNotifier() : super(_SettingsModel(isWordWrapped: false));
+  _SettingsNotifier()
+      : super(_SettingsModel(isWordWrapped: box.get('wordwrap') ?? false));
 
   void setWordWrapped() {
+    box.put('wordwrap', !state.isWordWrapped);
     state = _SettingsModel(isWordWrapped: !state.isWordWrapped);
   }
 }

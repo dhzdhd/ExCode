@@ -36,7 +36,7 @@ class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
 }
 
 class _EditorContentModel extends StateNotifier<String> {
-  _EditorContentModel() : super(box.get('code'));
+  _EditorContentModel() : super(box.get('code') ?? '');
 
   void setContent(String content) {
     state = content;
