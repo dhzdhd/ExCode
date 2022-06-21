@@ -14,6 +14,7 @@ final lightTheme = ThemeDataModel(
   secondaryColor: _secondaryLightColor,
   invertedColor: _primaryDarkColor,
   theme: ThemeData(
+    popupMenuTheme: const PopupMenuThemeData(color: _secondaryLightColor),
     brightness: Brightness.light,
     appBarTheme: const AppBarTheme(backgroundColor: _primaryLightColor),
     scaffoldBackgroundColor: _secondaryLightColor,
@@ -40,6 +41,7 @@ final darkTheme = ThemeDataModel(
   secondaryColor: _secondaryDarkColor,
   invertedColor: _primaryLightColor,
   theme: ThemeData(
+    popupMenuTheme: const PopupMenuThemeData(color: _secondaryDarkColor),
     brightness: Brightness.dark,
     appBarTheme: const AppBarTheme(backgroundColor: _primaryDarkColor),
     scaffoldBackgroundColor: _secondaryDarkColor,

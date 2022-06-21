@@ -8,6 +8,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
+// ! Implement save on run switch
+
 class SettingsView extends HookConsumerWidget {
   const SettingsView({Key? key}) : super(key: key);
 
@@ -99,6 +101,15 @@ class SettingsView extends HookConsumerWidget {
             ListTile(
               leading: const Icon(Icons.text_format),
               title: const Text('Word wrap'),
+              trailing: Switch(
+                  value: ref.watch(settingsProvider).isWordWrapped,
+                  onChanged: (val) {
+                    ref.watch(settingsProvider.notifier).setWordWrapped();
+                  }),
+            ),
+            ListTile(
+              leading: const Icon(Icons.save),
+              title: const Text('Save on run'),
               trailing: Switch(
                   value: ref.watch(settingsProvider).isWordWrapped,
                   onChanged: (val) {

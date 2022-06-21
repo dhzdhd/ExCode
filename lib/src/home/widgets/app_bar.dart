@@ -66,9 +66,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
               PopupMenuItem(
                 child: const Text('Save'),
                 onTap: () async {
-                  await database
-                      .upsertCode(ref.read(editorContentStateProvider));
-                  print((await database.getCode()).first.toJson()['content']);
+                  await box.put('code', ref.read(editorContentStateProvider));
                 },
               )
             ];

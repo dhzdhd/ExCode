@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:excode/src/database/database.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 late final Dio dio;
-late final Database database;
+late Box box;
 
 void initDioClient() {
   dio = Dio();
 }
 
-void initDatabase() {
-  database = Database();
+void initDatabase() async {
+  await Hive.initFlutter();
+  box = await Hive.openBox('code');
 }

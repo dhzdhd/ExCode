@@ -1,3 +1,4 @@
+import 'package:excode/src/factory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
@@ -35,7 +36,7 @@ class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
 }
 
 class _EditorContentModel extends StateNotifier<String> {
-  _EditorContentModel() : super('');
+  _EditorContentModel() : super(box.get('code'));
 
   void setContent(String content) {
     state = content;
