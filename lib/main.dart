@@ -10,6 +10,7 @@ import 'src/settings/services/settings_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initDioClient();
+  initDatabase();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();
 

@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
@@ -62,6 +63,14 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                   ref.watch(editorContentStateProvider.notifier).setContent('');
                 },
               ),
+              PopupMenuItem(
+                child: const Text('Save'),
+                onTap: () async {
+                  await database
+                      .upsertCode(ref.read(editorContentStateProvider));
+                  print((await database.getCode()).first.toJson()['content']);
+                },
+              )
             ];
           }));
         }),
