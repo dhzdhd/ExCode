@@ -1,3 +1,4 @@
+import 'package:excode/src/factory.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final settingsProvider =
@@ -29,9 +30,15 @@ enum TabEnum {
 }
 
 class _TabSpaceNotifier extends StateNotifier<TabEnum> {
-  _TabSpaceNotifier() : super(TabEnum.two); // ! Get from local storage
+  _TabSpaceNotifier()
+      : super(getTabFromString(box.get('tab') ?? TabEnum.two.name));
 
-  void setTabSpace(TabEnum tab) {
+  static TabEnum getTabFromString(String tab) {
+    return tab == TabEnum.two.name ? TabEnum.two : TabEnum.four;
+  }
+
+  Future<void> setTabSpace(TabEnum tab) async {
+    await box.put('tab', tab.name);
     state = tab;
   }
 }

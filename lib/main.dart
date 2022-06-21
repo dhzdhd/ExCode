@@ -1,5 +1,4 @@
 import 'package:excode/src/home/services/api.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import 'src/factory.dart';
 import 'package:flutter/material.dart';

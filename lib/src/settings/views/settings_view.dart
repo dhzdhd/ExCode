@@ -92,8 +92,8 @@ class SettingsView extends HookConsumerWidget {
                       )
                       .toList(),
                   value: ref.watch(tabSpaceProvider),
-                  onChanged: (val) {
-                    tabSpaceNotifier.setTabSpace(val!);
+                  onChanged: (val) async {
+                    await tabSpaceNotifier.setTabSpace(val!);
                   },
                 ),
               ),
