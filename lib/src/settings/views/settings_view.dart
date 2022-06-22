@@ -102,7 +102,7 @@ class SettingsView extends HookConsumerWidget {
               leading: const Icon(Icons.text_format),
               title: const Text('Word wrap'),
               trailing: Switch(
-                  value: ref.watch(settingsProvider).isWordWrapped,
+                  value: ref.watch(settingsProvider),
                   onChanged: (val) {
                     ref.watch(settingsProvider.notifier).setWordWrapped();
                   }),

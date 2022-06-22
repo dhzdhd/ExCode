@@ -119,7 +119,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 .watch(editorContentStateProvider.notifier)
                 .setContent(value),
             expands: true,
-            wrap: ref.watch(settingsProvider).isWordWrapped,
+            wrap: ref.watch(settingsProvider),
           ),
         ),
         SizedBox(
