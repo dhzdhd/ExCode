@@ -20,11 +20,10 @@ final lightTheme = ThemeDataModel(
     scaffoldBackgroundColor: _secondaryLightColor,
     cardTheme: const CardTheme(color: _primaryLightColor),
     textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(_primaryDarkColor),
-        backgroundColor: MaterialStateProperty.all(_primaryLightColor),
-        splashFactory: InkRipple.splashFactory,
-        shape: MaterialStateProperty.all(const BeveledRectangleBorder()),
+      style: TextButton.styleFrom(
+        primary: _primaryDarkColor,
+        backgroundColor: _primaryLightColor,
+        shape: const BeveledRectangleBorder(),
       ),
     ),
     colorScheme: const ColorScheme.light(
@@ -47,11 +46,10 @@ final darkTheme = ThemeDataModel(
     scaffoldBackgroundColor: _secondaryDarkColor,
     cardTheme: const CardTheme(color: _primaryDarkColor),
     textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(_primaryLightColor),
-        backgroundColor: MaterialStateProperty.all(_primaryDarkColor),
-        splashFactory: InkRipple.splashFactory,
-        shape: MaterialStateProperty.all(const BeveledRectangleBorder()),
+      style: TextButton.styleFrom(
+        primary: _primaryLightColor,
+        backgroundColor: _primaryDarkColor,
+        shape: const BeveledRectangleBorder(),
       ),
     ),
     colorScheme: const ColorScheme.dark(

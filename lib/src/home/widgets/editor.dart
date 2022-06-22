@@ -123,7 +123,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 34,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
