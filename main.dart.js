@@ -42674,7 +42674,7 @@ r.tf(A.k(["saveonrun",!s.f],t.z,r.$ti.c))
 J.hh(s,!s.f)},
 $S:8}
 A.uM.prototype={
-i8(a,b,c){return A.kh(new A.cE(B.kN,this.e,null),null,200)}}
+i8(a,b,c){return A.kh(new A.cE(B.kN,this.e,null),null,160)}}
 A.fM.prototype={
 j(a){return"AnimationStatus."+this.b}}
 A.c5.prototype={
