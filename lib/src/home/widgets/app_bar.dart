@@ -4,6 +4,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,9 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 lang.value, ref.watch(editorContentStateProvider));
             ref.watch(outputStateProvider.notifier).setOutput(res);
             ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+            if (ref.watch(saveOnRunProvider)) {
+              await box.put('code', ref.read(editorContentStateProvider));
+            }
           },
         ),
         IconButton(

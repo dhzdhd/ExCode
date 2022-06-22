@@ -6,6 +6,8 @@ final settingsProvider =
         ((ref) => _SettingsNotifier()));
 final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
     (ref) => _TabSpaceNotifier());
+final saveOnRunProvider = StateNotifierProvider<_SaveOnRunNotifier, bool>(
+    (ref) => _SaveOnRunNotifier());
 
 class _SettingsModel {
   final bool isWordWrapped;
@@ -42,5 +44,14 @@ class _TabSpaceNotifier extends StateNotifier<TabEnum> {
   Future<void> setTabSpace(TabEnum tab) async {
     await box.put('tab', tab.name);
     state = tab;
+  }
+}
+
+class _SaveOnRunNotifier extends StateNotifier<bool> {
+  _SaveOnRunNotifier() : super(box.get('saveonrun') ?? true);
+
+  void setSaveOnRun() {
+    box.put('saveonrun', !state);
+    state = !state;
   }
 }

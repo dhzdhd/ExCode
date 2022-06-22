@@ -111,9 +111,9 @@ class SettingsView extends HookConsumerWidget {
               leading: const Icon(Icons.save),
               title: const Text('Save on run'),
               trailing: Switch(
-                  value: ref.watch(settingsProvider).isWordWrapped,
+                  value: ref.watch(saveOnRunProvider),
                   onChanged: (val) {
-                    ref.watch(settingsProvider.notifier).setWordWrapped();
+                    ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
                   }),
             ),
           ],
