@@ -27,7 +27,7 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
     return Positioned(
       height:
           selected ? MediaQuery.of(context).size.height - kToolbarHeight : 40,
-      width: selected ? MediaQuery.of(context).size.width : 100,
+      width: selected ? MediaQuery.of(context).size.width : 80,
       right: 0,
       top: selected ? 0 : 100,
       child: Dismissible(
