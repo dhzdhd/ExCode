@@ -42572,7 +42572,7 @@ A.UX.prototype={
 J(a,b){var s,r,q,p,o,n,m=this,l=null,k=m.gff().bQ($.Zm(),t.y),j=m.gff().bQ($.qN(),t.KU)
 if(m.a.e)return B.Ig
 s=k?b.R(t.l).f.a.b-56:40
-r=k?b.R(t.l).f.a.a:100
+r=k?b.R(t.l).f.a.a:80
 q=k?0:100
 p=k?l:A.cd(l,l,B.r,B.rV,l,l,l,l,l,l)
 o=k?0:20
