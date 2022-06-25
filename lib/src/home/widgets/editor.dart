@@ -1,5 +1,7 @@
 import 'package:code_text_field/code_text_field.dart';
+import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
+import 'package:excode/src/home/widgets/bottom_bar.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
@@ -71,11 +73,22 @@ class _CodeFieldWidget extends StatefulHookConsumerWidget {
 }
 
 class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
+  late final FocusNode _focusNode;
   late CodeController _controller;
+  static const charModelList = [
+    CharModel(name: '( )', value: '()'),
+    CharModel(name: '{ }', value: '{}'),
+    CharModel(name: '[ ]', value: '[]'),
+    CharModel(name: '"', value: '""'),
+    CharModel(name: '\'', value: '\'\''),
+    CharModel(name: '`', value: '``'),
+    CharModel(name: '< >', value: '<>'),
+  ];
 
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
     _controller = CodeController(
       theme: widget.theme,
       language: widget.lang,
@@ -111,6 +124,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
       children: [
         Expanded(
           child: CodeFieldWidget(
+            focusNode: _focusNode,
             textStyle: const TextStyle(fontFamily: 'FiraCode'),
             textSelectionTheme: TextSelectionThemeData(
               selectionColor: ref.watch(themeStateProvider).invertedColor,
@@ -136,36 +150,17 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                         _controller.selection.base),
                 child: const Text('TAB'),
               ),
-              TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent('()', _controller.selection.base),
-                child: const Text('( )'),
+              ...charModelList.map(
+                (e) => TextButton(
+                  onPressed: () {
+                    ref
+                        .watch(editorContentStateProvider.notifier)
+                        .addContent(e.value, _controller.selection.base);
+                    _focusNode.requestFocus();
+                  },
+                  child: Text(e.name),
+                ),
               ),
-              TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent('{}', _controller.selection.base),
-                child: const Text('{ }'),
-              ),
-              TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent('[]', _controller.selection.base),
-                child: const Text('[ ]'),
-              ),
-              TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent('""', _controller.selection.base),
-                child: const Text('"'),
-              ),
-              TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent('\'\'', _controller.selection.base),
-                child: const Text('\''),
-              )
             ],
           ),
         )
