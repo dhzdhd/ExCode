@@ -94,6 +94,8 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         theme: widget.theme,
         language: widget.lang,
       );
+      _controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: _controller.selection.base.offset));
     }
   }
 
@@ -130,37 +132,38 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent(ref.watch(tabSpaceProvider).space),
+                    .addContent(ref.watch(tabSpaceProvider).space,
+                        _controller.selection.base),
                 child: const Text('TAB'),
               ),
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('()'),
+                    .addContent('()', _controller.selection.base),
                 child: const Text('( )'),
               ),
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('{}'),
+                    .addContent('{}', _controller.selection.base),
                 child: const Text('{ }'),
               ),
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('[]'),
+                    .addContent('[]', _controller.selection.base),
                 child: const Text('[ ]'),
               ),
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('""'),
+                    .addContent('""', _controller.selection.base),
                 child: const Text('"'),
               ),
               TextButton(
                 onPressed: () => ref
                     .watch(editorContentStateProvider.notifier)
-                    .addContent('\'\''),
+                    .addContent('\'\'', _controller.selection.base),
                 child: const Text('\''),
               )
             ],

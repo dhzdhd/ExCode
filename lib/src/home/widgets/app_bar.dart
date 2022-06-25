@@ -43,9 +43,9 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.play_arrow),
           onPressed: () async {
-            final res = await ApiHandler.executeCode(
-                lang.value, ref.watch(editorContentStateProvider));
-            ref.watch(outputStateProvider.notifier).setOutput(res);
+            await ref
+                .watch(outputStateProvider.notifier)
+                .setOutput(lang.value, ref.watch(editorContentStateProvider));
             ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
             if (ref.watch(saveOnRunProvider)) {
               await box.put('code', ref.read(editorContentStateProvider));

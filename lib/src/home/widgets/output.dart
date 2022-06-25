@@ -85,17 +85,27 @@ class _OutputWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(outputStateProvider);
+    final provider = ref.watch(futureOutputStateProvider);
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 2.0),
-      child: ListView(
-        children: [
-          _OutputListItem(
-              icon: Icons.code, title: 'Output', content: data['output']),
-          _OutputListItem(
-              icon: Icons.error, title: 'Error', content: data['err']),
-        ],
+    return provider.when(
+      data: (data) => Padding(
+        padding: const EdgeInsets.only(top: 2.0),
+        child: ListView(
+          children: [
+            _OutputListItem(
+                icon: Icons.code, title: 'Output', content: data['output']),
+            _OutputListItem(
+                icon: Icons.error, title: 'Error', content: data['err']),
+          ],
+        ),
+      ),
+      error: (err, st) => const SizedBox(
+        child: Text('Error'),
+      ),
+      loading: () => const SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(),
       ),
     );
   }
