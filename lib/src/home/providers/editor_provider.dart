@@ -12,6 +12,8 @@ final editorContentStateProvider =
         (ref) => _EditorContentModel());
 
 class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
+  // ! Use LangModel
+
   _EditorNotifier()
       : super({
           'language': allLanguages['python'],

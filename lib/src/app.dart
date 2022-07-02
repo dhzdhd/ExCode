@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,15 +37,57 @@ class MyApp extends ConsumerWidget {
           builder: (BuildContext context) {
             switch (routeSettings.name) {
               case SettingsView.routeName:
-                return const SettingsView();
+                return const TitleBarWidget(child: SettingsView());
               case HomeView.routeName:
-                return const HomeView();
+                return const TitleBarWidget(child: HomeView());
               default:
-                return const HomeView();
+                return const TitleBarWidget(child: HomeView());
             }
           },
         );
       },
+    );
+  }
+}
+
+class TitleBarWidget extends ConsumerWidget {
+  final Widget child;
+
+  const TitleBarWidget({Key? key, required this.child}) : super(key: key);
+  static const routeName = '/';
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final globalTheme = ref.watch(themeStateProvider);
+
+    return Column(
+      children: [
+        if (Platform.isWindows || Platform.isLinux)
+          WindowTitleBarBox(
+            child: Container(
+              color: globalTheme.secondaryColor,
+              child: Row(children: [
+                Expanded(child: MoveWindow()),
+                const WindowButtons(),
+              ]),
+            ),
+          ),
+        Expanded(child: child),
+      ],
+    );
+  }
+}
+
+class WindowButtons extends StatelessWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MinimizeWindowButton(),
+        MaximizeWindowButton(),
+        CloseWindowButton(),
+      ],
     );
   }
 }
