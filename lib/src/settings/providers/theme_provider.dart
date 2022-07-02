@@ -26,6 +26,11 @@ final lightTheme = ThemeDataModel(
         shape: const BeveledRectangleBorder(),
       ),
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: accentColor,
+      selectionHandleColor: _primaryLightColor,
+      cursorColor: _secondaryLightColor,
+    ),
     colorScheme: const ColorScheme.light(
         primary: _primaryLightColor, onPrimary: _secondaryDarkColor),
     fontFamily: 'Rubik',
@@ -51,6 +56,11 @@ final darkTheme = ThemeDataModel(
         backgroundColor: _primaryDarkColor,
         shape: const BeveledRectangleBorder(),
       ),
+    ),
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: accentColor,
+      selectionHandleColor: _primaryDarkColor,
+      cursorColor: _secondaryDarkColor,
     ),
     colorScheme: const ColorScheme.dark(
         primary: _primaryDarkColor, onPrimary: _secondaryLightColor),

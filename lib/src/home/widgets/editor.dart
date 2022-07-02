@@ -126,10 +126,6 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
           child: CodeFieldWidget(
             focusNode: _focusNode,
             textStyle: const TextStyle(fontFamily: 'FiraCode'),
-            textSelectionTheme: TextSelectionThemeData(
-              selectionColor: ref.watch(themeStateProvider).invertedColor,
-              selectionHandleColor: ref.watch(themeStateProvider).primaryColor,
-            ),
             controller: _controller,
             onChanged: (value) => ref
                 .watch(editorContentStateProvider.notifier)
