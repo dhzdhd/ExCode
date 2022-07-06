@@ -33,8 +33,8 @@ class EditorWidget extends ConsumerWidget {
           child: MultiSplitView(
             children: [
               _CodeFieldWidget(
-                theme: editorTheme['theme'],
-                lang: editorTheme['language'],
+                theme: editorTheme.style,
+                lang: editorTheme.mode,
                 content: content,
               ),
               const OutputWrapperWidget(wideScreen: true)
@@ -45,8 +45,8 @@ class EditorWidget extends ConsumerWidget {
       return Stack(
         children: [
           _CodeFieldWidget(
-            theme: editorTheme['theme'],
-            lang: editorTheme['language'],
+            theme: editorTheme.style,
+            lang: editorTheme.mode,
             content: content,
           ),
           const OutputWrapperWidget(wideScreen: false),

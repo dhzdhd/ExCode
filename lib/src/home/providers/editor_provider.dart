@@ -1,39 +1,37 @@
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/models/lang_model.dart';
+import 'package:excode/src/home/services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editorThemeStateProvider =
-    StateNotifierProvider<_EditorNotifier, Map<String, dynamic>>(
+    StateNotifierProvider<_EditorNotifier, LangModel>(
         (ref) => _EditorNotifier());
 final editorContentStateProvider =
     StateNotifierProvider<_EditorContentModel, String>(
         (ref) => _EditorContentModel());
 
-class _EditorNotifier extends StateNotifier<Map<String, dynamic>> {
-  // ! Use LangModel
-
+class _EditorNotifier extends StateNotifier<LangModel> {
   _EditorNotifier()
-      : super({
-          'language': allLanguages['python'],
-          'theme': nordTheme,
-          'langName': 'python',
-        });
+      : super(LangModel(
+          mode: allLanguages['python']!,
+          name: 'python',
+          style: nordTheme,
+        ));
 
   void setLanguage(String language) {
-    state = {
-      ...state,
-      'language': allLanguages[language],
-      'langName': language
-    };
+    box.put('lang', language);
+    state = LangModel(
+      mode: allLanguages[language]!,
+      name: language,
+      style: state.style,
+    );
   }
 
   void setTheme(Map<String, TextStyle> theme) {
-    state = {
-      ...state,
-      'theme': theme,
-    };
+    state = LangModel(mode: state.mode, name: state.name, style: theme);
   }
 }
 

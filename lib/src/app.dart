@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -62,7 +61,8 @@ class TitleBarWidget extends ConsumerWidget {
 
     return Column(
       children: [
-        if (Platform.isWindows || Platform.isLinux)
+        if (defaultTargetPlatform == TargetPlatform.windows ||
+            defaultTargetPlatform == TargetPlatform.linux)
           WindowTitleBarBox(
             child: Container(
               color: globalTheme.secondaryColor,

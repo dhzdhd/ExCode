@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
+import 'package:hive/hive.dart';
 
+@HiveType(typeId: 0)
 enum Languages {
   bash,
   brainfuck,

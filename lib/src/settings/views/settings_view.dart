@@ -4,6 +4,7 @@ import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_highlight/themes/nord.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
@@ -16,9 +17,11 @@ class SettingsView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = useState(ThemeMode.system);
-    final editorTheme = ref.watch(editorThemeStateProvider)['theme'];
+    final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
     final tabSpaceNotifier = ref.watch(tabSpaceProvider.notifier);
+    // !print(Map.from(editorTheme.style).keys == nordTheme.keys);
+    // !print('${editorTheme.style.keys}\n${nordTheme.keys}');
 
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +66,7 @@ class SettingsView extends HookConsumerWidget {
                   onChanged: (value) => ref
                       .watch(editorThemeStateProvider.notifier)
                       .setTheme(value!),
-                  value: editorTheme,
+                  value: nordTheme,
                   items: Themes.values
                       .map((e) => DropdownMenuItem(
                             child: Text(e.name.capitalize()),
