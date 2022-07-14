@@ -31,6 +31,10 @@ class EditorWidget extends ConsumerWidget {
             ),
           ),
           child: MultiSplitView(
+            initialAreas: [
+              Area(weight: 0.7, minimalWeight: 0.2),
+              Area(weight: 0.3, minimalWeight: 0.2),
+            ],
             children: [
               _CodeFieldWidget(
                 theme: editorTheme.style,
