@@ -61,14 +61,38 @@ class TitleBarWidget extends ConsumerWidget {
 
     return Column(
       children: [
-        if (defaultTargetPlatform == TargetPlatform.windows ||
-            defaultTargetPlatform == TargetPlatform.linux)
+        if ([TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]
+            .contains(defaultTargetPlatform))
           WindowTitleBarBox(
             child: Container(
               color: globalTheme.secondaryColor,
               child: Row(children: [
-                Expanded(child: MoveWindow()),
-                const WindowButtons(),
+                Expanded(
+                  child: MoveWindow(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: globalTheme.theme.brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            child: const Text(
+                              'ExCode',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                WindowButtons(theme: globalTheme),
               ]),
             ),
           ),
@@ -79,14 +103,49 @@ class TitleBarWidget extends ConsumerWidget {
 }
 
 class WindowButtons extends StatelessWidget {
-  const WindowButtons({Key? key}) : super(key: key);
+  const WindowButtons({Key? key, required this.theme}) : super(key: key);
+
+  final ThemeDataModel theme;
+
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = theme.theme.brightness == Brightness.light;
+
     return Row(
       children: [
-        MinimizeWindowButton(),
-        MaximizeWindowButton(),
-        CloseWindowButton(),
+        MinimizeWindowButton(
+          colors: WindowButtonColors(
+            iconNormal: isLightTheme ? Colors.black : Colors.white,
+            iconMouseDown: isLightTheme ? Colors.black : Colors.white,
+            iconMouseOver: isLightTheme ? Colors.black : Colors.white,
+            mouseOver: isLightTheme
+                ? Colors.black.withOpacity(0.1)
+                : Colors.white.withOpacity(0.1),
+            mouseDown: isLightTheme
+                ? Colors.black.withOpacity(0.2)
+                : Colors.white.withOpacity(0.2),
+          ),
+        ),
+        MaximizeWindowButton(
+          colors: WindowButtonColors(
+            iconNormal: isLightTheme ? Colors.black : Colors.white,
+            iconMouseDown: isLightTheme ? Colors.black : Colors.white,
+            iconMouseOver: isLightTheme ? Colors.black : Colors.white,
+            mouseOver: isLightTheme
+                ? Colors.black.withOpacity(0.1)
+                : Colors.white.withOpacity(0.1),
+            mouseDown: isLightTheme
+                ? Colors.black.withOpacity(0.2)
+                : Colors.white.withOpacity(0.2),
+          ),
+        ),
+        CloseWindowButton(
+          colors: WindowButtonColors(
+            iconNormal: isLightTheme ? Colors.black : Colors.white,
+            mouseOver: Colors.redAccent,
+            mouseDown: Colors.red,
+          ),
+        ),
       ],
     );
   }

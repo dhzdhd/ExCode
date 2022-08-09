@@ -11,8 +11,8 @@ import 'src/settings/services/settings_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (defaultTargetPlatform == TargetPlatform.windows ||
-      defaultTargetPlatform == TargetPlatform.linux) {
+  if ([TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]
+      .contains(defaultTargetPlatform)) {
     doWhenWindowReady(() {
       final window = appWindow;
       window.show();

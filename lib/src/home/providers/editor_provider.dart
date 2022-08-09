@@ -1,6 +1,5 @@
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/lang_model.dart';
-import 'package:excode/src/home/services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
