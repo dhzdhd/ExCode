@@ -80,14 +80,16 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
   late final FocusNode _focusNode;
   late CodeController _controller;
   static const charModelList = [
-    CharModel(name: '( )', value: '()'),
-    CharModel(name: '{ }', value: '{}'),
-    CharModel(name: '[ ]', value: '[]'),
-    CharModel(name: '"', value: '""'),
-    CharModel(name: '\'', value: '\'\''),
-    CharModel(name: '`', value: '``'),
-    CharModel(name: '< >', value: '<>'),
+    CharModel(name: '( )', value: '()', length: 1),
+    CharModel(name: '{ }', value: '{}', length: 1),
+    CharModel(name: '[ ]', value: '[]', length: 1),
+    CharModel(name: '"', value: '""', length: 1),
+    CharModel(name: '\'', value: '\'\'', length: 1),
+    CharModel(name: '`', value: '``', length: 1),
+    CharModel(name: '< >', value: '<>', length: 1),
   ];
+
+  var selection = 0;
 
   @override
   void initState() {
@@ -111,8 +113,9 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         theme: widget.theme,
         language: widget.lang,
       );
-      _controller.selection = TextSelection.fromPosition(
-          TextPosition(offset: _controller.selection.base.offset));
+      _focusNode.requestFocus();
+      _controller.selection = _controller.selection
+          .copyWith(baseOffset: selection, extentOffset: selection);
     }
   }
 
@@ -155,10 +158,10 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
               ...charModelList.map(
                 (e) => TextButton(
                   onPressed: () {
+                    selection = _controller.selection.baseOffset + e.length;
                     ref
                         .watch(editorContentStateProvider.notifier)
                         .addContent(e.value, _controller.selection.base);
-                    _focusNode.requestFocus();
                   },
                   child: Text(e.name),
                 ),

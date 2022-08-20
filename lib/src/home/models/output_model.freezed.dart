@@ -147,9 +147,9 @@ abstract class _OutputModel implements OutputModel {
       required final String error}) = _$_OutputModel;
 
   @override
-  String get output => throw _privateConstructorUsedError;
+  String get output;
   @override
-  String get error => throw _privateConstructorUsedError;
+  String get error;
   @override
   @JsonKey(ignore: true)
   _$$_OutputModelCopyWith<_$_OutputModel> get copyWith =>

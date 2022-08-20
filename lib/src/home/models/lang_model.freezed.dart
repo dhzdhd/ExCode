@@ -144,9 +144,9 @@ abstract class _LangModel implements LangModel {
       {required final Mode mode, required final String name}) = _$_LangModel;
 
   @override
-  Mode get mode => throw _privateConstructorUsedError;
+  Mode get mode;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$_LangModelCopyWith<_$_LangModel> get copyWith =>

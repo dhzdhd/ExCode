@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CharModel {
   String get name => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
+  int get length => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CharModelCopyWith<CharModel> get copyWith =>
@@ -28,7 +29,7 @@ mixin _$CharModel {
 abstract class $CharModelCopyWith<$Res> {
   factory $CharModelCopyWith(CharModel value, $Res Function(CharModel) then) =
       _$CharModelCopyWithImpl<$Res>;
-  $Res call({String name, String value});
+  $Res call({String name, String value, int length});
 }
 
 /// @nodoc
@@ -43,6 +44,7 @@ class _$CharModelCopyWithImpl<$Res> implements $CharModelCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? value = freezed,
+    Object? length = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -53,6 +55,10 @@ class _$CharModelCopyWithImpl<$Res> implements $CharModelCopyWith<$Res> {
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -63,7 +69,7 @@ abstract class _$$_CharModelCopyWith<$Res> implements $CharModelCopyWith<$Res> {
           _$_CharModel value, $Res Function(_$_CharModel) then) =
       __$$_CharModelCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String value});
+  $Res call({String name, String value, int length});
 }
 
 /// @nodoc
@@ -80,6 +86,7 @@ class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? value = freezed,
+    Object? length = freezed,
   }) {
     return _then(_$_CharModel(
       name: name == freezed
@@ -90,6 +97,10 @@ class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -97,16 +108,19 @@ class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
-  const _$_CharModel({required this.name, required this.value});
+  const _$_CharModel(
+      {required this.name, required this.value, required this.length});
 
   @override
   final String name;
   @override
   final String value;
+  @override
+  final int length;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CharModel(name: $name, value: $value)';
+    return 'CharModel(name: $name, value: $value, length: $length)';
   }
 
   @override
@@ -115,7 +129,8 @@ class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
     properties
       ..add(DiagnosticsProperty('type', 'CharModel'))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('value', value));
+      ..add(DiagnosticsProperty('value', value))
+      ..add(DiagnosticsProperty('length', length));
   }
 
   @override
@@ -124,14 +139,16 @@ class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
         (other.runtimeType == runtimeType &&
             other is _$_CharModel &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            const DeepCollectionEquality().equals(other.value, value) &&
+            const DeepCollectionEquality().equals(other.length, length));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value));
+      const DeepCollectionEquality().hash(value),
+      const DeepCollectionEquality().hash(length));
 
   @JsonKey(ignore: true)
   @override
@@ -141,12 +158,16 @@ class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
 
 abstract class _CharModel implements CharModel {
   const factory _CharModel(
-      {required final String name, required final String value}) = _$_CharModel;
+      {required final String name,
+      required final String value,
+      required final int length}) = _$_CharModel;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get value => throw _privateConstructorUsedError;
+  String get value;
+  @override
+  int get length;
   @override
   @JsonKey(ignore: true)
   _$$_CharModelCopyWith<_$_CharModel> get copyWith =>

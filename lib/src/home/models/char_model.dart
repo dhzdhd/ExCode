@@ -8,5 +8,6 @@ class CharModel with _$CharModel {
   const factory CharModel({
     required String name,
     required String value,
+    required int length,
   }) = _CharModel;
 }
