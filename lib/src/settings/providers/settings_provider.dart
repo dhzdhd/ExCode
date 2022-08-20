@@ -5,6 +5,8 @@ final settingsProvider = StateNotifierProvider<_SettingsNotifier, bool>(
     ((ref) => _SettingsNotifier()));
 final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
     (ref) => _TabSpaceNotifier());
+final fontSizeProvider = StateNotifierProvider<_FontSizeNotifier, double>(
+    (ref) => _FontSizeNotifier());
 final saveOnRunProvider = StateNotifierProvider<_SaveOnRunNotifier, bool>(
     (ref) => _SaveOnRunNotifier());
 
@@ -36,6 +38,15 @@ class _TabSpaceNotifier extends StateNotifier<TabEnum> {
   Future<void> setTabSpace(TabEnum tab) async {
     await box.put('tab', tab.name);
     state = tab;
+  }
+}
+
+class _FontSizeNotifier extends StateNotifier<double> {
+  _FontSizeNotifier() : super(box.get('fontSize') ?? 16);
+
+  Future<void> setFontSize(double size) async {
+    await box.put('fontSize', size);
+    state = size;
   }
 }
 

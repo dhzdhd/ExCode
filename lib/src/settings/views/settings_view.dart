@@ -21,6 +21,7 @@ class SettingsView extends HookConsumerWidget {
     final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
     final tabSpaceNotifier = ref.watch(tabSpaceProvider.notifier);
+    final fontSizeNotifier = ref.watch(fontSizeProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -74,6 +75,28 @@ class SettingsView extends HookConsumerWidget {
                             value: getThemeFromEnum(e),
                           ))
                       .toList(),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.font_download),
+              title: const Text('Font size'),
+              trailing: StyledDropdownContainer(
+                child: DropdownButton<int>(
+                  dropdownColor: globalTheme.primaryColor,
+                  focusColor: globalTheme.secondaryColor,
+                  isExpanded: true,
+                  value: ref.watch(fontSizeProvider).toInt(),
+                  items: List.generate(
+                    41,
+                    (index) => DropdownMenuItem(
+                      child: Text((index + 5).toString()),
+                      value: index + 5,
+                    ),
+                  ),
+                  onChanged: (val) {
+                    fontSizeNotifier.setFontSize(val!.toDouble());
+                  },
                 ),
               ),
             ),

@@ -131,7 +131,8 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         Expanded(
           child: CodeFieldWidget(
             focusNode: _focusNode,
-            textStyle: const TextStyle(fontFamily: 'FiraCode'),
+            textStyle: TextStyle(
+                fontFamily: 'FiraCode', fontSize: ref.watch(fontSizeProvider)),
             controller: _controller,
             onChanged: (value) => ref
                 .watch(editorContentStateProvider.notifier)
