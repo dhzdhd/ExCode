@@ -1,7 +1,6 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
-import 'package:excode/src/home/widgets/bottom_bar.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
@@ -89,7 +88,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
     CharModel(name: '< >', value: '<>', length: 1),
   ];
 
-  var selection = 0;
+  var _selection = 0;
 
   @override
   void initState() {
@@ -115,7 +114,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
       );
       _focusNode.requestFocus();
       _controller.selection = _controller.selection
-          .copyWith(baseOffset: selection, extentOffset: selection);
+          .copyWith(baseOffset: _selection, extentOffset: _selection);
     }
   }
 
@@ -158,7 +157,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
               ...charModelList.map(
                 (e) => TextButton(
                   onPressed: () {
-                    selection = _controller.selection.baseOffset + e.length;
+                    _selection = _controller.selection.baseOffset + e.length;
                     ref
                         .watch(editorContentStateProvider.notifier)
                         .addContent(e.value, _controller.selection.base);
