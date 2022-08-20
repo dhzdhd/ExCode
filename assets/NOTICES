@@ -1947,7 +1947,6 @@ async
 cli_util
 collection
 mime
-typed_data
 
 Copyright 2015, the Dart project authors. 
 
@@ -4969,6 +4968,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 charcode
+http_parser
 stack_trace
 string_scanner
 
@@ -5904,7 +5904,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 dart_style
 glob
-http_parser
 matcher
 path
 pool
@@ -17063,6 +17062,7 @@ SOFTWARE.
 
 --------------------------------------------------------------------------------
 stream_channel
+typed_data
 
 Copyright 2015, the Dart project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
