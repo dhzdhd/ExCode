@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
-import 'package:hive/hive.dart';
 
-@HiveType(typeId: 0)
 enum Languages {
   bash,
   brainfuck,
@@ -81,6 +79,19 @@ class ApiHandler {
   static const _executeUrl = 'https://emkc.org/api/v2/piston/execute';
   static const _runtimeUrl = 'https://emkc.org/api/v2/piston/runtimes';
   static final Map<String, String> _langVersionMap = {};
+  static final _languageMap = {
+    ...Map.fromIterables(
+        Languages.values, Languages.values.map((e) => e.name.toLowerCase())),
+    Languages.coffeeScript: 'coffeescript',
+    Languages.nodeTS: 'typescript',
+    Languages.nodeJS: 'javascript',
+    Languages.basic: 'basic.net',
+    Languages.cSharp: 'csharp.net',
+    Languages.fSharp: 'fsharp.net',
+    Languages.cpp: 'c++',
+    Languages.golfScript: 'golfscript',
+    Languages.oCaml: 'ocaml',
+  };
 
   static Future<void> initRuntimeVersionData() async {
     final res = await dio.get(_runtimeUrl);
@@ -89,50 +100,20 @@ class ApiHandler {
     }
   }
 
+  static Languages getLangFromName(String name) {
+    return _languageMap.keys
+        .firstWhere((element) => _languageMap[element] == name);
+  }
+
+  static String getNameFromLang(Languages lang) {
+    return _languageMap[lang]!;
+  }
+
   static Map<String, dynamic> getDataFromLang(Languages lang) {
-    switch (lang) {
-      case Languages.coffeeScript:
-        return {
-          'language': 'coffeescript',
-          'version': _langVersionMap['coffeescript']
-        };
-      case Languages.nodeTS:
-        return {
-          'language': 'typescript',
-          'version': _langVersionMap['typescript']
-        };
-      case Languages.nodeJS:
-        return {
-          'language': 'javascript',
-          'version': _langVersionMap['javascript']
-        };
-      case Languages.basic:
-        return {
-          'language': 'basic.net',
-          'version': _langVersionMap['basic.net']
-        };
-      case Languages.cSharp:
-        return {
-          'language': 'csharp.net',
-          'version': _langVersionMap['csharp.net']
-        };
-      case Languages.fSharp:
-        return {
-          'language': 'fsharp.net',
-          'version': _langVersionMap['fsharp.net']
-        };
-      case Languages.cpp:
-        return {'language': 'c++', 'version': _langVersionMap['c++']};
-      case Languages.golfScript:
-        return {
-          'language': 'golfscript',
-          'version': _langVersionMap['golfscript']
-        };
-      case Languages.oCaml:
-        return {'language': 'ocaml', 'version': _langVersionMap['ocaml']};
-      default:
-        return {'language': 'python', 'version': _langVersionMap['python']};
-    }
+    return {
+      'language': _languageMap[lang],
+      'version': _langVersionMap[_languageMap[lang]]
+    };
   }
 
   static String sanitizeContent(String content) {
@@ -155,18 +136,16 @@ class ApiHandler {
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };
+
     if (!_langVersionMap.containsKey(lang.name)) {
       data.addAll(getDataFromLang(lang));
     }
 
     try {
+      print(data);
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
-      print(err.message);
       return {'output': 'No output', 'err': err.message};
-    } catch (err) {
-      print(err);
-      return {'output': 'No output', 'err': err.toString()};
     }
 
     print(res.data);

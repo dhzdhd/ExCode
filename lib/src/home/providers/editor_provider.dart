@@ -5,32 +5,39 @@ import 'package:flutter_highlight/themes/nord.dart';
 import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+final editorLanguageStateProvider =
+    StateNotifierProvider<_EditorLanguageNotifier, LangModel>(
+        (ref) => _EditorLanguageNotifier());
 final editorThemeStateProvider =
-    StateNotifierProvider<_EditorNotifier, LangModel>(
-        (ref) => _EditorNotifier());
+    StateNotifierProvider<_EditorThemeNotifier, Map<String, TextStyle>>(
+        (ref) => _EditorThemeNotifier());
 final editorContentStateProvider =
     StateNotifierProvider<_EditorContentModel, String>(
         (ref) => _EditorContentModel());
 
-class _EditorNotifier extends StateNotifier<LangModel> {
-  _EditorNotifier()
+class _EditorLanguageNotifier extends StateNotifier<LangModel> {
+  _EditorLanguageNotifier()
       : super(LangModel(
-          mode: allLanguages['python']!,
-          name: 'python',
-          style: nordTheme,
+          mode: allLanguages[box.get('editorLanguage')] ??
+              allLanguages['python']!,
+          name: box.get('editorLanguage') ?? 'python',
         ));
 
   void setLanguage(String language) {
-    box.put('lang', language);
+    box.put('editorLanguage', language);
     state = LangModel(
-      mode: allLanguages[language]!,
+      mode: allLanguages[language] ?? allLanguages['python']!,
       name: language,
-      style: state.style,
     );
   }
+}
+
+class _EditorThemeNotifier extends StateNotifier<Map<String, TextStyle>> {
+  _EditorThemeNotifier() : super(box.get('editorTheme') ?? nordTheme);
 
   void setTheme(Map<String, TextStyle> theme) {
-    state = LangModel(mode: state.mode, name: state.name, style: theme);
+    box.put('editorTheme', theme);
+    state = theme;
   }
 }
 

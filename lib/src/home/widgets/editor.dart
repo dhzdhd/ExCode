@@ -17,7 +17,7 @@ class EditorWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeStateProvider);
-    final editorTheme = ref.watch(editorThemeStateProvider);
+    final editorTheme = ref.watch(editorLanguageStateProvider);
     final content = ref.watch(editorContentStateProvider);
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -37,7 +37,7 @@ class EditorWidget extends ConsumerWidget {
             ],
             children: [
               _CodeFieldWidget(
-                theme: editorTheme.style,
+                theme: ref.watch(editorThemeStateProvider),
                 lang: editorTheme.mode,
                 content: content,
               ),
@@ -49,7 +49,7 @@ class EditorWidget extends ConsumerWidget {
       return Stack(
         children: [
           _CodeFieldWidget(
-            theme: editorTheme.style,
+            theme: ref.watch(editorThemeStateProvider),
             lang: editorTheme.mode,
             content: content,
           ),
@@ -144,10 +144,12 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
             scrollDirection: Axis.horizontal,
             children: [
               TextButton(
-                onPressed: () => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .addContent(ref.watch(tabSpaceProvider).space,
-                        _controller.selection.base),
+                onPressed: () {
+                  ref.watch(editorContentStateProvider.notifier).addContent(
+                        ref.watch(tabSpaceProvider).space,
+                        _controller.selection.base,
+                      );
+                },
                 child: const Text('TAB'),
               ),
               ...charModelList.map(
