@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.0 | 20-08-2022
+
+### Additions
+
+- Add local storage for language, tab switch and word wrap switch.
+- Add option to save code on run.
+- Add custom themed titlebar for desktop.
+
+### Fixes / Improvements
+
+- Fix bottom bar on smaller screen sizes.
+- Make the output swipe handle smaller
+- Implement adding content at cursor position instead of the start of the file.
+- Add minimum size for split view on larger screen sizes.
+- Minor QOL updates.
+
+### Known issues
+
+- Second point of 0.0.3 issues.
+
 ## 0.0.4 | 19-06-2022
 
 ### Additions
