@@ -43002,8 +43002,9 @@ $1(a){J.mx(this.a.gjk().bD($.r0().y,t.A4),a)
 return null},
 $S:20}
 A.ajJ.prototype={
-$0(){var s=this.a
-s.gjk().bD($.r0().y,t.A4).NG(s.gjk().bD($.asb(),t.Cy).c,A.c(s.x,"_controller").a.b.gmj())},
+$0(){var s="_controller",r=this.a,q=r.gjk().bD($.asb(),t.Cy).c
+r.y=A.c(r.x,s).a.b.c+q.length
+r.gjk().bD($.r0().y,t.A4).NG(q,A.c(r.x,s).a.b.gmj())},
 $S:0}
 A.ajK.prototype={
 $1(a){var s=null
