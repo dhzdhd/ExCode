@@ -137,7 +137,6 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
             onChanged: (value) => ref
                 .watch(editorContentStateProvider.notifier)
                 .setContent(value),
-            expands: true,
             wrap: ref.watch(settingsProvider),
           ),
         ),
