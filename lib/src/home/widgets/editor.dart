@@ -148,8 +148,10 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
             children: [
               TextButton(
                 onPressed: () {
+                  final spaces = ref.watch(tabSpaceProvider).space;
+                  _selection = _controller.selection.baseOffset + spaces.length;
                   ref.watch(editorContentStateProvider.notifier).addContent(
-                        ref.watch(tabSpaceProvider).space,
+                        spaces,
                         _controller.selection.base,
                       );
                 },

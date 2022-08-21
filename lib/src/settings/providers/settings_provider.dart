@@ -2,7 +2,7 @@ import 'package:excode/src/factory.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final settingsProvider = StateNotifierProvider<_SettingsNotifier, bool>(
-    ((ref) => _SettingsNotifier()));
+    (ref) => _SettingsNotifier());
 final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
     (ref) => _TabSpaceNotifier());
 final fontSizeProvider = StateNotifierProvider<_FontSizeNotifier, double>(
