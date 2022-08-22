@@ -37,6 +37,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   FocusNode? _focusNode;
   late int _lineCount;
   String longestLine = '';
+  int _selectedLine = 0;
 
   @override
   void initState() {
@@ -45,6 +46,8 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     _scrollControllers = LinkedScrollControllerGroup();
     _numberController = _scrollControllers.addAndGet();
     _fieldController = _scrollControllers.addAndGet();
+
+    widget.controller.addListener(_updateLineNumber);
 
     _listViewWidth = widget.initialListViewWidth;
 
@@ -64,7 +67,21 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     _fieldController.dispose();
     _keyboardVisibilitySubscription?.cancel();
 
+    widget.controller.removeListener(_updateLineNumber);
+
     super.dispose();
+  }
+
+  void _updateLineNumber() {
+    setState(() {
+      _selectedLine = '\n'
+              .allMatches(widget.controller.text.substring(
+                0,
+                widget.controller.selection.base.offset,
+              ))
+              .length +
+          1;
+    });
   }
 
   // Wrap the field in a horizontal ScrollView
@@ -115,14 +132,6 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
       setState(() {
         _lineCount = '\n'.allMatches(text).length + 1;
         _listViewWidth = 5 + 12.0 * _getDigits(_lineCount);
-        // _selectedLine = '\n'
-        //         .allMatches(text.substring(
-        //           0,
-        //           _textController.selection.base.offset,
-        //         ))
-        //         .length +
-        //     1;
-        // print(_selectedLine);
       });
     }
 
@@ -155,7 +164,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
                       e.toString(),
                       style: TextStyle(
                         fontSize: widget.textStyle.fontSize,
-                        color: Colors.grey,
+                        color: e == _selectedLine ? Colors.white : Colors.grey,
                       ),
                     ),
                   ),
