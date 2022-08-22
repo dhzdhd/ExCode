@@ -62,6 +62,14 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   }
 
   @override
+  void didUpdateWidget(CodeFieldWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.controller.removeListener(_updateLineNumber);
+    widget.controller.addListener(_updateLineNumber);
+  }
+
+  @override
   void dispose() {
     _numberController.dispose();
     _fieldController.dispose();
