@@ -8,7 +8,7 @@ import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 class CodeFieldWidget extends StatefulWidget {
   final bool wrap;
   final CodeController controller;
-  final TextStyle? textStyle;
+  final TextStyle textStyle;
   final FocusNode? focusNode;
   final void Function(String) onChanged;
   final double initialListViewWidth;
@@ -17,9 +17,9 @@ class CodeFieldWidget extends StatefulWidget {
     Key? key,
     required this.controller,
     required this.onChanged,
-    this.initialListViewWidth = 15.0,
+    required this.textStyle,
+    this.initialListViewWidth = 20.0,
     this.wrap = false,
-    this.textStyle,
     this.focusNode,
   }) : super(key: key);
 
@@ -35,19 +35,23 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
 
   StreamSubscription<bool>? _keyboardVisibilitySubscription;
   FocusNode? _focusNode;
-  var _lineCount = 1;
+  late int _lineCount;
   String longestLine = '';
 
   @override
   void initState() {
     super.initState();
+
     _scrollControllers = LinkedScrollControllerGroup();
     _numberController = _scrollControllers.addAndGet();
     _fieldController = _scrollControllers.addAndGet();
+
     _listViewWidth = widget.initialListViewWidth;
-    // widget.controller.addListener(_onTextChanged);
+
     _focusNode = widget.focusNode ?? FocusNode();
     _focusNode!.attach(context, onKey: _onKey);
+
+    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
   }
 
   KeyEventResult _onKey(FocusNode node, RawKeyEvent event) {
@@ -56,10 +60,10 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
 
   @override
   void dispose() {
-    // widget.controller.removeListener(_onTextChanged);
     _numberController.dispose();
     _fieldController.dispose();
     _keyboardVisibilitySubscription?.cancel();
+
     super.dispose();
   }
 
@@ -110,7 +114,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     void setNumber(String text) {
       setState(() {
         _lineCount = '\n'.allMatches(text).length + 1;
-        _listViewWidth = 5 + 10.0 * _getDigits(_lineCount);
+        _listViewWidth = 5 + 12.0 * _getDigits(_lineCount);
         // _selectedLine = '\n'
         //         .allMatches(text.substring(
         //           0,
@@ -130,19 +134,9 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     final theme = widget.controller.theme;
     Color? backgroundCol = theme?[rootKey]?.backgroundColor ?? defaultBg;
 
-    TextStyle textStyle = widget.textStyle ?? const TextStyle();
+    TextStyle textStyle = widget.textStyle;
     textStyle = textStyle.copyWith(
       color: textStyle.color ?? theme?[rootKey]?.color ?? defaultText,
-      fontSize: textStyle.fontSize ?? 16.0,
-    );
-    TextStyle numberTextStyle = const TextStyle();
-    final numberColor =
-        (theme?[rootKey]?.color ?? defaultText).withOpacity(0.7);
-    // Copy important attributes
-    numberTextStyle = numberTextStyle.copyWith(
-      color: numberTextStyle.color ?? numberColor,
-      fontSize: textStyle.fontSize,
-      fontFamily: textStyle.fontFamily,
     );
 
     final numberCol = SizedBox(
@@ -155,11 +149,14 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
             controller: _numberController,
             children: List.generate(_lineCount, (index) => index + 1)
                 .map(
-                  (e) => Text(
-                    e.toString(),
-                    style: TextStyle(
-                      fontSize: widget.textStyle?.fontSize,
-                      color: Colors.grey,
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(top: 0.5, bottom: 0.5),
+                    child: Text(
+                      e.toString(),
+                      style: TextStyle(
+                        fontSize: widget.textStyle.fontSize,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 )
@@ -171,17 +168,15 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
 
     final codeField = TextField(
       focusNode: _focusNode,
-      // scrollPadding: widget.padding,
       style: textStyle,
       controller: widget.controller,
       expands: true,
       maxLines: null,
-      minLines: null,
       scrollController: _fieldController,
       decoration: const InputDecoration(
-        disabledBorder: InputBorder.none,
+        // disabledBorder: InputBorder.none,
         border: InputBorder.none,
-        focusedBorder: InputBorder.none,
+        // focusedBorder: InputBorder.none,
       ),
       cursorColor: theme?[rootKey]?.color ?? defaultText,
       autocorrect: false,
