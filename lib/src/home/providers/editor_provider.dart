@@ -1,12 +1,10 @@
 import 'package:excode/src/factory.dart';
-import 'package:excode/src/home/models/lang_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_highlight/themes/nord.dart';
-import 'package:highlight/languages/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editorLanguageStateProvider =
-    StateNotifierProvider<_EditorLanguageNotifier, LangModel>(
+    StateNotifierProvider<_EditorLanguageNotifier, String>(
         (ref) => _EditorLanguageNotifier());
 final editorThemeStateProvider =
     StateNotifierProvider<_EditorThemeNotifier, Map<String, TextStyle>>(
@@ -15,20 +13,12 @@ final editorContentStateProvider =
     StateNotifierProvider<_EditorContentModel, String>(
         (ref) => _EditorContentModel());
 
-class _EditorLanguageNotifier extends StateNotifier<LangModel> {
-  _EditorLanguageNotifier()
-      : super(LangModel(
-          mode: allLanguages[box.get('editorLanguage')] ??
-              allLanguages['python']!,
-          name: box.get('editorLanguage') ?? 'python',
-        ));
+class _EditorLanguageNotifier extends StateNotifier<String> {
+  _EditorLanguageNotifier() : super(box.get('editorLanguage') ?? 'python');
 
   void setLanguage(String language) {
     box.put('editorLanguage', language);
-    state = LangModel(
-      mode: allLanguages[language] ?? allLanguages['python']!,
-      name: language,
-    );
+    state = language;
   }
 }
 

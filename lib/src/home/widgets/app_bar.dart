@@ -3,6 +3,7 @@ import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
+import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
@@ -26,7 +27,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         mode: Mode.MENU,
         popupBackgroundColor: globalTheme.primaryColor,
         showSearchBox: true,
-        selectedItem: ApiHandler.getLangFromName(editorLanguage.name),
+        selectedItem: langMap[editorLanguage]!.lang,
         items: Languages.values,
         itemAsString: (Languages? e) => e.toString().substring(10).capitalize(),
         onChanged: (val) {
@@ -41,7 +42,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
           icon: const Icon(Icons.play_arrow),
           onPressed: () async {
             await ref.watch(outputStateProvider.notifier).setOutput(
-                  ApiHandler.getLangFromName(editorLanguage.name),
+                  langMap[editorLanguage]!.lang,
                   ref.watch(editorContentStateProvider),
                 );
             ref.watch(outputIsVisibleStateProvider.notifier).showOutput();

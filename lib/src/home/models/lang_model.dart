@@ -1,3 +1,4 @@
+import 'package:excode/src/home/services/api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:highlight/highlight.dart';
@@ -9,5 +10,7 @@ class LangModel with _$LangModel {
   const factory LangModel({
     required Mode mode,
     required String name,
+    required Languages lang,
+    required String baseCode,
   }) = _LangModel;
 }

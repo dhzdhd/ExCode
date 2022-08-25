@@ -1,6 +1,7 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
+import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
@@ -37,7 +38,7 @@ class EditorWidget extends ConsumerWidget {
             children: [
               _CodeFieldWidget(
                 theme: ref.watch(editorThemeStateProvider),
-                lang: editorTheme.mode,
+                lang: langMap[editorTheme]!.mode,
                 content: content,
               ),
               const OutputWrapperWidget(wideScreen: true)
@@ -49,7 +50,7 @@ class EditorWidget extends ConsumerWidget {
         children: [
           _CodeFieldWidget(
             theme: ref.watch(editorThemeStateProvider),
-            lang: editorTheme.mode,
+            lang: langMap[editorTheme]!.mode,
             content: content,
           ),
           const OutputWrapperWidget(wideScreen: false),

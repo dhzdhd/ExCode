@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/services/language.dart';
 
 enum Languages {
   bash,
@@ -7,12 +8,10 @@ enum Languages {
   clojure,
   cobol,
   coffeeScript,
-  cow,
   crystal,
   dart,
-  dash,
-  nodeTS,
-  nodeJS,
+  typeScript,
+  javaScript,
   basic,
   fSharp,
   cSharp,
@@ -21,10 +20,10 @@ enum Languages {
   elixir,
   emacs,
   erlang,
-  file,
-  forte,
+  forth,
   freebasic,
   awk,
+  gawk,
   c,
   cpp,
   d,
@@ -33,45 +32,39 @@ enum Languages {
   golfScript,
   groovy,
   haskell,
-  husk,
-  iverilog,
+  verilog,
   japt,
   java,
-  jelly,
   julia,
   kotlin,
   lisp,
-  llvm_ir,
-  lolcode,
+  llvm,
   lua,
   nasm,
   nasm64,
   nim,
   oCaml,
-  octave,
+  matlab,
   osabie,
-  paradoc,
   pascal,
   perl,
   php,
   ponylang,
   prolog,
-  pure,
   powershell,
-  pyth,
   python2,
   python,
+  racket,
   raku,
   rockstar,
-  rscript,
+  r,
   ruby,
   rust,
   scala,
+  smallTalk,
   sqlite3,
   swift,
   vlang,
-  vyxal,
-  yeethon,
   zig
 }
 
@@ -79,42 +72,29 @@ class ApiHandler {
   static const _executeUrl = 'https://emkc.org/api/v2/piston/execute';
   static const _runtimeUrl = 'https://emkc.org/api/v2/piston/runtimes';
   static final Map<String, String> _langVersionMap = {};
-  static final _languageMap = {
-    ...Map.fromIterables(
-        Languages.values, Languages.values.map((e) => e.name.toLowerCase())),
-    Languages.coffeeScript: 'coffeescript',
-    Languages.nodeTS: 'typescript',
-    Languages.nodeJS: 'javascript',
-    Languages.basic: 'basic.net',
-    Languages.cSharp: 'csharp.net',
-    Languages.fSharp: 'fsharp.net',
-    Languages.cpp: 'c++',
-    Languages.golfScript: 'golfscript',
-    Languages.oCaml: 'ocaml',
-  };
 
   static Future<void> initRuntimeVersionData() async {
     final res = await dio.get(_runtimeUrl);
     for (var i in res.data) {
       _langVersionMap[i['language']] = i['version'];
     }
+    print(_langVersionMap);
   }
 
   static Languages getLangFromName(String name) {
-    return _languageMap.keys
-        .firstWhere((element) => _languageMap[element] == name);
+    return langMap[name]!.lang;
   }
 
   static String getNameFromLang(Languages lang) {
-    return _languageMap[lang]!;
+    return langMap.keys.firstWhere((element) => langMap[element]!.lang == lang);
   }
 
-  static Map<String, dynamic> getDataFromLang(Languages lang) {
-    return {
-      'language': _languageMap[lang],
-      'version': _langVersionMap[_languageMap[lang]]
-    };
-  }
+  // static Map<String, dynamic> getDataFromLang(Languages lang) {
+  //   return {
+  //     'language': lang[lang],
+  //     'version': _langVersionMap[_languageMap[lang]]
+  //   };
+  // }
 
   static String sanitizeContent(String content) {
     return content.replaceAll('\u{00B7}', ' ');
@@ -137,9 +117,9 @@ class ApiHandler {
       'run_timeout': 3000,
     };
 
-    if (!_langVersionMap.containsKey(lang.name)) {
-      data.addAll(getDataFromLang(lang));
-    }
+    // if (!_langVersionMap.containsKey(lang.name)) {
+    //   data.addAll(getDataFromLang(lang));
+    // }
 
     try {
       print(data);

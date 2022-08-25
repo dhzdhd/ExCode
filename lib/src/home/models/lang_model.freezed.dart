@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LangModel {
   Mode get mode => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  Languages get lang => throw _privateConstructorUsedError;
+  String get baseCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LangModelCopyWith<LangModel> get copyWith =>
@@ -28,7 +30,7 @@ mixin _$LangModel {
 abstract class $LangModelCopyWith<$Res> {
   factory $LangModelCopyWith(LangModel value, $Res Function(LangModel) then) =
       _$LangModelCopyWithImpl<$Res>;
-  $Res call({Mode mode, String name});
+  $Res call({Mode mode, String name, Languages lang, String baseCode});
 }
 
 /// @nodoc
@@ -43,6 +45,8 @@ class _$LangModelCopyWithImpl<$Res> implements $LangModelCopyWith<$Res> {
   $Res call({
     Object? mode = freezed,
     Object? name = freezed,
+    Object? lang = freezed,
+    Object? baseCode = freezed,
   }) {
     return _then(_value.copyWith(
       mode: mode == freezed
@@ -52,6 +56,14 @@ class _$LangModelCopyWithImpl<$Res> implements $LangModelCopyWith<$Res> {
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      lang: lang == freezed
+          ? _value.lang
+          : lang // ignore: cast_nullable_to_non_nullable
+              as Languages,
+      baseCode: baseCode == freezed
+          ? _value.baseCode
+          : baseCode // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -63,7 +75,7 @@ abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
           _$_LangModel value, $Res Function(_$_LangModel) then) =
       __$$_LangModelCopyWithImpl<$Res>;
   @override
-  $Res call({Mode mode, String name});
+  $Res call({Mode mode, String name, Languages lang, String baseCode});
 }
 
 /// @nodoc
@@ -80,6 +92,8 @@ class __$$_LangModelCopyWithImpl<$Res> extends _$LangModelCopyWithImpl<$Res>
   $Res call({
     Object? mode = freezed,
     Object? name = freezed,
+    Object? lang = freezed,
+    Object? baseCode = freezed,
   }) {
     return _then(_$_LangModel(
       mode: mode == freezed
@@ -90,6 +104,14 @@ class __$$_LangModelCopyWithImpl<$Res> extends _$LangModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      lang: lang == freezed
+          ? _value.lang
+          : lang // ignore: cast_nullable_to_non_nullable
+              as Languages,
+      baseCode: baseCode == freezed
+          ? _value.baseCode
+          : baseCode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -97,16 +119,24 @@ class __$$_LangModelCopyWithImpl<$Res> extends _$LangModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
-  const _$_LangModel({required this.mode, required this.name});
+  const _$_LangModel(
+      {required this.mode,
+      required this.name,
+      required this.lang,
+      required this.baseCode});
 
   @override
   final Mode mode;
   @override
   final String name;
+  @override
+  final Languages lang;
+  @override
+  final String baseCode;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LangModel(mode: $mode, name: $name)';
+    return 'LangModel(mode: $mode, name: $name, lang: $lang, baseCode: $baseCode)';
   }
 
   @override
@@ -115,7 +145,9 @@ class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
     properties
       ..add(DiagnosticsProperty('type', 'LangModel'))
       ..add(DiagnosticsProperty('mode', mode))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('lang', lang))
+      ..add(DiagnosticsProperty('baseCode', baseCode));
   }
 
   @override
@@ -124,14 +156,18 @@ class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
         (other.runtimeType == runtimeType &&
             other is _$_LangModel &&
             const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.lang, lang) &&
+            const DeepCollectionEquality().equals(other.baseCode, baseCode));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(name));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(lang),
+      const DeepCollectionEquality().hash(baseCode));
 
   @JsonKey(ignore: true)
   @override
@@ -141,12 +177,19 @@ class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
 
 abstract class _LangModel implements LangModel {
   const factory _LangModel(
-      {required final Mode mode, required final String name}) = _$_LangModel;
+      {required final Mode mode,
+      required final String name,
+      required final Languages lang,
+      required final String baseCode}) = _$_LangModel;
 
   @override
   Mode get mode;
   @override
   String get name;
+  @override
+  Languages get lang;
+  @override
+  String get baseCode;
   @override
   @JsonKey(ignore: true)
   _$$_LangModelCopyWith<_$_LangModel> get copyWith =>
