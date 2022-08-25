@@ -89,13 +89,6 @@ class ApiHandler {
     return langMap.keys.firstWhere((element) => langMap[element]!.lang == lang);
   }
 
-  // static Map<String, dynamic> getDataFromLang(Languages lang) {
-  //   return {
-  //     'language': lang[lang],
-  //     'version': _langVersionMap[_languageMap[lang]]
-  //   };
-  // }
-
   static String sanitizeContent(String content) {
     return content.replaceAll('\u{00B7}', ' ');
   }
@@ -104,10 +97,8 @@ class ApiHandler {
       Languages lang, String content) async {
     late final Response<Map<String, dynamic>> res;
     final data = {
-      'language': lang.name,
-      'version': _langVersionMap.containsKey(lang.name)
-          ? _langVersionMap[lang.name]
-          : '',
+      'language': getNameFromLang(lang),
+      'version': _langVersionMap[getNameFromLang(lang)],
       'files': [
         {'content': sanitizeContent(content)}
       ],
@@ -116,10 +107,6 @@ class ApiHandler {
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };
-
-    // if (!_langVersionMap.containsKey(lang.name)) {
-    //   data.addAll(getDataFromLang(lang));
-    // }
 
     try {
       print(data);
