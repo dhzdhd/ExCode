@@ -215,7 +215,7 @@ final Map<String, LangModel> langMap = {
     name: 'bash',
     lang: Languages.bash,
     baseCode: '''var="Hello, World!"
-printf "%s\n" "\$var"''',
+printf "%s\\n" "\$var"''',
   ),
   'brainfuck': LangModel(
     mode: brainfuck,
@@ -238,10 +238,11 @@ printf "%s\n" "\$var"''',
     mode: clojure,
     name: 'clojure',
     lang: Languages.clojure,
-    baseCode: '''(def hello (fn [] "Hello, World!"))
+    baseCode: '''(defn hello [] (print "Hello, World!"))
 (hello)''',
   ),
   'cobol': LangModel(
+    // ! Compiler output
     mode: markdown,
     name: 'cobol',
     lang: Languages.cobol,
@@ -289,18 +290,21 @@ print '\\n'
     baseCode: '''console.log("Hello, World!");''',
   ),
   'basic.net': LangModel(
+    // !
     mode: basic,
     name: 'basic',
     lang: Languages.basic,
     baseCode: '''10 PRINT "Hello, World!"''',
   ),
   'fsharp.net': LangModel(
+    // ! Compiler output
     mode: fsharp,
     name: 'fsharp',
     lang: Languages.fSharp,
     baseCode: '''printfn "Hello, World!"''',
   ),
   'csharp.net': LangModel(
+    // !
     mode: cs,
     name: 'csharp',
     lang: Languages.cSharp,
@@ -331,15 +335,17 @@ print '\\n'
     baseCode: '''(princ "Hello, World!")''',
   ),
   'erlang': LangModel(
+    // !
     mode: erlang,
     name: 'erlang',
     lang: Languages.erlang,
     baseCode: '''-module(hello).
-	-export([hello_world/0]).
+-export([hello_world/0]).
 
-	hello_world() -> io:fwrite("Hello, World!\n").''',
+hello_world() -> io:fwrite("Hello, World!\\n").''',
   ),
   'forth': LangModel(
+    // ! Compiler output
     mode: markdown,
     name: 'forth',
     lang: Languages.forth,
@@ -349,7 +355,7 @@ print '\\n'
     mode: basic,
     name: 'freebasic',
     lang: Languages.freebasic,
-    baseCode: ''' Print "Hello, World!"''',
+    baseCode: '''Print "Hello, World!"''',
   ),
   'awk': LangModel(
     mode: awk,
@@ -358,7 +364,7 @@ print '\\n'
     baseCode: '''BEGIN { print "Hello, World!" }''',
   ),
   'gawk': LangModel(
-    // ! no version
+    // ! No version
     mode: awk,
     name: 'gawk',
     lang: Languages.gawk,
@@ -372,7 +378,7 @@ print '\\n'
 
 int main()
 {
-    printf("Hello, World!\n");
+    printf("Hello, World!\\n");
 }''',
   ),
   'c++': LangModel(
@@ -383,7 +389,7 @@ int main()
 
 int main()
 {
-  std::cout << "Hello, World!\n";
+  std::cout << "Hello, World!\\n";
   return 0;
 }''',
   ),
@@ -420,7 +426,7 @@ func main() {
     mode: markdown,
     name: 'golfscript',
     lang: Languages.golfScript,
-    baseCode: ''''Hello, world!\'''',
+    baseCode: ''''Hello, World!\'''',
   ),
   'groovy': LangModel(
     mode: groovy,
@@ -487,7 +493,7 @@ endmodule''',
     name: 'llvm',
     lang: Languages.llvm,
     baseCode:
-        '''@.str = private unnamed_addr constant [13 x i8] c"hello world\\0A\\00"
+        '''@.str = private unnamed_addr constant [13 x i8] c"Hello World\\0A\\00"
 
 declare i32 @puts(i8* nocapture) nounwind
 
@@ -512,7 +518,7 @@ define i32 @main() { ; i32()*
     name: 'nasm',
     lang: Languages.nasm,
     baseCode: '''SECTION .DATA
-	hello:     db 'Hello world!',10
+	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
 
 SECTION .TEXT
@@ -535,7 +541,7 @@ _start:
     name: 'nasm64',
     lang: Languages.nasm64,
     baseCode: '''SECTION .DATA
-	hello:     db 'Hello world!',10
+	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
 
 SECTION .TEXT
@@ -557,9 +563,10 @@ _start:
     mode: nimrod,
     name: 'nim',
     lang: Languages.nim,
-    baseCode: '''echo "Hello World"''',
+    baseCode: '''echo "Hello, World!"''',
   ),
   'ocaml': LangModel(
+    // !
     mode: ocaml,
     name: 'ocaml',
     lang: Languages.oCaml,
@@ -578,6 +585,7 @@ _start:
     baseCode: '''"Hello, World!''',
   ),
   'pascal': LangModel(
+    // ! Compiler output
     mode: markdown,
     name: 'pascal',
     lang: Languages.pascal,
@@ -590,7 +598,7 @@ end.''',
     mode: perl,
     name: 'perl',
     lang: Languages.perl,
-    baseCode: '''print "Hello, World!\n";''',
+    baseCode: '''print "Hello, World!\\n";''',
   ),
   'php': LangModel(
     mode: php,
@@ -599,6 +607,7 @@ end.''',
     baseCode: '''Hello, World!''',
   ),
   'ponylang': LangModel(
+    // !
     mode: pony,
     name: 'ponylang',
     lang: Languages.ponylang,
@@ -607,6 +616,7 @@ end.''',
     env.out.print("Hello, world!")''',
   ),
   'prolog': LangModel(
+    // ! No output
     mode: prolog,
     name: 'prolog',
     lang: Languages.prolog,
@@ -647,7 +657,7 @@ end.''',
     mode: markdown,
     name: 'rockstar',
     lang: Languages.rockstar,
-    baseCode: '''Say "Hello World"''',
+    baseCode: '''Say "Hello, World!"''',
   ),
   'rscript': LangModel(
     mode: r,
@@ -670,6 +680,7 @@ end.''',
 }''',
   ),
   'scala': LangModel(
+    // !
     mode: scala,
     name: 'scala',
     lang: Languages.scala,
@@ -680,6 +691,7 @@ end.''',
 }''',
   ),
   'smalltalk': LangModel(
+    // ! Compiler output
     mode: smalltalk,
     name: 'smalltalk',
     lang: Languages.smallTalk,
@@ -691,7 +703,7 @@ end.''',
     lang: Languages.sqlite3,
     baseCode: '''CREATE TABLE helloworld (phrase TEXT);
 INSERT INTO helloworld VALUES ("Hello, World!");
-SELECT COUNT(*) FROM helloworld;
+SELECT * FROM helloworld;
 ''',
   ),
   'swift': LangModel(
@@ -716,60 +728,7 @@ SELECT COUNT(*) FROM helloworld;
 
 pub fn main() !void {
     const stdout = std.io.getStdOut().writer();
-    try stdout.print("Hello, {s}!\n", .{"World!"});
+    try stdout.print("Hello, {s}!\\n", .{"World"});
 }''',
   ),
 };
-
-// String getThemeLangFromEnum(Languages lang) {
-//   switch (lang) {
-//     case Languages.cobol: // ?
-//     case Languages.typeScript:
-//       return 'typescript';
-//     case Languages.javaScript:
-//     case Languages.golfScript:
-//       return 'javascript';
-//     case Languages.cSharp:
-//       return 'cs';
-//     case Languages.fsi:
-//       return 'fsharp';
-//     case Languages.emacs:
-//       return 'lisp';
-//     case Languages.freebasic:
-//       return 'basic';
-//     case Languages.c:
-//       return 'cpp';
-//     case Languages.verilog:
-//       return 'verilog';
-//     case Languages.llvm:
-//       return 'llvm';
-//     case Languages.nasm:
-//     case Languages.nasm64:
-//       return 'x86asm';
-//     case Languages.nim:
-//       return 'nimrod';
-//     case Languages.matlab:
-//       return 'matlab';
-//     case Languages.osabie:
-//       return 'elixir';
-//     case Languages.pascal: // ?
-//     case Languages.ponylang:
-//       return 'pony';
-//     case Languages.japt:
-//     case Languages.python2:
-//       return 'python';
-//     case Languages.raku:
-//       return 'perl';
-//     case Languages.rockstar:
-//       return 'javascript';
-//     case Languages.r:
-//       return 'r';
-//     case Languages.sqlite3:
-//       return 'sql';
-//     case Languages.vlang: // ?
-//     case Languages.zig: // ?
-//       return 'markdown';
-//     default:
-//       return Languages.values[lang.index].name.toLowerCase();
-//   }
-// }

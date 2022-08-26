@@ -31,9 +31,11 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         items: Languages.values,
         itemAsString: (Languages? e) => e.toString().substring(10).capitalize(),
         onChanged: (val) {
+          String lang = ApiHandler.getNameFromLang(val!);
+          ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
           ref
-              .watch(editorLanguageStateProvider.notifier)
-              .setLanguage(ApiHandler.getNameFromLang(val!));
+              .watch(editorContentStateProvider.notifier)
+              .setContent(box.get('${lang}code'));
         },
       ),
       automaticallyImplyLeading: false,
@@ -47,7 +49,10 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 );
             ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
             if (ref.watch(saveOnRunProvider)) {
-              await box.put('code', ref.read(editorContentStateProvider));
+              await ref.watch(editorContentStateProvider.notifier).saveContent(
+                    ref.read(editorLanguageStateProvider),
+                    ref.read(editorContentStateProvider),
+                  );
             }
           },
         ),
@@ -69,7 +74,12 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
               PopupMenuItem(
                 child: const Text('Save'),
                 onTap: () async {
-                  await box.put('code', ref.read(editorContentStateProvider));
+                  await ref
+                      .watch(editorContentStateProvider.notifier)
+                      .saveContent(
+                        ref.read(editorLanguageStateProvider),
+                        ref.read(editorContentStateProvider),
+                      );
                 },
               )
             ];
