@@ -35,7 +35,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
           ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
           ref
               .watch(editorContentStateProvider.notifier)
-              .setContent(box.get('${lang}code'));
+              .setContent(box.get('${lang}code')); // ! Move to provider
         },
       ),
       automaticallyImplyLeading: false,

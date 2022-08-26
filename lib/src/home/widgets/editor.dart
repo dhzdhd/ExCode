@@ -37,7 +37,8 @@ class EditorWidget extends ConsumerWidget {
             ],
             children: [
               _CodeFieldWidget(
-                theme: ref.watch(editorThemeStateProvider),
+                theme: langThemeMap[
+                    getEnumFromString(ref.watch(editorThemeStateProvider))]!,
                 lang: langMap[editorTheme]!.mode,
                 content: content,
               ),
@@ -49,7 +50,8 @@ class EditorWidget extends ConsumerWidget {
       return Stack(
         children: [
           _CodeFieldWidget(
-            theme: ref.watch(editorThemeStateProvider),
+            theme: langThemeMap[
+                getEnumFromString(ref.watch(editorThemeStateProvider))]!,
             lang: langMap[editorTheme]!.mode,
             content: content,
           ),

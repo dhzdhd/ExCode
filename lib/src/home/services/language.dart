@@ -127,86 +127,58 @@ enum Themes {
   zenburn,
 }
 
+const langThemeMap = {
+  Themes.a11yDark: a11yDarkTheme,
+  Themes.a11yLight: a11yLightTheme,
+  Themes.androidStudio: androidstudioTheme,
+  Themes.atomOneDark: atomOneDarkTheme,
+  Themes.atomOneLight: atomOneLightTheme,
+  Themes.codePen: codepenEmbedTheme,
+  Themes.darcula: darculaTheme,
+  Themes.dracula: draculaTheme,
+  Themes.github: githubTheme,
+  Themes.grayscale: grayscaleTheme,
+  Themes.gruvboxDark: gruvboxDarkTheme,
+  Themes.gruvboxLight: gruvboxLightTheme,
+  Themes.hybrid: hybridTheme,
+  Themes.idea: ideaTheme,
+  Themes.kimbieDark: kimbieDarkTheme,
+  Themes.kimbieLight: kimbieLightTheme,
+  Themes.lightFair: lightfairTheme,
+  Themes.monokai: monokaiTheme,
+  Themes.nightOwl: nightOwlTheme,
+  Themes.obsidian: obsidianTheme,
+  Themes.ocean: oceanTheme,
+  Themes.pureBasic: purebasicTheme,
+  Themes.qtCreatorDark: qtcreatorDarkTheme,
+  Themes.qtCreatorLight: qtcreatorLightTheme,
+  Themes.rainbow: rainbowTheme,
+  Themes.schoolBook: schoolBookTheme,
+  Themes.solarizedDark: solarizedDarkTheme,
+  Themes.solarizedLight: solarizedLightTheme,
+  Themes.sunburst: sunburstTheme,
+  Themes.tomorrow: tomorrowTheme,
+  Themes.tomorrowBlue: tomorrowNightBlueTheme,
+  Themes.tomorrowDay: tomorrowNightBrightTheme,
+  Themes.tomorrowNight: tomorrowNightTheme,
+  Themes.vs: vsTheme,
+  Themes.xcode: xcodeTheme,
+  Themes.xt256: xt256Theme,
+  Themes.zenburn: zenburnTheme,
+  Themes.nord: nordTheme
+};
+
 Map<String, TextStyle> getThemeFromEnum(Themes theme) {
-  switch (theme) {
-    case Themes.a11yDark:
-      return a11yDarkTheme;
-    case Themes.a11yLight:
-      return a11yLightTheme;
-    case Themes.androidStudio:
-      return androidstudioTheme;
-    case Themes.atomOneDark:
-      return atomOneDarkTheme;
-    case Themes.atomOneLight:
-      return atomOneLightTheme;
-    case Themes.codePen:
-      return codepenEmbedTheme;
-    case Themes.darcula:
-      return darculaTheme;
-    case Themes.dracula:
-      return draculaTheme;
-    case Themes.github:
-      return githubTheme;
-    case Themes.grayscale:
-      return grayscaleTheme;
-    case Themes.gruvboxDark:
-      return gruvboxDarkTheme;
-    case Themes.gruvboxLight:
-      return gruvboxLightTheme;
-    case Themes.hybrid:
-      return hybridTheme;
-    case Themes.idea:
-      return ideaTheme;
-    case Themes.kimbieDark:
-      return kimbieDarkTheme;
-    case Themes.kimbieLight:
-      return kimbieLightTheme;
-    case Themes.lightFair:
-      return lightfairTheme;
-    case Themes.monokai:
-      return monokaiTheme;
-    case Themes.nightOwl:
-      return nightOwlTheme;
-    case Themes.obsidian:
-      return obsidianTheme;
-    case Themes.ocean:
-      return oceanTheme;
-    case Themes.pureBasic:
-      return purebasicTheme;
-    case Themes.qtCreatorDark:
-      return qtcreatorDarkTheme;
-    case Themes.qtCreatorLight:
-      return qtcreatorLightTheme;
-    case Themes.rainbow:
-      return rainbowTheme;
-    case Themes.schoolBook:
-      return schoolBookTheme;
-    case Themes.solarizedDark:
-      return solarizedDarkTheme;
-    case Themes.solarizedLight:
-      return solarizedLightTheme;
-    case Themes.sunburst:
-      return sunburstTheme;
-    case Themes.tomorrow:
-      return tomorrowTheme;
-    case Themes.tomorrowBlue:
-      return tomorrowNightBlueTheme;
-    case Themes.tomorrowDay:
-      return tomorrowNightBrightTheme;
-    case Themes.tomorrowNight:
-      return tomorrowNightTheme;
-    case Themes.vs:
-      return vsTheme;
-    case Themes.xcode:
-      return xcodeTheme;
-    case Themes.xt256:
-      return xt256Theme;
-    case Themes.zenburn:
-      return zenburnTheme;
-    case Themes.nord:
-    default:
-      return nordTheme;
-  }
+  return langThemeMap[theme]!;
+}
+
+Themes getEnumFromString(String theme) {
+  return langThemeMap.keys.firstWhere((element) => element.name == theme);
+}
+
+Themes getEnumFromTheme(Map<String, TextStyle> theme) {
+  return langThemeMap.keys
+      .firstWhere((element) => langThemeMap[element] == theme);
 }
 
 final Map<String, LangModel> langMap = {

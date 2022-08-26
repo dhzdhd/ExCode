@@ -1,14 +1,13 @@
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_highlight/themes/nord.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editorLanguageStateProvider =
     StateNotifierProvider<_EditorLanguageNotifier, String>(
         (ref) => _EditorLanguageNotifier());
 final editorThemeStateProvider =
-    StateNotifierProvider<_EditorThemeNotifier, Map<String, TextStyle>>(
+    StateNotifierProvider<_EditorThemeNotifier, String>(
         (ref) => _EditorThemeNotifier());
 final editorContentStateProvider =
     StateNotifierProvider<_EditorContentModel, String>(
@@ -23,11 +22,11 @@ class _EditorLanguageNotifier extends StateNotifier<String> {
   }
 }
 
-class _EditorThemeNotifier extends StateNotifier<Map<String, TextStyle>> {
-  _EditorThemeNotifier() : super(box.get('editorTheme') ?? nordTheme);
+class _EditorThemeNotifier extends StateNotifier<String> {
+  _EditorThemeNotifier() : super(box.get('editorTheme') ?? 'nord');
 
-  void setTheme(Map<String, TextStyle> theme) {
-    box.put('editorTheme', theme);
+  Future<void> setTheme(String theme) async {
+    await box.put('editorTheme', theme);
     state = theme;
   }
 }

@@ -59,20 +59,20 @@ class SettingsView extends HookConsumerWidget {
               leading: const Icon(Icons.palette_outlined),
               title: const Text('Editor theme'),
               trailing: StyledDropdownContainer(
-                child: DropdownButton<Map<String, TextStyle>>(
+                child: DropdownButton<Themes>(
                   dropdownColor: globalTheme.primaryColor,
                   focusColor: globalTheme.secondaryColor,
                   isExpanded: true,
-                  onChanged: (value) {
-                    ref
+                  onChanged: (value) async {
+                    await ref
                         .watch(editorThemeStateProvider.notifier)
-                        .setTheme(value!);
+                        .setTheme(value!.name);
                   },
-                  value: editorTheme,
+                  value: getEnumFromString(editorTheme),
                   items: Themes.values
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e.name.capitalize()),
-                            value: getThemeFromEnum(e),
+                      .map((val) => DropdownMenuItem(
+                            child: Text(val.name.capitalize()),
+                            value: val,
                           ))
                       .toList(),
                 ),
