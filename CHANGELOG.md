@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.0 | 26-08-2022
+
+### Additions
+
+- Add setting to change font size.
+- Add line highlighting on cursor movement.
+- Add template boilerplate for each language and implement language-wise local storage.
+
+### Fixes / Improvements
+
+- Fix cursor position for TAB button.
+- Fix line numbering issues.
+- Fix editor theme setting issues.
+- Minor QOL updates.
+
+### Known issues
+
+- None as of now.
+
 ## 0.1.0 | 20-08-2022
 
 ### Additions
