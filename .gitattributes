@@ -9,3 +9,4 @@
 *.rc linguist-detectable=false
 *.manifest linguist-detectable=false
 *.cmake linguist-detectable=false
+*.css linguist-detectable=false

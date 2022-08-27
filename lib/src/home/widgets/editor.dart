@@ -133,6 +133,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
       children: [
         Expanded(
           child: CodeFieldWidget(
+            enabled: true,
             focusNode: _focusNode,
             textStyle: TextStyle(
                 fontFamily: 'FiraCode', fontSize: ref.watch(fontSizeProvider)),

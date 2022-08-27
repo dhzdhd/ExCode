@@ -12,12 +12,14 @@ class CodeFieldWidget extends StatefulWidget {
   final FocusNode? focusNode;
   final void Function(String) onChanged;
   final double initialListViewWidth;
+  final bool enabled;
 
   const CodeFieldWidget({
     Key? key,
     required this.controller,
     required this.onChanged,
     required this.textStyle,
+    required this.enabled,
     this.initialListViewWidth = 20.0,
     this.wrap = false,
     this.focusNode,
@@ -184,6 +186,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     );
 
     final codeField = TextField(
+      enabled: widget.enabled,
       focusNode: _focusNode,
       style: textStyle,
       controller: widget.controller,
