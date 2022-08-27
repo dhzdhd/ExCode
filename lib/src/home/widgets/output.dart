@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OutputWrapperWidget extends StatefulHookConsumerWidget {
-  final bool wideScreen;
+  // final bool wideScreen;
 
-  const OutputWrapperWidget({Key? key, required this.wideScreen})
-      : super(key: key);
+  const OutputWrapperWidget({Key? key}) : super(key: key);
 
   @override
   ConsumerState<OutputWrapperWidget> createState() =>
@@ -20,9 +19,9 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
     final selected = ref.watch(outputIsVisibleStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
 
-    if (widget.wideScreen) {
-      return const _OutputWidget();
-    }
+    // if (widget.wideScreen) {
+    return const _OutputWidget();
+    // }
 
     return Positioned(
       height:
