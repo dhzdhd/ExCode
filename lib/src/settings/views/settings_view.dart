@@ -29,118 +29,166 @@ class SettingsView extends HookConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: ListView(
+        child: Column(
           children: [
-            ListTile(
-              leading: const Icon(Icons.palette),
-              title: const Text('Theme'),
-              trailing: StyledDropdownContainer(
-                child: DropdownButton<ThemeMode>(
-                  dropdownColor: globalTheme.primaryColor,
-                  focusColor: globalTheme.secondaryColor,
-                  isExpanded: true,
-                  onChanged: ((val) {
-                    theme.value = val!;
-                    ref
-                        .watch(themeStateProvider.notifier)
-                        .changeTheme(theme.value);
-                  }),
-                  value: theme.value,
-                  items: ThemeMode.values
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e.name.capitalize()),
-                            value: e,
-                          ))
-                      .toList(),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.palette_outlined),
-              title: const Text('Editor theme'),
-              trailing: StyledDropdownContainer(
-                child: DropdownButton<Themes>(
-                  dropdownColor: globalTheme.primaryColor,
-                  focusColor: globalTheme.secondaryColor,
-                  isExpanded: true,
-                  onChanged: (value) async {
-                    await ref
-                        .watch(editorThemeStateProvider.notifier)
-                        .setTheme(value!.name);
-                  },
-                  value: getEnumFromString(editorTheme),
-                  items: Themes.values
-                      .map((val) => DropdownMenuItem(
-                            child: Text(val.name.capitalize()),
-                            value: val,
-                          ))
-                      .toList(),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.font_download),
-              title: const Text('Font size'),
-              trailing: StyledDropdownContainer(
-                child: DropdownButton<int>(
-                  dropdownColor: globalTheme.primaryColor,
-                  focusColor: globalTheme.secondaryColor,
-                  isExpanded: true,
-                  value: ref.watch(fontSizeProvider).toInt(),
-                  items: List.generate(
-                    41,
-                    (index) => DropdownMenuItem(
-                      child: Text((index + 5).toString()),
-                      value: index + 5,
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.palette),
+                    title: const Text('Theme'),
+                    trailing: StyledDropdownContainer(
+                      child: DropdownButton<ThemeMode>(
+                        dropdownColor: globalTheme.primaryColor,
+                        focusColor: globalTheme.secondaryColor,
+                        isExpanded: true,
+                        onChanged: ((val) {
+                          theme.value = val!;
+                          ref
+                              .watch(themeStateProvider.notifier)
+                              .changeTheme(theme.value);
+                        }),
+                        value: theme.value,
+                        items: ThemeMode.values
+                            .map((e) => DropdownMenuItem(
+                                  child: Text(e.name.capitalize()),
+                                  value: e,
+                                ))
+                            .toList(),
+                      ),
                     ),
                   ),
-                  onChanged: (val) {
-                    fontSizeNotifier.setFontSize(val!.toDouble());
-                  },
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.space_bar),
-              title: const Text('Tab space'),
-              trailing: StyledDropdownContainer(
-                child: DropdownButton<TabEnum>(
-                  dropdownColor: globalTheme.primaryColor,
-                  focusColor: globalTheme.secondaryColor,
-                  isExpanded: true,
-                  items: TabEnum.values
-                      .map(
-                        (e) => DropdownMenuItem(
-                          child: Text(e.name.capitalize()),
-                          value: e,
+                  ListTile(
+                    leading: const Icon(Icons.palette_outlined),
+                    title: const Text('Editor theme'),
+                    trailing: StyledDropdownContainer(
+                      child: DropdownButton<Themes>(
+                        dropdownColor: globalTheme.primaryColor,
+                        focusColor: globalTheme.secondaryColor,
+                        isExpanded: true,
+                        onChanged: (value) async {
+                          await ref
+                              .watch(editorThemeStateProvider.notifier)
+                              .setTheme(value!.name);
+                        },
+                        value: getEnumFromString(editorTheme),
+                        items: Themes.values
+                            .map((val) => DropdownMenuItem(
+                                  child: Text(val.name.capitalize()),
+                                  value: val,
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.font_download),
+                    title: const Text('Font size'),
+                    trailing: StyledDropdownContainer(
+                      child: DropdownButton<int>(
+                        dropdownColor: globalTheme.primaryColor,
+                        focusColor: globalTheme.secondaryColor,
+                        isExpanded: true,
+                        value: ref.watch(fontSizeProvider).toInt(),
+                        items: List.generate(
+                          41,
+                          (index) => DropdownMenuItem(
+                            child: Text((index + 5).toString()),
+                            value: index + 5,
+                          ),
                         ),
-                      )
-                      .toList(),
-                  value: ref.watch(tabSpaceProvider),
-                  onChanged: (val) async {
-                    await tabSpaceNotifier.setTabSpace(val!);
-                  },
-                ),
+                        onChanged: (val) {
+                          fontSizeNotifier.setFontSize(val!.toDouble());
+                        },
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.space_bar),
+                    title: const Text('Tab space'),
+                    trailing: StyledDropdownContainer(
+                      child: DropdownButton<TabEnum>(
+                        dropdownColor: globalTheme.primaryColor,
+                        focusColor: globalTheme.secondaryColor,
+                        isExpanded: true,
+                        items: TabEnum.values
+                            .map(
+                              (e) => DropdownMenuItem(
+                                child: Text(e.name.capitalize()),
+                                value: e,
+                              ),
+                            )
+                            .toList(),
+                        value: ref.watch(tabSpaceProvider),
+                        onChanged: (val) async {
+                          await tabSpaceNotifier.setTabSpace(val!);
+                        },
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.text_format),
+                    title: const Text('Word wrap'),
+                    trailing: Switch(
+                        value: ref.watch(settingsProvider),
+                        onChanged: (val) {
+                          ref.watch(settingsProvider.notifier).setWordWrapped();
+                        }),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.save),
+                    title: const Text('Save on run'),
+                    trailing: Switch(
+                        value: ref.watch(saveOnRunProvider),
+                        onChanged: (val) {
+                          ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
+                        }),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                    child: Divider(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Check for updates',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Help',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'About and Credits',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    ),
+                  )
+                ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.text_format),
-              title: const Text('Word wrap'),
-              trailing: Switch(
-                  value: ref.watch(settingsProvider),
-                  onChanged: (val) {
-                    ref.watch(settingsProvider.notifier).setWordWrapped();
-                  }),
-            ),
-            ListTile(
-              leading: const Icon(Icons.save),
-              title: const Text('Save on run'),
-              trailing: Switch(
-                  value: ref.watch(saveOnRunProvider),
-                  onChanged: (val) {
-                    ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
-                  }),
-            ),
+            const Divider(),
+            const SizedBox(child: Text('Build v0.2.0'))
           ],
         ),
       ),
