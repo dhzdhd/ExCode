@@ -2,6 +2,8 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:excode/src/settings/services/update_service.dart';
+import 'package:excode/src/settings/widgets/dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
@@ -151,7 +153,9 @@ class SettingsView extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        UpdateService.isLatestVersion();
+                      },
                       child: const Text(
                         'Check for updates',
                         style: TextStyle(fontSize: 16),
@@ -175,7 +179,13 @@ class SettingsView extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return DialogWidget();
+                            });
+                      },
                       child: const Text(
                         'About and Credits',
                         style: TextStyle(fontSize: 16),

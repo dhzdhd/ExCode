@@ -19,6 +19,9 @@ final lightTheme = ThemeDataModel(
     appBarTheme: const AppBarTheme(backgroundColor: _primaryLightColor),
     scaffoldBackgroundColor: _secondaryLightColor,
     cardTheme: const CardTheme(color: _primaryLightColor),
+    dialogTheme: const DialogTheme(
+      backgroundColor: _secondaryLightColor,
+    ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         primary: _primaryDarkColor,
@@ -50,6 +53,9 @@ final darkTheme = ThemeDataModel(
     appBarTheme: const AppBarTheme(backgroundColor: _primaryDarkColor),
     scaffoldBackgroundColor: _secondaryDarkColor,
     cardTheme: const CardTheme(color: _primaryDarkColor),
+    dialogTheme: const DialogTheme(
+      backgroundColor: _secondaryDarkColor,
+    ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         primary: _primaryLightColor,

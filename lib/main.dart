@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/home/services/api.dart';
+import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 
 import 'src/factory.dart';
@@ -20,9 +21,11 @@ void main() async {
   }
 
   initDioClient();
-  initDatabase();
+  await initDatabase();
+  await initPackageInfo();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();
+  await UpdateService.initVersion();
 
   runApp(const ProviderScope(child: MyApp()));
 }
