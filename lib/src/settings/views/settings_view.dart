@@ -3,8 +3,9 @@ import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
-import 'package:excode/src/settings/widgets/dialog.dart';
+import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
+import 'package:excode/src/settings/widgets/info_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_highlight/themes/nord.dart';
@@ -154,22 +155,17 @@ class SettingsView extends HookConsumerWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: TextButton(
                       onPressed: () {
-                        UpdateService.isLatestVersion();
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return InfoDialogWidget(
+                                isLatestVersion:
+                                    UpdateService.isLatestVersion(),
+                              );
+                            });
                       },
                       child: const Text(
                         'Check for updates',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      style:
-                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Help',
                         style: TextStyle(fontSize: 16),
                       ),
                       style:
@@ -183,7 +179,7 @@ class SettingsView extends HookConsumerWidget {
                         showDialog(
                             context: context,
                             builder: (BuildContext ctx) {
-                              return DialogWidget();
+                              return const AboutDialogWidget();
                             });
                       },
                       child: const Text(
