@@ -36,6 +36,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.3
   connectivity_plus: ^2.3.6+1
   package_info_plus: ^1.4.2
+  flutter_downloader: ^1.8.3
 
 dev_dependencies:
   flutter_test:
