@@ -24,8 +24,8 @@ void main() async {
   await initDatabase();
   await initPackageInfo();
   await ApiHandler.initRuntimeVersionData();
-  await SettingsService.initPrefs();
   await UpdateService.initVersion();
+  await SettingsService.initPrefs();
 
   runApp(const ProviderScope(child: MyApp()));
 }

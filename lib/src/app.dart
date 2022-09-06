@@ -1,9 +1,13 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path/path.dart';
 
 import 'home/views/home_view.dart';
 import 'settings/views/settings_view.dart';
@@ -34,14 +38,33 @@ class MyApp extends ConsumerWidget {
         return MaterialPageRoute<void>(
           settings: routeSettings,
           builder: (BuildContext context) {
-            switch (routeSettings.name) {
-              case SettingsView.routeName:
-                return const TitleBarWidget(child: SettingsView());
-              case HomeView.routeName:
-                return const TitleBarWidget(child: HomeView());
-              default:
-                return const TitleBarWidget(child: HomeView());
-            }
+            return StreamBuilder(
+              stream: Connectivity().onConnectivityChanged,
+              builder: (context, AsyncSnapshot<ConnectivityResult> snapshot) {
+                if (snapshot.data != ConnectivityResult.none) {
+                  switch (routeSettings.name) {
+                    case SettingsView.routeName:
+                      return const TitleBarWidget(child: SettingsView());
+                    case HomeView.routeName:
+                      return const TitleBarWidget(child: HomeView());
+                    default:
+                      return const TitleBarWidget(child: HomeView());
+                  }
+                } else {
+                  return const TitleBarWidget(
+                    child: Scaffold(
+                      body: Center(
+                        child: Text(
+                          'You are not connected to the internet.\nPlease try again later.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+            );
           },
         );
       },
