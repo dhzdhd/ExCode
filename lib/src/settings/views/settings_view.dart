@@ -6,6 +6,7 @@ import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/info_dialog.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_highlight/themes/nord.dart';
@@ -160,27 +161,28 @@ class SettingsView extends HookConsumerWidget {
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: Divider(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: TextButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext ctx) {
-                              return InfoDialogWidget(
-                                isLatestVersion:
-                                    UpdateService.isLatestVersion(),
-                              );
-                            });
-                      },
-                      child: const Text(
-                        'Check for updates',
-                        style: TextStyle(fontSize: 16),
+                  if (defaultTargetPlatform == TargetPlatform.android)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                      child: TextButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext ctx) {
+                                return InfoDialogWidget(
+                                  isLatestVersion:
+                                      UpdateService.isLatestVersion(),
+                                );
+                              });
+                        },
+                        child: const Text(
+                          'Check for updates',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        style: TextButton.styleFrom(
+                            minimumSize: const Size(0, 50)),
                       ),
-                      style:
-                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
                     ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: TextButton(
