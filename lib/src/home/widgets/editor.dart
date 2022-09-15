@@ -152,51 +152,73 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Expanded(
-          child: CodeFieldWidget(
-            enabled: true,
-            focusNode: _focusNode,
-            textStyle: TextStyle(
-                fontFamily: 'FiraCode', fontSize: ref.watch(fontSizeProvider)),
-            controller: _controller,
-            onChanged: (value) => ref
-                .watch(editorContentStateProvider.notifier)
-                .setContent(value),
-            wrap: ref.watch(settingsProvider),
-          ),
+        Column(
+          children: [
+            Expanded(
+              child: CodeFieldWidget(
+                enabled: !ref.watch(lockProvider),
+                focusNode: _focusNode,
+                textStyle: TextStyle(
+                    fontFamily: 'FiraCode',
+                    fontSize: ref.watch(fontSizeProvider)),
+                controller: _controller,
+                onChanged: (value) => ref
+                    .watch(editorContentStateProvider.notifier)
+                    .setContent(value),
+                wrap: ref.watch(settingsProvider),
+              ),
+            ),
+            SizedBox(
+              height: 34,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (!ref.watch(lockProvider)) {
+                        final spaces = ref.watch(tabSpaceProvider).space;
+                        _selection =
+                            _controller.selection.baseOffset + spaces.length;
+                        ref
+                            .watch(editorContentStateProvider.notifier)
+                            .addContent(
+                              spaces,
+                              _controller.selection.base,
+                            );
+                      }
+                    },
+                    child: const Text('TAB'),
+                  ),
+                  ...charModelList.map(
+                    (e) => TextButton(
+                      onPressed: () {
+                        if (!ref.watch(lockProvider)) {
+                          _selection =
+                              _controller.selection.baseOffset + e.length;
+                          ref
+                              .watch(editorContentStateProvider.notifier)
+                              .addContent(e.value, _controller.selection.base);
+                        }
+                      },
+                      child: Text(e.name),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-        SizedBox(
-          height: 34,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              TextButton(
-                onPressed: () {
-                  final spaces = ref.watch(tabSpaceProvider).space;
-                  _selection = _controller.selection.baseOffset + spaces.length;
-                  ref.watch(editorContentStateProvider.notifier).addContent(
-                        spaces,
-                        _controller.selection.base,
-                      );
-                },
-                child: const Text('TAB'),
-              ),
-              ...charModelList.map(
-                (e) => TextButton(
-                  onPressed: () {
-                    _selection = _controller.selection.baseOffset + e.length;
-                    ref
-                        .watch(editorContentStateProvider.notifier)
-                        .addContent(e.value, _controller.selection.base);
-                  },
-                  child: Text(e.name),
-                ),
-              ),
-            ],
-          ),
-        )
+        Visibility(
+          visible: ref.watch(lockProvider),
+          child: Center(
+              child: Icon(
+            Icons.lock,
+            color: Colors.white.withOpacity(0.3),
+            size: 50,
+          )),
+        ),
       ],
     );
   }

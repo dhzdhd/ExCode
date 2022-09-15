@@ -68,7 +68,11 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
               PopupMenuItem(
                 child: const Text('Clear'),
                 onTap: () {
-                  ref.watch(editorContentStateProvider.notifier).setContent('');
+                  if (!ref.watch(lockProvider)) {
+                    ref
+                        .watch(editorContentStateProvider.notifier)
+                        .setContent('');
+                  }
                 },
               ),
               PopupMenuItem(
@@ -81,7 +85,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                         ref.read(editorContentStateProvider),
                       );
                 },
-              )
+              ),
             ];
           }));
         }),

@@ -9,7 +9,12 @@ class AboutDialogWidget extends StatelessWidget {
       applicationName: 'ExCode',
       applicationVersion: 'v0.0.2',
       applicationLegalese: 'MIT',
-      children: [Text('Created by dhzdhd')],
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 24.0),
+          child: Text('Created by dhzdhd'),
+        )
+      ],
     );
   }
 }

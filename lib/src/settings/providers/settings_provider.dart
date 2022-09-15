@@ -9,6 +9,8 @@ final fontSizeProvider = StateNotifierProvider<_FontSizeNotifier, double>(
     (ref) => _FontSizeNotifier());
 final saveOnRunProvider = StateNotifierProvider<_SaveOnRunNotifier, bool>(
     (ref) => _SaveOnRunNotifier());
+final lockProvider =
+    StateNotifierProvider<_LockNotifier, bool>((ref) => _LockNotifier());
 
 class _SettingsNotifier extends StateNotifier<bool> {
   _SettingsNotifier() : super(box.get('wordwrap') ?? false);
@@ -55,6 +57,14 @@ class _SaveOnRunNotifier extends StateNotifier<bool> {
 
   void setSaveOnRun() {
     box.put('saveonrun', !state);
+    state = !state;
+  }
+}
+
+class _LockNotifier extends StateNotifier<bool> {
+  _LockNotifier() : super(false);
+
+  void setLock() {
     state = !state;
   }
 }

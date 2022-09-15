@@ -147,6 +147,15 @@ class SettingsView extends HookConsumerWidget {
                           ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
                         }),
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.lock),
+                    title: const Text('Lock editor'),
+                    trailing: Switch(
+                        value: ref.watch(lockProvider),
+                        onChanged: (val) {
+                          ref.watch(lockProvider.notifier).setLock();
+                        }),
+                  ),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: Divider(),

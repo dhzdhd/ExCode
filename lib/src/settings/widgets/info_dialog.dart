@@ -14,6 +14,7 @@ class InfoDialogWidget extends StatelessWidget {
       title: const Text('Updates'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(
             child: Text(
