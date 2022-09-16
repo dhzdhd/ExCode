@@ -1,5 +1,6 @@
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
@@ -7,9 +8,7 @@ import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/info_dialog.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:flutter_highlight/themes/nord.dart';
+import 'package:flutter/material.dart' hide State;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
@@ -155,6 +154,14 @@ class SettingsView extends HookConsumerWidget {
                         value: ref.watch(lockProvider),
                         onChanged: (val) {
                           ref.watch(lockProvider.notifier).setLock();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            snackBarWidget(
+                              content: ref.read(lockProvider)
+                                  ? 'Locked editor'
+                                  : 'Unlocked editor',
+                              state: State.success,
+                            ),
+                          );
                         }),
                   ),
                   const Padding(
