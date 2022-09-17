@@ -1,11 +1,14 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:excode/src/settings/services/hastebin.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -84,6 +87,32 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                         ref.read(editorLanguageStateProvider),
                         ref.read(editorContentStateProvider),
                       );
+                },
+              ),
+              PopupMenuItem(
+                child: const Text('Hastebin'),
+                onTap: () async {
+                  final url =
+                      await HasteBin.post(ref.read(editorContentStateProvider));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    snackBarWidget(
+                      content:
+                          'Uploaded to hastebin. The url expires after a few days!',
+                      state: ActionState.success,
+                      action: SnackBarAction(
+                        label: 'Copy',
+                        onPressed: () =>
+                            FlutterClipboard.copy(url).then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            snackBarWidget(
+                              content: 'Copied hastebin url to clipboard',
+                              state: ActionState.success,
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                  );
                 },
               ),
             ];

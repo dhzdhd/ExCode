@@ -1,5 +1,3 @@
-import 'package:excode/src/settings/services/update_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InfoDialogWidget extends StatelessWidget {
@@ -23,20 +21,6 @@ class InfoDialogWidget extends StatelessWidget {
                   : 'A new update is available!',
             ),
           ),
-          if (defaultTargetPlatform == TargetPlatform.android &&
-              !isLatestVersion &&
-              false)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: TextButton(
-                  onPressed: () async {
-                    await UpdateService.download();
-                  },
-                  child: const Text('Download updated version'),
-                ),
-              ),
-            )
         ],
       ),
     );

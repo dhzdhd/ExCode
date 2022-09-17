@@ -8,7 +8,7 @@ import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/info_dialog.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' hide State;
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
@@ -159,7 +159,7 @@ class SettingsView extends HookConsumerWidget {
                               content: ref.read(lockProvider)
                                   ? 'Locked editor'
                                   : 'Unlocked editor',
-                              state: State.success,
+                              state: ActionState.success,
                             ),
                           );
                         }),
