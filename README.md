@@ -16,7 +16,7 @@ Linux support is planned for future releases.
 
 Read [CONTRIBUTING](CONTRIBUTING.md) to get started.
 
-## Getting Started
+## Getting Started with Flutter
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,

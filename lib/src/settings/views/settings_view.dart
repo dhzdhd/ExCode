@@ -168,6 +168,24 @@ class SettingsView extends HookConsumerWidget {
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: Divider(),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: TextButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return const AboutDialogWidget();
+                            });
+                      },
+                      child: const Text(
+                        'Language versions',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    ),
+                  ),
                   if (defaultTargetPlatform == TargetPlatform.android)
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),

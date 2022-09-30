@@ -11,6 +11,7 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/hastebin.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
@@ -94,22 +95,26 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 onTap: () async {
                   final url =
                       await HasteBin.post(ref.read(editorContentStateProvider));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    snackBarWidget(
-                      content:
-                          'Uploaded to hastebin. The url expires after a few days!',
-                      state: ActionState.success,
-                      action: SnackBarAction(
-                        label: 'Copy',
-                        onPressed: () =>
-                            FlutterClipboard.copy(url).then((value) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackBarWidget(
-                              content: 'Copied hastebin url to clipboard',
-                              state: ActionState.success,
-                            ),
-                          );
-                        }),
+                  url.match(
+                    (l) => ScaffoldMessenger.of(context).showSnackBar(
+                        snackBarWidget(content: l, state: ActionState.error)),
+                    (r) => ScaffoldMessenger.of(context).showSnackBar(
+                      snackBarWidget(
+                        content:
+                            'Uploaded to hastebin. The url expires after a few days!',
+                        state: ActionState.success,
+                        action: SnackBarAction(
+                          label: 'Copy',
+                          onPressed: () =>
+                              FlutterClipboard.copy(r).then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              snackBarWidget(
+                                content: 'Copied hastebin url to clipboard',
+                                state: ActionState.success,
+                              ),
+                            );
+                          }),
+                        ),
                       ),
                     ),
                   );
