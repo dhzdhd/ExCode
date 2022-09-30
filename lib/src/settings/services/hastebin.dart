@@ -7,7 +7,12 @@ class HasteBin {
       return Either.left('Cannot make an empty paste!');
     }
 
-    final res = await dio.post('https://hastebin.com/documents', data: content);
-    return Either.right('https://hastebin.com/raw/${res.data["key"]!}');
+    try {
+      final res =
+          await dio.post('https://hastebin.com/documents', data: content);
+      return Either.right('https://hastebin.com/${res.data["key"]!}');
+    } catch (err) {
+      return Either.left('Error in making hastebin paste!');
+    }
   }
 }

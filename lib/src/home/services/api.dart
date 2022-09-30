@@ -73,6 +73,8 @@ class ApiHandler {
   static const _runtimeUrl = 'https://emkc.org/api/v2/piston/runtimes';
   static final Map<String, String> _langVersionMap = {};
 
+  static Map<String, String> get langVersionMap => _langVersionMap;
+
   static Future<void> initRuntimeVersionData() async {
     final res = await dio.get(_runtimeUrl);
     for (var i in res.data) {

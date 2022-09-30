@@ -7,6 +7,7 @@ import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/info_dialog.dart';
+import 'package:excode/src/settings/widgets/lang_version_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -175,7 +176,7 @@ class SettingsView extends HookConsumerWidget {
                         showDialog(
                             context: context,
                             builder: (BuildContext ctx) {
-                              return const AboutDialogWidget();
+                              return const LangVersionDialogWidget();
                             });
                       },
                       child: const Text(
