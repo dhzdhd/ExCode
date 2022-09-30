@@ -5,13 +5,13 @@
 - Fork the repository.
 
 - Clone your forked copy of the project into your local system.
-`git clone --depth 1 https://github.com/<your_name>/<repository_name>.git`
+`git clone --depth 1 https://github.com/<your_name>/ExCode.git`
 
 - Navigate to the project directory.
-`cd <repository_name>`
+`cd ExCode`
 
 - Add a reference (remote) to the original repository.
-`git remote add upstream https://github.com/The-Robotics-Forum/<repository_name>`
+`git remote add upstream https://github.com/dhzdhd/ExCode`
 
 - Check the remotes for this repository.
 `git remote -v`
