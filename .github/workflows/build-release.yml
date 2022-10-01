@@ -10,7 +10,59 @@ permissions:
   contents: write
 
 jobs:
-  build-windows-and-android:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build Linux
+        run: |
+          flutter config --enable-linux-desktop
+          flutter pub get
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          flutter build linux
+
+      - name: Save linux package
+        uses: actions/upload-artifact@v3
+        with:
+          name: lin
+          path: build/linux/x64/release/bundle/*
+
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build Android apps
+        run: |
+          flutter pub get
+          flutter build apk --split-per-abi
+          flutter build appbundle
+
+      - name: Save android packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: android
+          path: |
+            build/app/outputs/flutter-apk/*
+            build/app/outputs/bundle/release/*
+
+  build-windows:
     runs-on: windows-latest
 
     steps:
@@ -28,70 +80,44 @@ jobs:
           flutter pub get
           flutter build windows
 
-      - name: Create zip
-        run: |
-          7z -tZip a exec\ExCode.zip build\windows\runner\Release\
-
-      - name: Build Android
-        run: |
-          flutter build apk
-          flutter build appbundle
-
-      - name : Move build files
-        run : |
-          mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
-          mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
-
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-#         if: startsWith(github.ref, 'refs/tags/')
+      - name: Save windows app
+        uses: actions/upload-artifact@v3
         with:
-          name: ExCode
-          tag_name: v0.2.0
-          prerelease: true
-          generate_release_notes: true
-          files: exec/*
-          body_path: CHANGELOG.md
-          token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_REPOSITORY: dhzdhd/ExCode
-
-  build-linux:
+          name: win
+          path: build\windows\runner\Release\*
+  
+  release:
     runs-on: ubuntu-latest
-
+    needs: [build-linux, build-android, build-windows]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup flutter
-        uses: subosito/flutter-action@v2
+      - name: Get all build outputs
+        uses: actions/download-artifact@v3
         with:
-          channel: 'stable'
+          path: exec/
+      
+      - name: Zip Linux and Windows programs
+        run: 7z a -tZip ExCode-linux.zip exec/lin && 7z a -tZip ExCode-win.zip exec/win
 
-      - name: Build Linux
-        run: |
-          flutter config --enable-linux-desktop
-          flutter pub get
-          flutter build linux
-
-      - name: Create zip
-        run: |
-          7z -tZip a exec\ExCode.zip build\windows\runner\Release\
-
-      - name : Move build files
-        run : |
-          mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
-          mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
-
+      - name: Display structure of downloaded files
+        run: tree exec/
+          
       - name: Create release
         uses: softprops/action-gh-release@v1
-#         if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         with:
           name: ExCode
           tag_name: v0.2.0
           prerelease: true
           generate_release_notes: true
-          files: exec/*
+          files: |
+            exec/android/bundle/release/app-release.aab
+            exec/android/flutter-apk/*
+            ExCode-linux.zip
+            ExCode-win.zip
+
           body_path: CHANGELOG.md
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
