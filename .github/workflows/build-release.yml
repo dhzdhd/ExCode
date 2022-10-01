@@ -36,9 +36,34 @@ jobs:
           name: lin
           path: build/linux/x64/release/bundle/*
 
-  build-rest-and-release:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build Android apps
+        run: |
+          flutter pub get
+          flutter build apk --split-per-abi
+          flutter build appbundle
+
+      - name: Save android packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: android
+          path: |
+            build/app/outputs/flutter-apk/*
+            build/app/outputs/bundle/release/*
+
+  build-windows:
     runs-on: windows-latest
-    needs: build-linux
 
     steps:
       - name: Checkout
@@ -55,25 +80,26 @@ jobs:
           flutter pub get
           flutter build windows
 
-      - name: Create zip
-        run: |
-          7z -tZip a exec\ExCode-windows.zip build\windows\runner\Release\
+      - name: Save windows app
+        uses: actions/upload-artifact@v3
+        with:
+          name: win
+          path: build\windows\runner\Release\*
+  
+  release:
+    runs-on: ubuntu-latest
+    needs: [build-linux, build-android, build-windows]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Build Android
-        run: |
-          flutter build apk
-          flutter build appbundle
-
-      - name : Move build files
-        run : |
-          mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
-          mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
-      
-      - name: Get the linux package 
+      - name: Get all build outputs
         uses: actions/download-artifact@v3
         with:
-          name: lin
-          path: exec/ExCode-linux.zip
+          path: exec/
+
+      - name: Display structure of downloaded files
+        run: ls -R
           
       - name: Create release
         uses: softprops/action-gh-release@v1
