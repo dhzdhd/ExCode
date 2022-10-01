@@ -79,14 +79,8 @@ jobs:
       - name: Create zip
         run: |
           # this is for debugging purposes
-          ls -lah build/linux/
-          tree build/linux
-          7z -tZip a exec/ExCode.zip build/linux/x64/release
-
-      - name : Move build files
-        run : |
-          mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
-          mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
+          tree build/linux/x64/release/bundle
+          7z -tZip a exec/ExCode.zip build/linux/x64/release/bundle
 
       - name: Create release
         uses: softprops/action-gh-release@v1
