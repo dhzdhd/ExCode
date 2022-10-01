@@ -80,7 +80,6 @@ class ApiHandler {
     for (var i in res.data) {
       _langVersionMap[i['language']] = i['version'];
     }
-    print(_langVersionMap);
   }
 
   static Languages getLangFromName(String name) {

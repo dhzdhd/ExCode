@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:excode/src/auth/views/auth_view.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
@@ -47,6 +48,8 @@ class MyApp extends ConsumerWidget {
                       return const TitleBarWidget(child: SettingsView());
                     case HomeView.routeName:
                       return const TitleBarWidget(child: HomeView());
+                    case AuthView.routeName:
+                      return const TitleBarWidget(child: AuthView());
                     default:
                       return const TitleBarWidget(child: HomeView());
                   }

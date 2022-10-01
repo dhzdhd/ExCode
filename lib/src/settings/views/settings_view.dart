@@ -5,8 +5,9 @@ import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
+import 'package:excode/src/settings/widgets/auth_container.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
-import 'package:excode/src/settings/widgets/info_dialog.dart';
+import 'package:excode/src/settings/widgets/update_dialog.dart';
 import 'package:excode/src/settings/widgets/lang_version_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class SettingsView extends HookConsumerWidget {
             Expanded(
               child: ListView(
                 children: [
+                  AuthContainerWidget(),
+                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.palette),
                     title: const Text('Theme'),
