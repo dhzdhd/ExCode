@@ -10,8 +10,9 @@ permissions:
   contents: write
 
 jobs:
-  build-windows-and-android:
+  build-rest-and-release:
     runs-on: windows-latest
+    needs: build-linux
 
     steps:
       - name: Checkout
@@ -30,7 +31,7 @@ jobs:
 
       - name: Create zip
         run: |
-          7z -tZip a exec\ExCode.zip build\windows\runner\Release\
+          7z -tZip a exec\ExCode-windows.zip build\windows\runner\Release\
 
       - name: Build Android
         run: |
@@ -41,7 +42,13 @@ jobs:
         run : |
           mv build/app/outputs/flutter-apk/app-release.apk exec/ExCode.apk
           mv build/app/outputs/bundle/release/app-release.aab exec/ExCode.aab
-
+      
+      - name: Get the linux package 
+        uses: actions/download-artifact@v3
+        with:
+          name: lin
+          path: exec/ExCode-linux.zip
+          
       - name: Create release
         uses: softprops/action-gh-release@v1
 #         if: startsWith(github.ref, 'refs/tags/')
@@ -54,7 +61,8 @@ jobs:
           body_path: CHANGELOG.md
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          GITHUB_REPOSITORY: dhzdhd/ExCode
+          # TODO change this once finished
+          GITHUB_REPOSITORY: gilice/ExCode
 
   build-linux:
     runs-on: ubuntu-latest
@@ -79,19 +87,11 @@ jobs:
       - name: Create zip
         run: |
           # this is for debugging purposes
-          tree build/linux/x64/release/bundle
-          7z -tZip a exec/ExCode.zip build/linux/x64/release/bundle
+          tree build/linux/x64/release/bundle/
+          7z -tZip a exec/ExCode-linux.zip build/linux/x64/release/bundle/
 
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-#         if: startsWith(github.ref, 'refs/tags/')
+      - name: Save linux package
+        uses: actions/upload-artifact@v3
         with:
-          name: ExCode
-          tag_name: v0.2.0
-          prerelease: true
-          generate_release_notes: true
-          files: exec/*
-          body_path: CHANGELOG.md
-          token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_REPOSITORY: dhzdhd/ExCode
+          name: lin
+          path: exec/ExCode-linux.zip
