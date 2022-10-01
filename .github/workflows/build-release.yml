@@ -78,7 +78,10 @@ jobs:
 
       - name: Create zip
         run: |
-          7z -tZip a exec\ExCode.zip build\windows\runner\Release\
+          # this is for debugging purposes
+          ls -lah build/linux/
+          tree build/linux
+          7z -tZip a exec/ExCode.zip build/linux/x64/release
 
       - name : Move build files
         run : |
