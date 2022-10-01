@@ -121,5 +121,4 @@ jobs:
           body_path: CHANGELOG.md
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          # TODO change this once finished
-          GITHUB_REPOSITORY: gilice/ExCode
+          GITHUB_REPOSITORY: dhzdhd/ExCode
