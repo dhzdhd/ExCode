@@ -88,6 +88,10 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                         ref.read(editorLanguageStateProvider),
                         ref.read(editorContentStateProvider),
                       );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBarWidget(
+                    content: 'Saved to local storage!',
+                    state: ActionState.success,
+                  ));
                 },
               ),
               PopupMenuItem(

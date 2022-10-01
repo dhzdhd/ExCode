@@ -152,6 +152,14 @@ class SettingsView extends HookConsumerWidget {
                         }),
                   ),
                   ListTile(
+                    leading: const Icon(Icons.cloud),
+                    title: const Text('Save to cloud (in dev)'),
+                    trailing: Switch(
+                      value: false,
+                      onChanged: null,
+                    ),
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.lock),
                     title: const Text('Lock editor'),
                     trailing: Switch(
