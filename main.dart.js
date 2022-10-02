@@ -44972,7 +44972,7 @@ A.atz.prototype={
 $2(a,b){return B.acd},
 $S:234}
 A.atA.prototype={
-$0(){return B.acf},
+$0(){return B.ace},
 $S:233}
 A.G0.prototype={
 G(a){var s=null
@@ -45078,10 +45078,10 @@ for(g=0;g<41;++g){f=g+5
 h[g]=new A.f2(f,A.c_(B.e.j(f),d,d,d,d,d,d),B.cw,d,i)}i=t.CR
 f=t.y
 e=t.p
-f=A.a([new A.J7(d),B.i6,k,j,A.ky(!0,B.WB,d,!1,d,B.aj3,new A.rf(A.a84(s,r,!0,h,new A.ajP(l),c,t.S),d)),A.ky(!0,B.WE,d,!1,d,B.aj9,new A.rf(A.a84(s,r,!0,A.at(new A.ak(B.ZR,new A.ajQ(),i),!0,i.h("aL.E")),new A.ajR(m),a0.bo($.azB(),t.T_),t.Cy),d)),A.ky(!0,B.WI,d,!1,d,B.aje,A.amD(new A.ajS(a0),a0.bo($.azA(),f))),A.ky(!0,B.Wy,d,!1,d,B.aiS,A.amD(new A.ajT(a0),a0.bo($.azz(),f))),A.ky(!0,B.WH,d,!1,d,B.aj1,A.amD(d,!1)),A.ky(!0,B.Wz,d,!1,d,B.aja,A.amD(new A.ajU(a0,a),a0.bo($.xT(),f))),B.aar,new A.bp(B.lu,A.oF(B.aiV,new A.ajV(a),A.w0(d,d,d,d,d,d,d,d,d,d,d,B.pI,d,d,d,d,d,d,d,d)),d)],e)
+f=A.a([new A.J7(d),B.i6,k,j,A.ky(!0,B.WB,d,!1,d,B.aj3,new A.rf(A.a84(s,r,!0,h,new A.ajP(l),c,t.S),d)),A.ky(!0,B.WE,d,!1,d,B.aj8,new A.rf(A.a84(s,r,!0,A.at(new A.ak(B.ZR,new A.ajQ(),i),!0,i.h("aL.E")),new A.ajR(m),a0.bo($.azB(),t.T_),t.Cy),d)),A.ky(!0,B.WI,d,!1,d,B.aje,A.amD(new A.ajS(a0),a0.bo($.azA(),f))),A.ky(!0,B.Wy,d,!1,d,B.aiS,A.amD(new A.ajT(a0),a0.bo($.azz(),f))),A.ky(!0,B.WH,d,!1,d,B.aj1,A.amD(d,!1)),A.ky(!0,B.Wz,d,!1,d,B.aj9,A.amD(new A.ajU(a0,a),a0.bo($.xT(),f))),B.aar,new A.bp(B.lu,A.oF(B.aiV,new A.ajV(a),A.w0(d,d,d,d,d,d,d,d,d,d,d,B.pI,d,d,d,d,d,d,d,d)),d)],e)
 if(A.cx()===B.b8)f.push(new A.bp(B.lu,A.oF(B.aiU,new A.ajM(a),A.w0(d,d,d,d,d,d,d,d,d,d,d,B.pI,d,d,d,d,d,d,d,d)),d))
 f.push(new A.bp(B.lu,A.oF(B.aj2,new A.ajN(a),A.w0(d,d,d,d,d,d,d,d,d,d,d,B.pI,d,d,d,d,d,d,d,d)),d))
-return A.SW(b,new A.bp(B.Vz,A.eJ(A.a([A.js(A.AG(f,d,d,d,B.K,!1)),B.i6,B.ace],e),B.aJ,B.a_,B.aE),d),d)}}
+return A.SW(b,new A.bp(B.Vz,A.eJ(A.a([A.js(A.AG(f,d,d,d,B.K,!1)),B.i6,B.acf],e),B.aJ,B.a_,B.aE),d),d)}}
 A.ajK.prototype={
 $1(a){var s,r,q=this.a
 q.sm(0,a)
@@ -93137,9 +93137,9 @@ B.pJ=new A.Z(1/0,1/0)
 B.e_=new A.h0(0,0,null,null)
 B.ajf=new A.ck("Error",null,null,null,null,null,null,null,null)
 B.acd=new A.h0(null,null,B.ajf,null)
-B.aj8=new A.ck("Build v0.2.0",null,null,null,null,null,null,null,null)
-B.ace=new A.h0(null,null,B.aj8,null)
-B.acf=new A.h0(20,20,B.rH,null)
+B.ace=new A.h0(20,20,B.rH,null)
+B.aja=new A.ck("Build latest",null,null,null,null,null,null,null,null)
+B.acf=new A.h0(null,null,B.aja,null)
 B.Jb=new A.h0(null,18,null,null)
 B.e0=new A.h0(null,null,null,null)
 B.acg=new A.CZ(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -93503,8 +93503,8 @@ B.aj3=new A.ck("Font size",null,null,null,null,null,null,null,null)
 B.aj4=new A.ck("TAB",null,null,null,null,null,null,null,null)
 B.aj5=new A.ck("Hastebin",null,null,null,null,null,null,null,null)
 B.aj6=new A.ck("Language versions",null,null,null,null,null,null,null,null)
-B.aj9=new A.ck("Tab space",null,null,null,null,null,null,null,null)
-B.aja=new A.ck("Lock editor",null,null,null,null,null,null,null,null)
+B.aj8=new A.ck("Tab space",null,null,null,null,null,null,null,null)
+B.aj9=new A.ck("Lock editor",null,null,null,null,null,null,null,null)
 B.ajb=new A.ck("Theme",null,null,null,null,null,null,null,null)
 B.ajc=new A.ck("Editor theme",null,null,null,null,null,null,null,null)
 B.ajd=new A.ck("Save",null,null,null,null,null,null,null,null)
