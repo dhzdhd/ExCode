@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Additions
 
-- Experimental linux release.
+- Experimental linux and macos release.
 - Add tab bar to switch between input and output.
 - Check for internet connection and disallow editor usage if there is no connection.
 - Add check for updates button on android.
@@ -16,6 +16,10 @@ All notable changes to this project will be documented in this file.
 - Add language version dialog
 - Add app version in settings.
 - Add dummy auth route and save to cloud switch.
+
+### Fixes / Improvements
+
+- Android release is now smaller in size.
 
 ### Known issues
 

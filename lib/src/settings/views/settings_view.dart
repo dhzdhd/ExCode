@@ -242,7 +242,9 @@ class SettingsView extends HookConsumerWidget {
               ),
             ),
             const Divider(),
-            const SizedBox(child: Text('Build v0.2.0'))
+            const SizedBox(
+              child: Text(kIsWeb ? 'Build latest' : 'Build v0.3.0'),
+            )
           ],
         ),
       ),
