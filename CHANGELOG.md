@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.3.0 | 2-10-2022
+
+### Additions
+
+- Experimental linux release.
+- Add tab bar to switch between input and output.
+- Check for internet connection and disallow editor usage if there is no connection.
+- Add check for updates button on android.
+- Add lock editor switch.
+- Add hastebin functionality.
+- Add error and success snackbars for features like hastebin and save.
+- Add language version dialog
+- Add app version in settings.
+- Add dummy auth route and save to cloud switch.
+
+### Known issues
+
+- Tab does not switch to output on pressing run button.
+
 ## 0.2.0 | 26-08-2022
 
 ### Additions
