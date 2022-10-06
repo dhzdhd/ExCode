@@ -42,101 +42,6 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   int _selectedLine = 0;
 
   @override
-  void initState() {
-    super.initState();
-
-    _scrollControllers = LinkedScrollControllerGroup();
-    _numberController = _scrollControllers.addAndGet();
-    _fieldController = _scrollControllers.addAndGet();
-
-    widget.controller.addListener(_updateLineNumber);
-
-    _listViewWidth = widget.initialListViewWidth;
-
-    _focusNode = widget.focusNode ?? FocusNode();
-    _focusNode!.attach(context, onKey: _onKey);
-
-    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
-  }
-
-  KeyEventResult _onKey(FocusNode node, RawKeyEvent event) {
-    return widget.controller.onKey(event);
-  }
-
-  @override
-  void didUpdateWidget(CodeFieldWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    widget.controller.removeListener(_updateLineNumber);
-    widget.controller.addListener(_updateLineNumber);
-  }
-
-  @override
-  void dispose() {
-    _numberController.dispose();
-    _fieldController.dispose();
-    _keyboardVisibilitySubscription?.cancel();
-
-    widget.controller.removeListener(_updateLineNumber);
-
-    super.dispose();
-  }
-
-  void _updateLineNumber() {
-    setState(() {
-      _selectedLine = '\n'
-              .allMatches(widget.controller.text.substring(
-                0,
-                widget.controller.selection.base.offset,
-              ))
-              .length +
-          1;
-    });
-  }
-
-  // Wrap the field in a horizontal ScrollView
-  Widget _wrapInScrollView(
-      Widget codeField, TextStyle textStyle, double minWidth) {
-    const leftPad = 0.0;
-    final intrinsic = IntrinsicWidth(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 0.0,
-              minWidth: max(minWidth - leftPad, 0.0),
-            ),
-            child: Padding(
-              child: Text(longestLine, style: textStyle),
-              padding: const EdgeInsets.only(right: 16.0),
-            ),
-          ),
-          Expanded(child: codeField)
-        ],
-      ),
-    );
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        left: leftPad,
-      ),
-      scrollDirection: Axis.horizontal,
-      child: intrinsic,
-    );
-  }
-
-  int _getDigits(int num) {
-    var count = 0;
-    while (num != 0) {
-      num = (num / 10).floor();
-      count++;
-    }
-    return count;
-  }
-
-  @override
   Widget build(BuildContext context) {
     void setNumber(String text) {
       setState(() {
@@ -174,7 +79,8 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
                       e.toString(),
                       style: TextStyle(
                         fontSize: widget.textStyle.fontSize,
-                        color: e == _selectedLine ? Colors.white : Colors.grey,
+                        color: _getLineNumberColor(
+                            e == _selectedLine, theme, rootKey),
                       ),
                     ),
                   ),
@@ -228,6 +134,112 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
           Expanded(child: codeCol),
         ],
       ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(CodeFieldWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    widget.controller.removeListener(_updateLineNumber);
+    widget.controller.addListener(_updateLineNumber);
+  }
+
+  @override
+  void dispose() {
+    _numberController.dispose();
+    _fieldController.dispose();
+    _keyboardVisibilitySubscription?.cancel();
+
+    widget.controller.removeListener(_updateLineNumber);
+
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollControllers = LinkedScrollControllerGroup();
+    _numberController = _scrollControllers.addAndGet();
+    _fieldController = _scrollControllers.addAndGet();
+
+    widget.controller.addListener(_updateLineNumber);
+
+    _listViewWidth = widget.initialListViewWidth;
+
+    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode!.attach(context, onKey: _onKey);
+
+    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
+  }
+
+  int _getDigits(int num) {
+    var count = 0;
+    while (num != 0) {
+      num = (num / 10).floor();
+      count++;
+    }
+    return count;
+  }
+
+  Color? _getLineNumberColor(
+      bool selected, Map<String, TextStyle>? theme, String? rootKey) {
+    if (theme != null && rootKey != null) {
+      return selected
+          ? theme[rootKey]!.color
+          : theme[rootKey]!.color?.withAlpha(128);
+    } else {
+      return selected ? Colors.white : Colors.grey;
+    }
+  }
+
+  KeyEventResult _onKey(FocusNode node, RawKeyEvent event) {
+    return widget.controller.onKey(event);
+  }
+
+  void _updateLineNumber() {
+    setState(() {
+      _selectedLine = '\n'
+              .allMatches(widget.controller.text.substring(
+                0,
+                widget.controller.selection.base.offset,
+              ))
+              .length +
+          1;
+    });
+  }
+
+  // Wrap the field in a horizontal ScrollView
+  Widget _wrapInScrollView(
+      Widget codeField, TextStyle textStyle, double minWidth) {
+    const leftPad = 0.0;
+    final intrinsic = IntrinsicWidth(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 0.0,
+              minWidth: max(minWidth - leftPad, 0.0),
+            ),
+            child: Padding(
+              child: Text(longestLine, style: textStyle),
+              padding: const EdgeInsets.only(right: 16.0),
+            ),
+          ),
+          Expanded(child: codeField)
+        ],
+      ),
+    );
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(
+        left: leftPad,
+      ),
+      scrollDirection: Axis.horizontal,
+      child: intrinsic,
     );
   }
 }
