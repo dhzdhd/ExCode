@@ -1,3 +1,4 @@
+import 'package:excode/src/auth/services/supabase.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
@@ -135,14 +136,17 @@ class SettingsView extends HookConsumerWidget {
                           ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
                         }),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.cloud),
-                    title: const Text('Save to cloud (in dev)'),
-                    trailing: Switch(
-                      value: false,
-                      onChanged: null,
-                    ),
-                  ),
+                  //  Visibility(
+                  //   visible: !(snapshot.data == null),
+                  //   child: const ListTile(
+                  //     leading: Icon(Icons.cloud),
+                  //     title: Text('Save to cloud'),
+                  //     trailing: Switch(
+                  //       value: false,
+                  //       onChanged: null,
+                  //     ),
+                  //   ),
+                  // );
                   ListTile(
                     leading: const Icon(Icons.lock),
                     title: const Text('Lock editor'),
