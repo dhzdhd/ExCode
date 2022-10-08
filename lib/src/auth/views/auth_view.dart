@@ -12,10 +12,11 @@ class AuthView extends ConsumerWidget {
         title: const Text('Authentication'),
       ),
       body: const Center(
-          child: Text(
-        'To be implemented!',
-        style: TextStyle(fontSize: 20),
-      )),
+        child: Text(
+          'To be implemented!',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
     );
   }
 }

@@ -46,9 +46,14 @@ class _TabSpaceNotifier extends StateNotifier<TabEnum> {
 class _FontSizeNotifier extends StateNotifier<double> {
   _FontSizeNotifier() : super(box.get('fontSize') ?? 16);
 
-  Future<void> setFontSize(double size) async {
-    await box.put('fontSize', size);
-    state = size;
+  Future<void> increment() async {
+    state += 1;
+    await box.put('fontSize', state);
+  }
+
+  Future<void> decrement() async {
+    state -= 1;
+    await box.put('fontSize', state);
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/auth_container.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
+import 'package:excode/src/settings/widgets/font_size_button.dart';
 import 'package:excode/src/settings/widgets/update_dialog.dart';
 import 'package:excode/src/settings/widgets/lang_version_dialog.dart';
 import 'package:flutter/foundation.dart';
@@ -88,27 +89,10 @@ class SettingsView extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.font_download),
-                    title: const Text('Font size'),
-                    trailing: StyledDropdownContainer(
-                      child: DropdownButton<int>(
-                        dropdownColor: globalTheme.primaryColor,
-                        focusColor: globalTheme.secondaryColor,
-                        isExpanded: true,
-                        value: ref.watch(fontSizeProvider).toInt(),
-                        items: List.generate(
-                          41,
-                          (index) => DropdownMenuItem(
-                            child: Text((index + 5).toString()),
-                            value: index + 5,
-                          ),
-                        ),
-                        onChanged: (val) {
-                          fontSizeNotifier.setFontSize(val!.toDouble());
-                        },
-                      ),
-                    ),
+                  const ListTile(
+                    leading: Icon(Icons.font_download),
+                    title: Text('Font size'),
+                    trailing: FontSizeButtonWidget(),
                   ),
                   ListTile(
                     leading: const Icon(Icons.space_bar),
