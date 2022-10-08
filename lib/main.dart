@@ -2,6 +2,8 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'src/factory.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,10 @@ void main() async {
   await ApiHandler.initRuntimeVersionData();
   await UpdateService.initVersion();
   await SettingsService.initPrefs();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const ProviderScope(child: MyApp()));
 }
