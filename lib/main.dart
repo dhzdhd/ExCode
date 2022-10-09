@@ -3,7 +3,6 @@ import 'package:excode/src/auth/services/supabase.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/factory.dart';
 import 'package:flutter/material.dart';
