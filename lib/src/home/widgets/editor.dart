@@ -60,23 +60,23 @@ class EditorWidget extends HookConsumerWidget {
       return DefaultTabController(
         length: 2,
         child: Builder(builder: (context) {
-          // if (selected) {
-          //   DefaultTabController.of(context)!.animateTo(1);
-          // }
-
           return Column(
             children: [
-              // const TabBar(tabs: [Tab(text: 'Code'), Tab(text: 'Output')]),
+              if (ref.watch(tabVisibilityProvider))
+                const TabBar(tabs: [Tab(text: 'Code'), Tab(text: 'Output')]),
               Expanded(
-                  child: TabBarView(children: [
-                _CodeFieldWidget(
-                  theme: langThemeMap[
-                      getEnumFromString(ref.watch(editorThemeStateProvider))]!,
-                  lang: langMap[editorTheme]!.mode,
-                  content: content,
+                child: TabBarView(
+                  children: [
+                    _CodeFieldWidget(
+                      theme: langThemeMap[getEnumFromString(
+                          ref.watch(editorThemeStateProvider))]!,
+                      lang: langMap[editorTheme]!.mode,
+                      content: content,
+                    ),
+                    const OutputWrapperWidget(),
+                  ],
                 ),
-                const OutputWrapperWidget(),
-              ]))
+              )
             ],
           );
         }),

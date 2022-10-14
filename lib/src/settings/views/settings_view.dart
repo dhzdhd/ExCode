@@ -119,6 +119,17 @@ class SettingsView extends HookConsumerWidget {
                     ),
                   ),
                   ListTile(
+                    leading: const Icon(Icons.tab),
+                    title: const Text('Show tabs'),
+                    trailing: Switch(
+                        value: ref.watch(tabVisibilityProvider),
+                        onChanged: (val) {
+                          ref
+                              .watch(tabVisibilityProvider.notifier)
+                              .setTabVisibility();
+                        }),
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.text_format),
                     title: const Text('Word wrap'),
                     trailing: Switch(
