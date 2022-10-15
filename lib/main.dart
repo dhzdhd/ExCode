@@ -22,7 +22,7 @@ void main() async {
   }
 
   initDioClient();
-  CloudStorage.initCloudStorage();
+  Auth.initCloudStorage();
   await initDatabase();
   await initPackageInfo();
   await ApiHandler.initRuntimeVersionData();

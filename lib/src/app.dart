@@ -25,7 +25,7 @@ class _MyApp extends ConsumerState<MyApp> {
 
   @override
   void initState() {
-    _authSub = CloudStorage.sbClient.auth.onAuthStateChange((event, session) {
+    _authSub = Auth.sbClient.auth.onAuthStateChange((event, session) {
       ref.watch(authProvider.notifier).setUser(session?.user);
     });
     super.initState();

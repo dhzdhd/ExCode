@@ -144,7 +144,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (state.value == AuthType.signUp) {
-                        final response = await CloudStorage.register(
+                        final response = await Auth.register(
                             _emailController.text, _passwordController.text);
 
                         response.match(
@@ -154,17 +154,17 @@ class _AuthViewState extends ConsumerState<AuthView> {
                                     state: ActionState.error,
                                   ),
                                 ), (r) {
+                          ref.watch(authProvider.notifier).setUser(r);
+                          Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             snackBarWidget(
                               content: 'Successfully registered!',
                               state: ActionState.success,
                             ),
                           );
-                          ref.watch(authProvider.notifier).setUser(r);
-                          Navigator.pop(context);
                         });
                       } else {
-                        final response = await CloudStorage.signIn(
+                        final response = await Auth.signIn(
                             _emailController.text, _passwordController.text);
 
                         response.match(
@@ -174,14 +174,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                                     state: ActionState.error,
                                   ),
                                 ), (r) {
+                          ref.watch(authProvider.notifier).setUser(r);
+                          Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             snackBarWidget(
                               content: 'Successfully logged in!',
                               state: ActionState.success,
                             ),
                           );
-                          ref.watch(authProvider.notifier).setUser(r);
-                          Navigator.pop(context);
                         });
                       }
                     }

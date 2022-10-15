@@ -17,8 +17,7 @@ class AuthContainerWidget extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            ref.watch(authProvider)?.toJson().toString() ??
-                'Not signed in yet!',
+            ref.watch(authProvider)?.email ?? 'Not signed in yet!',
             style: const TextStyle(fontSize: 20),
           ),
           Visibility(
@@ -34,7 +33,7 @@ class AuthContainerWidget extends ConsumerWidget {
             visible: ref.watch(authProvider) != null,
             child: TextButton(
               onPressed: () async {
-                final response = await CloudStorage.signOut();
+                final response = await Auth.signOut();
                 response.match(
                   (l) => ScaffoldMessenger.of(context).showSnackBar(
                     snackBarWidget(

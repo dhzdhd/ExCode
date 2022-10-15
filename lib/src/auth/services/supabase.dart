@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class CloudStorage {
+class Auth {
   static late final SupabaseClient sbClient;
 
   static void initCloudStorage() {
