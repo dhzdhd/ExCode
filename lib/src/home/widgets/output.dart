@@ -33,7 +33,7 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
         background: selected
             ? null
             : Container(
-                color: accentColor,
+                color: globalTheme.accentColor,
               ),
         key: UniqueKey(),
         resizeDuration: const Duration(milliseconds: 2000),
@@ -50,7 +50,8 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
             borderRadius: BorderRadius.horizontal(
               left: Radius.circular(selected ? 0 : 20),
             ),
-            color: selected ? globalTheme.secondaryColor : accentColor,
+            color:
+                selected ? globalTheme.secondaryColor : globalTheme.accentColor,
           ),
           child: Visibility(
             visible: selected,

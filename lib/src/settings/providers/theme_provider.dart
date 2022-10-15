@@ -5,14 +5,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final themeStateProvider =
     StateNotifierProvider<_ThemeModel, ThemeDataModel>((ref) => _ThemeModel());
 
-const accentColor = Color.fromARGB(255, 238, 108, 77);
-
+const _accentLightColor = Color.fromARGB(255, 238, 108, 77);
 const _primaryLightColor = Color.fromARGB(255, 215, 227, 252);
 const _secondaryLightColor = Color.fromARGB(255, 244, 247, 255);
 final lightTheme = ThemeDataModel(
   primaryColor: _primaryLightColor,
   secondaryColor: _secondaryLightColor,
   invertedColor: _primaryDarkColor,
+  accentColor: _accentLightColor,
   theme: ThemeData(
     popupMenuTheme: const PopupMenuThemeData(color: _secondaryLightColor),
     brightness: Brightness.light,
@@ -30,9 +30,24 @@ final lightTheme = ThemeDataModel(
       ),
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: accentColor,
+      selectionColor: _accentLightColor,
       selectionHandleColor: _primaryLightColor,
       cursorColor: _secondaryLightColor,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _primaryLightColor,
+        foregroundColor: _primaryDarkColor,
+        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        textStyle: const TextStyle(
+          color: _secondaryDarkColor,
+          fontFamily: 'Rubik',
+        ),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(),
+      labelStyle: TextStyle(color: _accentLightColor),
     ),
     colorScheme: const ColorScheme.light(
         primary: _primaryLightColor, onPrimary: _secondaryDarkColor),
@@ -41,12 +56,14 @@ final lightTheme = ThemeDataModel(
   ),
 );
 
+const _accentDarkColor = Color.fromARGB(255, 100, 255, 218);
 const _primaryDarkColor = Color.fromARGB(255, 9, 28, 50);
 const _secondaryDarkColor = Color.fromARGB(255, 25, 41, 60);
 final darkTheme = ThemeDataModel(
   primaryColor: _primaryDarkColor,
   secondaryColor: _secondaryDarkColor,
   invertedColor: _primaryLightColor,
+  accentColor: _accentDarkColor,
   theme: ThemeData(
     popupMenuTheme: const PopupMenuThemeData(color: _secondaryDarkColor),
     brightness: Brightness.dark,
@@ -64,9 +81,24 @@ final darkTheme = ThemeDataModel(
       ),
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: accentColor,
+      selectionColor: _accentDarkColor,
       selectionHandleColor: _primaryDarkColor,
       cursorColor: _secondaryDarkColor,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _primaryDarkColor,
+        foregroundColor: _primaryLightColor,
+        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        textStyle: const TextStyle(
+          color: _secondaryLightColor,
+          fontFamily: 'Rubik',
+        ),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(),
+      labelStyle: TextStyle(color: _accentDarkColor),
     ),
     colorScheme: const ColorScheme.dark(
         primary: _primaryDarkColor, onPrimary: _secondaryLightColor),
@@ -79,12 +111,14 @@ class ThemeDataModel {
   final Color primaryColor;
   final Color secondaryColor;
   final Color invertedColor;
+  final Color accentColor;
   final ThemeData theme;
 
   ThemeDataModel({
     required this.primaryColor,
     required this.secondaryColor,
     required this.invertedColor,
+    required this.accentColor,
     required this.theme,
   });
 }
