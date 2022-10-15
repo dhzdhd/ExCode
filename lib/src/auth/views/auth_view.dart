@@ -1,3 +1,6 @@
+import 'package:excode/src/auth/providers/auth_provider.dart';
+import 'package:excode/src/auth/services/supabase.dart';
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -92,6 +95,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 child: TextFormField(
                   controller: _passwordController,
                   obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    } else if (value.length < 7) {
+                      return 'Please enter a stronger password';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     label: const Text('Password'),
                     focusedBorder: OutlineInputBorder(
@@ -108,6 +119,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   child: TextFormField(
                     controller: _confirmPasswordController,
                     obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the password';
+                      } else if (value != _passwordController.text) {
+                        return 'Passwords entered don\'t match!';
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                       label: const Text('Confirm password'),
                       focusedBorder: OutlineInputBorder(
@@ -122,7 +141,51 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      if (state.value == AuthType.signUp) {
+                        final response = await CloudStorage.register(
+                            _emailController.text, _passwordController.text);
+
+                        response.match(
+                            (l) => ScaffoldMessenger.of(context).showSnackBar(
+                                  snackBarWidget(
+                                    content: l,
+                                    state: ActionState.error,
+                                  ),
+                                ), (r) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            snackBarWidget(
+                              content: 'Successfully registered!',
+                              state: ActionState.success,
+                            ),
+                          );
+                          ref.watch(authProvider.notifier).setUser(r);
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        final response = await CloudStorage.signIn(
+                            _emailController.text, _passwordController.text);
+
+                        response.match(
+                            (l) => ScaffoldMessenger.of(context).showSnackBar(
+                                  snackBarWidget(
+                                    content: l,
+                                    state: ActionState.error,
+                                  ),
+                                ), (r) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            snackBarWidget(
+                              content: 'Successfully logged in!',
+                              state: ActionState.success,
+                            ),
+                          );
+                          ref.watch(authProvider.notifier).setUser(r);
+                          Navigator.pop(context);
+                        });
+                      }
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size.fromHeight(50),
                   ),

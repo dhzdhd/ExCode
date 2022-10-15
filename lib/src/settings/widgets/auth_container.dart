@@ -1,5 +1,7 @@
 import 'package:excode/src/auth/providers/auth_provider.dart';
+import 'package:excode/src/auth/services/supabase.dart';
 import 'package:excode/src/auth/views/auth_view.dart';
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,15 +17,42 @@ class AuthContainerWidget extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            ref.watch(authProvider)?.toString() ?? 'Not signed in yet!',
+            ref.watch(authProvider)?.toJson().toString() ??
+                'Not signed in yet!',
             style: const TextStyle(fontSize: 20),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.restorablePushNamed(context, AuthView.routeName);
-            },
-            child: const Text('Login'),
+          Visibility(
+            visible: ref.watch(authProvider) == null,
+            child: TextButton(
+              onPressed: () {
+                Navigator.restorablePushNamed(context, AuthView.routeName);
+              },
+              child: const Text('Login'),
+            ),
           ),
+          Visibility(
+            visible: ref.watch(authProvider) != null,
+            child: TextButton(
+              onPressed: () async {
+                final response = await CloudStorage.signOut();
+                response.match(
+                  (l) => ScaffoldMessenger.of(context).showSnackBar(
+                    snackBarWidget(
+                      content: l,
+                      state: ActionState.error,
+                    ),
+                  ),
+                  (r) => ScaffoldMessenger.of(context).showSnackBar(
+                    snackBarWidget(
+                      content: r,
+                      state: ActionState.success,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Sign Out'),
+            ),
+          )
         ],
       ),
     );
