@@ -1,23 +1,44 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:excode/src/auth/providers/auth_provider.dart';
+import 'package:excode/src/auth/services/supabase.dart';
 import 'package:excode/src/auth/views/auth_view.dart';
-import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
-import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:path/path.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'home/views/home_view.dart';
 import 'settings/views/settings_view.dart';
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyApp();
+}
+
+class _MyApp extends ConsumerState<MyApp> {
+  late final GotrueSubscription _authSub;
+
+  @override
+  void initState() {
+    _authSub = CloudStorage.sbClient.auth.onAuthStateChange((event, session) {
+      ref.watch(authProvider.notifier).setUser(session?.user);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _authSub.data?.unsubscribe();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       restorationScopeId: 'app',
       debugShowCheckedModeBanner: false,

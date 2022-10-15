@@ -1,3 +1,4 @@
+import 'package:excode/src/auth/providers/auth_provider.dart';
 import 'package:excode/src/auth/views/auth_view.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +11,19 @@ class AuthContainerWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       color: ref.watch(themeStateProvider).primaryColor,
-      padding: EdgeInsets.only(top: 10, bottom: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Column(
         children: [
           Text(
-            'Not signed in yet!',
-            style: TextStyle(fontSize: 20),
+            ref.watch(authProvider)?.toString() ?? 'Not signed in yet!',
+            style: const TextStyle(fontSize: 20),
           ),
           TextButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(context, AuthView.routeName);
-              },
-              child: Text('Login')),
+            onPressed: () {
+              Navigator.restorablePushNamed(context, AuthView.routeName);
+            },
+            child: const Text('Login'),
+          ),
         ],
       ),
     );

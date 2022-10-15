@@ -24,7 +24,7 @@ final lightTheme = ThemeDataModel(
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: _primaryDarkColor,
+        foregroundColor: _primaryDarkColor,
         backgroundColor: _primaryLightColor,
         shape: const BeveledRectangleBorder(),
       ),
@@ -58,7 +58,7 @@ final darkTheme = ThemeDataModel(
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: _primaryLightColor,
+        foregroundColor: _primaryLightColor,
         backgroundColor: _primaryDarkColor,
         shape: const BeveledRectangleBorder(),
       ),
