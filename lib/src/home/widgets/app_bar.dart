@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:excode/src/app.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';

@@ -8,27 +8,52 @@ import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:highlight/highlight.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
-class EditorWidget extends HookConsumerWidget {
+class EditorWidget extends StatefulHookConsumerWidget {
   const EditorWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EditorWidget> createState() => _EditorWidgetState();
+}
+
+class _EditorWidgetState extends ConsumerState<EditorWidget>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  void tabListener() {
+    if (_tabController.index == 0) {
+      ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(tabListener);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _tabController.removeListener(tabListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = ref.watch(themeStateProvider);
     final editorTheme = ref.watch(editorLanguageStateProvider);
     final content = ref.watch(editorContentStateProvider);
-    final selected = ref.watch(outputIsVisibleStateProvider);
 
-    // final _widget = useState<Widget>(_CodeFieldWidget(
-    //   theme:
-    //       langThemeMap[getEnumFromString(ref.watch(editorThemeStateProvider))]!,
-    //   lang: langMap[editorTheme]!.mode,
-    //   content: content,
-    // ));
+    ref.listen(outputIsVisibleStateProvider, ((previous, next) {
+      if (ref.watch(outputIsVisibleStateProvider) == true) {
+        _tabController.animateTo(1);
+      }
+    }));
 
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 700) {
@@ -57,29 +82,28 @@ class EditorWidget extends HookConsumerWidget {
           ),
         );
       }
-      return DefaultTabController(
-        length: 2,
-        child: Builder(builder: (context) {
-          return Column(
-            children: [
-              if (ref.watch(tabVisibilityProvider))
-                const TabBar(tabs: [Tab(text: 'Code'), Tab(text: 'Output')]),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    _CodeFieldWidget(
-                      theme: langThemeMap[getEnumFromString(
-                          ref.watch(editorThemeStateProvider))]!,
-                      lang: langMap[editorTheme]!.mode,
-                      content: content,
-                    ),
-                    const OutputWrapperWidget(),
-                  ],
+      return Column(
+        children: [
+          if (ref.watch(tabVisibilityProvider))
+            TabBar(
+              tabs: const [Tab(text: 'Code'), Tab(text: 'Output')],
+              controller: _tabController,
+            ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _CodeFieldWidget(
+                  theme: langThemeMap[
+                      getEnumFromString(ref.watch(editorThemeStateProvider))]!,
+                  lang: langMap[editorTheme]!.mode,
+                  content: content,
                 ),
-              )
-            ],
-          );
-        }),
+                const OutputWrapperWidget(),
+              ],
+            ),
+          )
+        ],
       );
     });
   }
