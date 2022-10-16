@@ -26,6 +26,8 @@ class _AuthViewState extends ConsumerState<AuthView> {
   late final TextEditingController _passwordController;
   late final TextEditingController _confirmPasswordController;
 
+  var _isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,12 @@ class _AuthViewState extends ConsumerState<AuthView> {
     super.dispose();
   }
 
+  void _setLoading() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = useState(AuthType.signUp);
@@ -52,6 +60,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !_isLoading,
         title: const Text('Authentication'),
       ),
       body: Padding(
@@ -144,9 +153,10 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (state.value == AuthType.signUp) {
+                        _setLoading();
                         final response = await Auth.register(
                             _emailController.text, _passwordController.text);
-
+                        _setLoading();
                         response.match(
                             (l) => ScaffoldMessenger.of(context).showSnackBar(
                                   snackBarWidget(
@@ -158,14 +168,17 @@ class _AuthViewState extends ConsumerState<AuthView> {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             snackBarWidget(
-                              content: 'Successfully registered!',
+                              content:
+                                  'Successfully registered! Please check your email to confirm creation!',
                               state: ActionState.success,
                             ),
                           );
                         });
                       } else {
+                        _setLoading();
                         final response = await Auth.signIn(
                             _emailController.text, _passwordController.text);
+                        _setLoading();
 
                         response.match(
                             (l) => ScaffoldMessenger.of(context).showSnackBar(
@@ -189,10 +202,12 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size.fromHeight(50),
                   ),
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 17),
-                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text(
+                          'Submit',
+                          style: TextStyle(fontSize: 17),
+                        ),
                 ),
               ),
               // TODO: Convert to OutlinedButton
@@ -211,7 +226,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   ),
                   child: Text(
                     state.value == AuthType.login
-                        ? 'Go to SignUp'
+                        ? 'Go to Signup'
                         : 'Go to Login',
                     style: const TextStyle(fontSize: 17),
                   ),

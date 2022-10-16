@@ -49,6 +49,8 @@ final lightTheme = ThemeDataModel(
       border: OutlineInputBorder(),
       labelStyle: TextStyle(color: _accentLightColor),
     ),
+    progressIndicatorTheme:
+        const ProgressIndicatorThemeData(color: _accentLightColor),
     colorScheme: const ColorScheme.light(
         primary: _primaryLightColor, onPrimary: _secondaryDarkColor),
     fontFamily: 'Rubik',
@@ -100,6 +102,8 @@ final darkTheme = ThemeDataModel(
       border: OutlineInputBorder(),
       labelStyle: TextStyle(color: _accentDarkColor),
     ),
+    progressIndicatorTheme:
+        const ProgressIndicatorThemeData(color: _accentDarkColor),
     colorScheme: const ColorScheme.dark(
         primary: _primaryDarkColor, onPrimary: _secondaryLightColor),
     fontFamily: 'Rubik',
