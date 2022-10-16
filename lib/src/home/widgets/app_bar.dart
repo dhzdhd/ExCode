@@ -11,7 +11,6 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/hastebin.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 

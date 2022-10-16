@@ -153,6 +153,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (state.value == AuthType.signUp) {
+                        // TODO: Find alternative to set loading state
                         _setLoading();
                         final response = await Auth.register(
                             _emailController.text, _passwordController.text);
@@ -169,7 +170,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             snackBarWidget(
                               content:
-                                  'Successfully registered! Please check your email to confirm creation!',
+                                  'Successfully registered! Please check your email to verify!',
                               state: ActionState.success,
                             ),
                           );

@@ -22,7 +22,7 @@ void main() async {
   }
 
   initDioClient();
-  Auth.initCloudStorage();
+  SupabaseUtils.initCloudStorage();
   await initDatabase();
   await initPackageInfo();
   await ApiHandler.initRuntimeVersionData();
