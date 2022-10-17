@@ -36,7 +36,8 @@ class _EditorContentModel extends StateNotifier<String> {
       : super(box.get('${ref.watch(editorLanguageStateProvider)}code') ??
             langMap[ref.watch(editorLanguageStateProvider)]!.baseCode);
 
-  void setContent(String content) {
+  void setContent(String lang) {
+    final content = box.get('${lang}code') ?? langMap[lang]!.baseCode;
     state = content;
   }
 

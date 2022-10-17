@@ -37,9 +37,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         onChanged: (val) {
           String lang = ApiHandler.getNameFromLang(val!);
           ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
-          ref.watch(editorContentStateProvider.notifier).setContent(
-              box.get('${lang}code') ??
-                  langMap[lang]!.baseCode); // ! Move to provider
+          ref.watch(editorContentStateProvider.notifier).setContent(lang);
         },
       ),
       automaticallyImplyLeading: false,
