@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RadioButtonWidget extends ConsumerWidget {
-  RadioButtonWidget({Key? key}) : super(key: key);
+  const RadioButtonWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,14 +18,14 @@ class RadioButtonWidget extends ConsumerWidget {
             state.value = TabEnum.two;
             ref.watch(tabSpaceProvider.notifier).setTabSpace(TabEnum.two);
           },
-          child: Text('Two'),
+          child: const Text('Two'),
         ),
         ElevatedButton(
           onPressed: () {
             state.value = TabEnum.four;
             ref.watch(tabSpaceProvider.notifier).setTabSpace(TabEnum.four);
           },
-          child: Text('Four'),
+          child: const Text('Four'),
         ),
       ],
     );

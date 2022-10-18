@@ -39,8 +39,8 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
 
   @override
   void dispose() {
-    _tabController.dispose();
     _tabController.removeListener(tabListener);
+    _tabController.dispose();
     super.dispose();
   }
 

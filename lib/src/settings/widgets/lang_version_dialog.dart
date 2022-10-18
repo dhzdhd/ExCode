@@ -13,8 +13,8 @@ class LangVersionDialogWidget extends ConsumerWidget {
       children: ApiHandler.langVersionMap.entries
           .map(
             (e) => Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              padding: EdgeInsets.all(5),
+              margin: const EdgeInsets.only(top: 5, bottom: 5),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                   10,
@@ -30,8 +30,8 @@ class LangVersionDialogWidget extends ConsumerWidget {
             ),
           )
           .toList(),
-      titlePadding: EdgeInsets.all(24),
-      contentPadding: EdgeInsets.fromLTRB(24, 0, 24, 10),
+      titlePadding: const EdgeInsets.all(24),
+      contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 10),
     );
   }
 }

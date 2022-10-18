@@ -1,5 +1,4 @@
 import 'package:excode/src/auth/providers/auth_provider.dart';
-import 'package:excode/src/auth/services/supabase.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
@@ -8,7 +7,6 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/auth_container.dart';
-import 'package:excode/src/settings/widgets/custom_radio.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/font_size_button.dart';
 import 'package:excode/src/settings/widgets/update_dialog.dart';
@@ -30,7 +28,6 @@ class SettingsView extends HookConsumerWidget {
     final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
     final tabSpaceNotifier = ref.watch(tabSpaceProvider.notifier);
-    final fontSizeNotifier = ref.watch(fontSizeProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
