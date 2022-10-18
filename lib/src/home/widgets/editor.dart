@@ -87,6 +87,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
         children: [
           if (ref.watch(tabVisibilityProvider))
             TabBar(
+              labelColor: Colors.black,
               tabs: const [Tab(text: 'Code'), Tab(text: 'Output')],
               controller: _tabController,
             ),

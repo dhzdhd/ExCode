@@ -93,7 +93,10 @@ class _OutputWidget extends ConsumerWidget {
         child: ListView(
           children: [
             _OutputListItem(
-                icon: Icons.code, title: 'Output', content: data['output']),
+              icon: Icons.code,
+              title: 'Output',
+              content: data['output'],
+            ),
             _OutputListItem(
                 icon: Icons.error, title: 'Error', content: data['err']),
           ],
@@ -132,7 +135,10 @@ class _OutputListItem extends StatelessWidget {
           children: [
             ListTile(
               leading: Icon(icon),
-              title: Text(title),
+              title: Text(
+                title,
+                style: const TextStyle(color: Colors.black),
+              ),
             ),
             Align(
               alignment: Alignment.centerLeft,
