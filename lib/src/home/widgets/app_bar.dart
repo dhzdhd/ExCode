@@ -12,6 +12,7 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/hastebin.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
@@ -37,7 +38,9 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         onChanged: (val) {
           String lang = ApiHandler.getNameFromLang(val!);
           ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
-          ref.watch(editorContentStateProvider.notifier).setContent(lang);
+          ref
+              .watch(editorContentStateProvider.notifier)
+              .setContent(const None(), lang);
         },
       ),
       automaticallyImplyLeading: false,
@@ -73,7 +76,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                   if (!ref.watch(lockProvider)) {
                     ref
                         .watch(editorContentStateProvider.notifier)
-                        .setContent('');
+                        .setContent(const Some(''));
                   }
                 },
               ),

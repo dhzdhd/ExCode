@@ -8,6 +8,7 @@ import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:highlight/highlight.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
@@ -190,7 +191,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 controller: _controller,
                 onChanged: (value) => ref
                     .watch(editorContentStateProvider.notifier)
-                    .setContent(value),
+                    .setContent(Some(value)),
                 wrap: ref.watch(settingsProvider),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final editorLanguageStateProvider =
@@ -36,9 +37,12 @@ class _EditorContentModel extends StateNotifier<String> {
       : super(box.get('${ref.watch(editorLanguageStateProvider)}code') ??
             langMap[ref.watch(editorLanguageStateProvider)]!.baseCode);
 
-  void setContent(String lang) {
-    final content = box.get('${lang}code') ?? langMap[lang]!.baseCode;
-    state = content;
+  void setContent(Option<String> content, [lang]) {
+    // TODO: Find a better way to do this
+    content.match((t) => state = t, () {
+      final content = box.get('${lang}code') ?? langMap[lang]!.baseCode;
+      state = content;
+    });
   }
 
   Future<void> saveContent(String lang, String content) async {
