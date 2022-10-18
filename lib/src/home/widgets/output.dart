@@ -135,10 +135,7 @@ class _OutputListItem extends StatelessWidget {
           children: [
             ListTile(
               leading: Icon(icon),
-              title: Text(
-                title,
-                style: const TextStyle(color: Colors.black),
-              ),
+              title: Text(title),
             ),
             Align(
               alignment: Alignment.centerLeft,
