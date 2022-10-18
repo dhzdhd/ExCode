@@ -44,9 +44,17 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
       automaticallyImplyLeading: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.play_arrow),
+          icon: ref.watch(outputIsLoadingProvider)
+              ? const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
+                )
+              : const Icon(Icons.play_arrow),
           onPressed: () async {
-            await ref.watch(outputStateProvider.notifier).setOutput(
+            await ref.watch(outputContentStateProvider.notifier).setOutput(
                   langMap[editorLanguage]!.lang,
                   ref.watch(editorContentStateProvider),
                 );
