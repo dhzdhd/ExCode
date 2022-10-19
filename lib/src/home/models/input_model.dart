@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class InputModel {
   final String stdInArgs;
   final String cmdLineArgs;

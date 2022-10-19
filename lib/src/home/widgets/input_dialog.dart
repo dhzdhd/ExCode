@@ -1,5 +1,6 @@
 import 'package:excode/src/home/models/input_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class InputDialogWidget extends StatefulWidget {
@@ -61,6 +62,14 @@ class _InputDialogWidgetState extends State<InputDialogWidget> {
                   data: InputModel(
                     stdInArgs: _stdinController.text,
                     cmdLineArgs: _cmdLineController.text,
+                  ),
+                );
+
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  snackBarWidget(
+                    content: 'Successfully saved input data!',
+                    state: ActionState.success,
                   ),
                 );
               },
