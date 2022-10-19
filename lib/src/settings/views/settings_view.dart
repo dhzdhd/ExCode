@@ -1,4 +1,4 @@
-import 'package:excode/src/auth/providers/auth_provider.dart';
+import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
