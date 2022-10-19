@@ -47,6 +47,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         SizedBox(
           width: 40,
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(elevation: 0),
             child: ref.watch(outputIsLoadingProvider)
                 ? const SizedBox(
                     width: 24,

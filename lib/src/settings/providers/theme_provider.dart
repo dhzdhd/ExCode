@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final themeStateProvider =
     StateNotifierProvider<_ThemeModel, ThemeDataModel>((ref) => _ThemeModel());
 
-const _accentLightColor = Color.fromARGB(255, 238, 108, 77);
+const _accentLightColor = Color.fromARGB(255, 180, 115, 236);
 const _primaryLightColor = Color.fromARGB(255, 215, 227, 252);
 const _secondaryLightColor = Color.fromARGB(255, 244, 247, 255);
 final lightTheme = ThemeDataModel(
