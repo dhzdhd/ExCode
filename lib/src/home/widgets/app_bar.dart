@@ -4,6 +4,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/home/widgets/input_dialog.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
@@ -43,29 +44,40 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
       ),
       automaticallyImplyLeading: false,
       actions: [
-        IconButton(
-          icon: ref.watch(outputIsLoadingProvider)
-              ? const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                  ),
-                )
-              : const Icon(Icons.play_arrow),
-          onPressed: () async {
-            await ref.watch(outputContentStateProvider.notifier).setOutput(
-                  langMap[editorLanguage]!.lang,
-                  ref.watch(editorContentStateProvider),
-                );
-            ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
-            if (ref.watch(saveOnRunProvider)) {
-              await ref.watch(editorContentStateProvider.notifier).saveContent(
-                    ref.read(editorLanguageStateProvider),
-                    ref.read(editorContentStateProvider),
+        SizedBox(
+          width: 40,
+          child: ElevatedButton(
+            child: ref.watch(outputIsLoadingProvider)
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.play_arrow),
+            onPressed: () async {
+              await ref.watch(outputContentStateProvider.notifier).setOutput(
+                    langMap[editorLanguage]!.lang,
+                    ref.watch(editorContentStateProvider),
                   );
-            }
-          },
+              ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+              if (ref.watch(saveOnRunProvider)) {
+                await ref
+                    .watch(editorContentStateProvider.notifier)
+                    .saveContent(
+                      ref.read(editorLanguageStateProvider),
+                      ref.read(editorContentStateProvider),
+                    );
+              }
+            },
+            onLongPress: () async {
+              showDialog(
+                context: context,
+                builder: ((context) {
+                  return const InputDialogWidget();
+                }),
+              );
+            },
+          ),
         ),
         IconButton(
           icon: const Icon(Icons.settings),
