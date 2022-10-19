@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
 
 enum Languages {
@@ -97,14 +98,16 @@ class ApiHandler {
   static Future<Map<String, String>> executeCode(
       Languages lang, String content) async {
     late final Response<Map<String, dynamic>> res;
+
+    final inputArgs = InputService.fetch();
     final data = {
       'language': getNameFromLang(lang),
       'version': _langVersionMap[getNameFromLang(lang)],
       'files': [
         {'content': sanitizeContent(content)}
       ],
-      'stdin': '',
-      'args': ['1', '2', '3'],
+      'stdin': inputArgs.stdInArgs,
+      'args': inputArgs.cmdLineArgs.split(','),
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };

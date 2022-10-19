@@ -1,3 +1,5 @@
+import 'package:excode/src/home/models/input_model.dart';
+import 'package:excode/src/home/services/input_service.dart';
 import 'package:flutter/material.dart';
 
 class InputDialogWidget extends StatefulWidget {
@@ -8,14 +10,15 @@ class InputDialogWidget extends StatefulWidget {
 }
 
 class _InputDialogWidgetState extends State<InputDialogWidget> {
+  late final InputModel _data;
   late final TextEditingController _stdinController;
   late final TextEditingController _cmdLineController;
 
   @override
   void initState() {
-    _stdinController =
-        TextEditingController(text: ''); // TODO: Get from provider
-    _cmdLineController = TextEditingController(text: '');
+    _data = InputService.fetch();
+    _stdinController = TextEditingController(text: _data.stdInArgs);
+    _cmdLineController = TextEditingController(text: _data.cmdLineArgs);
     super.initState();
   }
 
@@ -53,7 +56,14 @@ class _InputDialogWidgetState extends State<InputDialogWidget> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await InputService.store(
+                  data: InputModel(
+                    stdInArgs: _stdinController.text,
+                    cmdLineArgs: _cmdLineController.text,
+                  ),
+                );
+              },
               child: const Text('Save'),
             ),
           ),
