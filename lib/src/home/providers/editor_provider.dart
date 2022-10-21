@@ -1,4 +1,5 @@
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -13,6 +14,50 @@ final editorThemeStateProvider =
 final editorContentStateProvider =
     StateNotifierProvider<_EditorContentModel, String>(
         (ref) => _EditorContentModel(ref));
+final cursorSelectionStateProvider =
+    StateNotifierProvider<_CursorSelectionModel, int>(
+        (ref) => _CursorSelectionModel());
+final bottomBarButtonsStateProvider =
+    StateNotifierProvider<_BottomBarButtonsModel, List<CharModel>>(
+        (ref) => _BottomBarButtonsModel());
+
+class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
+  _BottomBarButtonsModel()
+      : super([
+          const CharModel(name: '( )', value: '()', length: 1),
+          const CharModel(name: '{ }', value: '{}', length: 1),
+          const CharModel(name: '[ ]', value: '[]', length: 1),
+          const CharModel(name: '"', value: '""', length: 1),
+          const CharModel(name: '\'', value: '\'\'', length: 1),
+          const CharModel(name: '`', value: '``', length: 1),
+          const CharModel(name: '< >', value: '<>', length: 1),
+        ]);
+
+  void append(CharModel data) {
+    state = state.append(data).toList();
+  }
+
+  void delete(String key) {
+    state = state.filter((t) => t.name != key).toList();
+  }
+
+  void reorder(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+
+    var data = state.removeAt(oldIndex);
+    state.insert(newIndex, data);
+  }
+}
+
+class _CursorSelectionModel extends StateNotifier<int> {
+  _CursorSelectionModel() : super(0);
+
+  void setCursorSelection(int selection) {
+    state = selection;
+  }
+}
 
 class _EditorLanguageNotifier extends StateNotifier<String> {
   _EditorLanguageNotifier() : super(box.get('editorLanguage') ?? 'python');

@@ -1,5 +1,4 @@
 import 'package:code_text_field/code_text_field.dart';
-import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -7,6 +6,7 @@ import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:excode/src/home/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:highlight/highlight.dart';
@@ -129,17 +129,6 @@ class _CodeFieldWidget extends StatefulHookConsumerWidget {
 class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
   late final FocusNode _focusNode;
   late CodeController _controller;
-  static const charModelList = [
-    CharModel(name: '( )', value: '()', length: 1),
-    CharModel(name: '{ }', value: '{}', length: 1),
-    CharModel(name: '[ ]', value: '[]', length: 1),
-    CharModel(name: '"', value: '""', length: 1),
-    CharModel(name: '\'', value: '\'\'', length: 1),
-    CharModel(name: '`', value: '``', length: 1),
-    CharModel(name: '< >', value: '<>', length: 1),
-  ];
-
-  var _selection = 0;
 
   @override
   void initState() {
@@ -154,6 +143,8 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
 
   @override
   void didUpdateWidget(_CodeFieldWidget oldWidget) {
+    final _selection = ref.watch(cursorSelectionStateProvider);
+
     super.didUpdateWidget(oldWidget);
     if (widget.theme != _controller.theme ||
         widget.lang != _controller.language ||
@@ -195,44 +186,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 wrap: ref.watch(settingsProvider),
               ),
             ),
-            SizedBox(
-              height: 34,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      if (!ref.watch(lockProvider)) {
-                        final spaces = ref.watch(tabSpaceProvider).space;
-                        _selection =
-                            _controller.selection.baseOffset + spaces.length;
-                        ref
-                            .watch(editorContentStateProvider.notifier)
-                            .addContent(
-                              spaces,
-                              _controller.selection.base,
-                            );
-                      }
-                    },
-                    child: const Text('TAB'),
-                  ),
-                  ...charModelList.map(
-                    (e) => TextButton(
-                      onPressed: () {
-                        if (!ref.watch(lockProvider)) {
-                          _selection =
-                              _controller.selection.baseOffset + e.length;
-                          ref
-                              .watch(editorContentStateProvider.notifier)
-                              .addContent(e.value, _controller.selection.base);
-                        }
-                      },
-                      child: Text(e.name),
-                    ),
-                  ),
-                ],
-              ),
-            )
+            BottomBarWidget(controller: _controller)
           ],
         ),
         Visibility(
@@ -240,7 +194,8 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
           child: Center(
               child: Icon(
             Icons.lock,
-            color: Colors.white.withOpacity(0.3),
+            color: Colors.white
+                .withOpacity(0.3), // FIXME: adjust for light mode too
             size: 50,
           )),
         ),
