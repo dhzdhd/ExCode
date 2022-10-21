@@ -42,14 +42,46 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   int _selectedLine = 0;
 
   @override
-  Widget build(BuildContext context) {
-    void setNumber(String text) {
-      setState(() {
-        _lineCount = '\n'.allMatches(text).length + 1;
-        _listViewWidth = 5 + 12.0 * _getDigits(_lineCount);
-      });
-    }
+  void initState() {
+    super.initState();
+    _scrollControllers = LinkedScrollControllerGroup();
+    _numberController = _scrollControllers.addAndGet();
+    _fieldController = _scrollControllers.addAndGet();
 
+    widget.controller.addListener(_updateLineNumber);
+
+    _listViewWidth = widget.initialListViewWidth;
+
+    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode!.attach(context, onKey: _onKey);
+
+    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
+  }
+
+  @override
+  void didUpdateWidget(CodeFieldWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
+    _setNumber(widget.controller.text);
+
+    widget.controller.removeListener(_updateLineNumber);
+    widget.controller.addListener(_updateLineNumber);
+  }
+
+  @override
+  void dispose() {
+    _numberController.dispose();
+    _fieldController.dispose();
+    _keyboardVisibilitySubscription?.cancel();
+
+    widget.controller.removeListener(_updateLineNumber);
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Default color scheme
     const rootKey = 'root';
     final defaultBg = Colors.grey.shade900;
@@ -100,15 +132,13 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
       maxLines: null,
       scrollController: _fieldController,
       decoration: const InputDecoration(
-        // disabledBorder: InputBorder.none,
         border: InputBorder.none,
-        // focusedBorder: InputBorder.none,
       ),
       cursorColor: theme?[rootKey]?.color ?? defaultText,
       autocorrect: false,
       enableSuggestions: false,
       onChanged: (value) {
-        setNumber(value);
+        _setNumber(value);
         widget.onChanged(value);
       },
     );
@@ -137,41 +167,11 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     );
   }
 
-  @override
-  void didUpdateWidget(CodeFieldWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    widget.controller.removeListener(_updateLineNumber);
-    widget.controller.addListener(_updateLineNumber);
-  }
-
-  @override
-  void dispose() {
-    _numberController.dispose();
-    _fieldController.dispose();
-    _keyboardVisibilitySubscription?.cancel();
-
-    widget.controller.removeListener(_updateLineNumber);
-
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _scrollControllers = LinkedScrollControllerGroup();
-    _numberController = _scrollControllers.addAndGet();
-    _fieldController = _scrollControllers.addAndGet();
-
-    widget.controller.addListener(_updateLineNumber);
-
-    _listViewWidth = widget.initialListViewWidth;
-
-    _focusNode = widget.focusNode ?? FocusNode();
-    _focusNode!.attach(context, onKey: _onKey);
-
-    _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
+  void _setNumber(String text) {
+    setState(() {
+      _lineCount = '\n'.allMatches(text).length + 1;
+      _listViewWidth = 5 + 12.0 * _getDigits(_lineCount);
+    });
   }
 
   int _getDigits(int num) {
