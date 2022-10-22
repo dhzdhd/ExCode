@@ -55,7 +55,9 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (context) => const AddSnippetDialogWidget(),
+                          builder: (context) => const AddSnippetDialogWidget(
+                            option: SnippetDialogOption.add,
+                          ),
                         );
                       },
                       icon: const Icon(Icons.add),
@@ -90,19 +92,23 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        ref
-                                            .watch(bottomBarButtonsStateProvider
-                                                .notifier)
-                                            .delete(e.name);
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              AddSnippetDialogWidget(
+                                            option: SnippetDialogOption.edit,
+                                            oldModel: e,
+                                          ),
+                                        );
                                       },
                                       icon: const Icon(Icons.edit),
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        ref.watch(bottomBarButtonsStateProvider
-                                            .notifier);
-                                        // TODO: implement edit
-                                        // .edit(e.name);
+                                        ref
+                                            .watch(bottomBarButtonsStateProvider
+                                                .notifier)
+                                            .delete(e.name);
                                       },
                                       icon: const Icon(Icons.delete),
                                     ),
@@ -143,8 +149,17 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
   }
 }
 
+enum SnippetDialogOption {
+  add,
+  edit,
+}
+
 class AddSnippetDialogWidget extends ConsumerStatefulWidget {
-  const AddSnippetDialogWidget({Key? key}) : super(key: key);
+  final SnippetDialogOption option;
+  final CharModel? oldModel;
+
+  const AddSnippetDialogWidget({Key? key, required this.option, this.oldModel})
+      : super(key: key);
 
   @override
   ConsumerState<AddSnippetDialogWidget> createState() =>
@@ -159,9 +174,21 @@ class _AddSnippetDialogWidgetState
 
   @override
   void initState() {
-    _nameController = TextEditingController();
-    _valueController = TextEditingController();
-    _lengthController = TextEditingController(text: '1');
+    _nameController = TextEditingController(
+      text: widget.option == SnippetDialogOption.edit
+          ? widget.oldModel!.name
+          : '',
+    );
+    _valueController = TextEditingController(
+      text: widget.option == SnippetDialogOption.edit
+          ? widget.oldModel!.value
+          : '',
+    );
+    _lengthController = TextEditingController(
+      text: widget.option == SnippetDialogOption.edit
+          ? widget.oldModel!.length.toString()
+          : '1',
+    );
     super.initState();
   }
 
@@ -177,7 +204,11 @@ class _AddSnippetDialogWidgetState
     final _formKey = GlobalKey<FormState>();
 
     return SimpleDialog(
-        title: const Text('Add a custom snippet'),
+        title: Text(
+          widget.option == SnippetDialogOption.edit
+              ? 'Edit snippet'
+              : 'Add a custom snippet',
+        ),
         contentPadding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 16.0),
         children: [
           Form(
@@ -239,15 +270,32 @@ class _AddSnippetDialogWidgetState
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          ref
-                              .watch(bottomBarButtonsStateProvider.notifier)
-                              .append(CharModel(
-                                name: _nameController.text,
-                                value: _valueController.text,
-                                length: int.parse(
-                                  _lengthController.text,
-                                ),
-                              ));
+                          if (widget.option == SnippetDialogOption.add) {
+                            ref
+                                .watch(bottomBarButtonsStateProvider.notifier)
+                                .append(CharModel(
+                                  name: _nameController.text,
+                                  value: _valueController.text,
+                                  length: int.parse(
+                                    _lengthController.text,
+                                  ),
+                                ));
+                          } else {
+                            // setState(() {
+                            ref
+                                .watch(bottomBarButtonsStateProvider.notifier)
+                                .edit(
+                                  oldData: widget.oldModel!,
+                                  newData: CharModel(
+                                    name: _nameController.text,
+                                    value: _valueController.text,
+                                    length: int.parse(
+                                      _lengthController.text,
+                                    ),
+                                  ),
+                                );
+                            // });
+                          }
                           Navigator.of(context).pop();
                         }
                       },

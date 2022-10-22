@@ -37,6 +37,14 @@ class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
     state = state.append(data).toList();
   }
 
+  void edit({required CharModel oldData, required CharModel newData}) {
+    final index = state.indexOf(oldData);
+    final temp = state;
+    temp.removeAt(index);
+    temp.insert(index, newData);
+    state = temp;
+  }
+
   void delete(String key) {
     state = state.filter((t) => t.name != key).toList();
   }
