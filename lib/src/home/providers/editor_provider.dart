@@ -46,7 +46,7 @@ class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
       newIndex -= 1;
     }
 
-    var data = state.removeAt(oldIndex);
+    final data = state.removeAt(oldIndex);
     state.insert(newIndex, data);
   }
 }

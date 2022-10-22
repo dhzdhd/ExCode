@@ -45,6 +45,13 @@ final lightTheme = ThemeDataModel(
         ),
       ),
     ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        backgroundColor: _primaryLightColor,
+        side: const BorderSide(color: _accentLightColor),
+        foregroundColor: _primaryDarkColor,
+      ),
+    ),
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
       labelStyle: TextStyle(color: _accentLightColor),
@@ -96,6 +103,13 @@ final darkTheme = ThemeDataModel(
           color: _secondaryLightColor,
           fontFamily: 'Rubik',
         ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        backgroundColor: _primaryDarkColor,
+        side: const BorderSide(color: _accentDarkColor),
+        foregroundColor: _primaryLightColor,
       ),
     ),
     inputDecorationTheme: const InputDecorationTheme(
