@@ -89,14 +89,23 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                                 Row(
                                   children: [
                                     IconButton(
-                                        onPressed: () {
-                                          ref
-                                              .watch(
-                                                  bottomBarButtonsStateProvider
-                                                      .notifier)
-                                              .delete(e.name);
-                                        },
-                                        icon: const Icon(Icons.delete_outline)),
+                                      onPressed: () {
+                                        ref
+                                            .watch(bottomBarButtonsStateProvider
+                                                .notifier)
+                                            .delete(e.name);
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        ref.watch(bottomBarButtonsStateProvider
+                                            .notifier);
+                                        // TODO: implement edit
+                                        // .edit(e.name);
+                                      },
+                                      icon: const Icon(Icons.delete),
+                                    ),
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 20.0),
@@ -165,57 +174,90 @@ class _AddSnippetDialogWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+
     return SimpleDialog(
-      title: const Text('Add a custom snippet'),
-      contentPadding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 16.0),
-      children: [
-        // TODO: Add validators
-        Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 5),
-          child: TextFormField(
-            controller: _nameController,
-            decoration: const InputDecoration(labelText: 'Name'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 5),
-          child: TextFormField(
-            minLines: null,
-            maxLines: 2,
-            controller: _valueController,
-            decoration: const InputDecoration(labelText: 'Value'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 5),
-          child: TextFormField(
-            controller: _lengthController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Length'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: SizedBox(
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () async {
-                ref
-                    .watch(bottomBarButtonsStateProvider.notifier)
-                    .append(CharModel(
-                      name: _nameController.text,
-                      value: _valueController.text,
-                      length: int.parse(
-                        _lengthController.text,
-                      ),
-                    ));
-                Navigator.of(context).pop();
-              },
-              child: const Text('Save', style: TextStyle(fontSize: 16)),
+        title: const Text('Add a custom snippet'),
+        contentPadding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 16.0),
+        children: [
+          Form(
+            key: _formKey,
+            onChanged: () => _formKey.currentState!.validate(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 5),
+                  child: TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(labelText: 'Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ' Enter a string!';
+                      } else if (value.length > 10) {
+                        return 'Max length of 10 allowed!';
+                      } else if (ref
+                          .read(bottomBarButtonsStateProvider)
+                          .map((e) => e.name)
+                          .contains(value)) {
+                        return 'Duplicate names not allowed!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 5),
+                  child: TextFormField(
+                    minLines: null,
+                    maxLines: 2,
+                    controller: _valueController,
+                    decoration: const InputDecoration(labelText: 'Value'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 5),
+                  child: TextFormField(
+                    controller: _lengthController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Length'),
+                    validator: (value) {
+                      final data = int.tryParse(value.toString());
+                      if (data == null) {
+                        return 'Enter an integer!';
+                      } else if (data > 30) {
+                        return 'Max value of 30 allowed!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          ref
+                              .watch(bottomBarButtonsStateProvider.notifier)
+                              .append(CharModel(
+                                name: _nameController.text,
+                                value: _valueController.text,
+                                length: int.parse(
+                                  _lengthController.text,
+                                ),
+                              ));
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: const Text('Save', style: TextStyle(fontSize: 16)),
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-        )
-      ],
-    );
+          )
+        ]);
   }
 }
