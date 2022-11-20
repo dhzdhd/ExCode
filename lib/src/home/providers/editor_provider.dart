@@ -1,6 +1,7 @@
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:excode/src/home/services/snippet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,19 +23,11 @@ final bottomBarButtonsStateProvider =
         (ref) => _BottomBarButtonsModel());
 
 class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
-  _BottomBarButtonsModel()
-      : super([
-          const CharModel(name: '( )', value: '()', length: 1),
-          const CharModel(name: '{ }', value: '{}', length: 1),
-          const CharModel(name: '[ ]', value: '[]', length: 1),
-          const CharModel(name: '"', value: '""', length: 1),
-          const CharModel(name: '\'', value: '\'\'', length: 1),
-          const CharModel(name: '`', value: '``', length: 1),
-          const CharModel(name: '< >', value: '<>', length: 1),
-        ]);
+  _BottomBarButtonsModel() : super(SnippetService.fetch());
 
   void append(CharModel data) {
     state = state.append(data).toList();
+    SnippetService.store(data: state);
   }
 
   void edit({required CharModel oldData, required CharModel newData}) {
@@ -43,10 +36,12 @@ class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
     temp.removeAt(index);
     temp.insert(index, newData);
     state = temp;
+    SnippetService.store(data: state);
   }
 
   void delete(String key) {
     state = state.filter((t) => t.name != key).toList();
+    SnippetService.store(data: state);
   }
 
   void reorder(int oldIndex, int newIndex) {
@@ -56,6 +51,7 @@ class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
 
     final data = state.removeAt(oldIndex);
     state.insert(newIndex, data);
+    SnippetService.store(data: state);
   }
 }
 

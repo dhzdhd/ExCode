@@ -14,6 +14,9 @@ final lockProvider =
 final tabVisibilityProvider =
     StateNotifierProvider<_TabVisibilityNotifier, bool>(
         (ref) => _TabVisibilityNotifier());
+final floatingRunVisibilityProvider =
+    StateNotifierProvider<_FloatingRunVisibilityNotifier, bool>(
+        (ref) => _FloatingRunVisibilityNotifier());
 
 class _SettingsNotifier extends StateNotifier<bool> {
   _SettingsNotifier() : super(box.get('wordwrap') ?? false);
@@ -82,6 +85,16 @@ class _TabVisibilityNotifier extends StateNotifier<bool> {
 
   void setTabVisibility() {
     box.put('tabVisibility', !state);
+    state = !state;
+  }
+}
+
+class _FloatingRunVisibilityNotifier extends StateNotifier<bool> {
+  _FloatingRunVisibilityNotifier()
+      : super(box.get('floatingRunVisibility') ?? false);
+
+  void setFloatingRunVisibility() {
+    box.put('floatingRunVisibility', !state);
     state = !state;
   }
 }

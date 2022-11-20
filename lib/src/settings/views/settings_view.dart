@@ -174,6 +174,17 @@ class SettingsView extends HookConsumerWidget {
                           );
                         }),
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.play_arrow),
+                    title: const Text('Show floating run'),
+                    trailing: Switch(
+                        value: ref.watch(floatingRunVisibilityProvider),
+                        onChanged: (val) {
+                          ref
+                              .watch(floatingRunVisibilityProvider.notifier)
+                              .setFloatingRunVisibility();
+                        }),
+                  ),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                     child: Divider(),

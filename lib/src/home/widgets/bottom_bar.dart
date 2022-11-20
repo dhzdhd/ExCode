@@ -1,4 +1,3 @@
-import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/widgets/bottom_bar_dialog.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
@@ -70,8 +69,7 @@ class BottomBarWidget extends ConsumerWidget {
             },
             icon: const Icon(Icons.add),
             style: IconButton.styleFrom(
-              backgroundColor: ref.watch(themeStateProvider).accentColor,
-              foregroundColor: ref.watch(themeStateProvider).primaryColor,
+              foregroundColor: ref.watch(themeStateProvider).accentColor,
               shape: const BeveledRectangleBorder(),
             ),
           )

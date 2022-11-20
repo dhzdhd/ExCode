@@ -15,14 +15,27 @@ class CharModel with _$CharModel {
 }
 
 extension CharModelSerialisable on CharModel {
-  static CharModel fromJsonString(String json) {
-    final map = const JsonDecoder().convert(json);
-    return CharModel(
-        name: map['name'], value: map['value'], length: map['length']);
+  static List<CharModel> fromJsonString(String json) {
+    final List list = const JsonDecoder().convert(json);
+    return list
+        .map(
+          (e) => CharModel(
+            name: e['name'],
+            value: e['value'],
+            length: e['length'],
+          ),
+        )
+        .toList();
   }
 
-  String toJson() {
-    final map = {'name': name, 'value': value, 'length': length};
-    return const JsonEncoder().convert(map);
+  static String toJsonString(List<CharModel> list) {
+    final json = list.map(
+      (e) => {
+        'name': e.name,
+        'value': e.value,
+        'length': e.length,
+      },
+    );
+    return const JsonEncoder().convert(json);
   }
 }
