@@ -118,7 +118,7 @@ class __$$_LangModelCopyWithImpl<$Res> extends _$LangModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
+class _$_LangModel implements _LangModel {
   const _$_LangModel(
       {required this.mode,
       required this.name,
@@ -135,19 +135,8 @@ class _$_LangModel with DiagnosticableTreeMixin implements _LangModel {
   final String baseCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'LangModel(mode: $mode, name: $name, lang: $lang, baseCode: $baseCode)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'LangModel'))
-      ..add(DiagnosticsProperty('mode', mode))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('lang', lang))
-      ..add(DiagnosticsProperty('baseCode', baseCode));
   }
 
   @override

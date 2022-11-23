@@ -1,4 +1,5 @@
 import 'package:code_text_field/code_text_field.dart';
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -173,17 +174,22 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         Column(
           children: [
             Expanded(
-              child: CodeFieldWidget(
-                enabled: !ref.watch(lockProvider),
-                focusNode: _focusNode,
-                textStyle: TextStyle(
-                    fontFamily: 'FiraCode',
-                    fontSize: ref.watch(fontSizeProvider)),
-                controller: _controller,
-                onChanged: (value) => ref
-                    .watch(editorContentStateProvider.notifier)
-                    .setContent(Some(value)),
-                wrap: ref.watch(settingsProvider),
+              child: DropTarget(
+                onDragDone: (detail) async {
+                  print(detail.files[0].name);
+                },
+                child: CodeFieldWidget(
+                  enabled: !ref.watch(lockProvider),
+                  focusNode: _focusNode,
+                  textStyle: TextStyle(
+                      fontFamily: 'FiraCode',
+                      fontSize: ref.watch(fontSizeProvider)),
+                  controller: _controller,
+                  onChanged: (value) => ref
+                      .watch(editorContentStateProvider.notifier)
+                      .setContent(Some(value)),
+                  wrap: ref.watch(settingsProvider),
+                ),
               ),
             ),
             BottomBarWidget(controller: _controller)

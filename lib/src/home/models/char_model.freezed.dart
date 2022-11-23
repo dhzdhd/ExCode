@@ -107,7 +107,7 @@ class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
+class _$_CharModel implements _CharModel {
   const _$_CharModel(
       {required this.name, required this.value, required this.length});
 
@@ -119,18 +119,8 @@ class _$_CharModel with DiagnosticableTreeMixin implements _CharModel {
   final int length;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'CharModel(name: $name, value: $value, length: $length)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'CharModel'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('value', value))
-      ..add(DiagnosticsProperty('length', length));
   }
 
   @override

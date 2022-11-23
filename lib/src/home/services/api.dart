@@ -85,6 +85,7 @@ class ApiHandler {
 
   static Languages getLangFromName(String name) {
     return langMap[name]!.lang;
+    // TODO: return Either<L, R>
   }
 
   static String getNameFromLang(Languages lang) {

@@ -98,7 +98,7 @@ class __$$_OutputModelCopyWithImpl<$Res> extends _$OutputModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OutputModel with DiagnosticableTreeMixin implements _OutputModel {
+class _$_OutputModel implements _OutputModel {
   const _$_OutputModel({required this.output, required this.error});
 
   @override
@@ -107,17 +107,8 @@ class _$_OutputModel with DiagnosticableTreeMixin implements _OutputModel {
   final String error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'OutputModel(output: $output, error: $error)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'OutputModel'))
-      ..add(DiagnosticsProperty('output', output))
-      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
