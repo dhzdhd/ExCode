@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/models/output_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:fpdart/fpdart.dart';
 
 enum Languages {
   bash,
@@ -83,27 +85,33 @@ class ApiHandler {
     }
   }
 
-  static Languages getLangFromName(String name) {
-    return langMap[name]!.lang;
-    // TODO: return Either<L, R>
+  static Either<Languages, Languages> getLangFromName(String name) {
+    return Either.tryCatch(
+      () => langMap[name]!.lang,
+      ((_, __) => langMap[defaultLanguage]!.lang),
+    );
   }
 
-  static String getNameFromLang(Languages lang) {
-    return langMap.keys.firstWhere((element) => langMap[element]!.lang == lang);
+  static Either<String, String> getNameFromLang(Languages lang) {
+    return Either.tryCatch(
+      () =>
+          langMap.keys.firstWhere((element) => langMap[element]!.lang == lang),
+      (_, __) => defaultLanguage,
+    );
   }
 
   static String sanitizeContent(String content) {
     return content.replaceAll('\u{00B7}', ' ');
   }
 
-  static Future<Map<String, String>> executeCode(
-      Languages lang, String content) async {
+  static Future<OutputModel> executeCode(Languages lang, String content) async {
     late final Response<Map<String, dynamic>> res;
 
+    final langString = getNameFromLang(lang).match<String>((l) => l, (r) => r);
     final inputArgs = InputService.fetch();
     final data = {
-      'language': getNameFromLang(lang),
-      'version': _langVersionMap[getNameFromLang(lang)],
+      'language': langString,
+      'version': _langVersionMap[langString],
       'files': [
         {'content': sanitizeContent(content)}
       ],
@@ -117,7 +125,7 @@ class ApiHandler {
       print(data);
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
-      return {'output': 'No output', 'err': err.message};
+      return OutputModel(output: 'No output', error: err.message);
     }
 
     print(res.data);
@@ -132,10 +140,10 @@ class ApiHandler {
     if (res.data!.containsKey('compile')) {
       if (res.data!['compile']['stdout'].isEmpty &&
           res.data!['compile']['stderr'].isEmpty) {
-        return {
-          'output': res.data!['run']['stdout'],
-          'err': res.data!['run']['stderr'],
-        };
+        return OutputModel(
+          output: res.data!['run']['stdout'],
+          error: res.data!['run']['stderr'],
+        );
       } else {
         if (res.data!['compile']['stdout'].isEmpty) {
           res.data!['compile']['stdout'] = 'No output';
@@ -143,16 +151,17 @@ class ApiHandler {
         if (res.data!['compile']['stderr'].isEmpty) {
           res.data!['compile']['stderr'] = 'No errors';
         }
-        return {
-          'output': res.data!['compile']['stdout'],
-          'err': res.data!['compile']['stderr'],
-        };
+
+        return OutputModel(
+          output: res.data!['compile']['stdout'],
+          error: res.data!['compile']['stderr'],
+        );
       }
     }
 
-    return {
-      'output': res.data!['run']['stdout'],
-      'err': res.data!['run']['stderr'],
-    };
+    return OutputModel(
+      output: res.data!['run']['stdout'],
+      error: res.data!['run']['stderr'],
+    );
   }
 }

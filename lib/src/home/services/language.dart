@@ -182,6 +182,8 @@ Themes getEnumFromTheme(Map<String, TextStyle> theme) {
       .firstWhere((element) => langThemeMap[element] == theme);
 }
 
+const defaultLanguage = 'python';
+
 final Map<String, LangModel> langMap = {
   // ! Add support for extensions
   'bash': LangModel(

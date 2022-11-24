@@ -1,3 +1,4 @@
+import 'package:excode/src/home/models/output_model.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,9 +9,9 @@ final outputIsLoadingProvider =
     StateNotifierProvider<_OutputIsLoadingNotifier, bool>(
         (ref) => _OutputIsLoadingNotifier());
 final outputContentStateProvider =
-    StateNotifierProvider<_OutputContentNotifier, Map>(
+    StateNotifierProvider<_OutputContentNotifier, OutputModel>(
         (ref) => _OutputContentNotifier(ref));
-final futureOutputStateProvider = FutureProvider<Map>((ref) async {
+final futureOutputStateProvider = FutureProvider<OutputModel>((ref) async {
   return ref.watch(outputContentStateProvider);
 });
 
@@ -34,12 +35,14 @@ class _OutputIsLoadingNotifier extends StateNotifier<bool> {
   }
 }
 
-class _OutputContentNotifier extends StateNotifier<Map> {
-  final StateNotifierProviderRef<_OutputContentNotifier, Map<dynamic, dynamic>>
-      ref;
+class _OutputContentNotifier extends StateNotifier<OutputModel> {
+  final StateNotifierProviderRef<_OutputContentNotifier, OutputModel> ref;
 
   _OutputContentNotifier(this.ref)
-      : super({'output': 'Execute code to see output', 'err': '-'});
+      : super(const OutputModel(
+          output: 'Execute code to see output',
+          error: '-',
+        ));
 
   Future<void> setOutput(Languages lang, String content) async {
     ref.watch(outputIsLoadingProvider.notifier).setIsLoading();
