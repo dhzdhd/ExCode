@@ -19,8 +19,8 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
 "canvaskit/canvaskit.js": "2bc454a691c631b07a9307ac4ca47797",
 "canvaskit/canvaskit.wasm": "bf50631470eb967688cca13ee181af62",
-"index.html": "2ac589f00f76c9fddfec5b29b40cb232",
-"/": "2ac589f00f76c9fddfec5b29b40cb232",
+"index.html": "da3110890bb90aa4c2bf7fec746857ea",
+"/": "da3110890bb90aa4c2bf7fec746857ea",
 "version.json": "74209a8990489b760f857590c536d379",
 "manifest.json": "86d2800ce69c06518eee1c25b7d8ffd2",
 "styles.css": "0f3fff9b382911b147a47ac42bc8c530",
@@ -28,7 +28,7 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"main.dart.js": "13cb31379c4a23bd368626ea6a6a809b"
+"main.dart.js": "0e712705eb7dc7ac64c19504d81dce7c"
 };
 
 // The application shell files that are downloaded before a service worker can
