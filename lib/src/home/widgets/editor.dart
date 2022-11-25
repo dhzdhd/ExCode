@@ -4,6 +4,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/code_field.dart';
+import 'package:excode/src/home/widgets/drag_drop_dialog.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
@@ -176,7 +177,12 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
             Expanded(
               child: DropTarget(
                 onDragDone: (detail) async {
-                  print(detail.files[0].name);
+                  showDialog(
+                    context: context,
+                    builder: ((context) {
+                      return const DragDropDialogWidget();
+                    }),
+                  );
                 },
                 child: CodeFieldWidget(
                   enabled: !ref.watch(lockProvider),
