@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.4.0 | 28-11-2022
+
+### Additions
+
+- Add tab visibility setting and option to manually switch between tabs.
+- Reintroduce save to cloud setting (does not work as for now).
+- Add user accounts and login functionality.
+- Add progress indicators to indicate execution progress.
+- Add stdin and command line arguments.
+- Add floating run button.
+
+### Future additions
+
+- Cloud storage of data
+- Drag and open files on editor
+- Add functionality to customise snippet bar.
+
+### Fixes / Improvements
+
+- Fix line number colors in light theme.
+- Change font size button.
+- Editor now switches to output tab on executing code.
+- Line numbers should now update on changing language.
+
 ## 0.3.0 | 2-10-2022
 
 ### Additions
