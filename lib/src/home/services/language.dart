@@ -39,7 +39,6 @@ import 'package:flutter_highlight/themes/vs.dart';
 import 'package:flutter_highlight/themes/xcode.dart';
 import 'package:flutter_highlight/themes/xt256.dart';
 import 'package:flutter_highlight/themes/zenburn.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:highlight/languages/awk.dart';
 import 'package:highlight/languages/bash.dart';
 import 'package:highlight/languages/basic.dart';

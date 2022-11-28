@@ -1,5 +1,4 @@
 import 'package:excode/src/home/services/api.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:highlight/highlight.dart';
 
