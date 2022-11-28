@@ -30,6 +30,9 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
     if (_tabController.index == 0) {
       ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
     }
+    if (_tabController.index == 1) {
+      ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+    }
   }
 
   @override
