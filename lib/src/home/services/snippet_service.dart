@@ -3,21 +3,25 @@ import 'package:excode/src/home/models/char_model.dart';
 
 class SnippetService {
   static Future<void> store({required List<CharModel> data}) async {
-    await box.put('snippetList', CharModelSerialisable.toJsonString(data));
+    await box.put('snippetList', data.map((e) => e.toJson()).toList());
   }
 
   static List<CharModel> fetch() {
-    return CharModelSerialisable.fromJsonString(
-      box.get('snippetList') ??
-          '''[
-          {"name": "( )", "value": "()", "length": 1},
-          {"name": "{ }", "value": "{}", "length": 1},
-          {"name": "[ ]", "value": "[]", "length": 1},
-          {"name": "\\"", "value": "\\"\\"", "length": 1},
-          {"name": "'", "value": "''", "length": 1},
-          {"name": "`", "value": "``", "length": 1},
-          {"name": "< >", "value": "<>", "length": 1}
-        ]''',
-    );
+    final List<dynamic>? dynamicList = box.get('snippetList');
+
+    final storedCharList = dynamicList
+        ?.map((e) => CharModel.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+
+    return storedCharList ??
+        [
+          {'name': '( )', 'value': '()', 'length': 1},
+          {'name': '{ }', 'value': '{}', 'length': 1},
+          {'name': '[ ]', 'value': '[]', 'length': 1},
+          {'name': '\\', 'value': '\\', 'length': 1},
+          {'name': "'", 'value': "''", 'length': 1},
+          {'name': '`', 'value': '``', 'length': 1},
+          {'name': '< >', 'value': '<>', 'length': 1},
+        ].map((e) => CharModel.fromJson(e)).toList();
   }
 }

@@ -199,11 +199,12 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
   }
 
   void _updateLineNumber() {
+    final offset = widget.controller.selection.base.offset;
     setState(() {
       _selectedLine = '\n'
               .allMatches(widget.controller.text.substring(
                 0,
-                widget.controller.selection.base.offset,
+                offset,
               ))
               .length +
           1;

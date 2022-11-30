@@ -14,12 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+CharModel _$CharModelFromJson(Map<String, dynamic> json) {
+  return _CharModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$CharModel {
   String get name => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
   int get length => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CharModelCopyWith<CharModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -106,10 +111,13 @@ class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_CharModel implements _CharModel {
   const _$_CharModel(
       {required this.name, required this.value, required this.length});
+
+  factory _$_CharModel.fromJson(Map<String, dynamic> json) =>
+      _$$_CharModelFromJson(json);
 
   @override
   final String name;
@@ -133,6 +141,7 @@ class _$_CharModel implements _CharModel {
             const DeepCollectionEquality().equals(other.length, length));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -144,6 +153,13 @@ class _$_CharModel implements _CharModel {
   @override
   _$$_CharModelCopyWith<_$_CharModel> get copyWith =>
       __$$_CharModelCopyWithImpl<_$_CharModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CharModelToJson(
+      this,
+    );
+  }
 }
 
 abstract class _CharModel implements CharModel {
@@ -151,6 +167,9 @@ abstract class _CharModel implements CharModel {
       {required final String name,
       required final String value,
       required final int length}) = _$_CharModel;
+
+  factory _CharModel.fromJson(Map<String, dynamic> json) =
+      _$_CharModel.fromJson;
 
   @override
   String get name;
