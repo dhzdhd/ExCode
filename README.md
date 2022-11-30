@@ -7,10 +7,11 @@ A online code execution multi-platform app that supports lots of languages
 Currently supports the following platforms
 
 - Windows
+- Linux
 - Android
 - Web
 
-Linux support is planned for future releases.
+MacOS and iOS support is planned for future releases.
 
 ## Contributing
 
