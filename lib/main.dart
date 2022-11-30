@@ -25,6 +25,7 @@ void main() async {
   await initDatabase();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();
+  await initDownloader();
 
   runApp(const ProviderScope(child: MyApp()));
 }
