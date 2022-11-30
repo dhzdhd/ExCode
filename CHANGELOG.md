@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.4.1 | 30-11-2022 (HOTFIX)
+
+### Additions
+
+- Added functionality to create custom snippets.
+- Added functionality to reorder snippet bar.
+
+### Fixes / Improvements
+
+- Fixed windows startup issue.
+- Fixed issue where changing language crashed the editor.
+
 ## 0.4.0 | 28-11-2022
 
 ### Additions
