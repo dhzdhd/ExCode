@@ -25,3 +25,4 @@ linter:
     avoid_print: false
     prefer_single_quotes: true
     unnecessary_this: false
+    non_constant_identifier_names: false
