@@ -1,4 +1,5 @@
 import 'package:excode/src/cloud/providers/auth_provider.dart';
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
@@ -251,8 +252,9 @@ class SettingsView extends HookConsumerWidget {
               ),
             ),
             const Divider(),
-            const SizedBox(
-              child: Text(kIsWeb ? 'Build latest' : 'Build v0.3.0'),
+            SizedBox(
+              child: Text(
+                  kIsWeb ? 'Build latest' : 'Build v${packageInfo.version}'),
             )
           ],
         ),

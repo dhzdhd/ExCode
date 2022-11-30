@@ -3,7 +3,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/services/supabase.dart';
 import 'package:excode/src/cloud/views/auth_view.dart';
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:excode/src/settings/services/settings_service.dart';
+import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,6 +32,8 @@ class _MyApp extends ConsumerState<MyApp> {
       ref.watch(authProvider.notifier).setUser(session?.user);
     });
     super.initState();
+    initPackageInfo();
+    UpdateService.initVersion();
   }
 
   @override
