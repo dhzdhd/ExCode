@@ -252,10 +252,11 @@ class SettingsView extends HookConsumerWidget {
               ),
             ),
             const Divider(),
-            SizedBox(
-              child: Text(
-                  kIsWeb ? 'Build latest' : 'Build v${packageInfo.version}'),
-            )
+            if (defaultTargetPlatform != TargetPlatform.windows)
+              SizedBox(
+                child: Text(
+                    kIsWeb ? 'Build latest' : 'Build v${packageInfo.version}'),
+              )
           ],
         ),
       ),
