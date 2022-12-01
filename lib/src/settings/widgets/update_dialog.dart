@@ -1,7 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,9 @@ class InfoDialogWidget extends StatefulWidget {
 
 class _InfoDialogWidgetState extends State<InfoDialogWidget> {
   final ReceivePort _port = ReceivePort();
+  DownloadTaskStatus status = DownloadTaskStatus.undefined;
+  int progress = 0;
+  String id = '';
 
   @override
   void initState() {
@@ -27,11 +29,11 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
-      // ! Implement loader
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
+      setState(() {
+        id = data[0];
+        status = data[1];
+        progress = data[2];
+      });
     });
 
     FlutterDownloader.registerCallback(downloadCallback);
@@ -67,7 +69,6 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
               (defaultTargetPlatform == TargetPlatform.android), // !
           child: ElevatedButton(
             onPressed: () async {
-              print(UpdateService.latestVersionUrl);
               await FlutterDownloader.enqueue(
                 url: UpdateService.latestVersionUrl,
                 headers: {},

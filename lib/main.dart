@@ -25,7 +25,10 @@ void main() async {
   await initDatabase();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();
-  await initDownloader();
+
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    await initDownloader();
+  }
 
   runApp(const ProviderScope(child: MyApp()));
 }
