@@ -42,6 +42,7 @@ class _MyApp extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'ExCode',
       restorationScopeId: 'app',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
