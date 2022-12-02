@@ -32,7 +32,7 @@ final lightTheme = ThemeDataModel(
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: _accentLightColor,
       selectionHandleColor: _primaryLightColor,
-      cursorColor: _secondaryLightColor,
+      cursorColor: _secondaryDarkColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -92,7 +92,7 @@ final darkTheme = ThemeDataModel(
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: _accentDarkColor,
       selectionHandleColor: _primaryDarkColor,
-      cursorColor: _secondaryDarkColor,
+      cursorColor: _secondaryLightColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
