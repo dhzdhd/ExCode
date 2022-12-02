@@ -91,8 +91,6 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
                       );
                     },
                     onEnd: (() {
-                      int a = 0;
-
                       // FIXME:
                       if (status == DownloadTaskStatus.complete) {
                         ScaffoldMessenger.of(context)

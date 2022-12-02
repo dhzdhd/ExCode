@@ -28,33 +28,37 @@ mixin _$OutputModel {
 abstract class $OutputModelCopyWith<$Res> {
   factory $OutputModelCopyWith(
           OutputModel value, $Res Function(OutputModel) then) =
-      _$OutputModelCopyWithImpl<$Res>;
+      _$OutputModelCopyWithImpl<$Res, OutputModel>;
+  @useResult
   $Res call({String output, String error});
 }
 
 /// @nodoc
-class _$OutputModelCopyWithImpl<$Res> implements $OutputModelCopyWith<$Res> {
+class _$OutputModelCopyWithImpl<$Res, $Val extends OutputModel>
+    implements $OutputModelCopyWith<$Res> {
   _$OutputModelCopyWithImpl(this._value, this._then);
 
-  final OutputModel _value;
   // ignore: unused_field
-  final $Res Function(OutputModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? output = freezed,
-    Object? error = freezed,
+    Object? output = null,
+    Object? error = null,
   }) {
     return _then(_value.copyWith(
-      output: output == freezed
+      output: null == output
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as String,
-      error: error == freezed
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,30 +69,30 @@ abstract class _$$_OutputModelCopyWith<$Res>
           _$_OutputModel value, $Res Function(_$_OutputModel) then) =
       __$$_OutputModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String output, String error});
 }
 
 /// @nodoc
-class __$$_OutputModelCopyWithImpl<$Res> extends _$OutputModelCopyWithImpl<$Res>
+class __$$_OutputModelCopyWithImpl<$Res>
+    extends _$OutputModelCopyWithImpl<$Res, _$_OutputModel>
     implements _$$_OutputModelCopyWith<$Res> {
   __$$_OutputModelCopyWithImpl(
       _$_OutputModel _value, $Res Function(_$_OutputModel) _then)
-      : super(_value, (v) => _then(v as _$_OutputModel));
+      : super(_value, _then);
 
-  @override
-  _$_OutputModel get _value => super._value as _$_OutputModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? output = freezed,
-    Object? error = freezed,
+    Object? output = null,
+    Object? error = null,
   }) {
     return _then(_$_OutputModel(
-      output: output == freezed
+      output: null == output
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as String,
-      error: error == freezed
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
@@ -116,18 +120,16 @@ class _$_OutputModel implements _OutputModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OutputModel &&
-            const DeepCollectionEquality().equals(other.output, output) &&
-            const DeepCollectionEquality().equals(other.error, error));
+            (identical(other.output, output) || other.output == output) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(output),
-      const DeepCollectionEquality().hash(error));
+  int get hashCode => Object.hash(runtimeType, output, error);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OutputModelCopyWith<_$_OutputModel> get copyWith =>
       __$$_OutputModelCopyWithImpl<_$_OutputModel>(this, _$identity);
 }

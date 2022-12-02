@@ -33,38 +33,42 @@ mixin _$CharModel {
 /// @nodoc
 abstract class $CharModelCopyWith<$Res> {
   factory $CharModelCopyWith(CharModel value, $Res Function(CharModel) then) =
-      _$CharModelCopyWithImpl<$Res>;
+      _$CharModelCopyWithImpl<$Res, CharModel>;
+  @useResult
   $Res call({String name, String value, int length});
 }
 
 /// @nodoc
-class _$CharModelCopyWithImpl<$Res> implements $CharModelCopyWith<$Res> {
+class _$CharModelCopyWithImpl<$Res, $Val extends CharModel>
+    implements $CharModelCopyWith<$Res> {
   _$CharModelCopyWithImpl(this._value, this._then);
 
-  final CharModel _value;
   // ignore: unused_field
-  final $Res Function(CharModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? value = freezed,
-    Object? length = freezed,
+    Object? name = null,
+    Object? value = null,
+    Object? length = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -74,35 +78,35 @@ abstract class _$$_CharModelCopyWith<$Res> implements $CharModelCopyWith<$Res> {
           _$_CharModel value, $Res Function(_$_CharModel) then) =
       __$$_CharModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String value, int length});
 }
 
 /// @nodoc
-class __$$_CharModelCopyWithImpl<$Res> extends _$CharModelCopyWithImpl<$Res>
+class __$$_CharModelCopyWithImpl<$Res>
+    extends _$CharModelCopyWithImpl<$Res, _$_CharModel>
     implements _$$_CharModelCopyWith<$Res> {
   __$$_CharModelCopyWithImpl(
       _$_CharModel _value, $Res Function(_$_CharModel) _then)
-      : super(_value, (v) => _then(v as _$_CharModel));
+      : super(_value, _then);
 
-  @override
-  _$_CharModel get _value => super._value as _$_CharModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? value = freezed,
-    Object? length = freezed,
+    Object? name = null,
+    Object? value = null,
+    Object? length = null,
   }) {
     return _then(_$_CharModel(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: value == freezed
+      value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as int,
@@ -136,21 +140,18 @@ class _$_CharModel implements _CharModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CharModel &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.value, value) &&
-            const DeepCollectionEquality().equals(other.length, length));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.length, length) || other.length == length));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(value),
-      const DeepCollectionEquality().hash(length));
+  int get hashCode => Object.hash(runtimeType, name, value, length);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CharModelCopyWith<_$_CharModel> get copyWith =>
       __$$_CharModelCopyWithImpl<_$_CharModel>(this, _$identity);
 

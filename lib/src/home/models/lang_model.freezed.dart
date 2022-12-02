@@ -29,43 +29,47 @@ mixin _$LangModel {
 /// @nodoc
 abstract class $LangModelCopyWith<$Res> {
   factory $LangModelCopyWith(LangModel value, $Res Function(LangModel) then) =
-      _$LangModelCopyWithImpl<$Res>;
+      _$LangModelCopyWithImpl<$Res, LangModel>;
+  @useResult
   $Res call({Mode mode, String name, Languages lang, String baseCode});
 }
 
 /// @nodoc
-class _$LangModelCopyWithImpl<$Res> implements $LangModelCopyWith<$Res> {
+class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
+    implements $LangModelCopyWith<$Res> {
   _$LangModelCopyWithImpl(this._value, this._then);
 
-  final LangModel _value;
   // ignore: unused_field
-  final $Res Function(LangModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
-    Object? name = freezed,
-    Object? lang = freezed,
-    Object? baseCode = freezed,
+    Object? mode = null,
+    Object? name = null,
+    Object? lang = null,
+    Object? baseCode = null,
   }) {
     return _then(_value.copyWith(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as Mode,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      lang: lang == freezed
+      lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
               as Languages,
-      baseCode: baseCode == freezed
+      baseCode: null == baseCode
           ? _value.baseCode
           : baseCode // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -75,40 +79,40 @@ abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
           _$_LangModel value, $Res Function(_$_LangModel) then) =
       __$$_LangModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Mode mode, String name, Languages lang, String baseCode});
 }
 
 /// @nodoc
-class __$$_LangModelCopyWithImpl<$Res> extends _$LangModelCopyWithImpl<$Res>
+class __$$_LangModelCopyWithImpl<$Res>
+    extends _$LangModelCopyWithImpl<$Res, _$_LangModel>
     implements _$$_LangModelCopyWith<$Res> {
   __$$_LangModelCopyWithImpl(
       _$_LangModel _value, $Res Function(_$_LangModel) _then)
-      : super(_value, (v) => _then(v as _$_LangModel));
+      : super(_value, _then);
 
-  @override
-  _$_LangModel get _value => super._value as _$_LangModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mode = freezed,
-    Object? name = freezed,
-    Object? lang = freezed,
-    Object? baseCode = freezed,
+    Object? mode = null,
+    Object? name = null,
+    Object? lang = null,
+    Object? baseCode = null,
   }) {
     return _then(_$_LangModel(
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as Mode,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      lang: lang == freezed
+      lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
               as Languages,
-      baseCode: baseCode == freezed
+      baseCode: null == baseCode
           ? _value.baseCode
           : baseCode // ignore: cast_nullable_to_non_nullable
               as String,
@@ -144,22 +148,19 @@ class _$_LangModel implements _LangModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LangModel &&
-            const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.lang, lang) &&
-            const DeepCollectionEquality().equals(other.baseCode, baseCode));
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.lang, lang) || other.lang == lang) &&
+            (identical(other.baseCode, baseCode) ||
+                other.baseCode == baseCode));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(lang),
-      const DeepCollectionEquality().hash(baseCode));
+  int get hashCode => Object.hash(runtimeType, mode, name, lang, baseCode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LangModelCopyWith<_$_LangModel> get copyWith =>
       __$$_LangModelCopyWithImpl<_$_LangModel>(this, _$identity);
 }
