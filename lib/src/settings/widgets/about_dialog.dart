@@ -1,3 +1,5 @@
+import 'package:excode/src/factory.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AboutDialogWidget extends StatelessWidget {
@@ -5,11 +7,16 @@ class AboutDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AboutDialog(
+    return AboutDialog(
       applicationName: 'ExCode',
-      applicationVersion: 'v0.0.2',
+      // ! Make less obfuscated
+      applicationVersion: (defaultTargetPlatform == TargetPlatform.windows)
+          ? null
+          : kIsWeb
+              ? 'Latest'
+              : 'v${packageInfo.version}',
       applicationLegalese: 'MIT',
-      children: [
+      children: const [
         Padding(
           padding: EdgeInsets.only(left: 24.0),
           child: Text('Created by dhzdhd'),

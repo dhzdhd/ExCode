@@ -1,6 +1,7 @@
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,40 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
                 saveInPublicStorage: true,
               );
             },
-            child: const Text('Update'),
+            child: (status == DownloadTaskStatus.running)
+                ? TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: progress / 100),
+                    duration: const Duration(milliseconds: 500),
+                    builder: (context, value, child) {
+                      return SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator.adaptive(value: value),
+                      );
+                    },
+                    onEnd: (() {
+                      int a = 0;
+
+                      // FIXME:
+                      if (status == DownloadTaskStatus.complete) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarWidget(
+                          content: 'Successfully downloaded latest version!',
+                          state: ActionState.success,
+                        ));
+                      } else if (status == DownloadTaskStatus.failed) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBarWidget(
+                          content: 'Failed to download latest version!',
+                          state: ActionState.error,
+                        ));
+                      }
+
+                      status = DownloadTaskStatus.undefined;
+                      progress = 0;
+                    }),
+                  )
+                : const Text('Update'),
           ),
         ),
       ],
