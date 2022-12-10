@@ -13,6 +13,10 @@ class BottomBarWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonList = ref.watch(bottomBarButtonsStateProvider);
+    final isLocked =
+        ref.watch(settingsProvider.select((value) => value.isLocked));
+    final tabSize =
+        ref.watch(settingsProvider.select((value) => value.tabSize));
 
     return SizedBox(
       height: 34,
@@ -25,8 +29,8 @@ class BottomBarWidget extends ConsumerWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    if (!ref.watch(lockProvider)) {
-                      final spaces = ref.watch(tabSpaceProvider).space;
+                    if (!isLocked) {
+                      final spaces = tabSize.space;
                       ref
                           .watch(cursorSelectionStateProvider.notifier)
                           .setCursorSelection(
@@ -43,7 +47,7 @@ class BottomBarWidget extends ConsumerWidget {
                 ...buttonList.map(
                   (e) => TextButton(
                     onPressed: () {
-                      if (!ref.watch(lockProvider)) {
+                      if (!isLocked) {
                         ref
                             .watch(cursorSelectionStateProvider.notifier)
                             .setCursorSelection(

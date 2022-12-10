@@ -54,6 +54,8 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
     final theme = ref.watch(themeStateProvider);
     final editorTheme = ref.watch(editorLanguageStateProvider);
     final content = ref.watch(editorContentStateProvider);
+    final isTabBarVisible =
+        ref.watch(settingsProvider.select((value) => value.isTabBarVisible));
 
     ref.listen(outputIsVisibleStateProvider, ((previous, next) {
       if (ref.watch(outputIsVisibleStateProvider) == true) {
@@ -90,7 +92,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
       }
       return Column(
         children: [
-          if (ref.watch(tabVisibilityProvider))
+          if (isTabBarVisible)
             TabBar(
               tabs: const [Tab(text: 'Code'), Tab(text: 'Output')],
               controller: _tabController,
@@ -173,6 +175,13 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isLocked =
+        ref.watch(settingsProvider.select((value) => value.isLocked));
+    final fontSize =
+        ref.watch(settingsProvider.select((value) => value.fontSize));
+    final isWordWrapped =
+        ref.watch(settingsProvider.select((value) => value.isWordWrapped));
+
     return Stack(
       children: [
         Column(
@@ -188,16 +197,15 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                   );
                 },
                 child: CodeFieldWidget(
-                  enabled: !ref.watch(lockProvider),
+                  enabled: !isLocked,
                   focusNode: _focusNode,
-                  textStyle: TextStyle(
-                      fontFamily: 'FiraCode',
-                      fontSize: ref.watch(fontSizeProvider)),
+                  textStyle:
+                      TextStyle(fontFamily: 'FiraCode', fontSize: fontSize),
                   controller: _controller,
                   onChanged: (value) => ref
                       .watch(editorContentStateProvider.notifier)
                       .setContent(Some(value)),
-                  wrap: ref.watch(settingsProvider),
+                  wrap: isWordWrapped,
                 ),
               ),
             ),
@@ -205,7 +213,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
           ],
         ),
         Visibility(
-          visible: ref.watch(lockProvider),
+          visible: isLocked,
           child: Center(
               child: Icon(
             Icons.lock,

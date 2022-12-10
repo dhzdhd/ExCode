@@ -8,6 +8,10 @@ class FontSizeButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fontSize =
+        ref.watch(settingsProvider.select((value) => value.fontSize));
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
+
     return SizedBox(
       width: 160,
       child: Container(
@@ -21,9 +25,9 @@ class FontSizeButtonWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             TextButton(
-              onPressed: () => (ref.read(fontSizeProvider) == 10)
+              onPressed: () => (fontSize == 10)
                   ? null
-                  : ref.watch(fontSizeProvider.notifier).decrement(),
+                  : settingsNotifier.decrementFontSize(),
               child: const Icon(Icons.text_decrease),
               style: const ButtonStyle(
                 shape: MaterialStatePropertyAll(
@@ -37,13 +41,13 @@ class FontSizeButtonWidget extends ConsumerWidget {
               ),
             ),
             Text(
-              ref.watch(fontSizeProvider).toStringAsFixed(0),
+              fontSize.toStringAsFixed(0),
               style: const TextStyle(fontSize: 16),
             ),
             TextButton(
-              onPressed: () => (ref.read(fontSizeProvider) == 40)
+              onPressed: () => (fontSize == 40)
                   ? null
-                  : ref.watch(fontSizeProvider.notifier).increment(),
+                  : settingsNotifier.incrementFontSize(),
               child: const Icon(Icons.text_increase),
               style: const ButtonStyle(
                 shape: MaterialStatePropertyAll(

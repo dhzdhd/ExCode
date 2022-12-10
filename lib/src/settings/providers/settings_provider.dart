@@ -1,25 +1,93 @@
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/models/settings_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final settingsProvider = StateNotifierProvider<_SettingsNotifier, bool>(
-    (ref) => _SettingsNotifier());
-final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
-    (ref) => _TabSpaceNotifier());
-final fontSizeProvider = StateNotifierProvider<_FontSizeNotifier, double>(
-    (ref) => _FontSizeNotifier());
-final saveOnRunProvider = StateNotifierProvider<_SaveOnRunNotifier, bool>(
-    (ref) => _SaveOnRunNotifier());
-final lockProvider =
-    StateNotifierProvider<_LockNotifier, bool>((ref) => _LockNotifier());
-final tabVisibilityProvider =
-    StateNotifierProvider<_TabVisibilityNotifier, bool>(
-        (ref) => _TabVisibilityNotifier());
-final floatingRunVisibilityProvider =
-    StateNotifierProvider<_FloatingRunVisibilityNotifier, bool>(
-        (ref) => _FloatingRunVisibilityNotifier());
+final settingsProvider =
+    StateNotifierProvider<_SettingsNotifier, SettingsModel>(
+        (ref) => _SettingsNotifier());
+// final tabSpaceProvider = StateNotifierProvider<_TabSpaceNotifier, TabEnum>(
+//     (ref) => _TabSpaceNotifier());
+// final fontSizeProvider = StateNotifierProvider<_FontSizeNotifier, double>(
+//     (ref) => _FontSizeNotifier());
+// final saveOnRunProvider = StateNotifierProvider<_SaveOnRunNotifier, bool>(
+//     (ref) => _SaveOnRunNotifier());
+// final lockProvider =
+//     StateNotifierProvider<_LockNotifier, bool>((ref) => _LockNotifier());
+// final tabVisibilityProvider =
+//     StateNotifierProvider<_TabVisibilityNotifier, bool>(
+//         (ref) => _TabVisibilityNotifier());
+// final floatingRunVisibilityProvider =
+//     StateNotifierProvider<_FloatingRunVisibilityNotifier, bool>(
+//         (ref) => _FloatingRunVisibilityNotifier());
 
-class _SettingsNotifier extends StateNotifier<bool> {
-  _SettingsNotifier() : super(box.get('wordwrap') ?? false);
+class _SettingsNotifier extends StateNotifier<SettingsModel> {
+  _SettingsNotifier()
+      : super(SettingsModel.fromJson(
+            Map<String, dynamic>.from(box.get('settings') ??
+                {
+                  'tabSize': TabEnum.two,
+                  'fontSize': 16,
+                  'isLocked': false,
+                  'isWordWrapped': false,
+                  'isTabBarVisible': true,
+                  'isFloatingRunVisible': false,
+                  'isSaveOnRun': true
+                })));
+
+  Future<void> _saveToStorage(SettingsModel state) async {
+    await box.put('settings', state.toJson());
+  }
+
+  Future<void> setTabSize(TabEnum tab) async {
+    final newState = state.copyWith(tabSize: tab);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> setTabBarVisibility() async {
+    final newState = state.copyWith(isTabBarVisible: !state.isTabBarVisible);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> setWordWrapped() async {
+    final newState = state.copyWith(isWordWrapped: !state.isWordWrapped);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> incrementFontSize() async {
+    final newState = state.copyWith(fontSize: state.fontSize + 1);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> decrementFontSize() async {
+    final newState = state.copyWith(fontSize: state.fontSize - 1);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> setSaveOnRun() async {
+    final newState = state.copyWith(isSaveOnRun: !state.isSaveOnRun);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  Future<void> setFloatingRunVisibility() async {
+    final newState =
+        state.copyWith(isFloatingRunVisible: !state.isFloatingRunVisible);
+    await _saveToStorage(newState);
+    state = newState;
+  }
+
+  void setLocked() {
+    state = state.copyWith(isLocked: !state.isLocked);
+  }
+}
+
+class _OldSettingsNotifier extends StateNotifier<bool> {
+  _OldSettingsNotifier() : super(box.get('wordwrap') ?? false);
 
   void setWordWrapped() {
     box.put('wordwrap', !state);

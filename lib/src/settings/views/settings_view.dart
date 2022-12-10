@@ -28,7 +28,19 @@ class SettingsView extends HookConsumerWidget {
     final theme = useState(ThemeMode.system);
     final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
-    final tabSpaceNotifier = ref.watch(tabSpaceProvider.notifier);
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final tabSize =
+        ref.watch(settingsProvider.select((value) => value.tabSize));
+    final isTabBarVisible =
+        ref.watch(settingsProvider.select((value) => value.isTabBarVisible));
+    final isWordWrapped =
+        ref.watch(settingsProvider.select((value) => value.isWordWrapped));
+    final isSaveOnRun =
+        ref.watch(settingsProvider.select((value) => value.isSaveOnRun));
+    final isLocked =
+        ref.watch(settingsProvider.select((value) => value.isLocked));
+    final isFloatingRunVisible = ref
+        .watch(settingsProvider.select((value) => value.isFloatingRunVisible));
 
     return Scaffold(
       appBar: AppBar(
@@ -111,9 +123,9 @@ class SettingsView extends HookConsumerWidget {
                               ),
                             )
                             .toList(),
-                        value: ref.watch(tabSpaceProvider),
+                        value: tabSize,
                         onChanged: (val) async {
-                          await tabSpaceNotifier.setTabSpace(val!);
+                          await settingsNotifier.setTabSize(val!);
                         },
                       ),
                     ),
@@ -122,18 +134,16 @@ class SettingsView extends HookConsumerWidget {
                     leading: const Icon(Icons.tab),
                     title: const Text('Show tabs'),
                     trailing: Switch(
-                        value: ref.watch(tabVisibilityProvider),
+                        value: isTabBarVisible,
                         onChanged: (val) {
-                          ref
-                              .watch(tabVisibilityProvider.notifier)
-                              .setTabVisibility();
+                          settingsNotifier.setTabBarVisibility();
                         }),
                   ),
                   ListTile(
                     leading: const Icon(Icons.text_format),
                     title: const Text('Word wrap'),
                     trailing: Switch(
-                        value: ref.watch(settingsProvider),
+                        value: isWordWrapped,
                         onChanged: (val) {
                           ref.watch(settingsProvider.notifier).setWordWrapped();
                         }),
@@ -142,9 +152,9 @@ class SettingsView extends HookConsumerWidget {
                     leading: const Icon(Icons.save),
                     title: const Text('Save on run'),
                     trailing: Switch(
-                        value: ref.watch(saveOnRunProvider),
+                        value: isSaveOnRun,
                         onChanged: (val) {
-                          ref.watch(saveOnRunProvider.notifier).setSaveOnRun();
+                          settingsNotifier.setSaveOnRun();
                         }),
                   ),
                   Visibility(
@@ -162,12 +172,12 @@ class SettingsView extends HookConsumerWidget {
                     leading: const Icon(Icons.lock),
                     title: const Text('Lock editor'),
                     trailing: Switch(
-                        value: ref.watch(lockProvider),
+                        value: isLocked,
                         onChanged: (val) {
-                          ref.watch(lockProvider.notifier).setLock();
+                          settingsNotifier.setLocked();
                           ScaffoldMessenger.of(context).showSnackBar(
                             snackBarWidget(
-                              content: ref.read(lockProvider)
+                              content: !isLocked
                                   ? 'Locked editor'
                                   : 'Unlocked editor',
                               state: ActionState.success,
@@ -179,11 +189,9 @@ class SettingsView extends HookConsumerWidget {
                     leading: const Icon(Icons.play_arrow),
                     title: const Text('Show floating run'),
                     trailing: Switch(
-                        value: ref.watch(floatingRunVisibilityProvider),
+                        value: isFloatingRunVisible,
                         onChanged: (val) {
-                          ref
-                              .watch(floatingRunVisibilityProvider.notifier)
-                              .setFloatingRunVisibility();
+                          settingsNotifier.setFloatingRunVisibility();
                         }),
                   ),
                   const Padding(

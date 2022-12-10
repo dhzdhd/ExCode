@@ -25,6 +25,10 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editorLanguage = ref.watch(editorLanguageStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
+    final isSaveOnRun =
+        ref.watch(settingsProvider.select((value) => value.isSaveOnRun));
+    final isLocked =
+        ref.watch(settingsProvider.select((value) => value.isLocked));
 
     return AppBar(
       title: DropdownSearch<Languages>(
@@ -65,7 +69,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                     ref.watch(editorContentStateProvider),
                   );
               ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
-              if (ref.watch(saveOnRunProvider)) {
+              if (isSaveOnRun) {
                 await ref
                     .watch(editorContentStateProvider.notifier)
                     .saveContent(
@@ -96,7 +100,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
               PopupMenuItem(
                 child: const Text('Clear'),
                 onTap: () {
-                  if (!ref.watch(lockProvider)) {
+                  if (!isLocked) {
                     ref
                         .watch(editorContentStateProvider.notifier)
                         .setContent(const Some(''));

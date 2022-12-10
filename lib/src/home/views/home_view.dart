@@ -16,6 +16,10 @@ class HomeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final globalTheme = ref.watch(themeStateProvider);
+    final isFloatingRunVisible = ref
+        .watch(settingsProvider.select((value) => value.isFloatingRunVisible));
+    final isSaveOnRun =
+        ref.watch(settingsProvider.select((value) => value.isSaveOnRun));
 
     return Scaffold(
       appBar: const AppBarWidget(),
@@ -23,8 +27,7 @@ class HomeView extends ConsumerWidget {
       body: const EditorWidget(),
       floatingActionButton: LayoutBuilder(builder: (context, constraints) {
         return Visibility(
-          visible: ref.watch(floatingRunVisibilityProvider) &&
-              !(constraints.maxWidth > 700),
+          visible: isFloatingRunVisible && !(constraints.maxWidth > 700),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 32),
             child: ref.watch(outputIsVisibleStateProvider)
@@ -41,7 +44,7 @@ class HomeView extends ConsumerWidget {
                       ref
                           .watch(outputIsVisibleStateProvider.notifier)
                           .showOutput();
-                      if (ref.watch(saveOnRunProvider)) {
+                      if (isSaveOnRun) {
                         await ref
                             .watch(editorContentStateProvider.notifier)
                             .saveContent(

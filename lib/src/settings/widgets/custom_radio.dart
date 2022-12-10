@@ -8,22 +8,24 @@ class RadioButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = useState<TabEnum>(ref.watch(tabSpaceProvider));
+    final tabSizeState = useState<TabEnum>(
+        ref.watch(settingsProvider.select((value) => value.tabSize)));
+    final settingsNotifier = ref.watch(settingsProvider.notifier);
 
     return Row(
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(),
           onPressed: () {
-            state.value = TabEnum.two;
-            ref.watch(tabSpaceProvider.notifier).setTabSpace(TabEnum.two);
+            // tabSizeState.value = TabEnum.two;
+            settingsNotifier.setTabSize(TabEnum.two);
           },
           child: const Text('Two'),
         ),
         ElevatedButton(
           onPressed: () {
-            state.value = TabEnum.four;
-            ref.watch(tabSpaceProvider.notifier).setTabSpace(TabEnum.four);
+            // tabSizeState.value = TabEnum.four;
+            settingsNotifier.setTabSize(TabEnum.four);
           },
           child: const Text('Four'),
         ),
