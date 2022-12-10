@@ -8,8 +8,6 @@ class RadioButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabSizeState = useState<TabEnum>(
-        ref.watch(settingsProvider.select((value) => value.tabSize)));
     final settingsNotifier = ref.watch(settingsProvider.notifier);
 
     return Row(
