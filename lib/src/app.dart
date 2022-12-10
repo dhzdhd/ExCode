@@ -1,7 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
-import 'package:excode/src/cloud/services/supabase.dart';
+import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/cloud/views/auth_view.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';

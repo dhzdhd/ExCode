@@ -1,5 +1,5 @@
 import 'package:excode/src/cloud/providers/auth_provider.dart';
-import 'package:excode/src/cloud/services/supabase.dart';
+import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';

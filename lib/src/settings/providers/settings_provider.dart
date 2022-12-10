@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/settings_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,8 +21,8 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
       : super(SettingsModel.fromJson(
             Map<String, dynamic>.from(box.get('settings') ??
                 {
-                  'tabSize': TabEnum.two,
-                  'fontSize': 16,
+                  'tabSize': 'two',
+                  'fontSize': 16.0,
                   'isLocked': false,
                   'isWordWrapped': false,
                   'isTabBarVisible': true,
