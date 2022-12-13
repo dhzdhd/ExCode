@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:excode/src/factory.dart';
-import 'package:excode/src/home/models/settings_model.dart';
+import 'package:excode/src/settings/models/settings_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final settingsProvider =

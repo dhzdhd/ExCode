@@ -158,7 +158,7 @@ class SettingsView extends HookConsumerWidget {
                         }),
                   ),
                   Visibility(
-                    visible: ref.watch(authProvider) != null,
+                    visible: ref.watch(authProvider).user != null,
                     child: const ListTile(
                       leading: Icon(Icons.cloud),
                       title: Text('Save to cloud'),

@@ -27,7 +27,7 @@ class _MyApp extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    _authSub = SupabaseUtils.sbClient.auth.onAuthStateChange((event, session) {
+    _authSub = supabase.auth.onAuthStateChange((event, session) {
       ref.watch(authProvider.notifier).setUser(session?.user);
     });
     initPackageInfo();

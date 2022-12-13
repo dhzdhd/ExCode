@@ -11,48 +11,64 @@ class AuthContainerWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      color: ref.watch(themeStateProvider).primaryColor,
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
-      child: Column(
-        children: [
-          Text(
-            ref.watch(authProvider)?.email ?? 'Not signed in yet!',
-            style: const TextStyle(fontSize: 20),
-          ),
-          Visibility(
-            visible: ref.watch(authProvider) == null,
-            child: TextButton(
-              onPressed: () {
-                Navigator.restorablePushNamed(context, AuthView.routeName);
-              },
-              child: const Text('Login'),
+    return SizedBox(
+      width: 500,
+      child: Container(
+        color: ref.watch(themeStateProvider).primaryColor,
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        child: Column(
+          children: [
+            Text(
+              ref.watch(authProvider).user?.email ?? 'Not signed in yet!',
+              // .match((t) => t.email!, () => 'Not signed in yet!'),
+              style: const TextStyle(fontSize: 20),
             ),
-          ),
-          Visibility(
-            visible: ref.watch(authProvider) != null,
-            child: TextButton(
-              onPressed: () async {
-                final response = await Auth.signOut();
-                response.match(
-                  (l) => ScaffoldMessenger.of(context).showSnackBar(
-                    snackBarWidget(
-                      content: l,
-                      state: ActionState.error,
-                    ),
-                  ),
-                  (r) => ScaffoldMessenger.of(context).showSnackBar(
-                    snackBarWidget(
-                      content: r,
-                      state: ActionState.success,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Sign Out'),
+            Visibility(
+              visible: ref.watch(authProvider).user == null,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.restorablePushNamed(context, AuthView.routeName);
+                },
+                child: const Text('Login'),
+              ),
             ),
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                  visible: ref.watch(authProvider).user != null,
+                  child: TextButton(
+                    onPressed: () async {},
+                    child: const Text('Sync data'),
+                  ),
+                ),
+                Visibility(
+                  visible: ref.watch(authProvider).user != null,
+                  child: TextButton(
+                    onPressed: () async {
+                      final response = await Auth.signOut();
+                      response.match(
+                        (l) => ScaffoldMessenger.of(context).showSnackBar(
+                          snackBarWidget(
+                            content: l,
+                            state: ActionState.error,
+                          ),
+                        ),
+                        (r) => ScaffoldMessenger.of(context).showSnackBar(
+                          snackBarWidget(
+                            content: r,
+                            state: ActionState.success,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Sign Out'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

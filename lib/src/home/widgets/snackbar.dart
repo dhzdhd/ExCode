@@ -5,10 +5,11 @@ enum ActionState {
   error,
 }
 
-SnackBar snackBarWidget(
-    {required String content,
-    required ActionState state,
-    SnackBarAction? action}) {
+SnackBar snackBarWidget({
+  required String content,
+  required ActionState state,
+  SnackBarAction? action,
+}) {
   return SnackBar(
     content: Text(
       content,

@@ -1,5 +1,4 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
@@ -21,7 +20,7 @@ void main() async {
   }
 
   initDioClient();
-  SupabaseUtils.initCloudStorage();
+  await initCloudStorage();
   await initDatabase();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();

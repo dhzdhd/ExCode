@@ -1,6 +1,7 @@
 import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -145,6 +146,13 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 ),
               ),
               const Divider(color: Colors.transparent),
+              SwitchListTile(
+                title: const Text('Save login information?'),
+                hoverColor: Colors.transparent,
+                value: ref.watch(authProvider).isLoginInfoSaved,
+                onChanged: (value) =>
+                    ref.watch(authProvider.notifier).setLoginInfoSaved(),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
