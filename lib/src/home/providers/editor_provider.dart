@@ -23,6 +23,7 @@ final bottomBarButtonsStateProvider =
         (ref) => _BottomBarButtonsModel());
 
 class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
+  // ! Consider using ChangeNotifierProvider
   _BottomBarButtonsModel() : super(SnippetService.fetch());
 
   void append(CharModel data) {

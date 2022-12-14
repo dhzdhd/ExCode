@@ -11,7 +11,7 @@ class _AuthNotifier extends StateNotifier<AuthModel> {
       : super(AuthModel(
             user: supabase.auth.currentUser, isLoginInfoSaved: false));
 
-  // ! supabase.auth.currentUser makes provider obsolete
+  // ! supabase.auth.currentUser makes provider and model obsolete
   void setUser(User? user) {
     final newState = state.copyWith(user: user);
     state = newState;
