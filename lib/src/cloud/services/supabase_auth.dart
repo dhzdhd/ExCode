@@ -3,6 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Auth {
+  // ! Switch to returning success string
   static Future<Either<String, User?>> register(
       String email, String password) async {
     final response = await supabase.auth.signUp(email, password);
@@ -34,30 +35,5 @@ class Auth {
     } else {
       return const Right('Successfully signed out!');
     }
-  }
-}
-
-class CloudDatabase {
-  static Future<Either<String, String>> fetch(String email) async {
-    final response = await supabase.from('settings').select().execute();
-
-    if (response.hasError) {
-      return Left(response.error!.message);
-    }
-
-    print(response.toJson());
-    return Right(response.data);
-  }
-
-  static Future<Either<String, String>> upsert(
-      String email, String data) async {
-    final response = await supabase.from('settings').upsert(data).execute();
-
-    if (response.hasError) {
-      return Left(response.error!.message);
-    }
-
-    print(response.data);
-    return Right(response.data);
   }
 }

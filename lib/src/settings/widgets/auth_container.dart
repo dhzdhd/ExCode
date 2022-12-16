@@ -1,7 +1,12 @@
+import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
+import 'package:excode/src/cloud/providers/cloud_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
+import 'package:excode/src/cloud/services/supabase_db.dart';
 import 'package:excode/src/cloud/views/auth_view.dart';
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +43,17 @@ class AuthContainerWidget extends ConsumerWidget {
                 Visibility(
                   visible: ref.watch(authProvider).user != null,
                   child: TextButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await CloudDatabase.upsert(
+                          CloudModel(settings: ref.read(settingsProvider)),
+                          supabase.auth.currentUser!.email!);
+
+                      ref.watch(cloudProvider).map(
+                            data: ((data) => print(data.value)),
+                            error: ((error) => print(error.value)),
+                            loading: ((loading) => print(loading)),
+                          );
+                    },
                     child: const Text('Sync data'),
                   ),
                 ),
