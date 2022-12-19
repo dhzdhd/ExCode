@@ -15,6 +15,7 @@ _$_SettingsModel _$$_SettingsModelFromJson(Map<String, dynamic> json) =>
       isTabBarVisible: json['isTabBarVisible'] as bool,
       isFloatingRunVisible: json['isFloatingRunVisible'] as bool,
       isSaveOnRun: json['isSaveOnRun'] as bool,
+      isSaveToCloud: json['isSaveToCloud'] as bool,
     );
 
 Map<String, dynamic> _$$_SettingsModelToJson(_$_SettingsModel instance) =>
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_SettingsModelToJson(_$_SettingsModel instance) =>
       'isTabBarVisible': instance.isTabBarVisible,
       'isFloatingRunVisible': instance.isFloatingRunVisible,
       'isSaveOnRun': instance.isSaveOnRun,
+      'isSaveToCloud': instance.isSaveToCloud,
     };
 
 const _$TabEnumEnumMap = {

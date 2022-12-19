@@ -10,7 +10,7 @@ class CloudDatabase {
     final response = await supabase
         .from(_databaseName)
         .upsert({'email': email, 'data': model.toJson()}).execute();
-
+    print('hi');
     if (response.hasError) {
       return Left(response.error!.message);
     }

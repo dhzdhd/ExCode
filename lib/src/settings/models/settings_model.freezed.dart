@@ -28,6 +28,7 @@ mixin _$SettingsModel {
   bool get isTabBarVisible => throw _privateConstructorUsedError;
   bool get isFloatingRunVisible => throw _privateConstructorUsedError;
   bool get isSaveOnRun => throw _privateConstructorUsedError;
+  bool get isSaveToCloud => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $SettingsModelCopyWith<$Res> {
       bool isWordWrapped,
       bool isTabBarVisible,
       bool isFloatingRunVisible,
-      bool isSaveOnRun});
+      bool isSaveOnRun,
+      bool isSaveToCloud});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
     Object? isTabBarVisible = null,
     Object? isFloatingRunVisible = null,
     Object? isSaveOnRun = null,
+    Object? isSaveToCloud = null,
   }) {
     return _then(_value.copyWith(
       tabSize: null == tabSize
@@ -101,6 +104,10 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
           ? _value.isSaveOnRun
           : isSaveOnRun // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSaveToCloud: null == isSaveToCloud
+          ? _value.isSaveToCloud
+          : isSaveToCloud // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -120,7 +127,8 @@ abstract class _$$_SettingsModelCopyWith<$Res>
       bool isWordWrapped,
       bool isTabBarVisible,
       bool isFloatingRunVisible,
-      bool isSaveOnRun});
+      bool isSaveOnRun,
+      bool isSaveToCloud});
 }
 
 /// @nodoc
@@ -141,6 +149,7 @@ class __$$_SettingsModelCopyWithImpl<$Res>
     Object? isTabBarVisible = null,
     Object? isFloatingRunVisible = null,
     Object? isSaveOnRun = null,
+    Object? isSaveToCloud = null,
   }) {
     return _then(_$_SettingsModel(
       tabSize: null == tabSize
@@ -171,6 +180,10 @@ class __$$_SettingsModelCopyWithImpl<$Res>
           ? _value.isSaveOnRun
           : isSaveOnRun // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSaveToCloud: null == isSaveToCloud
+          ? _value.isSaveToCloud
+          : isSaveToCloud // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -185,7 +198,8 @@ class _$_SettingsModel implements _SettingsModel {
       required this.isWordWrapped,
       required this.isTabBarVisible,
       required this.isFloatingRunVisible,
-      required this.isSaveOnRun});
+      required this.isSaveOnRun,
+      required this.isSaveToCloud});
 
   factory _$_SettingsModel.fromJson(Map<String, dynamic> json) =>
       _$$_SettingsModelFromJson(json);
@@ -205,10 +219,12 @@ class _$_SettingsModel implements _SettingsModel {
   final bool isFloatingRunVisible;
   @override
   final bool isSaveOnRun;
+  @override
+  final bool isSaveToCloud;
 
   @override
   String toString() {
-    return 'SettingsModel(tabSize: $tabSize, fontSize: $fontSize, isLocked: $isLocked, isWordWrapped: $isWordWrapped, isTabBarVisible: $isTabBarVisible, isFloatingRunVisible: $isFloatingRunVisible, isSaveOnRun: $isSaveOnRun)';
+    return 'SettingsModel(tabSize: $tabSize, fontSize: $fontSize, isLocked: $isLocked, isWordWrapped: $isWordWrapped, isTabBarVisible: $isTabBarVisible, isFloatingRunVisible: $isFloatingRunVisible, isSaveOnRun: $isSaveOnRun, isSaveToCloud: $isSaveToCloud)';
   }
 
   @override
@@ -228,13 +244,23 @@ class _$_SettingsModel implements _SettingsModel {
             (identical(other.isFloatingRunVisible, isFloatingRunVisible) ||
                 other.isFloatingRunVisible == isFloatingRunVisible) &&
             (identical(other.isSaveOnRun, isSaveOnRun) ||
-                other.isSaveOnRun == isSaveOnRun));
+                other.isSaveOnRun == isSaveOnRun) &&
+            (identical(other.isSaveToCloud, isSaveToCloud) ||
+                other.isSaveToCloud == isSaveToCloud));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, tabSize, fontSize, isLocked,
-      isWordWrapped, isTabBarVisible, isFloatingRunVisible, isSaveOnRun);
+  int get hashCode => Object.hash(
+      runtimeType,
+      tabSize,
+      fontSize,
+      isLocked,
+      isWordWrapped,
+      isTabBarVisible,
+      isFloatingRunVisible,
+      isSaveOnRun,
+      isSaveToCloud);
 
   @JsonKey(ignore: true)
   @override
@@ -258,7 +284,8 @@ abstract class _SettingsModel implements SettingsModel {
       required final bool isWordWrapped,
       required final bool isTabBarVisible,
       required final bool isFloatingRunVisible,
-      required final bool isSaveOnRun}) = _$_SettingsModel;
+      required final bool isSaveOnRun,
+      required final bool isSaveToCloud}) = _$_SettingsModel;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
       _$_SettingsModel.fromJson;
@@ -277,6 +304,8 @@ abstract class _SettingsModel implements SettingsModel {
   bool get isFloatingRunVisible;
   @override
   bool get isSaveOnRun;
+  @override
+  bool get isSaveToCloud;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>

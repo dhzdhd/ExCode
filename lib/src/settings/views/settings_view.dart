@@ -41,6 +41,8 @@ class SettingsView extends HookConsumerWidget {
         ref.watch(settingsProvider.select((value) => value.isLocked));
     final isFloatingRunVisible = ref
         .watch(settingsProvider.select((value) => value.isFloatingRunVisible));
+    final isSaveToCloud =
+        ref.watch(settingsProvider.select((value) => value.isSaveToCloud));
 
     return Scaffold(
       appBar: AppBar(
@@ -135,8 +137,8 @@ class SettingsView extends HookConsumerWidget {
                     title: const Text('Show tabs'),
                     trailing: Switch(
                         value: isTabBarVisible,
-                        onChanged: (val) {
-                          settingsNotifier.setTabBarVisibility();
+                        onChanged: (val) async {
+                          await settingsNotifier.setTabBarVisibility();
                         }),
                   ),
                   ListTile(
@@ -144,8 +146,8 @@ class SettingsView extends HookConsumerWidget {
                     title: const Text('Word wrap'),
                     trailing: Switch(
                         value: isWordWrapped,
-                        onChanged: (val) {
-                          ref.watch(settingsProvider.notifier).setWordWrapped();
+                        onChanged: (val) async {
+                          await settingsNotifier.setWordWrapped();
                         }),
                   ),
                   ListTile(
@@ -153,18 +155,20 @@ class SettingsView extends HookConsumerWidget {
                     title: const Text('Save on run'),
                     trailing: Switch(
                         value: isSaveOnRun,
-                        onChanged: (val) {
-                          settingsNotifier.setSaveOnRun();
+                        onChanged: (val) async {
+                          await settingsNotifier.setSaveOnRun();
                         }),
                   ),
                   Visibility(
-                    visible: ref.watch(authProvider).user != null,
-                    child: const ListTile(
-                      leading: Icon(Icons.cloud),
-                      title: Text('Save to cloud'),
+                    visible: supabase.auth.currentUser != null,
+                    child: ListTile(
+                      leading: const Icon(Icons.cloud),
+                      title: const Text('Save to cloud'),
                       trailing: Switch(
-                        value: false,
-                        onChanged: null,
+                        value: isSaveToCloud,
+                        onChanged: (val) async {
+                          await settingsNotifier.setSaveToCloud();
+                        },
                       ),
                     ),
                   ),
@@ -190,8 +194,8 @@ class SettingsView extends HookConsumerWidget {
                     title: const Text('Show floating run'),
                     trailing: Switch(
                         value: isFloatingRunVisible,
-                        onChanged: (val) {
-                          settingsNotifier.setFloatingRunVisibility();
+                        onChanged: (val) async {
+                          await settingsNotifier.setFloatingRunVisibility();
                         }),
                   ),
                   const Padding(

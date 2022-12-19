@@ -1,3 +1,5 @@
+import 'package:excode/src/cloud/models/cloud_model.dart';
+import 'package:excode/src/cloud/services/supabase_db.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/settings/models/settings_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,59 +27,74 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
                   'isWordWrapped': false,
                   'isTabBarVisible': true,
                   'isFloatingRunVisible': false,
-                  'isSaveOnRun': true
+                  'isSaveOnRun': true,
+                  'isSaveToCloud': false,
                 })));
 
   Future<void> _saveToStorage(SettingsModel state) async {
     await box.put('settings', state.toJson());
+
+    final user = supabase.auth.currentUser;
+    if (state.isSaveToCloud && user != null) {
+      // ! Get CloudModel from provider once it has more fields
+      final res =
+          await CloudDatabase.upsert(CloudModel(settings: state), user.email!);
+      res.match((l) => print(l), (r) => print(r));
+    }
   }
 
   Future<void> setState(SettingsModel newState) async {
-    _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> setTabSize(TabEnum tab) async {
     final newState = state.copyWith(tabSize: tab);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> setTabBarVisibility() async {
     final newState = state.copyWith(isTabBarVisible: !state.isTabBarVisible);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> setWordWrapped() async {
     final newState = state.copyWith(isWordWrapped: !state.isWordWrapped);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> incrementFontSize() async {
     final newState = state.copyWith(fontSize: state.fontSize + 1);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> decrementFontSize() async {
     final newState = state.copyWith(fontSize: state.fontSize - 1);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> setSaveOnRun() async {
     final newState = state.copyWith(isSaveOnRun: !state.isSaveOnRun);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
   }
 
   Future<void> setFloatingRunVisibility() async {
     final newState =
         state.copyWith(isFloatingRunVisible: !state.isFloatingRunVisible);
-    await _saveToStorage(newState);
     state = newState;
+    await _saveToStorage(newState);
+  }
+
+  Future<void> setSaveToCloud() async {
+    final newState = state.copyWith(isSaveToCloud: !state.isSaveToCloud);
+    state = newState;
+    await _saveToStorage(newState);
   }
 
   void setLocked() {
