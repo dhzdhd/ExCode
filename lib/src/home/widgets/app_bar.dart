@@ -116,10 +116,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                         ref.read(editorLanguageStateProvider),
                         ref.read(editorContentStateProvider),
                       );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBarWidget(
-                    content: 'Saved to local storage!',
-                    state: ActionState.success,
-                  ));
+                  context.showSuccessSnackBar('Saved to local storage!');
                 },
               ),
               PopupMenuItem(
@@ -129,22 +126,18 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                       await HasteBin.post(ref.read(editorContentStateProvider));
                   url.match(
                     (l) => ScaffoldMessenger.of(context).showSnackBar(
-                        snackBarWidget(content: l, state: ActionState.error)),
+                        snackBarWidget(content: l, state: SnackBarState.error)),
                     (r) => ScaffoldMessenger.of(context).showSnackBar(
                       snackBarWidget(
                         content:
                             'Uploaded to hastebin. The url expires after a few days!',
-                        state: ActionState.success,
+                        state: SnackBarState.success,
                         action: SnackBarAction(
                           label: 'Copy',
                           onPressed: () =>
                               FlutterClipboard.copy(r).then((value) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              snackBarWidget(
-                                content: 'Copied hastebin url to clipboard',
-                                state: ActionState.success,
-                              ),
-                            );
+                            context.showSuccessSnackBar(
+                                'Copied hastebin url to clipboard');
                           }),
                         ),
                       ),

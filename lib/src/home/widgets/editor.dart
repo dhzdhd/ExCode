@@ -8,7 +8,7 @@ import 'package:excode/src/home/widgets/drag_drop_dialog.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
-import 'package:excode/src/home/widgets/bottom_bar.dart';
+import 'package:excode/src/home/widgets/snippet_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:highlight/highlight.dart';

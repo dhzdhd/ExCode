@@ -1,12 +1,9 @@
-import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
-import 'package:excode/src/cloud/providers/cloud_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/cloud/services/supabase_db.dart';
 import 'package:excode/src/cloud/views/auth_view.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/helpers.dart';
-import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -64,18 +61,8 @@ class AuthContainerWidget extends ConsumerWidget {
                     onPressed: () async {
                       final response = await Auth.signOut();
                       response.match(
-                        (l) => ScaffoldMessenger.of(context).showSnackBar(
-                          snackBarWidget(
-                            content: l,
-                            state: ActionState.error,
-                          ),
-                        ),
-                        (r) => ScaffoldMessenger.of(context).showSnackBar(
-                          snackBarWidget(
-                            content: r,
-                            state: ActionState.success,
-                          ),
-                        ),
+                        (l) => context.showErrorSnackBar(l),
+                        (r) => context.showSuccessSnackBar(r),
                       );
                     },
                     child: const Text('Sign Out'),

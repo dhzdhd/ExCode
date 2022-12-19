@@ -14,14 +14,14 @@ extension ShowSnackBar on BuildContext {
   void showSuccessSnackBar(String content) {
     ScaffoldMessenger.of(this).showSnackBar(snackBarWidget(
       content: content,
-      state: ActionState.success,
+      state: SnackBarState.success,
     ));
   }
 
   void showErrorSnackBar(String content) {
     ScaffoldMessenger.of(this).showSnackBar(snackBarWidget(
       content: content,
-      state: ActionState.error,
+      state: SnackBarState.error,
     ));
   }
 }

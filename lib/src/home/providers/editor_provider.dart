@@ -18,13 +18,13 @@ final editorContentStateProvider =
 final cursorSelectionStateProvider =
     StateNotifierProvider<_CursorSelectionModel, int>(
         (ref) => _CursorSelectionModel());
-final bottomBarButtonsStateProvider =
-    StateNotifierProvider<_BottomBarButtonsModel, List<CharModel>>(
-        (ref) => _BottomBarButtonsModel());
+final snippetBarStateProvider =
+    StateNotifierProvider<_SnippetBarModel, List<CharModel>>(
+        (ref) => _SnippetBarModel());
 
-class _BottomBarButtonsModel extends StateNotifier<List<CharModel>> {
+class _SnippetBarModel extends StateNotifier<List<CharModel>> {
   // ! Consider using ChangeNotifierProvider
-  _BottomBarButtonsModel() : super(SnippetService.fetch());
+  _SnippetBarModel() : super(SnippetService.fetch());
 
   void append(CharModel data) {
     state = state.append(data).toList();

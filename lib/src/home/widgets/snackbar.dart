@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-enum ActionState {
+enum SnackBarState {
   success,
   error,
 }
 
 SnackBar snackBarWidget({
   required String content,
-  required ActionState state,
+  required SnackBarState state,
   SnackBarAction? action,
 }) {
   return SnackBar(
@@ -16,10 +16,11 @@ SnackBar snackBarWidget({
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
     ),
+    duration: const Duration(seconds: 3),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
     behavior: SnackBarBehavior.floating,
-    backgroundColor: state == ActionState.success ? Colors.green : Colors.red,
+    backgroundColor: state == SnackBarState.success ? Colors.green : Colors.red,
     action: action,
   );
 }

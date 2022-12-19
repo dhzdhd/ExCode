@@ -179,13 +179,8 @@ class SettingsView extends HookConsumerWidget {
                         value: isLocked,
                         onChanged: (val) {
                           settingsNotifier.setLocked();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackBarWidget(
-                              content: !isLocked
-                                  ? 'Locked editor'
-                                  : 'Unlocked editor',
-                              state: ActionState.success,
-                            ),
+                          context.showSuccessSnackBar(
+                            !isLocked ? 'Locked editor' : 'Unlocked editor',
                           );
                         }),
                   ),

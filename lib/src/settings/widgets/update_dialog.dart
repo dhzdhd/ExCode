@@ -1,7 +1,7 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:excode/src/home/widgets/snackbar.dart';
+import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -93,17 +93,11 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
                     onEnd: (() {
                       // FIXME:
                       if (status == DownloadTaskStatus.complete) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBarWidget(
-                          content: 'Successfully downloaded latest version!',
-                          state: ActionState.success,
-                        ));
+                        context.showSuccessSnackBar(
+                            'Successfully downloaded latest version!');
                       } else if (status == DownloadTaskStatus.failed) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBarWidget(
-                          content: 'Failed to download latest version!',
-                          state: ActionState.error,
-                        ));
+                        context.showErrorSnackBar(
+                            'Failed to download latest version!');
                       }
 
                       status = DownloadTaskStatus.undefined;

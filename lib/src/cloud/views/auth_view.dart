@@ -1,7 +1,6 @@
 import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
-import 'package:excode/src/home/widgets/snackbar.dart';
-import 'package:excode/src/settings/providers/settings_provider.dart';
+import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -166,22 +165,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                             _emailController.text, _passwordController.text);
                         _setLoading();
                         response.match(
-                            (l) => ScaffoldMessenger.of(context).showSnackBar(
-                                  snackBarWidget(
-                                    content: l,
-                                    state: ActionState.error,
-                                  ),
-                                ), (r) {
-                          ref.watch(authProvider.notifier).setUser(r);
-                          Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackBarWidget(
-                              content:
-                                  'Successfully registered! Please check your email to verify!',
-                              state: ActionState.success,
-                            ),
-                          );
-                        });
+                          (l) => context.showErrorSnackBar(l),
+                          (r) {
+                            ref.watch(authProvider.notifier).setUser(r);
+                            Navigator.pop(context);
+                            context.showSuccessSnackBar(
+                                'Successfully registered! Please check your email to verify!');
+                          },
+                        );
                       } else {
                         _setLoading();
                         final response = await Auth.signIn(
@@ -189,21 +180,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         _setLoading();
 
                         response.match(
-                            (l) => ScaffoldMessenger.of(context).showSnackBar(
-                                  snackBarWidget(
-                                    content: l,
-                                    state: ActionState.error,
-                                  ),
-                                ), (r) {
-                          ref.watch(authProvider.notifier).setUser(r);
-                          Navigator.pop(context);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackBarWidget(
-                              content: 'Successfully logged in!',
-                              state: ActionState.success,
-                            ),
-                          );
-                        });
+                          (l) => context.showErrorSnackBar(l),
+                          (r) {
+                            ref.watch(authProvider.notifier).setUser(r);
+                            Navigator.pop(context);
+                            context
+                                .showSuccessSnackBar('Successfully logged in!');
+                          },
+                        );
                       }
                     }
                   },

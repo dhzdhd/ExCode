@@ -1,3 +1,4 @@
+import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/input_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
@@ -66,12 +67,7 @@ class _InputDialogWidgetState extends State<InputDialogWidget> {
                 );
 
                 Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  snackBarWidget(
-                    content: 'Successfully saved input data!',
-                    state: ActionState.success,
-                  ),
-                );
+                context.showSuccessSnackBar('Successfully saved input data!');
               },
               child: const Text('Save'),
             ),

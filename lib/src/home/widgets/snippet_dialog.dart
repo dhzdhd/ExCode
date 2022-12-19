@@ -32,7 +32,7 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final data = ref.watch(bottomBarButtonsStateProvider);
+    final data = ref.watch(snippetBarStateProvider);
 
     return Dialog(
       insetPadding: const EdgeInsets.all(50),
@@ -107,9 +107,8 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                                       IconButton(
                                         onPressed: () {
                                           ref
-                                              .watch(
-                                                  bottomBarButtonsStateProvider
-                                                      .notifier)
+                                              .watch(snippetBarStateProvider
+                                                  .notifier)
                                               .delete(e.name);
                                         },
                                         icon: const Icon(Icons.delete),
@@ -138,7 +137,7 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                   onReorder: (oldIndex, newIndex) {
                     setState(() {
                       ref
-                          .watch(bottomBarButtonsStateProvider.notifier)
+                          .watch(snippetBarStateProvider.notifier)
                           .reorder(oldIndex, newIndex);
                     });
                   },
@@ -231,7 +230,7 @@ class _AddSnippetDialogWidgetState
                       } else if (value.length > 10) {
                         return 'Max length of 10 allowed!';
                       } else if (ref
-                          .read(bottomBarButtonsStateProvider)
+                          .read(snippetBarStateProvider)
                           .map((e) => e.name)
                           .contains(value)) {
                         return 'Duplicate names not allowed!';
@@ -275,7 +274,7 @@ class _AddSnippetDialogWidgetState
                         if (_formKey.currentState!.validate()) {
                           if (widget.option == SnippetDialogOption.add) {
                             ref
-                                .watch(bottomBarButtonsStateProvider.notifier)
+                                .watch(snippetBarStateProvider.notifier)
                                 .append(CharModel(
                                   name: _nameController.text,
                                   value: _valueController.text,
@@ -285,9 +284,7 @@ class _AddSnippetDialogWidgetState
                                 ));
                           } else {
                             // setState(() {
-                            ref
-                                .watch(bottomBarButtonsStateProvider.notifier)
-                                .edit(
+                            ref.watch(snippetBarStateProvider.notifier).edit(
                                   oldData: widget.oldModel!,
                                   newData: CharModel(
                                     name: _nameController.text,

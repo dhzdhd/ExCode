@@ -1,5 +1,5 @@
 import 'package:excode/src/home/providers/editor_provider.dart';
-import 'package:excode/src/home/widgets/bottom_bar_dialog.dart';
+import 'package:excode/src/home/widgets/snippet_dialog.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class BottomBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buttonList = ref.watch(bottomBarButtonsStateProvider);
+    final buttonList = ref.watch(snippetBarStateProvider);
     final isLocked =
         ref.watch(settingsProvider.select((value) => value.isLocked));
     final tabSize =
