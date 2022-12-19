@@ -32,6 +32,11 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
     await box.put('settings', state.toJson());
   }
 
+  Future<void> setState(SettingsModel newState) async {
+    _saveToStorage(newState);
+    state = newState;
+  }
+
   Future<void> setTabSize(TabEnum tab) async {
     final newState = state.copyWith(tabSize: tab);
     await _saveToStorage(newState);

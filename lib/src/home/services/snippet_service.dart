@@ -14,14 +14,14 @@ class SnippetService {
         .toList();
 
     return storedCharList ??
-        [
-          {'name': '( )', 'value': '()', 'length': 1},
-          {'name': '{ }', 'value': '{}', 'length': 1},
-          {'name': '[ ]', 'value': '[]', 'length': 1},
-          {'name': '\\', 'value': '\\', 'length': 1},
-          {'name': "'", 'value': "''", 'length': 1},
-          {'name': '`', 'value': '``', 'length': 1},
-          {'name': '< >', 'value': '<>', 'length': 1},
-        ].map((e) => CharModel.fromJson(e)).toList();
+        const [
+          CharModel(name: '( )', value: '()', length: 1),
+          CharModel(name: '{ }', value: '{}', length: 1),
+          CharModel(name: '[ ]', value: '[]', length: 1),
+          CharModel(name: '\\', value: '\\', length: 1),
+          CharModel(name: "'", value: "''", length: 1),
+          CharModel(name: '`', value: '``', length: 1),
+          CharModel(name: '< >', value: '<>', length: 1),
+        ];
   }
 }

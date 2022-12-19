@@ -10,12 +10,21 @@ class CloudDatabase {
     final response = await supabase
         .from(_databaseName)
         .upsert({'email': email, 'data': model.toJson()}).execute();
+
     if (response.hasError) {
       return Left(response.error!.message);
     }
-    // print(response.data[0]); // ! remove and prettify
-    return Right(CloudModel.fromJson(
-        (response.data[0] as Map<String, dynamic>)['data']));
+
+    try {
+      final data = response.data[0] as Map<String, dynamic>;
+      final model = CloudModel.fromJson(data['data']);
+      return Right(model);
+    } on RangeError catch (_) {
+      return const Left('Data could not be sent to the cloud!');
+    } catch (ex) {
+      print(ex);
+      return const Left('error');
+    }
   }
 
   static Future<Either<String, CloudModel>> fetch(String email) async {
@@ -30,33 +39,15 @@ class CloudDatabase {
       return Left(response.error!.message);
     }
 
-    // ! prettify
-    return Right(CloudModel.fromJson(
-        (response.data[0] as Map<String, dynamic>)['data']));
+    try {
+      final data = response.data[0] as Map<String, dynamic>;
+      final model = CloudModel.fromJson(data['data']);
+      return Right(model);
+    } on RangeError catch (_) {
+      return const Left('Data not present on the cloud!');
+    } catch (ex) {
+      print(ex);
+      return const Left('error');
+    }
   }
 }
-
-// class CloudDatabase {
-//   static Future<Either<String, String>> fetch(String email) async {
-//     final response = await supabase.from('settings').select().execute();
-
-//     if (response.hasError) {
-//       return Left(response.error!.message);
-//     }
-
-//     print(response.toJson());
-//     return Right(response.data);
-//   }
-
-//   static Future<Either<String, String>> upsert(
-//       String email, String data) async {
-//     final response = await supabase.from('settings').upsert(data).execute();
-
-//     if (response.hasError) {
-//       return Left(response.error!.message);
-//     }
-
-//     print(response.data);
-//     return Right(response.data);
-//   }
-// }
