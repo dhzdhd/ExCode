@@ -1,8 +1,6 @@
-import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/services/language.dart';
-import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';

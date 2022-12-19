@@ -1,7 +1,6 @@
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/input_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
-import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class InputDialogWidget extends StatefulWidget {
