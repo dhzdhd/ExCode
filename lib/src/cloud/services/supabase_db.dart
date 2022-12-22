@@ -10,7 +10,6 @@ class CloudDatabase {
     final response = await supabase
         .from(_databaseName)
         .upsert({'email': email, 'data': model.toJson()}).execute();
-    print('hi');
     if (response.hasError) {
       return Left(response.error!.message);
     }
@@ -49,5 +48,29 @@ class CloudDatabase {
       print(ex);
       return const Left('error');
     }
+  }
+
+  static Future<Either<String, List<dynamic>>> fetchAll() async {
+    final response = await supabase.from(_databaseName).select().execute();
+
+    if (response.hasError) {
+      return Left(response.error!.message);
+    }
+
+    return Right(response.data);
+  }
+
+  static Future<Either<String, String>> delete(String email) async {
+    final response = await supabase
+        .from(_databaseName)
+        .delete()
+        .eq('email', email)
+        .execute();
+
+    if (response.hasError) {
+      return Left(response.error!.message);
+    }
+
+    return Right(response.data); // ! Change to success message
   }
 }
