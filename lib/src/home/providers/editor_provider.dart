@@ -26,33 +26,38 @@ class _SnippetBarModel extends StateNotifier<List<CharModel>> {
   // ! Consider using ChangeNotifierProvider
   _SnippetBarModel() : super(SnippetService.fetch());
 
-  void append(CharModel data) {
-    state = state.append(data).toList();
-    SnippetService.store(data: state);
+  Future<void> append(CharModel data) async {
+    state = [...state, data];
+    await SnippetService.store(data: state);
   }
 
-  void edit({required CharModel oldData, required CharModel newData}) {
+  Future<void> edit(
+      {required CharModel oldData, required CharModel newData}) async {
     final index = state.indexOf(oldData);
-    final temp = state;
+    List<CharModel> temp = List.from(state);
     temp.removeAt(index);
     temp.insert(index, newData);
+
     state = temp;
-    SnippetService.store(data: state);
+    await SnippetService.store(data: state);
   }
 
-  void delete(String key) {
+  Future<void> delete(String key) async {
     state = state.filter((t) => t.name != key).toList();
-    SnippetService.store(data: state);
+    await SnippetService.store(data: state);
   }
 
-  void reorder(int oldIndex, int newIndex) {
+  Future<void> reorder(int oldIndex, int newIndex) async {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
 
-    final data = state.removeAt(oldIndex);
-    state.insert(newIndex, data);
-    SnippetService.store(data: state);
+    List<CharModel> temp = List.from(state);
+    final data = temp.removeAt(oldIndex);
+    temp.insert(newIndex, data);
+
+    state = temp;
+    await SnippetService.store(data: temp);
   }
 }
 
