@@ -134,12 +134,11 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                         ),
                       )
                       .toList(),
-                  onReorder: (oldIndex, newIndex) {
-                    setState(() {
-                      ref
-                          .watch(snippetBarStateProvider.notifier)
-                          .reorder(oldIndex, newIndex);
-                    });
+                  onReorder: (oldIndex, newIndex) async {
+                    // ! Removed setState
+                    await ref
+                        .watch(snippetBarStateProvider.notifier)
+                        .reorder(oldIndex, newIndex);
                   },
                 ),
               );
@@ -273,7 +272,7 @@ class _AddSnippetDialogWidgetState
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           if (widget.option == SnippetDialogOption.add) {
-                            ref
+                            await ref
                                 .watch(snippetBarStateProvider.notifier)
                                 .append(CharModel(
                                   name: _nameController.text,
@@ -284,7 +283,9 @@ class _AddSnippetDialogWidgetState
                                 ));
                           } else {
                             // setState(() {
-                            ref.watch(snippetBarStateProvider.notifier).edit(
+                            await ref
+                                .watch(snippetBarStateProvider.notifier)
+                                .edit(
                                   oldData: widget.oldModel!,
                                   newData: CharModel(
                                     name: _nameController.text,
