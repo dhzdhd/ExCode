@@ -1,3 +1,4 @@
+import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -20,15 +21,24 @@ final cursorSelectionStateProvider =
         (ref) => _CursorSelectionModel());
 final snippetBarStateProvider =
     StateNotifierProvider<_SnippetBarModel, List<CharModel>>(
-        (ref) => _SnippetBarModel());
+        (ref) => _SnippetBarModel(ref));
 
 class _SnippetBarModel extends StateNotifier<List<CharModel>> {
+  final StateNotifierProviderRef<_SnippetBarModel, List<CharModel>> ref;
+
   // ! Consider using ChangeNotifierProvider
-  _SnippetBarModel() : super(SnippetService.fetch());
+  _SnippetBarModel(this.ref) : super(SnippetService.fetch());
 
   Future<void> append(CharModel data) async {
     state = [...state, data];
-    await SnippetService.store(data: state);
+    await SnippetService.store(data: state, ref: ref);
+  }
+
+  Future<void> setState(List<CharModel> newState) async {
+    state = newState;
+
+    // ! Change store to not update cloud -> Refer settingsProvider
+    await SnippetService.store(data: newState, ref: ref);
   }
 
   Future<void> edit(
@@ -39,12 +49,12 @@ class _SnippetBarModel extends StateNotifier<List<CharModel>> {
     temp.insert(index, newData);
 
     state = temp;
-    await SnippetService.store(data: state);
+    await SnippetService.store(data: state, ref: ref);
   }
 
   Future<void> delete(String key) async {
     state = state.filter((t) => t.name != key).toList();
-    await SnippetService.store(data: state);
+    await SnippetService.store(data: state, ref: ref);
   }
 
   Future<void> reorder(int oldIndex, int newIndex) async {
@@ -57,7 +67,7 @@ class _SnippetBarModel extends StateNotifier<List<CharModel>> {
     temp.insert(newIndex, data);
 
     state = temp;
-    await SnippetService.store(data: temp);
+    await SnippetService.store(data: temp, ref: ref);
   }
 }
 

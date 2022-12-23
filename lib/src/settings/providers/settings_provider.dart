@@ -1,12 +1,14 @@
 import 'package:excode/src/cloud/models/cloud_model.dart';
+import 'package:excode/src/cloud/providers/cloud_provider.dart';
 import 'package:excode/src/cloud/services/supabase_db.dart';
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/settings/models/settings_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final settingsProvider =
     StateNotifierProvider<_SettingsNotifier, SettingsModel>(
-        (ref) => _SettingsNotifier());
+        (ref) => _SettingsNotifier(ref));
 
 enum TabEnum {
   two('  '),
@@ -17,7 +19,9 @@ enum TabEnum {
 }
 
 class _SettingsNotifier extends StateNotifier<SettingsModel> {
-  _SettingsNotifier()
+  final StateNotifierProviderRef<_SettingsNotifier, SettingsModel> ref;
+
+  _SettingsNotifier(this.ref)
       : super(SettingsModel.fromJson(
             Map<String, dynamic>.from(box.get('settings') ??
                 {
@@ -36,9 +40,16 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
 
     final user = supabase.auth.currentUser;
     if (state.isSaveToCloud && user != null) {
-      // ! Get CloudModel from provider once it has more fields
-      final res =
-          await CloudDatabase.upsert(CloudModel(settings: state), user.email!);
+      //final cloudState =
+      //  ref.watch(cloudProvider).value!.snippets; // ! Handle error states
+
+      // ? Decide whether local changes or cloud changes have to be saved
+      // ? Defaulted to local now
+      // ! Resolve circular dependency
+      final res = await CloudDatabase.upsert(
+          CloudModel(
+              settings: state, snippets: ref.watch(snippetBarStateProvider)),
+          user.email!);
       res.match((l) => print(l), (r) => print(r));
     }
   }

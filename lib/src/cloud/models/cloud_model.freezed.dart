@@ -21,6 +21,7 @@ CloudModel _$CloudModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CloudModel {
   SettingsModel get settings => throw _privateConstructorUsedError;
+  List<CharModel> get snippets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $CloudModelCopyWith<$Res> {
           CloudModel value, $Res Function(CloudModel) then) =
       _$CloudModelCopyWithImpl<$Res, CloudModel>;
   @useResult
-  $Res call({SettingsModel settings});
+  $Res call({SettingsModel settings, List<CharModel> snippets});
 
   $SettingsModelCopyWith<$Res> get settings;
 }
@@ -53,12 +54,17 @@ class _$CloudModelCopyWithImpl<$Res, $Val extends CloudModel>
   @override
   $Res call({
     Object? settings = null,
+    Object? snippets = null,
   }) {
     return _then(_value.copyWith(
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as SettingsModel,
+      snippets: null == snippets
+          ? _value.snippets
+          : snippets // ignore: cast_nullable_to_non_nullable
+              as List<CharModel>,
     ) as $Val);
   }
 
@@ -79,7 +85,7 @@ abstract class _$$_CloudModelCopyWith<$Res>
       __$$_CloudModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SettingsModel settings});
+  $Res call({SettingsModel settings, List<CharModel> snippets});
 
   @override
   $SettingsModelCopyWith<$Res> get settings;
@@ -97,12 +103,17 @@ class __$$_CloudModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? settings = null,
+    Object? snippets = null,
   }) {
     return _then(_$_CloudModel(
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as SettingsModel,
+      snippets: null == snippets
+          ? _value._snippets
+          : snippets // ignore: cast_nullable_to_non_nullable
+              as List<CharModel>,
     ));
   }
 }
@@ -110,17 +121,25 @@ class __$$_CloudModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CloudModel implements _CloudModel {
-  const _$_CloudModel({required this.settings});
+  const _$_CloudModel(
+      {required this.settings, required final List<CharModel> snippets})
+      : _snippets = snippets;
 
   factory _$_CloudModel.fromJson(Map<String, dynamic> json) =>
       _$$_CloudModelFromJson(json);
 
   @override
   final SettingsModel settings;
+  final List<CharModel> _snippets;
+  @override
+  List<CharModel> get snippets {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_snippets);
+  }
 
   @override
   String toString() {
-    return 'CloudModel(settings: $settings)';
+    return 'CloudModel(settings: $settings, snippets: $snippets)';
   }
 
   @override
@@ -129,12 +148,14 @@ class _$_CloudModel implements _CloudModel {
         (other.runtimeType == runtimeType &&
             other is _$_CloudModel &&
             (identical(other.settings, settings) ||
-                other.settings == settings));
+                other.settings == settings) &&
+            const DeepCollectionEquality().equals(other._snippets, _snippets));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, settings);
+  int get hashCode => Object.hash(
+      runtimeType, settings, const DeepCollectionEquality().hash(_snippets));
 
   @JsonKey(ignore: true)
   @override
@@ -151,14 +172,17 @@ class _$_CloudModel implements _CloudModel {
 }
 
 abstract class _CloudModel implements CloudModel {
-  const factory _CloudModel({required final SettingsModel settings}) =
-      _$_CloudModel;
+  const factory _CloudModel(
+      {required final SettingsModel settings,
+      required final List<CharModel> snippets}) = _$_CloudModel;
 
   factory _CloudModel.fromJson(Map<String, dynamic> json) =
       _$_CloudModel.fromJson;
 
   @override
   SettingsModel get settings;
+  @override
+  List<CharModel> get snippets;
   @override
   @JsonKey(ignore: true)
   _$$_CloudModelCopyWith<_$_CloudModel> get copyWith =>

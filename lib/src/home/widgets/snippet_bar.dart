@@ -12,7 +12,7 @@ class BottomBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buttonList = ref.watch(snippetBarStateProvider);
+    final snippetList = ref.watch(snippetBarStateProvider);
     final isLocked =
         ref.watch(settingsProvider.select((value) => value.isLocked));
     final tabSize =
@@ -44,7 +44,7 @@ class BottomBarWidget extends ConsumerWidget {
                   },
                   child: const Text('TAB'),
                 ),
-                ...buttonList.map(
+                ...snippetList.map(
                   (e) => TextButton(
                     onPressed: () {
                       if (!isLocked) {

@@ -1,3 +1,4 @@
+import 'package:excode/src/home/models/char_model.dart';
 import 'package:excode/src/settings/models/settings_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,6 +9,7 @@ part 'cloud_model.g.dart';
 class CloudModel with _$CloudModel {
   const factory CloudModel({
     required SettingsModel settings,
+    required List<CharModel> snippets,
   }) = _CloudModel;
 
   factory CloudModel.fromJson(Map<String, dynamic> json) =>
