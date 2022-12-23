@@ -21,7 +21,7 @@ CloudModel _$CloudModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CloudModel {
   SettingsModel get settings => throw _privateConstructorUsedError;
-  List<CharModel> get snippets => throw _privateConstructorUsedError;
+  List<SnippetModel> get snippets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $CloudModelCopyWith<$Res> {
           CloudModel value, $Res Function(CloudModel) then) =
       _$CloudModelCopyWithImpl<$Res, CloudModel>;
   @useResult
-  $Res call({SettingsModel settings, List<CharModel> snippets});
+  $Res call({SettingsModel settings, List<SnippetModel> snippets});
 
   $SettingsModelCopyWith<$Res> get settings;
 }
@@ -64,7 +64,7 @@ class _$CloudModelCopyWithImpl<$Res, $Val extends CloudModel>
       snippets: null == snippets
           ? _value.snippets
           : snippets // ignore: cast_nullable_to_non_nullable
-              as List<CharModel>,
+              as List<SnippetModel>,
     ) as $Val);
   }
 
@@ -85,7 +85,7 @@ abstract class _$$_CloudModelCopyWith<$Res>
       __$$_CloudModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SettingsModel settings, List<CharModel> snippets});
+  $Res call({SettingsModel settings, List<SnippetModel> snippets});
 
   @override
   $SettingsModelCopyWith<$Res> get settings;
@@ -113,7 +113,7 @@ class __$$_CloudModelCopyWithImpl<$Res>
       snippets: null == snippets
           ? _value._snippets
           : snippets // ignore: cast_nullable_to_non_nullable
-              as List<CharModel>,
+              as List<SnippetModel>,
     ));
   }
 }
@@ -122,7 +122,7 @@ class __$$_CloudModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CloudModel implements _CloudModel {
   const _$_CloudModel(
-      {required this.settings, required final List<CharModel> snippets})
+      {required this.settings, required final List<SnippetModel> snippets})
       : _snippets = snippets;
 
   factory _$_CloudModel.fromJson(Map<String, dynamic> json) =>
@@ -130,9 +130,9 @@ class _$_CloudModel implements _CloudModel {
 
   @override
   final SettingsModel settings;
-  final List<CharModel> _snippets;
+  final List<SnippetModel> _snippets;
   @override
-  List<CharModel> get snippets {
+  List<SnippetModel> get snippets {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_snippets);
   }
@@ -174,7 +174,7 @@ class _$_CloudModel implements _CloudModel {
 abstract class _CloudModel implements CloudModel {
   const factory _CloudModel(
       {required final SettingsModel settings,
-      required final List<CharModel> snippets}) = _$_CloudModel;
+      required final List<SnippetModel> snippets}) = _$_CloudModel;
 
   factory _CloudModel.fromJson(Map<String, dynamic> json) =
       _$_CloudModel.fromJson;
@@ -182,7 +182,7 @@ abstract class _CloudModel implements CloudModel {
   @override
   SettingsModel get settings;
   @override
-  List<CharModel> get snippets;
+  List<SnippetModel> get snippets;
   @override
   @JsonKey(ignore: true)
   _$$_CloudModelCopyWith<_$_CloudModel> get copyWith =>

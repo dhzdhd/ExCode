@@ -1,18 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'char_model.dart';
+part of 'snippet_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CharModel _$$_CharModelFromJson(Map<String, dynamic> json) => _$_CharModel(
+_$_SnippetModel _$$_SnippetModelFromJson(Map<String, dynamic> json) =>
+    _$_SnippetModel(
       name: json['name'] as String,
       value: json['value'] as String,
       length: json['length'] as int,
     );
 
-Map<String, dynamic> _$$_CharModelToJson(_$_CharModel instance) =>
+Map<String, dynamic> _$$_SnippetModelToJson(_$_SnippetModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'value': instance.value,

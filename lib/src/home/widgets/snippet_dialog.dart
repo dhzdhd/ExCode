@@ -1,4 +1,4 @@
-import 'package:excode/src/home/models/char_model.dart';
+import 'package:excode/src/home/models/snippet_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +157,7 @@ enum SnippetDialogOption {
 
 class AddSnippetDialogWidget extends ConsumerStatefulWidget {
   final SnippetDialogOption option;
-  final CharModel? oldModel;
+  final SnippetModel? oldModel;
 
   const AddSnippetDialogWidget({Key? key, required this.option, this.oldModel})
       : super(key: key);
@@ -274,7 +274,7 @@ class _AddSnippetDialogWidgetState
                           if (widget.option == SnippetDialogOption.add) {
                             await ref
                                 .watch(snippetBarStateProvider.notifier)
-                                .append(CharModel(
+                                .append(SnippetModel(
                                   name: _nameController.text,
                                   value: _valueController.text,
                                   length: int.parse(
@@ -287,7 +287,7 @@ class _AddSnippetDialogWidgetState
                                 .watch(snippetBarStateProvider.notifier)
                                 .edit(
                                   oldData: widget.oldModel!,
-                                  newData: CharModel(
+                                  newData: SnippetModel(
                                     name: _nameController.text,
                                     value: _valueController.text,
                                     length: int.parse(

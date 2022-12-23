@@ -1,6 +1,6 @@
 import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/factory.dart';
-import 'package:excode/src/home/models/char_model.dart';
+import 'package:excode/src/home/models/snippet_model.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/services/snippet_service.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +20,21 @@ final cursorSelectionStateProvider =
     StateNotifierProvider<_CursorSelectionModel, int>(
         (ref) => _CursorSelectionModel());
 final snippetBarStateProvider =
-    StateNotifierProvider<_SnippetBarModel, List<CharModel>>(
+    StateNotifierProvider<_SnippetBarModel, List<SnippetModel>>(
         (ref) => _SnippetBarModel(ref));
 
-class _SnippetBarModel extends StateNotifier<List<CharModel>> {
-  final StateNotifierProviderRef<_SnippetBarModel, List<CharModel>> ref;
+class _SnippetBarModel extends StateNotifier<List<SnippetModel>> {
+  final StateNotifierProviderRef<_SnippetBarModel, List<SnippetModel>> ref;
 
   // ! Consider using ChangeNotifierProvider
   _SnippetBarModel(this.ref) : super(SnippetService.fetch());
 
-  Future<void> append(CharModel data) async {
+  Future<void> append(SnippetModel data) async {
     state = [...state, data];
     await SnippetService.store(data: state, ref: ref);
   }
 
-  Future<void> setState(List<CharModel> newState) async {
+  Future<void> setState(List<SnippetModel> newState) async {
     state = newState;
 
     // ! Change store to not update cloud -> Refer settingsProvider
@@ -42,9 +42,9 @@ class _SnippetBarModel extends StateNotifier<List<CharModel>> {
   }
 
   Future<void> edit(
-      {required CharModel oldData, required CharModel newData}) async {
+      {required SnippetModel oldData, required SnippetModel newData}) async {
     final index = state.indexOf(oldData);
-    List<CharModel> temp = List.from(state);
+    List<SnippetModel> temp = List.from(state);
     temp.removeAt(index);
     temp.insert(index, newData);
 
@@ -62,7 +62,7 @@ class _SnippetBarModel extends StateNotifier<List<CharModel>> {
       newIndex -= 1;
     }
 
-    List<CharModel> temp = List.from(state);
+    List<SnippetModel> temp = List.from(state);
     final data = temp.removeAt(oldIndex);
     temp.insert(newIndex, data);
 

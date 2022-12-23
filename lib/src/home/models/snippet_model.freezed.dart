@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'char_model.dart';
+part of 'snippet_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-CharModel _$CharModelFromJson(Map<String, dynamic> json) {
-  return _CharModel.fromJson(json);
+SnippetModel _$SnippetModelFromJson(Map<String, dynamic> json) {
+  return _SnippetModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CharModel {
+mixin _$SnippetModel {
   String get name => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
   int get length => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CharModelCopyWith<CharModel> get copyWith =>
+  $SnippetModelCopyWith<SnippetModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CharModelCopyWith<$Res> {
-  factory $CharModelCopyWith(CharModel value, $Res Function(CharModel) then) =
-      _$CharModelCopyWithImpl<$Res, CharModel>;
+abstract class $SnippetModelCopyWith<$Res> {
+  factory $SnippetModelCopyWith(
+          SnippetModel value, $Res Function(SnippetModel) then) =
+      _$SnippetModelCopyWithImpl<$Res, SnippetModel>;
   @useResult
   $Res call({String name, String value, int length});
 }
 
 /// @nodoc
-class _$CharModelCopyWithImpl<$Res, $Val extends CharModel>
-    implements $CharModelCopyWith<$Res> {
-  _$CharModelCopyWithImpl(this._value, this._then);
+class _$SnippetModelCopyWithImpl<$Res, $Val extends SnippetModel>
+    implements $SnippetModelCopyWith<$Res> {
+  _$SnippetModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -73,21 +74,22 @@ class _$CharModelCopyWithImpl<$Res, $Val extends CharModel>
 }
 
 /// @nodoc
-abstract class _$$_CharModelCopyWith<$Res> implements $CharModelCopyWith<$Res> {
-  factory _$$_CharModelCopyWith(
-          _$_CharModel value, $Res Function(_$_CharModel) then) =
-      __$$_CharModelCopyWithImpl<$Res>;
+abstract class _$$_SnippetModelCopyWith<$Res>
+    implements $SnippetModelCopyWith<$Res> {
+  factory _$$_SnippetModelCopyWith(
+          _$_SnippetModel value, $Res Function(_$_SnippetModel) then) =
+      __$$_SnippetModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String value, int length});
 }
 
 /// @nodoc
-class __$$_CharModelCopyWithImpl<$Res>
-    extends _$CharModelCopyWithImpl<$Res, _$_CharModel>
-    implements _$$_CharModelCopyWith<$Res> {
-  __$$_CharModelCopyWithImpl(
-      _$_CharModel _value, $Res Function(_$_CharModel) _then)
+class __$$_SnippetModelCopyWithImpl<$Res>
+    extends _$SnippetModelCopyWithImpl<$Res, _$_SnippetModel>
+    implements _$$_SnippetModelCopyWith<$Res> {
+  __$$_SnippetModelCopyWithImpl(
+      _$_SnippetModel _value, $Res Function(_$_SnippetModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +99,7 @@ class __$$_CharModelCopyWithImpl<$Res>
     Object? value = null,
     Object? length = null,
   }) {
-    return _then(_$_CharModel(
+    return _then(_$_SnippetModel(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -116,12 +118,12 @@ class __$$_CharModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CharModel implements _CharModel {
-  const _$_CharModel(
+class _$_SnippetModel implements _SnippetModel {
+  const _$_SnippetModel(
       {required this.name, required this.value, required this.length});
 
-  factory _$_CharModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CharModelFromJson(json);
+  factory _$_SnippetModel.fromJson(Map<String, dynamic> json) =>
+      _$$_SnippetModelFromJson(json);
 
   @override
   final String name;
@@ -132,14 +134,14 @@ class _$_CharModel implements _CharModel {
 
   @override
   String toString() {
-    return 'CharModel(name: $name, value: $value, length: $length)';
+    return 'SnippetModel(name: $name, value: $value, length: $length)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CharModel &&
+            other is _$_SnippetModel &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.length, length) || other.length == length));
@@ -152,25 +154,25 @@ class _$_CharModel implements _CharModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CharModelCopyWith<_$_CharModel> get copyWith =>
-      __$$_CharModelCopyWithImpl<_$_CharModel>(this, _$identity);
+  _$$_SnippetModelCopyWith<_$_SnippetModel> get copyWith =>
+      __$$_SnippetModelCopyWithImpl<_$_SnippetModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CharModelToJson(
+    return _$$_SnippetModelToJson(
       this,
     );
   }
 }
 
-abstract class _CharModel implements CharModel {
-  const factory _CharModel(
+abstract class _SnippetModel implements SnippetModel {
+  const factory _SnippetModel(
       {required final String name,
       required final String value,
-      required final int length}) = _$_CharModel;
+      required final int length}) = _$_SnippetModel;
 
-  factory _CharModel.fromJson(Map<String, dynamic> json) =
-      _$_CharModel.fromJson;
+  factory _SnippetModel.fromJson(Map<String, dynamic> json) =
+      _$_SnippetModel.fromJson;
 
   @override
   String get name;
@@ -180,6 +182,6 @@ abstract class _CharModel implements CharModel {
   int get length;
   @override
   @JsonKey(ignore: true)
-  _$$_CharModelCopyWith<_$_CharModel> get copyWith =>
+  _$$_SnippetModelCopyWith<_$_SnippetModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

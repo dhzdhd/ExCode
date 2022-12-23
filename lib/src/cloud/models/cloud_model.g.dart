@@ -11,7 +11,7 @@ _$_CloudModel _$$_CloudModelFromJson(Map<String, dynamic> json) =>
       settings:
           SettingsModel.fromJson(json['settings'] as Map<String, dynamic>),
       snippets: (json['snippets'] as List<dynamic>)
-          .map((e) => CharModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => SnippetModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
