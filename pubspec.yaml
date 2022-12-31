@@ -40,6 +40,7 @@ dependencies:
   supabase_flutter: ^0.3.3
   desktop_drop: ^0.4.0
   flutter_downloader: ^1.9.1
+  flutter_svg: ^1.1.6
   test: ^1.21.4
 
 dev_dependencies:

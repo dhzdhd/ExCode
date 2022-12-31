@@ -6,6 +6,7 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/auth_container.dart';
+import 'package:excode/src/settings/widgets/auth_dropdown.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/font_size_button.dart';
 import 'package:excode/src/settings/widgets/update_dialog.dart';
@@ -45,6 +46,12 @@ class SettingsView extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: AuthDropDownWidget(),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

@@ -23,12 +23,12 @@ class AuthContainerWidget extends ConsumerWidget {
         child: Column(
           children: [
             Text(
-              ref.watch(authProvider).user?.email ?? 'Not signed in yet!',
+              ref.watch(authStateProvider).user?.email ?? 'Not signed in yet!',
               // .match((t) => t.email!, () => 'Not signed in yet!'),
               style: const TextStyle(fontSize: 20),
             ),
             Visibility(
-              visible: ref.watch(authProvider).user == null,
+              visible: ref.watch(authStateProvider).user == null,
               child: TextButton(
                 onPressed: () {
                   Navigator.restorablePushNamed(context, AuthView.routeName);
@@ -40,7 +40,7 @@ class AuthContainerWidget extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Visibility(
-                  visible: ref.watch(authProvider).user != null,
+                  visible: ref.watch(authStateProvider).user != null,
                   child: TextButton(
                     onPressed: () async {
                       // ! Possibly move to a service file?
@@ -61,7 +61,7 @@ class AuthContainerWidget extends ConsumerWidget {
                   ),
                 ),
                 Visibility(
-                  visible: ref.watch(authProvider).user != null,
+                  visible: ref.watch(authStateProvider).user != null,
                   child: TextButton(
                     onPressed: () async {
                       final response = await Auth.signOut();

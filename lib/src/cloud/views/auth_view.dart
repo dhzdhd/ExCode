@@ -145,13 +145,13 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 ),
               ),
               const Divider(color: Colors.transparent),
-              SwitchListTile(
-                title: const Text('Save login information?'),
-                hoverColor: Colors.transparent,
-                value: ref.watch(authProvider).isLoginInfoSaved,
-                onChanged: (value) =>
-                    ref.watch(authProvider.notifier).setLoginInfoSaved(),
-              ),
+              // SwitchListTile( // ! Marked for deprecation
+              //   title: const Text('Save login information?'),
+              //   hoverColor: Colors.transparent,
+              //   value: ref.watch(authProvider).isLoginInfoSaved,
+              //   onChanged: (value) =>
+              //       ref.watch(authProvider.notifier).setLoginInfoSaved(),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
@@ -167,7 +167,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
-                            ref.watch(authProvider.notifier).setUser(r);
+                            ref.watch(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context.showSuccessSnackBar(
                                 'Successfully registered! Please check your email to verify!');
@@ -182,7 +182,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
-                            ref.watch(authProvider.notifier).setUser(r);
+                            ref.watch(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context
                                 .showSuccessSnackBar('Successfully logged in!');
