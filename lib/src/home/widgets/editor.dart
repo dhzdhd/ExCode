@@ -56,6 +56,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
     final content = ref.watch(editorContentStateProvider);
     final isTabBarVisible =
         ref.watch(settingsProvider.select((value) => value.isTabBarVisible));
+    final patternMap = ref.watch(matchWordStateProvider);
 
     ref.listen(outputIsVisibleStateProvider, ((previous, next) {
       if (ref.watch(outputIsVisibleStateProvider) == true) {
@@ -84,6 +85,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
                     getEnumFromString(ref.watch(editorThemeStateProvider))]!,
                 lang: langMap[editorTheme]!.mode,
                 content: content,
+                patternMap: patternMap,
               ),
               const OutputWrapperWidget()
             ],
@@ -106,6 +108,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
                       getEnumFromString(ref.watch(editorThemeStateProvider))]!,
                   lang: langMap[editorTheme]!.mode,
                   content: content,
+                  patternMap: patternMap,
                 ),
                 const OutputWrapperWidget(),
               ],
@@ -121,12 +124,14 @@ class _CodeFieldWidget extends StatefulHookConsumerWidget {
   final Map<String, TextStyle> theme;
   final Mode lang;
   final String content;
+  final Map<String, TextStyle> patternMap;
 
   const _CodeFieldWidget({
     Key? key,
     required this.theme,
     required this.lang,
     required this.content,
+    required this.patternMap,
   }) : super(key: key);
 
   @override
@@ -145,6 +150,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
       theme: widget.theme,
       language: widget.lang,
       text: widget.content,
+      patternMap: widget.patternMap,
     );
   }
 
@@ -155,11 +161,13 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
     super.didUpdateWidget(oldWidget);
     if (widget.theme != _controller.theme ||
         widget.lang != _controller.language ||
-        widget.content != _controller.text) {
+        widget.content != _controller.text ||
+        widget.patternMap != _controller.patternMap) {
       _controller = CodeController(
         text: widget.content,
         theme: widget.theme,
         language: widget.lang,
+        patternMap: widget.patternMap,
       );
       _focusNode.requestFocus();
       _controller.selection = _controller.selection

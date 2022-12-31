@@ -11,7 +11,7 @@ class SnippetService {
     await box.put('snippetList', data.map((e) => e.toJson()).toList());
 
     final user = supabase.auth.currentUser;
-    if (ref.watch(settingsProvider).isSaveToCloud && user != null) {
+    if (ref.read(settingsProvider).isSaveToCloud && user != null) {
       final res = await CloudDatabase.upsert(
         CloudModel(settings: ref.watch(settingsProvider), snippets: data),
         user.email!,

@@ -47,9 +47,12 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
       // ? Defaulted to local now
       // ! Resolve circular dependency
       final res = await CloudDatabase.upsert(
-          CloudModel(
-              settings: state, snippets: ref.watch(snippetBarStateProvider)),
-          user.email!);
+        CloudModel(
+          settings: state,
+          snippets: ref.watch(snippetBarStateProvider),
+        ),
+        user.email!,
+      );
       res.match((l) => print(l), (r) => print(r));
     }
   }
