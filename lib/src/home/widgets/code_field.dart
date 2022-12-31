@@ -2,19 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:code_text_field/code_text_field.dart' show CodeController;
+import 'package:excode/src/home/widgets/text_selection_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
-
-class CustomCodeController extends CodeController {
-  @override
-  TextSpan buildTextSpan(
-      {required BuildContext context, TextStyle? style, bool? withComposing}) {
-    print('e');
-
-    return super.buildTextSpan(
-        context: context, style: style, withComposing: withComposing);
-  }
-}
 
 class CodeFieldWidget extends StatefulWidget {
   final bool wrap;
@@ -76,8 +66,8 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     _lineCount = '\n'.allMatches(widget.controller.text).length + 1;
     _setNumber(widget.controller.text);
 
-    widget.controller.removeListener(_updateLineNumber);
     widget.controller.addListener(_updateLineNumber);
+    oldWidget.controller.removeListener(_updateLineNumber);
   }
 
   @override
@@ -135,7 +125,7 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
     );
 
     final codeField = TextField(
-      selectionControls: materialTextSelectionControls,
+      selectionControls: CustomTextSelectionControls(),
       enabled: widget.enabled,
       focusNode: _focusNode,
       style: textStyle,
