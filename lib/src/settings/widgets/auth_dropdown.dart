@@ -33,24 +33,38 @@ class AuthDropDownWidget extends ConsumerWidget {
             itemBuilder: ((context) {
               return [
                 if (user == null)
-                  const PopupMenuItem(
-                    child: Text('Login'),
+                  PopupMenuItem(
+                    child: const Text('Login'),
+                    onTap: (() {}),
                   ),
                 if (user != null)
-                  const PopupMenuItem(
-                    child: Text('Sync data'),
+                  PopupMenuItem(
+                    child: const Text('User info'),
+                    onTap: (() async {
+                      await showDialog(
+                        context: context,
+                        builder: ((context) {
+                          return AlertDialog(title: Text(user.email!));
+                        }),
+                      );
+                    }),
                   ),
                 if (user != null)
-                  const PopupMenuItem(
-                    child: Text('Sign out'),
-                  )
+                  PopupMenuItem(
+                    child: const Text('Sync data'),
+                    onTap: (() {}),
+                  ),
+                if (user != null)
+                  PopupMenuItem(
+                    child: const Text('Sign out'),
+                    onTap: (() {}),
+                  ),
               ];
             }),
             child: user == null
                 ? const Icon(Icons.person, size: size)
                 : SvgPicture.network(
                     'https://avatars.dicebear.com/api/bottts/${email!}.svg',
-                    // ! Hash and scramble email and add placeholder
                     width: size,
                   ),
           ),

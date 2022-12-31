@@ -247,10 +247,11 @@ class SettingsView extends HookConsumerWidget {
                     child: TextButton(
                       onPressed: () {
                         showDialog(
-                            context: context,
-                            builder: (BuildContext ctx) {
-                              return const AboutDialogWidget();
-                            });
+                          context: context,
+                          builder: (BuildContext ctx) {
+                            return const AboutDialogWidget();
+                          },
+                        );
                       },
                       child: const Text(
                         'About and Credits',
