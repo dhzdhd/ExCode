@@ -5,10 +5,11 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class BottomBarWidget extends ConsumerWidget {
+class SnippetBarWidget extends ConsumerWidget {
   final TextEditingController controller;
 
-  const BottomBarWidget({Key? key, required this.controller}) : super(key: key);
+  const SnippetBarWidget({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

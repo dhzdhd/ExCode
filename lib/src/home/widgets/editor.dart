@@ -217,7 +217,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 ),
               ),
             ),
-            BottomBarWidget(controller: _controller)
+            SnippetBarWidget(controller: _controller)
           ],
         ),
         Visibility(
