@@ -51,32 +51,18 @@ class CustomTextSelectionControls extends TextSelectionControls {
     //       endTextSelectionPoint.point.dy +
     //       _kToolbarContentDistanceBelow,
     // );
-    final value = delegate.textEditingValue;
-
-    return Consumer(
-      builder: (context, ref, child) {
-        final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
-
-        return _TextSelectionControlsToolbar(
-          globalEditableRegion: globalEditableRegion,
-          textLineHeight: textLineHeight,
-          selectionMidpoint: selectionMidpoint,
-          endpoints: endpoints,
-          delegate: delegate,
-          clipboardStatus: clipboardStatus,
-          handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
-          handleCopy: canCopy(delegate) ? () => handleCopy(delegate) : null,
-          handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
-          handleSelectAll:
-              canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
-          // ! Custom control
-          handleMatchText: () {
-            matchTextNotifier.addPattern(
-              pattern: value.selection.textInside(value.text),
-            );
-          },
-        );
-      },
+    return _TextSelectionControlsToolbar(
+      globalEditableRegion: globalEditableRegion,
+      textLineHeight: textLineHeight,
+      selectionMidpoint: selectionMidpoint,
+      endpoints: endpoints,
+      delegate: delegate,
+      clipboardStatus: clipboardStatus,
+      handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
+      handleCopy: canCopy(delegate) ? () => handleCopy(delegate) : null,
+      handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
+      handleSelectAll:
+          canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
     );
   }
 
@@ -161,7 +147,7 @@ class _TextSelectionToolbarItemData {
 }
 
 // The highest level toolbar widget, built directly by buildToolbar.
-class _TextSelectionControlsToolbar extends StatefulWidget {
+class _TextSelectionControlsToolbar extends ConsumerStatefulWidget {
   const _TextSelectionControlsToolbar({
     required this.clipboardStatus,
     required this.delegate,
@@ -171,7 +157,6 @@ class _TextSelectionControlsToolbar extends StatefulWidget {
     required this.handleCopy,
     required this.handlePaste,
     required this.handleSelectAll,
-    required this.handleMatchText,
     required this.selectionMidpoint,
     required this.textLineHeight,
   });
@@ -184,7 +169,6 @@ class _TextSelectionControlsToolbar extends StatefulWidget {
   final VoidCallback? handleCopy;
   final VoidCallback? handlePaste;
   final VoidCallback? handleSelectAll;
-  final VoidCallback? handleMatchText;
   final Offset selectionMidpoint;
   final double textLineHeight;
 
@@ -194,7 +178,8 @@ class _TextSelectionControlsToolbar extends StatefulWidget {
 }
 
 class _TextSelectionControlsToolbarState
-    extends State<_TextSelectionControlsToolbar> with TickerProviderStateMixin {
+    extends ConsumerState<_TextSelectionControlsToolbar>
+    with TickerProviderStateMixin {
   void _onChangedClipboardStatus() {
     setState(() {
       // Inform the widget that the value of clipboardStatus has changed.
@@ -224,6 +209,10 @@ class _TextSelectionControlsToolbarState
 
   @override
   Widget build(BuildContext context) {
+    final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
+    final matchTextMap = ref.watch(matchTextStateProvider);
+    final value = widget.delegate.textEditingValue;
+
     // If there are no buttons to be shown, don't render anything.
     if (widget.handleCut == null &&
         widget.handleCopy == null &&
@@ -290,8 +279,19 @@ class _TextSelectionControlsToolbarState
           onPressed: widget.handleSelectAll!,
         ),
       // ! Custom button
-      _TextSelectionToolbarItemData(
-          label: 'Match text', onPressed: widget.handleMatchText ?? () {})
+      if (value.selection.textInside(value.text).isNotEmpty)
+        _TextSelectionToolbarItemData(
+          label: matchTextMap.isEmpty ? 'Match text' : 'Reset matching',
+          onPressed: () {
+            if (matchTextMap.isEmpty) {
+              matchTextNotifier.addPattern(
+                pattern: value.selection.textInside(value.text),
+              );
+            } else {
+              matchTextNotifier.reset();
+            }
+          },
+        )
     ];
 
     // If there is no option available, build an empty widget.
