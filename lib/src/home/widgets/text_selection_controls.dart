@@ -55,7 +55,7 @@ class CustomTextSelectionControls extends TextSelectionControls {
 
     return Consumer(
       builder: (context, ref, child) {
-        final matchTextNotifier = ref.watch(matchWordStateProvider.notifier);
+        final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
 
         return _TextSelectionControlsToolbar(
           globalEditableRegion: globalEditableRegion,

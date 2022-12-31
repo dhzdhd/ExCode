@@ -22,12 +22,12 @@ final cursorSelectionStateProvider =
 final snippetBarStateProvider =
     StateNotifierProvider<_SnippetBarModel, List<SnippetModel>>(
         (ref) => _SnippetBarModel(ref));
-final matchWordStateProvider =
-    StateNotifierProvider<_MatchWordModel, Map<String, TextStyle>>(
-        (ref) => _MatchWordModel());
+final matchTextStateProvider =
+    StateNotifierProvider<_MatchTextModel, Map<String, TextStyle>>(
+        (ref) => _MatchTextModel());
 
-class _MatchWordModel extends StateNotifier<Map<String, TextStyle>> {
-  _MatchWordModel() : super({});
+class _MatchTextModel extends StateNotifier<Map<String, TextStyle>> {
+  _MatchTextModel() : super({});
 
   final _style = const TextStyle(
     backgroundColor: Colors.amber,

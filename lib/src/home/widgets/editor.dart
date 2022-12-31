@@ -56,7 +56,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
     final content = ref.watch(editorContentStateProvider);
     final isTabBarVisible =
         ref.watch(settingsProvider.select((value) => value.isTabBarVisible));
-    final patternMap = ref.watch(matchWordStateProvider);
+    final patternMap = ref.watch(matchTextStateProvider);
 
     ref.listen(outputIsVisibleStateProvider, ((previous, next) {
       if (ref.watch(outputIsVisibleStateProvider) == true) {
