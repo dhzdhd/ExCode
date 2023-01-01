@@ -41,11 +41,17 @@ class AuthDropDownWidget extends ConsumerWidget {
                   PopupMenuItem(
                     child: const Text('User info'),
                     onTap: (() async {
-                      await showDialog(
-                        context: context,
-                        builder: ((context) {
-                          return AlertDialog(title: Text(user.email!));
-                        }),
+                      // ? Future added so as to not pop dialog instantly when opened
+                      Future.delayed(
+                        const Duration(seconds: 0),
+                        () => showDialog(
+                          context: context,
+                          builder: ((context) {
+                            return AlertDialog(
+                              title: SelectableText(user.email!),
+                            );
+                          }),
+                        ),
                       );
                     }),
                   ),
