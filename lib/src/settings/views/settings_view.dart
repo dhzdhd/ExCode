@@ -5,7 +5,6 @@ import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
-import 'package:excode/src/settings/widgets/auth_container.dart';
 import 'package:excode/src/settings/widgets/auth_dropdown.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/font_size_button.dart';
@@ -266,7 +265,8 @@ class SettingsView extends HookConsumerWidget {
             if (defaultTargetPlatform != TargetPlatform.windows)
               SizedBox(
                 child: Text(
-                    kIsWeb ? 'Build latest' : 'Build v${packageInfo.version}'),
+                  kIsWeb ? 'Build latest' : 'Build v${packageInfo.version}',
+                ),
               )
           ],
         ),

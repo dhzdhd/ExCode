@@ -7,11 +7,7 @@ final authStateProvider =
     StateNotifierProvider<_AuthNotifier, AuthModel>((ref) => _AuthNotifier());
 
 class _AuthNotifier extends StateNotifier<AuthModel> {
-  _AuthNotifier()
-      : super(AuthModel(
-            // ! Probably should remove isLoginInfoSaved?
-            user: supabase.auth.currentUser,
-            isLoginInfoSaved: false));
+  _AuthNotifier() : super(AuthModel(user: supabase.auth.currentUser));
 
   void setUser(User? user) {
     state = state.copyWith(user: user);

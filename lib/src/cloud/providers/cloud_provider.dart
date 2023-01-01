@@ -11,7 +11,7 @@ final cloudProvider =
     AsyncNotifierProvider<_CloudNotifier, CloudModel>(() => _CloudNotifier());
 
 class _CloudNotifier extends AsyncNotifier<CloudModel> {
-  // * built only once
+  // * Built only once
   @override
   FutureOr<CloudModel> build() async {
     final response =

@@ -53,7 +53,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = useState(AuthType.signUp);
+    final state = useState(AuthType.login);
     final globalTheme = ref.watch(themeStateProvider);
     final _formKey = GlobalKey<FormState>();
 

@@ -44,9 +44,13 @@ class AuthDropDownWidget extends ConsumerWidget {
                   PopupMenuItem(
                     child: const Text('Login'),
                     onTap: (() {
-                      Navigator.restorablePushNamed(
-                        context,
-                        AuthView.routeName,
+                      // * Future added so as to not pop dialog instantly when opened
+                      Future.delayed(
+                        const Duration(seconds: 0),
+                        () => Navigator.restorablePushNamed(
+                          context,
+                          AuthView.routeName,
+                        ),
                       );
                     }),
                   ),
@@ -54,7 +58,6 @@ class AuthDropDownWidget extends ConsumerWidget {
                   PopupMenuItem(
                     child: const Text('User info'),
                     onTap: (() async {
-                      // ? Future added so as to not pop dialog instantly when opened
                       Future.delayed(
                         const Duration(seconds: 0),
                         () => showDialog(

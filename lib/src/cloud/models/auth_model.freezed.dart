@@ -21,7 +21,6 @@ AuthModel _$AuthModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AuthModel {
   User? get user => throw _privateConstructorUsedError;
-  bool get isLoginInfoSaved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +33,7 @@ abstract class $AuthModelCopyWith<$Res> {
   factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) then) =
       _$AuthModelCopyWithImpl<$Res, AuthModel>;
   @useResult
-  $Res call({User? user, bool isLoginInfoSaved});
+  $Res call({User? user});
 }
 
 /// @nodoc
@@ -51,17 +50,12 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
   @override
   $Res call({
     Object? user = freezed,
-    Object? isLoginInfoSaved = null,
   }) {
     return _then(_value.copyWith(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
-      isLoginInfoSaved: null == isLoginInfoSaved
-          ? _value.isLoginInfoSaved
-          : isLoginInfoSaved // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -73,7 +67,7 @@ abstract class _$$_AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
       __$$_AuthModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({User? user, bool isLoginInfoSaved});
+  $Res call({User? user});
 }
 
 /// @nodoc
@@ -88,17 +82,12 @@ class __$$_AuthModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = freezed,
-    Object? isLoginInfoSaved = null,
   }) {
     return _then(_$_AuthModel(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
-      isLoginInfoSaved: null == isLoginInfoSaved
-          ? _value.isLoginInfoSaved
-          : isLoginInfoSaved // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -106,19 +95,17 @@ class __$$_AuthModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AuthModel implements _AuthModel {
-  const _$_AuthModel({required this.user, required this.isLoginInfoSaved});
+  const _$_AuthModel({required this.user});
 
   factory _$_AuthModel.fromJson(Map<String, dynamic> json) =>
       _$$_AuthModelFromJson(json);
 
   @override
   final User? user;
-  @override
-  final bool isLoginInfoSaved;
 
   @override
   String toString() {
-    return 'AuthModel(user: $user, isLoginInfoSaved: $isLoginInfoSaved)';
+    return 'AuthModel(user: $user)';
   }
 
   @override
@@ -126,14 +113,12 @@ class _$_AuthModel implements _AuthModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AuthModel &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.isLoginInfoSaved, isLoginInfoSaved) ||
-                other.isLoginInfoSaved == isLoginInfoSaved));
+            (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, user, isLoginInfoSaved);
+  int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
@@ -150,17 +135,13 @@ class _$_AuthModel implements _AuthModel {
 }
 
 abstract class _AuthModel implements AuthModel {
-  const factory _AuthModel(
-      {required final User? user,
-      required final bool isLoginInfoSaved}) = _$_AuthModel;
+  const factory _AuthModel({required final User? user}) = _$_AuthModel;
 
   factory _AuthModel.fromJson(Map<String, dynamic> json) =
       _$_AuthModel.fromJson;
 
   @override
   User? get user;
-  @override
-  bool get isLoginInfoSaved;
   @override
   @JsonKey(ignore: true)
   _$$_AuthModelCopyWith<_$_AuthModel> get copyWith =>

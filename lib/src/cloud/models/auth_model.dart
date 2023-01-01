@@ -8,7 +8,6 @@ part 'auth_model.g.dart';
 class AuthModel with _$AuthModel {
   const factory AuthModel({
     required User? user,
-    required bool isLoginInfoSaved,
   }) = _AuthModel;
 
   factory AuthModel.fromJson(Map<String, dynamic> json) =>

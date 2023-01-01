@@ -8,22 +8,29 @@ import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ! Relocate to cloud provider
 Future<void> saveToCloud({
   required Option<SettingsModel> settings,
   required Option<List<SnippetModel>> snippets,
   required Ref ref,
 }) async {
-  await CloudDatabase.upsert(
-    CloudModel(
-      settings: settings.match(
-        (t) => t,
-        () => ref.watch(settingsProvider),
-      ),
-      snippets: snippets.match(
-        (t) => t,
-        () => ref.watch(snippetBarStateProvider),
-      ),
-    ),
-    supabase.auth.currentUser!.email!,
+  final user = supabase.auth.currentUser;
+
+  final _settings = settings.match(
+    (t) => t,
+    () => ref.watch(settingsProvider),
   );
+
+  if (user != null && _settings.isSaveToCloud) {
+    await CloudDatabase.upsert(
+      CloudModel(
+        settings: _settings,
+        snippets: snippets.match(
+          (t) => t,
+          () => ref.watch(snippetBarStateProvider),
+        ),
+      ),
+      user.email!,
+    );
+  }
 }

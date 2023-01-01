@@ -10,6 +10,7 @@ class CloudDatabase {
     final response = await supabase
         .from(_databaseName)
         .upsert({'email': email, 'data': model.toJson()}).execute();
+
     if (response.hasError) {
       return Left(response.error!.message);
     }
@@ -22,7 +23,7 @@ class CloudDatabase {
       return const Left('Data could not be sent to the cloud!');
     } catch (ex) {
       print(ex);
-      return const Left('error');
+      return Left(ex.toString());
     }
   }
 
@@ -50,6 +51,7 @@ class CloudDatabase {
     }
   }
 
+  // * For testing only
   static Future<Either<String, List<dynamic>>> fetchAll() async {
     final response = await supabase.from(_databaseName).select().execute();
 
@@ -60,6 +62,7 @@ class CloudDatabase {
     return Right(response.data);
   }
 
+  // * For testing only
   static Future<Either<String, String>> delete(String email) async {
     final response = await supabase
         .from(_databaseName)
