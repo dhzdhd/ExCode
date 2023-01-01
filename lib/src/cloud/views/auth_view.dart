@@ -195,7 +195,6 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         ),
                 ),
               ),
-              // TODO: Convert to OutlinedButton
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
