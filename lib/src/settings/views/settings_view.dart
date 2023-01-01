@@ -60,8 +60,6 @@ class SettingsView extends HookConsumerWidget {
             Expanded(
               child: ListView(
                 children: [
-                  const AuthContainerWidget(),
-                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.palette),
                     title: const Text('Theme'),

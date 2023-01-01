@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
+import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/cloud/services/supabase_db.dart';
+import 'package:excode/src/cloud/views/auth_view.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
@@ -41,7 +43,12 @@ class AuthDropDownWidget extends ConsumerWidget {
                 if (user == null)
                   PopupMenuItem(
                     child: const Text('Login'),
-                    onTap: (() {}),
+                    onTap: (() {
+                      Navigator.restorablePushNamed(
+                        context,
+                        AuthView.routeName,
+                      );
+                    }),
                   ),
                 if (user != null)
                   PopupMenuItem(
@@ -99,7 +106,13 @@ class AuthDropDownWidget extends ConsumerWidget {
                 if (user != null)
                   PopupMenuItem(
                     child: const Text('Sign out'),
-                    onTap: (() {}),
+                    onTap: (() async {
+                      final response = await Auth.signOut();
+                      response.match(
+                        (l) => context.showErrorSnackBar(l),
+                        (r) => context.showSuccessSnackBar(r),
+                      );
+                    }),
                   ),
               ];
             }),

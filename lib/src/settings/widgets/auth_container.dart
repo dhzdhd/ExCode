@@ -10,6 +10,7 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+@Deprecated('Use AuthDropDownWidget instead')
 class AuthContainerWidget extends ConsumerWidget {
   const AuthContainerWidget({Key? key}) : super(key: key);
 
@@ -43,7 +44,6 @@ class AuthContainerWidget extends ConsumerWidget {
                   visible: ref.watch(authStateProvider).user != null,
                   child: TextButton(
                     onPressed: () async {
-                      // ! Possibly move to a service file?
                       final res = await CloudDatabase.fetch(
                           supabase.auth.currentUser!.email!);
                       res.match((l) => context.showErrorSnackBar(l), (r) {
