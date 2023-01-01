@@ -45,7 +45,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
     super.dispose();
   }
 
-  void _setLoading() {
+  void _toggleLoading() {
     setState(() {
       _isLoading = !_isLoading;
     });
@@ -145,25 +145,18 @@ class _AuthViewState extends ConsumerState<AuthView> {
                 ),
               ),
               const Divider(color: Colors.transparent),
-              // SwitchListTile( // ! Marked for deprecation
-              //   title: const Text('Save login information?'),
-              //   hoverColor: Colors.transparent,
-              //   value: ref.watch(authProvider).isLoginInfoSaved,
-              //   onChanged: (value) =>
-              //       ref.watch(authProvider.notifier).setLoginInfoSaved(),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
-                child: ElevatedButton(
+                child: OutlinedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (state.value == AuthType.signUp) {
                         // TODO: Find alternative to set loading state
-                        _setLoading();
+                        _toggleLoading();
                         final response = await Auth.register(
                             _emailController.text, _passwordController.text);
-                        _setLoading();
+                        _toggleLoading();
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
@@ -174,10 +167,10 @@ class _AuthViewState extends ConsumerState<AuthView> {
                           },
                         );
                       } else {
-                        _setLoading();
+                        _toggleLoading();
                         final response = await Auth.signIn(
                             _emailController.text, _passwordController.text);
-                        _setLoading();
+                        _toggleLoading();
 
                         response.match(
                           (l) => context.showErrorSnackBar(l),
@@ -191,7 +184,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                       }
                     }
                   },
-                  style: ElevatedButton.styleFrom(
+                  style: OutlinedButton.styleFrom(
                     fixedSize: const Size.fromHeight(50),
                   ),
                   child: _isLoading
@@ -206,14 +199,13 @@ class _AuthViewState extends ConsumerState<AuthView> {
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
-                child: TextButton(
+                child: ElevatedButton(
                   onPressed: () {
                     state.value = state.value == AuthType.login
                         ? AuthType.signUp
                         : AuthType.login;
                   },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.transparent,
+                  style: ElevatedButton.styleFrom(
                     fixedSize: const Size.fromHeight(50),
                   ),
                   child: Text(
@@ -227,10 +219,9 @@ class _AuthViewState extends ConsumerState<AuthView> {
               Padding(
                 padding: const EdgeInsets.only(
                     right: 15, left: 15, top: 8, bottom: 8),
-                child: TextButton(
+                child: ElevatedButton(
                   onPressed: null,
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.transparent,
+                  style: ElevatedButton.styleFrom(
                     fixedSize: const Size.fromHeight(50),
                   ),
                   child: const Text(

@@ -3,7 +3,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Auth {
-  // ! Switch to returning success string
   static Future<Either<String, User?>> register(
       String email, String password) async {
     final response = await supabase.auth.signUp(email, password);
