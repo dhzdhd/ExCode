@@ -1,3 +1,4 @@
+import 'package:excode/src/cloud/services/cloud_store.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/snippet_model.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -51,12 +52,12 @@ class _SnippetBarModel extends StateNotifier<List<SnippetModel>> {
   Future<void> append(SnippetModel data) async {
     state = [...state, data];
     await SnippetService.store(data: state, ref: ref);
+    await saveToCloud(settings: const None(), snippets: Some(state), ref: ref);
   }
 
   Future<void> setState(List<SnippetModel> newState) async {
     state = newState;
 
-    // ! Change store to not update cloud -> Refer settingsProvider
     await SnippetService.store(data: newState, ref: ref);
   }
 
@@ -69,11 +70,13 @@ class _SnippetBarModel extends StateNotifier<List<SnippetModel>> {
 
     state = temp;
     await SnippetService.store(data: state, ref: ref);
+    await saveToCloud(settings: const None(), snippets: Some(state), ref: ref);
   }
 
   Future<void> delete(String key) async {
     state = state.filter((t) => t.name != key).toList();
     await SnippetService.store(data: state, ref: ref);
+    await saveToCloud(settings: const None(), snippets: Some(state), ref: ref);
   }
 
   Future<void> reorder(int oldIndex, int newIndex) async {
@@ -87,6 +90,7 @@ class _SnippetBarModel extends StateNotifier<List<SnippetModel>> {
 
     state = temp;
     await SnippetService.store(data: temp, ref: ref);
+    await saveToCloud(settings: const None(), snippets: Some(state), ref: ref);
   }
 }
 

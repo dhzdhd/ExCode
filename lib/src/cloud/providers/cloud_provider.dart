@@ -11,25 +11,28 @@ final cloudProvider =
     AsyncNotifierProvider<_CloudNotifier, CloudModel>(() => _CloudNotifier());
 
 class _CloudNotifier extends AsyncNotifier<CloudModel> {
-  // built only once
+  // * built only once
   @override
   FutureOr<CloudModel> build() async {
     final response =
         await CloudDatabase.fetch(supabase.auth.currentUser!.email!);
-    return response.match((l) {
-      print('left');
-      print(l);
-      final model = CloudModel(
-        settings: ref.read(settingsProvider),
-        snippets: ref.read(snippetBarStateProvider),
-      );
-      print(model.toJson());
-      return model;
-    }, (r) {
-      print('right');
-      print(r);
-      return r;
-    });
+    return response.match(
+      (l) {
+        print('left');
+        print(l);
+        final model = CloudModel(
+          settings: ref.read(settingsProvider),
+          snippets: ref.read(snippetBarStateProvider),
+        );
+        print(model.toJson());
+        return model;
+      },
+      (r) {
+        print('right');
+        print(r);
+        return r;
+      },
+    );
   }
 
   void setData() {

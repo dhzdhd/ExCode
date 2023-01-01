@@ -1,6 +1,12 @@
 import 'dart:convert';
 
+import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
+import 'package:excode/src/cloud/services/supabase_db.dart';
+import 'package:excode/src/factory.dart';
+import 'package:excode/src/helpers.dart';
+import 'package:excode/src/home/providers/editor_provider.dart';
+import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,7 +64,37 @@ class AuthDropDownWidget extends ConsumerWidget {
                 if (user != null)
                   PopupMenuItem(
                     child: const Text('Sync data'),
-                    onTap: (() {}),
+                    onTap: (() async {
+                      final res = await CloudDatabase.fetch(user.email!);
+                      res.match(
+                        (l) => context.showErrorSnackBar(l),
+                        (r) async {
+                          await ref
+                              .watch(settingsProvider.notifier)
+                              .setState(r.settings);
+                          await ref
+                              .watch(snippetBarStateProvider.notifier)
+                              .setState(r.snippets);
+
+                          // ! Move to a save to cloud service file
+                          final user = supabase.auth.currentUser;
+                          if (ref.watch(settingsProvider).isSaveToCloud &&
+                              user != null) {
+                            final res = await CloudDatabase.upsert(
+                              CloudModel(
+                                settings: ref.watch(settingsProvider),
+                                snippets: ref.watch(snippetBarStateProvider),
+                              ),
+                              user.email!,
+                            );
+                            res.match((l) => print(l), (r) => print(r));
+                          }
+
+                          context
+                              .showSuccessSnackBar('Successfully synced data!');
+                        },
+                      );
+                    }),
                   ),
                 if (user != null)
                   PopupMenuItem(
