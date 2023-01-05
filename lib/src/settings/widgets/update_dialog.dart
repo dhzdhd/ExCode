@@ -65,8 +65,8 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
       ),
       actions: [
         Visibility(
-          visible: widget.isLatestVersion &&
-              (defaultTargetPlatform == TargetPlatform.android), // !
+          visible: !widget.isLatestVersion &&
+              (defaultTargetPlatform == TargetPlatform.android),
           child: ElevatedButton(
             onPressed: () async {
               await FlutterDownloader.enqueue(

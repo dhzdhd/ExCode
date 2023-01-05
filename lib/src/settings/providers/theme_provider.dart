@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final themeStateProvider =
     StateNotifierProvider<_ThemeModel, ThemeDataModel>((ref) => _ThemeModel());
 
-const _accentLightColor = Color.fromARGB(255, 0, 0, 176);
+const _accentLightColor = Color.fromARGB(255, 85, 136, 156);
 const _primaryLightColor = Color.fromARGB(255, 227, 245, 255);
 const _secondaryLightColor = Color.fromARGB(255, 244, 247, 255);
 final lightTheme = ThemeDataModel(
@@ -50,6 +50,13 @@ final lightTheme = ThemeDataModel(
         backgroundColor: _primaryLightColor,
         side: const BorderSide(color: _accentLightColor),
         foregroundColor: _primaryDarkColor,
+      ),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith(
+        ((states) => states.contains(MaterialState.selected)
+            ? _accentLightColor
+            : _primaryDarkColor.withOpacity(0.7)),
       ),
     ),
     inputDecorationTheme: const InputDecorationTheme(
@@ -110,6 +117,13 @@ final darkTheme = ThemeDataModel(
         backgroundColor: _primaryDarkColor,
         side: const BorderSide(color: _accentDarkColor),
         foregroundColor: _primaryLightColor,
+      ),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith(
+        ((states) => states.contains(MaterialState.selected)
+            ? _accentDarkColor
+            : _primaryLightColor.withOpacity(0.7)),
       ),
     ),
     inputDecorationTheme: const InputDecorationTheme(
