@@ -201,7 +201,7 @@ class SettingsView extends HookConsumerWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: TextButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -220,7 +220,7 @@ class SettingsView extends HookConsumerWidget {
                   if (defaultTargetPlatform == TargetPlatform.android)
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                      child: TextButton(
+                      child: ElevatedButton(
                         onPressed: () {
                           showDialog(
                               context: context,
@@ -241,7 +241,7 @@ class SettingsView extends HookConsumerWidget {
                     ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: TextButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         showDialog(
                           context: context,

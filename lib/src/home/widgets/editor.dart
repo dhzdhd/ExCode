@@ -225,8 +225,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
           child: Center(
               child: Icon(
             Icons.lock,
-            color: Colors.white
-                .withOpacity(0.3), // FIXME: adjust for light mode too
+            color: ref.watch(themeStateProvider).invertedColor.withOpacity(0.3),
             size: 50,
           )),
         ),
