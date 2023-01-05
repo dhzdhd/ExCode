@@ -81,7 +81,7 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
             },
             child: (status == DownloadTaskStatus.running)
                 ? TweenAnimationBuilder<double>(
-                    tween: Tween(begin: 0, end: progress / 100),
+                    tween: Tween(begin: 0, end: progress.toDouble()),
                     duration: const Duration(milliseconds: 500),
                     builder: (context, value, child) {
                       return SizedBox(
@@ -90,19 +90,6 @@ class _InfoDialogWidgetState extends State<InfoDialogWidget> {
                         child: CircularProgressIndicator.adaptive(value: value),
                       );
                     },
-                    onEnd: (() {
-                      // FIXME:
-                      if (status == DownloadTaskStatus.complete) {
-                        context.showSuccessSnackBar(
-                            'Successfully downloaded latest version!');
-                      } else if (status == DownloadTaskStatus.failed) {
-                        context.showErrorSnackBar(
-                            'Failed to download latest version!');
-                      }
-
-                      status = DownloadTaskStatus.undefined;
-                      progress = 0;
-                    }),
                   )
                 : const Text('Update'),
           ),

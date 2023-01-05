@@ -46,7 +46,7 @@ class _MatchTextModel extends StateNotifier<Map<String, TextStyle>> {
 class _SnippetBarModel extends StateNotifier<List<SnippetModel>> {
   final StateNotifierProviderRef<_SnippetBarModel, List<SnippetModel>> ref;
 
-  // ! Consider using ChangeNotifierProvider
+  // ? Maybe use a ChangeNotifierProvider?
   _SnippetBarModel(this.ref) : super(SnippetService.fetch());
 
   Future<void> append(SnippetModel data) async {
@@ -126,7 +126,7 @@ class _EditorContentModel extends StateNotifier<String> {
             langMap[ref.watch(editorLanguageStateProvider)]!.baseCode);
 
   void setContent(Option<String> content, [lang]) {
-    // TODO: Find a better way to do this
+    // TODO Find a better way to do this
     content.match((t) => state = t, () {
       final content = box.get('${lang}code') ?? langMap[lang]!.baseCode;
       state = content;
