@@ -1,18 +1,20 @@
+import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/snippet_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class BottomBarDialogWidget extends ConsumerStatefulWidget {
-  const BottomBarDialogWidget({Key? key}) : super(key: key);
+class SnippetBarDialogWidget extends ConsumerStatefulWidget {
+  const SnippetBarDialogWidget({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<BottomBarDialogWidget> createState() =>
+  ConsumerState<SnippetBarDialogWidget> createState() =>
       _BottomBarDialogWidgetState();
 }
 
-class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
+class _BottomBarDialogWidgetState
+    extends ConsumerState<SnippetBarDialogWidget> {
   late final TextEditingController _nameController;
   late final TextEditingController _valueController;
 
@@ -87,45 +89,64 @@ class _BottomBarDialogWidgetState extends ConsumerState<BottomBarDialogWidget> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(e.name),
+                                    child: Text(
+                                      e.name,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                AddSnippetDialogWidget(
-                                              option: SnippetDialogOption.edit,
-                                              oldModel: e,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    child: ReorderableDragStartListener(
+                                      index: data.indexOf(e),
+                                      child: PopupMenuButton(
+                                        padding: EdgeInsets.zero,
+                                        icon: const Icon(Icons.drag_handle),
+                                        itemBuilder: (context) {
+                                          return [
+                                            PopupMenuItem(
+                                              child: Row(
+                                                children: const [
+                                                  Text('Edit'),
+                                                  Spacer(),
+                                                  Icon(Icons.edit)
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                Future.delayed(
+                                                  const Duration(seconds: 0),
+                                                  () => showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AddSnippetDialogWidget(
+                                                      option:
+                                                          SnippetDialogOption
+                                                              .edit,
+                                                      oldModel: e,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                             ),
-                                          );
+                                            PopupMenuItem(
+                                              child: Row(
+                                                children: const [
+                                                  Text('Delete'),
+                                                  Spacer(),
+                                                  Icon(Icons.delete)
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                ref
+                                                    .watch(
+                                                        snippetBarStateProvider
+                                                            .notifier)
+                                                    .delete(e.name);
+                                              },
+                                            )
+                                          ];
                                         },
-                                        icon: const Icon(Icons.edit),
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          ref
-                                              .watch(snippetBarStateProvider
-                                                  .notifier)
-                                              .delete(e.name);
-                                        },
-                                        icon: const Icon(Icons.delete),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20.0),
-                                        child: ReorderableDragStartListener(
-                                          index: data.indexOf(e),
-                                          child: IconButton(
-                                            padding: EdgeInsets.zero,
-                                            icon: const Icon(Icons.drag_handle),
-                                            onPressed: () {},
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -229,9 +250,10 @@ class _AddSnippetDialogWidgetState
                       } else if (value.length > 10) {
                         return 'Max length of 10 allowed!';
                       } else if (ref
-                          .read(snippetBarStateProvider)
-                          .map((e) => e.name)
-                          .contains(value)) {
+                              .read(snippetBarStateProvider)
+                              .map((e) => e.name)
+                              .contains(value) &&
+                          widget.option == SnippetDialogOption.add) {
                         return 'Duplicate names not allowed!';
                       }
                       return null;

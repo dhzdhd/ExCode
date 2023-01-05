@@ -69,10 +69,10 @@ class SnippetBarWidget extends ConsumerWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) => const BottomBarDialogWidget(),
+                builder: (context) => const SnippetBarDialogWidget(),
               );
             },
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.snippet_folder),
             style: IconButton.styleFrom(
               foregroundColor: ref.watch(themeStateProvider).accentColor,
               shape: const BeveledRectangleBorder(),

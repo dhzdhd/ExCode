@@ -55,6 +55,7 @@ dev_dependencies:
   json_serializable: ^6.5.4
   json_annotation: ^4.7.0
   flutter_launcher_icons: "^0.11.0"
+  msix: ^3.7.0
 
 flutter:
   uses-material-design: true
