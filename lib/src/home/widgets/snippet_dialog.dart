@@ -136,11 +136,41 @@ class _BottomBarDialogWidgetState
                                                 ],
                                               ),
                                               onTap: () {
-                                                ref
-                                                    .watch(
-                                                        snippetBarStateProvider
-                                                            .notifier)
-                                                    .delete(e.name);
+                                                Future.delayed(
+                                                  const Duration(seconds: 0),
+                                                  () => showDialog(
+                                                    context: context,
+                                                    builder: ((context) =>
+                                                        AlertDialog(
+                                                          title: const Text(
+                                                              'Confirm delete'),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            ElevatedButton(
+                                                              onPressed: () {
+                                                                ref
+                                                                    .watch(snippetBarStateProvider
+                                                                        .notifier)
+                                                                    .delete(
+                                                                        e.name);
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: const Text(
+                                                                  'Okay'),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ),
+                                                );
                                               },
                                             )
                                           ];
