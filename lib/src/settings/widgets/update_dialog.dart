@@ -1,7 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

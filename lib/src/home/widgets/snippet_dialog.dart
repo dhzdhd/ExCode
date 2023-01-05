@@ -1,4 +1,3 @@
-import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/snippet_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
