@@ -98,6 +98,8 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
             TabBar(
               tabs: const [Tab(text: 'Code'), Tab(text: 'Output')],
               controller: _tabController,
+              labelColor: theme.invertedColor,
+              indicatorColor: theme.accentColor,
             ),
           Expanded(
             child: TabBarView(
