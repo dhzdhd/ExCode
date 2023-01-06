@@ -2,11 +2,12 @@
 
 flutter_icons:
   image_path: "assets/icons/logo.png"
-  android: "launcher_icon"
-  # image_path_android: "assets/icons/logo.png"
+  android: true
+  # image_path_android: "assets/icons/android.png"
   min_sdk_android: 21
   adaptive_icon_background: "#ff091c32"
-  adaptive_icon_foreground: "assets/icons/logo.png"
+  adaptive_icon_foreground: "assets/icons/android.png"
+  adaptive_icon_padding: true
   ios: true
   image_path_ios: "assets/icons/logo.png"
   remove_alpha_ios: true
