@@ -74,3 +74,22 @@ flutter:
 
   assets:
     - assets/images/
+
+msix_config:
+  display_name: ExCode
+  publisher_display_name: dhzdhd
+  identity_name: dhzdhd.excode
+  logo_path: assets/icons/logo.png
+  capabilities: internetClient
+  execution-alias: excode
+  enable_at_startup: false
+  debug: false
+  output_name: ExCode
+  output_path: C:\Program Files (x86)\ExCode
+  app_installer:
+    publish_folder_path: C:\Program Files (x86)\ExCode
+    hours_between_update_checks: 0
+    automatic_background_task: true
+    update_blocks_activation: true
+    show_prompt: true
+    force_update_from_any_version: false
