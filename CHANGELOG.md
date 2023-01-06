@@ -1,6 +1,28 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+
+## 0.5.0 | 06-01-2023
+
+This will be the final major prerelease version. The following possible releases will be Release Candidate versions with bug fixes.
+
+### Additions
+
+- Added functionality to store snippets and settings on the cloud.
+- Added a sync button to synchronise all the cloud settings with the local ones, overwriting the local settings.
+- Added ability to highlight similar words (Right click selected text and select the `Match text` option in the editor).
+- Moved the authentication options to a dropdown menu in the settings appbar.
+- Added a confirm delete option to snippets.
+
+### Fixes / Improvements
+
+- Fixed issues with cursor color.
+- Fixed and implemented an update option on Android.
+- Fixed color inconsistencies in light mode.
+- Fixed oversized Android icon.
+- Reworked the snippet bar dialog UI.
+- General QOL improvements.
 
 ## 0.4.1 | 30-11-2022 (HOTFIX)
 

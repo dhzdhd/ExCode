@@ -6,7 +6,8 @@ flutter_icons:
   # image_path_android: "assets/icons/android.png"
   min_sdk_android: 21
   adaptive_icon_background: "#ff091c32"
-  adaptive_icon_foreground: "assets/icons/android.png"
+  # https://github.com/fluttercommunity/flutter_launcher_icons/issues/96
+  adaptive_icon_foreground: "assets/icons/android.png"  #
   adaptive_icon_padding: true
   ios: true
   image_path_ios: "assets/icons/logo.png"
