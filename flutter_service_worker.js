@@ -25,8 +25,8 @@ const RESOURCES = {
 "assets/assets/fonts/Rubik.ttf": "4b3f06816033d040ef0ed60865adb2d1",
 "assets/assets/fonts/FiraCode.ttf": "91ca9e6e7f399c72c6af18de20050a87",
 "assets/NOTICES": "a1b72c2283482e351f083e5ab7fb5b17",
-"index.html": "3b1ff5546fd46d3f61e119a04ab1b567",
-"/": "3b1ff5546fd46d3f61e119a04ab1b567",
+"index.html": "8d97544d92f912ab2592f39d75b13833",
+"/": "8d97544d92f912ab2592f39d75b13833",
 "favicon.png": "edcd45f0aca3a83a2b866440ab16281e",
 "version.json": "c7f9ad62d12bb4660511e64a733fd57a"
 };
