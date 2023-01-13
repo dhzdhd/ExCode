@@ -79,6 +79,7 @@ jobs:
           flutter config --enable-windows-desktop
           flutter pub get
           flutter build windows
+          flutter pub run msix:create
 
       - name: Save Windows app
         uses: actions/upload-artifact@v3
@@ -133,7 +134,7 @@ jobs:
         # if: startsWith(github.ref, 'refs/tags/')
         with:
           name: ExCode
-          tag_name: v0.5.0
+          tag_name: v0.5.1
           prerelease: true
           generate_release_notes: true
           files: |

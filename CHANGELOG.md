@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 0.5.1 | 13-01-2023
+
+### Additions
+
+- Added msix installer for Windows
+
 ## 0.5.0 | 06-01-2023
 
 This will be the final major prerelease version. The following possible releases will be Release Candidate versions with bug fixes.

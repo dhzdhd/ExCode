@@ -3,7 +3,7 @@ description: A code execution editor which supports multiple languages.
 
 publish_to: 'none'
 
-version: 0.5.0
+version: 0.5.1
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -75,6 +75,7 @@ flutter:
   assets:
     - assets/images/
 
+# flutter pub run msix:create
 msix_config:
   display_name: ExCode
   publisher_display_name: dhzdhd
@@ -85,9 +86,7 @@ msix_config:
   enable_at_startup: false
   debug: false
   output_name: ExCode
-  output_path: C:\Program Files (x86)\ExCode
   app_installer:
-    publish_folder_path: C:\Program Files (x86)\ExCode
     hours_between_update_checks: 0
     automatic_background_task: true
     update_blocks_activation: true
