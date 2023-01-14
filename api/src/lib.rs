@@ -1,11 +1,13 @@
 use askama::Template;
 use axum::{
-    extract::Path,
+    extract::{Path, State},
     http::{HeaderValue, StatusCode},
     response::{Html, IntoResponse, Response},
-    routing::get,
+    routing::{get, post},
     Router,
 };
+use shuttle_service::Context;
+use sqlx::{Executor, PgPool};
 use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 use uuid::Uuid;
@@ -46,9 +48,9 @@ where
     }
 }
 
-async fn create_doc(Path(id): Path<String>) {}
+async fn create_paste(Path(id): Path<String>) {}
 
-async fn get_doc(Path(id): Path<String>) -> impl IntoResponse {
+async fn get_paste(Path(id): Path<String>, State(state): State<PgPool>) -> impl IntoResponse {
     let template = DocTemplate {
         id: id.to_string(),
         lang: "py".to_string(),
@@ -59,10 +61,16 @@ async fn get_doc(Path(id): Path<String>) -> impl IntoResponse {
 }
 
 #[shuttle_service::main]
-async fn axum() -> shuttle_service::ShuttleAxum {
+async fn axum(#[shuttle_shared_db::Postgres] pool: PgPool) -> shuttle_service::ShuttleAxum {
+    pool.execute(include_str!("../schema/schema.sql"))
+        .await
+        .context("Failed to run migrations")?;
+
     let router = Router::new()
         .route("/", get(index))
-        .route("/:id", get(get_doc))
+        .route("/:id", get(get_paste))
+        .route("/:id", post(create_paste))
+        .with_state(pool)
         .layer(
             CorsLayer::new().allow_origin([
                 "http://127.0.0.1:8000".parse::<HeaderValue>().unwrap(),
