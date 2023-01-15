@@ -4,8 +4,8 @@ mod templates;
 use askama::Template;
 use axum::{
     extract::{Path, State},
-    http::HeaderValue,
-    response::{Html, IntoResponse, Response},
+    http::{HeaderValue, StatusCode},
+    response::{Html, IntoResponse},
     routing::{get, post},
     Json, Router,
 };
@@ -20,6 +20,7 @@ use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 
 use models::{Error, PasteSchema};
+use templates::{ErrorTemplate, PasteTemplate};
 
 async fn index() -> &'static str {
     "Pastebin service
@@ -49,27 +50,22 @@ async fn get_paste(
         .find_one(doc! {"uuid": &id}, FindOneOptions::default())
         .await;
 
-    // match result {
-    //     Ok(res) => {
-    //         match res {
-    //             Some(paste) => PasteTemplate::new(
-    //                 id,
-    //                  "".to_string(),
-    //                  "".to_string(),
-    //             ),
-    //             None => ErrorTemplate::new("".to_string())
-    //         }
-    //     }
-    //     Err(err) =>
-    // }
+    let res = match result {
+        Ok(res) => match res {
+            Some(paste) => PasteTemplate::new(paste.uuid, paste.lang, paste.content).render(),
+            None => ErrorTemplate::new("".to_string()).render(),
+        },
+        Err(err) => ErrorTemplate::new(err.to_string()).render(),
+    };
 
-    // let template = PasteTemplate {
-    //     id,
-    //     lang: "py".to_string(),
-    //     content: "print(\"Hello World\")".to_string(),
-    // };
-
-    // HtmlTemplate(template)
+    match res {
+        Ok(html) => Html(html).into_response(),
+        Err(err) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("Failed to render template. Error: {}", err),
+        )
+            .into_response(),
+    }
 }
 
 async fn get_raw_paste(

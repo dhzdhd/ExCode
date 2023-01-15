@@ -20,9 +20,9 @@ impl<'a> Error<'a> {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PasteSchema {
-    uuid: String,
-    lang: String,
-    content: String,
+    pub uuid: String,
+    pub lang: String,
+    pub content: String,
 }
 
 impl PasteSchema {

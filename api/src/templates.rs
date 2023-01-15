@@ -7,14 +7,18 @@ use axum::{
 #[derive(Template)]
 #[template(path = "paste.html")]
 pub struct PasteTemplate {
-    pub id: String,
+    pub uuid: String,
     pub lang: String,
     pub content: String,
 }
 
 impl PasteTemplate {
-    pub fn new(id: String, lang: String, content: String) -> Self {
-        Self { id, lang, content }
+    pub fn new(uuid: String, lang: String, content: String) -> Self {
+        Self {
+            uuid,
+            lang,
+            content,
+        }
     }
 }
 
@@ -30,7 +34,7 @@ impl ErrorTemplate {
     }
 }
 
-struct HtmlTemplate<T: Template>(T);
+pub struct HtmlTemplate<T: Template>(pub T);
 
 impl<T> IntoResponse for HtmlTemplate<T>
 where

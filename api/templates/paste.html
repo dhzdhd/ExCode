@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" class="sl-theme-dark">
   <head>
-    <title>ExCode Codebin</title>
+    <title>ExCode Pastebin</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.88/dist/themes/dark.css"
+      type="text/css"
     />
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.88/dist/shoelace.js"
-    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
@@ -21,30 +19,18 @@
       import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/es/highlight.min.js";
       hljs.highlightAll();
     </script>
+    <script type="module" src="/static/js/main.js"></script>
   </head>
-  <body>
-    <style>
-      :root {
-        --sl-color-primary-50: rgb(249 249 250);
-        --sl-color-primary-100: rgb(236 236 237);
-        --sl-color-primary-200: rgb(221 222 223);
-        --sl-color-primary-300: rgb(206 206 208);
-        --sl-color-primary-400: rgb(185 186 189);
-        --sl-color-primary-500: rgb(158 160 163);
-        --sl-color-primary-600: rgb(130 132 137);
-        --sl-color-primary-700: rgb(105 108 114);
-        --sl-color-primary-800: rgb(86 89 96);
-        --sl-color-primary-900: rgb(60 63 71);
-        --sl-color-primary-950: rgb(35 39 46);
-      }
-
-      body {
-        background-color: #282c34;
-      }
-    </style>
-    <main>
-      <sl-button size="small">Click me</sl-button>
-      <pre><code>fmt.PrintLn("hi")</code></pre>
+  <body class="bg-[#282c34]">
+    <main class="h-screen">
+      <button
+        id="raw"
+        type="submit"
+        class="fixed right-2 top-2 btn btn-secondary"
+      >
+        Raw mode
+      </button>
+      <pre><code>{{content}}</code></pre>
     </main>
   </body>
 </html>
