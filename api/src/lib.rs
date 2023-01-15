@@ -6,8 +6,12 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use shuttle_service::Context;
-use sqlx::{Executor, PgPool};
+use mongodb::{
+    options::{ClientOptions, ResolverConfig},
+    Client, Collection,
+};
+use serde::{Deserialize, Serialize};
+use shuttle_secrets::SecretStore;
 use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 use uuid::Uuid;
@@ -16,9 +20,8 @@ async fn index() -> &'static str {
     "Pastebin service
 
     GET /:id
-    POST /:id
+    POST
     GET /raw/:id
-    POST /raw/:id
     "
 }
 
@@ -48,9 +51,41 @@ where
     }
 }
 
-async fn create_paste(Path(id): Path<String>) {}
+#[derive(Debug, Serialize, Deserialize)]
+struct PasteSchema {
+    uuid: String,
+    lang: String,
+    content: String,
+}
 
-async fn get_paste(Path(id): Path<String>, State(state): State<PgPool>) -> impl IntoResponse {
+impl PasteSchema {
+    fn new(lang: String, content: String) -> Self {
+        Self {
+            uuid: Uuid::new_v4().to_string(),
+            lang,
+            content,
+        }
+    }
+}
+
+async fn create_paste(State(collection): State<Collection<PasteSchema>>) {
+    let result = collection
+        .insert_one(
+            PasteSchema::new("py".to_string(), "print(\"Hi\")".to_string()),
+            None,
+        )
+        .await;
+
+    match result {
+        Ok(res) => (),
+        Err(err) => (),
+    }
+}
+
+async fn get_paste(
+    Path(id): Path<String>,
+    State(state): State<Collection<PasteSchema>>,
+) -> impl IntoResponse {
     let template = DocTemplate {
         id: id.to_string(),
         lang: "py".to_string(),
@@ -60,17 +95,31 @@ async fn get_paste(Path(id): Path<String>, State(state): State<PgPool>) -> impl 
     HtmlTemplate(template)
 }
 
+async fn get_raw_paste(Path(id): Path<String>) {}
+
 #[shuttle_service::main]
-async fn axum(#[shuttle_shared_db::Postgres] pool: PgPool) -> shuttle_service::ShuttleAxum {
-    pool.execute(include_str!("../schema/schema.sql"))
-        .await
-        .context("Failed to run migrations")?;
+async fn axum(
+    #[shuttle_secrets::Secrets] secret_store: SecretStore,
+) -> shuttle_service::ShuttleAxum {
+    let mut client_options = ClientOptions::parse_with_resolver_config(
+        secret_store.get("MONGO_URL").unwrap(),
+        ResolverConfig::cloudflare(),
+    )
+    .await
+    .expect("Incorrect MongoDB URL");
+
+    client_options.app_name = Some(String::from("excode"));
+    let client = Client::with_options(client_options).expect("Failed to initialise MongoDB client");
+    let collection = client
+        .database("excode")
+        .collection::<PasteSchema>("pastes");
 
     let router = Router::new()
         .route("/", get(index))
+        .route("/", post(create_paste))
         .route("/:id", get(get_paste))
-        .route("/:id", post(create_paste))
-        .with_state(pool)
+        .route("/raw/:id", get(get_raw_paste))
+        .with_state(collection)
         .layer(
             CorsLayer::new().allow_origin([
                 "http://127.0.0.1:8000".parse::<HeaderValue>().unwrap(),
