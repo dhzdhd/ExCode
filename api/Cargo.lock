@@ -37,6 +37,7 @@ dependencies = [
  "chrono",
  "mongodb",
  "serde",
+ "serde_json",
  "shuttle-secrets",
  "shuttle-service",
  "sync_wrapper",
