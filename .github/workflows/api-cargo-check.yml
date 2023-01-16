@@ -14,15 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Change directory
-        run: cd api/
-
       - name: Setup rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
       - name: Run cargo check
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
+        run: |
+          cd api/
+          cargo check
