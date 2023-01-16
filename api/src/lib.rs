@@ -113,7 +113,7 @@ async fn axum(
         .with_state(collection)
         .layer(
             CorsLayer::new().allow_origin([
-                "http://127.0.0.1:8000".parse::<HeaderValue>().unwrap(),
+                "http://localhost".parse::<HeaderValue>().unwrap(),
                 "https://dhzdhd.github.io/ExCode/"
                     .parse::<HeaderValue>()
                     .unwrap(),

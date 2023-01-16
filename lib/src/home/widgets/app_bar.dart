@@ -121,10 +121,12 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 },
               ),
               PopupMenuItem(
-                child: const Text('Hastebin'),
+                child: const Text('Pastebin'),
                 onTap: () async {
                   final url = await CustomPasteBin.post(
-                      ref.read(editorContentStateProvider));
+                    lang: ref.read(editorLanguageStateProvider),
+                    content: ref.read(editorContentStateProvider),
+                  );
                   url.match(
                     (l) => context.showErrorSnackBar(l),
                     (r) => context.showSuccessSnackBar(
