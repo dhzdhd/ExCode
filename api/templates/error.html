@@ -4,7 +4,14 @@
 
 {% block content %}
 <main class="h-screen flex flex-col justify-center items-center gap-5">
-  <h1 class="text-5xl">Error</h1>
-  <h2 class="text-4xl">{{error}}</h2>
+  <h1 class="text-4xl md:text-5xl">Error</h1>
+  <h2 class="text-3xl md:text-4xl text-center">{{error}}</h2>
+  <button id="home" class="btn btn-secondary">Home</button>
 </main>
+
+<script>
+  document.getElementById("home").addEventListener("click", (event) => {
+    location.assign(location.origin);
+  })
+</script>
 {% endblock %}
