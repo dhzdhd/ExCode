@@ -21,12 +21,6 @@
     </script>
   </head>
   <body class="bg-[#282c34]">
-    <main class="h-screen">{% block content %}{% endblock %}</main>
+    {% block content %}{% endblock %}
   </body>
-
-  <script>
-    document.getElementById("raw").addEventListener("click", (event) => {
-      location.assign(`${location.origin}/raw${location.pathname}`);
-    });
-  </script>
 </html>

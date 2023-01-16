@@ -1,7 +1,18 @@
-{% extends "base.html" %} {% block title %}ExCode Pastebin{% endblock %} {%
-block content %}
-<button id="raw" type="submit" class="fixed right-2 top-2 btn btn-secondary">
-  Raw
-</button>
-<pre><code>{{content}}</code></pre>
+{% extends "base.html" %}
+
+{% block title %}ExCode Pastebin{% endblock %}
+
+{% block content %}
+<main class="h-screen">
+  <button id="raw" type="submit" class="fixed right-2 top-2 btn btn-secondary">
+    Raw
+  </button>
+  <pre><code>{{content}}</code></pre>
+</main>
+
+<script>
+  document.getElementById("raw").addEventListener("click", (event) => {
+    location.assign(`${location.origin}/raw${location.pathname}`);
+  });
+</script>
 {% endblock %}
