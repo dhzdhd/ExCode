@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{{title}}{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+    />
+    <script type="module">
+      import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/es/highlight.min.js";
+      hljs.highlightAll();
+    </script>
+  </head>
+  <body class="bg-[#282c34]">
+    <main class="h-screen">{% block content %}{% endblock %}</main>
+  </body>
+
+  <script>
+    document.getElementById("raw").addEventListener("click", (event) => {
+      location.assign(`${location.origin}/raw${location.pathname}`);
+    });
+  </script>
+</html>

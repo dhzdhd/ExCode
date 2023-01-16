@@ -1,3 +1,4 @@
 .env
 Secrets.toml
 target/
+main.js
