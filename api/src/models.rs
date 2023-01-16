@@ -38,3 +38,9 @@ impl PasteSchema {
         Json(serde_json::to_value(self).unwrap())
     }
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct PasteExtractor {
+    pub lang: String,
+    pub content: String,
+}

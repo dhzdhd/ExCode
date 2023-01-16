@@ -19,7 +19,7 @@ use shuttle_secrets::SecretStore;
 use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 
-use models::{Error, PasteSchema};
+use models::{Error, PasteExtractor, PasteSchema};
 use templates::{ErrorTemplate, PasteTemplate};
 
 async fn index() -> &'static str {
@@ -31,8 +31,11 @@ async fn index() -> &'static str {
     "
 }
 
-async fn create_paste(State(collection): State<Collection<PasteSchema>>) -> Json<Value> {
-    let schema = PasteSchema::new("py".to_string(), "print(\"Hi\")".to_string());
+async fn create_paste(
+    State(collection): State<Collection<PasteSchema>>,
+    Json(payload): Json<PasteExtractor>,
+) -> Json<Value> {
+    let schema = PasteSchema::new(payload.lang, payload.content);
 
     let result = collection.insert_one(&schema, None).await;
 
@@ -43,17 +46,17 @@ async fn create_paste(State(collection): State<Collection<PasteSchema>>) -> Json
 }
 
 async fn get_paste(
-    Path(id): Path<String>,
+    Path(uuid): Path<String>,
     State(collection): State<Collection<PasteSchema>>,
 ) -> impl IntoResponse {
     let result = collection
-        .find_one(doc! {"uuid": &id}, FindOneOptions::default())
+        .find_one(doc! {"uuid": &uuid}, FindOneOptions::default())
         .await;
 
     let res = match result {
         Ok(res) => match res {
             Some(paste) => PasteTemplate::new(paste.uuid, paste.lang, paste.content).render(),
-            None => ErrorTemplate::new("".to_string()).render(),
+            None => ErrorTemplate::new("No paste found for the given ID".to_string()).render(),
         },
         Err(err) => ErrorTemplate::new(err.to_string()).render(),
     };
@@ -69,11 +72,11 @@ async fn get_paste(
 }
 
 async fn get_raw_paste(
-    Path(id): Path<String>,
+    Path(uuid): Path<String>,
     State(collection): State<Collection<PasteSchema>>,
 ) -> Json<Value> {
     let result = collection
-        .find_one(doc! {"uuid": &id}, FindOneOptions::default())
+        .find_one(doc! {"uuid": &uuid}, FindOneOptions::default())
         .await;
 
     match result {
