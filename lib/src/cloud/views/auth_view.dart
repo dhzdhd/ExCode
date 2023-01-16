@@ -4,6 +4,7 @@ import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum AuthType {
@@ -163,7 +164,10 @@ class _AuthViewState extends ConsumerState<AuthView> {
                             ref.watch(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context.showSuccessSnackBar(
-                                'Successfully registered! Please check your email to verify!');
+                              content:
+                                  'Successfully registered! Please check your email to verify!',
+                              action: const None(),
+                            );
                           },
                         );
                       } else {
@@ -177,8 +181,10 @@ class _AuthViewState extends ConsumerState<AuthView> {
                           (r) {
                             ref.watch(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
-                            context
-                                .showSuccessSnackBar('Successfully logged in!');
+                            context.showSuccessSnackBar(
+                              content: 'Successfully logged in!',
+                              action: const None(),
+                            );
                           },
                         );
                       }

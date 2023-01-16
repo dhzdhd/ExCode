@@ -1,7 +1,9 @@
 import 'package:excode/src/factory.dart';
 import 'package:fpdart/fpdart.dart';
 
-class HasteBin {
+class CustomPasteBin {
+  static const baseUrl = 'https://excode-pastebin.shuttleapp.rs/';
+
   static Future<Either<String, String>> post(String content) async {
     if (content.trim().isEmpty) {
       return Either.left('Cannot make an empty paste!');

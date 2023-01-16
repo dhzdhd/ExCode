@@ -8,6 +8,7 @@ import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @Deprecated('Use AuthDropDownWidget instead')
@@ -53,8 +54,10 @@ class AuthContainerWidget extends ConsumerWidget {
                         ref
                             .watch(snippetBarStateProvider.notifier)
                             .setState(r.snippets);
-                        context
-                            .showSuccessSnackBar('Successfully synced data!');
+                        context.showSuccessSnackBar(
+                          content: 'Successfully synced data!',
+                          action: const None(),
+                        );
                       });
                     },
                     child: const Text('Sync data'),
@@ -67,7 +70,10 @@ class AuthContainerWidget extends ConsumerWidget {
                       final response = await Auth.signOut();
                       response.match(
                         (l) => context.showErrorSnackBar(l),
-                        (r) => context.showSuccessSnackBar(r),
+                        (r) => context.showSuccessSnackBar(
+                          content: r,
+                          action: const None(),
+                        ),
                       );
                     },
                     child: const Text('Sign Out'),

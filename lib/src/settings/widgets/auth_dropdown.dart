@@ -12,6 +12,7 @@ import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthDropDownWidget extends ConsumerWidget {
@@ -100,8 +101,10 @@ class AuthDropDownWidget extends ConsumerWidget {
                             res.match((l) => print(l), (r) => print(r));
                           }
 
-                          context
-                              .showSuccessSnackBar('Successfully synced data!');
+                          context.showSuccessSnackBar(
+                            content: 'Successfully synced data!',
+                            action: const None(),
+                          );
                         },
                       );
                     }),
@@ -113,7 +116,10 @@ class AuthDropDownWidget extends ConsumerWidget {
                       final response = await Auth.signOut();
                       response.match(
                         (l) => context.showErrorSnackBar(l),
-                        (r) => context.showSuccessSnackBar(r),
+                        (r) => context.showSuccessSnackBar(
+                          content: r,
+                          action: const None(),
+                        ),
                       );
                     }),
                   ),

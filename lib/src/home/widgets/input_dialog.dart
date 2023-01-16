@@ -2,6 +2,7 @@ import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/input_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' show None;
 
 class InputDialogWidget extends StatefulWidget {
   const InputDialogWidget({Key? key}) : super(key: key);
@@ -66,7 +67,10 @@ class _InputDialogWidgetState extends State<InputDialogWidget> {
                 );
 
                 Navigator.of(context).pop();
-                context.showSuccessSnackBar('Successfully saved input data!');
+                context.showSuccessSnackBar(
+                  content: 'Successfully saved input data!',
+                  action: const None(),
+                );
               },
               child: const Text('Save'),
             ),

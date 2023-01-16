@@ -1,5 +1,6 @@
 import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 extension StringExtension on String {
   String capitalize() {
@@ -11,7 +12,8 @@ extension StringExtension on String {
 }
 
 extension ShowSnackBar on BuildContext {
-  void showSuccessSnackBar(String content) {
+  void showSuccessSnackBar(
+      {required String content, required Option<SnackBarAction> action}) {
     ScaffoldMessenger.of(this).showSnackBar(snackBarWidget(
       content: content,
       state: SnackBarState.success,

@@ -8,7 +8,7 @@ import 'package:excode/src/home/widgets/input_dialog.dart';
 import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
-import 'package:excode/src/settings/services/hastebin.dart';
+import 'package:excode/src/settings/services/paste.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -116,28 +116,29 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                         ref.read(editorLanguageStateProvider),
                         ref.read(editorContentStateProvider),
                       );
-                  context.showSuccessSnackBar('Saved to local storage!');
+                  context.showSuccessSnackBar(
+                      content: 'Saved to local storage!', action: const None());
                 },
               ),
               PopupMenuItem(
                 child: const Text('Hastebin'),
                 onTap: () async {
-                  final url =
-                      await HasteBin.post(ref.read(editorContentStateProvider));
+                  final url = await CustomPasteBin.post(
+                      ref.read(editorContentStateProvider));
                   url.match(
-                    (l) => ScaffoldMessenger.of(context).showSnackBar(
-                        snackBarWidget(content: l, state: SnackBarState.error)),
-                    (r) => ScaffoldMessenger.of(context).showSnackBar(
-                      snackBarWidget(
-                        content:
-                            'Uploaded to hastebin. The url expires after a few days!',
-                        state: SnackBarState.success,
-                        action: SnackBarAction(
+                    (l) => context.showErrorSnackBar(l),
+                    (r) => context.showSuccessSnackBar(
+                      content:
+                          'Uploaded to hastebin. The url expires after a few days!',
+                      action: Some(
+                        SnackBarAction(
                           label: 'Copy',
                           onPressed: () =>
                               FlutterClipboard.copy(r).then((value) {
                             context.showSuccessSnackBar(
-                                'Copied hastebin url to clipboard');
+                              content: 'Copied hastebin url to clipboard',
+                              action: const None(),
+                            );
                           }),
                         ),
                       ),
