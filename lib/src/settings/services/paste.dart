@@ -3,7 +3,7 @@ import 'package:excode/src/factory.dart';
 import 'package:fpdart/fpdart.dart';
 
 class CustomPasteBin {
-  static const baseUrl = 'https://excode-pastebin.shuttleapp.rs/';
+  static const baseUrl = 'https://excode-pastebin.shuttleapp.rs';
 
   static Future<Either<String, String>> post(
       {required String lang, required String content}) async {
@@ -17,9 +17,7 @@ class CustomPasteBin {
 
       final pasteUrl = '$baseUrl/${res.data["uuid"]!}';
       return Either.right(pasteUrl);
-    } on DioError catch (err) {
-      print(err.message);
-      print(err.response);
+    } on DioError catch (_) {
       return Either.left('Error in making the paste!');
     }
   }

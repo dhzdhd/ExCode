@@ -15,9 +15,9 @@ extension ShowSnackBar on BuildContext {
   void showSuccessSnackBar(
       {required String content, required Option<SnackBarAction> action}) {
     ScaffoldMessenger.of(this).showSnackBar(snackBarWidget(
-      content: content,
-      state: SnackBarState.success,
-    ));
+        content: content,
+        state: SnackBarState.success,
+        action: action.toNullable()));
   }
 
   void showErrorSnackBar(String content) {
