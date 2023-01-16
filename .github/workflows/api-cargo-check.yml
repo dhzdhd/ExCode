@@ -13,8 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          path: api
+
+      - name: Change directory
+        run: cd api/
 
       - name: Setup rust
         uses: actions-rs/toolchain@v1
