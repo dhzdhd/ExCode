@@ -5,7 +5,6 @@ import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/input_dialog.dart';
-import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/paste.dart';
