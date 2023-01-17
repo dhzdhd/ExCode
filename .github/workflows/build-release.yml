@@ -142,6 +142,7 @@ jobs:
             exec/android/flutter-apk/*
             ExCode-linux.zip
             ExCode-win.zip
+            exec/win/ExCode.msix
           # ExCode-mac.zip
 
           body_path: CHANGELOG.md

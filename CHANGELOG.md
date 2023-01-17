@@ -3,11 +3,15 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
-## 0.5.1 | 13-01-2023
+## 0.5.1 | 17-01-2023
 
 ### Additions
 
-- Added msix installer for Windows
+- Added msix installer for Windows.
+
+### Fixes / Improvements
+
+- Migrate to custom pastebin implementation to avoid CORS issues.
 
 ## 0.5.0 | 06-01-2023
 
