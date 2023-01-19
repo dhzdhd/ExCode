@@ -20,15 +20,20 @@ use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 
 use models::{Error, PasteExtractor, PasteSchema};
-use templates::{ErrorTemplate, PasteTemplate};
+use templates::{EditTemplate, ErrorTemplate, HtmlTemplate, PasteTemplate};
 
 async fn index() -> &'static str {
     "Pastebin service
 
+    GET /
     POST /
     GET /:id
     GET /raw/:id
     "
+}
+
+async fn get_editor(State(collection): State<Collection<PasteSchema>>) -> impl IntoResponse {
+    HtmlTemplate(EditTemplate::new("".to_string()))
 }
 
 async fn create_paste(
@@ -106,8 +111,10 @@ async fn axum(
         .collection::<PasteSchema>("pastes");
 
     let router = Router::new()
-        .route("/", get(index))
-        .route("/", post(create_paste))
+        .route("/", get(get_editor).post(create_paste))
+        .route("/about", get(index))
+        .route("/info", get(index))
+        .route("/help", get(index))
         .route("/:id", get(get_paste))
         .route("/raw/:id", get(get_raw_paste))
         .with_state(collection)

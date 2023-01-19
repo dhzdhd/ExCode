@@ -1,18 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}ExCode Pastebin{% endblock %}
-
-{% block content %}
-<header class="w-screen h-16 top-0 px-[1rem] flex items-center justify-between">
+{% extends "base.html" %} {% block title %}ExCode Pastebin{% endblock %} {%
+block content %}
+<header class="w-full h-16 top-0 px-[1rem] flex items-center justify-between">
   <h1 class="text-3xl">{{lang}}</h1>
   <div class="flex gap-2">
     <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Download">
-      <button id="download" type="submit" class="btn btn-secondary text-xl w-16">
+      <button
+        id="download"
+        type="submit"
+        aria-label="Download button"
+        class="btn btn-secondary text-xl w-16"
+      >
         <i class="fa-solid fa-download"></i>
       </button>
     </div>
     <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="JSON">
-      <button id="raw" type="submit" class="btn btn-secondary text-xl w-16">
+      <button id="raw" type="submit" aria-label="View JSON button" class="btn btn-secondary text-xl w-16">
         <i class="fa-solid fa-code"></i>
       </button>
     </div>
@@ -28,7 +30,7 @@
   });
 
   document.getElementById("download").addEventListener("click", (event) => {
-    let data = new Blob(String.raw`{{content}}`, {type: 'text/plain'});
+    let data = new Blob(String.raw`{{content}}`, { type: "text/plain" });
     let url = window.URL.createObjectURL(data);
     location.assign(url);
   });

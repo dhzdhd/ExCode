@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}ExCode Pastebin{% endblock %}
+
+{% block content %}
+<header class="w-full h-16 top-0 px-[1rem] flex items-center justify-between">
+  <h1 class="text-3xl">Editor</h1>
+  <div class="flex gap-2">
+    <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Upload">
+      <button id="upload" type="submit" form="form" aria-label="Upload button" class="btn btn-secondary text-xl w-16">
+        <i class="fa-solid fa-upload"></i>
+      </button>
+    </div>
+  </div>
+</header>
+<main class="h-screen text-md md:text-lg lg:text-xl py-2 flex flex-col gap-10">
+  <form method="post" action="/" name="form" target="_self" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="lang" id="lang" aria-label="Language input" class="w-full bg-[#282c34]">
+    <textarea aria-label="Content input" name="content" id="content" autocomplete="off"  class="w-full h-full bg-[#282c34] resize-none"></textarea>
+  </form>
+</main>
+
+<script>
+    document.getElementById("upload").addEventListener("click", async (event) => {
+        const lang = document.getElementById("lang").value;
+        const content = document.getElementById("content").value;
+
+        const response = await fetch("/", {method: "post", mode: "same-origin", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
+            content: content,
+            lang: lang,
+        }),})
+
+        const json = await response.json();
+        console.log(json);
+
+        location.assign(`${location.origin}/${json["uuid"]}`)
+
+    })
+
+</script>
+{% endblock %}
