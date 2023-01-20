@@ -28,7 +28,7 @@ pub struct PasteSchema {
 impl PasteSchema {
     pub fn new(lang: String, content: String) -> Self {
         Self {
-            uuid: Uuid::new().to_string(),
+            uuid: Uuid::new().to_string().replace("-", ""),
             lang,
             content,
         }

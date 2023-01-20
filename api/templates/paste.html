@@ -1,5 +1,8 @@
-{% extends "base.html" %} {% block title %}ExCode Pastebin{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+
+{% block title %}ExCode Pastebin{% endblock %}
+
+{% block content %}
 <header class="w-full h-16 top-0 px-[1rem] flex items-center justify-between">
   <h1 class="text-3xl">{{lang}}</h1>
   <div class="flex gap-2">
@@ -18,6 +21,11 @@ block content %}
         <i class="fa-solid fa-code"></i>
       </button>
     </div>
+    <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Copy URL">
+      <button id="copy" type="submit" aria-label="Copy URL button" class="btn btn-secondary text-xl w-16">
+        <i class="fa-solid fa-copy"></i>
+      </button>
+    </div>
   </div>
 </header>
 <main class="h-screen text-md md:text-lg lg:text-xl">
@@ -34,5 +42,9 @@ block content %}
     let url = window.URL.createObjectURL(data);
     location.assign(url);
   });
+
+  document.getElementById("copy").addEventListener("click", (event) => {
+    navigator.clipboard.writeText(window.location.href);
+  })
 </script>
 {% endblock %}

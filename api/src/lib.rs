@@ -6,7 +6,7 @@ use axum::{
     extract::{Path, State},
     http::{HeaderValue, StatusCode},
     response::{Html, IntoResponse},
-    routing::{get, post},
+    routing::get,
     Json, Router,
 };
 use mongodb::{
@@ -22,6 +22,8 @@ use tower_http::cors::CorsLayer;
 use models::{Error, PasteExtractor, PasteSchema};
 use templates::{EditTemplate, ErrorTemplate, HtmlTemplate, PasteTemplate};
 
+// TODO fix style of input, add validators
+
 async fn index() -> &'static str {
     "Pastebin service
 
@@ -32,7 +34,7 @@ async fn index() -> &'static str {
     "
 }
 
-async fn get_editor(State(collection): State<Collection<PasteSchema>>) -> impl IntoResponse {
+async fn get_editor() -> impl IntoResponse {
     HtmlTemplate(EditTemplate::new("".to_string()))
 }
 
@@ -40,6 +42,10 @@ async fn create_paste(
     State(collection): State<Collection<PasteSchema>>,
     Json(payload): Json<PasteExtractor>,
 ) -> Json<Value> {
+    if payload.lang.trim().is_empty() || payload.content.trim().is_empty() {
+        return Error::new("Empty fields!").to_json();
+    }
+
     let schema = PasteSchema::new(payload.lang, payload.content);
 
     let result = collection.insert_one(&schema, None).await;
