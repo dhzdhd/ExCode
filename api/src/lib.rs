@@ -35,7 +35,7 @@ async fn index() -> &'static str {
 }
 
 async fn get_editor() -> impl IntoResponse {
-    HtmlTemplate(EditTemplate::new("".to_string()))
+    HtmlTemplate(EditTemplate)
 }
 
 async fn create_paste(

@@ -6,15 +6,7 @@ use axum::{
 
 #[derive(Template)]
 #[template(path = "edit.html")]
-pub struct EditTemplate {
-    pub content: String,
-}
-
-impl EditTemplate {
-    pub fn new(content: String) -> Self {
-        Self { content }
-    }
-}
+pub struct EditTemplate;
 
 #[derive(Template)]
 #[template(path = "paste.html")]
