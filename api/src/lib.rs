@@ -147,14 +147,7 @@ async fn axum(
         .route("/json/:id", get(get_json_paste))
         .route("/raw/:id", get(get_raw_paste))
         .with_state(collection)
-        .layer(
-            CorsLayer::new().allow_origin([
-                "http://localhost".parse::<HeaderValue>().unwrap(),
-                "https://dhzdhd.github.io/ExCode/"
-                    .parse::<HeaderValue>()
-                    .unwrap(),
-            ]),
-        );
+        .layer(CorsLayer::permissive());
     let sync_wrapper = SyncWrapper::new(router);
 
     Ok(sync_wrapper)
