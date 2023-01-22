@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.0.0 | 22-01-2023
+
+### Fixes / Improvements
+
+- Fix CORS issues on custom pastebin
+- Improve custom pastebin UI
+- Some QOL improvements
+
 ## 0.5.1 | 17-01-2023
 
 ### Additions

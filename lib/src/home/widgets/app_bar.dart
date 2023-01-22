@@ -130,14 +130,14 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                     (l) => context.showErrorSnackBar(l),
                     (r) => context.showSuccessSnackBar(
                       content:
-                          'Uploaded to hastebin. The url expires after a few days!',
+                          'Uploaded to pastebin. The url expires after a few days!',
                       action: Some(
                         SnackBarAction(
                           label: 'Copy',
                           onPressed: () =>
                               FlutterClipboard.copy(r).then((value) {
                             context.showSuccessSnackBar(
-                              content: 'Copied hastebin url to clipboard',
+                              content: 'Copied pastebin url to clipboard',
                               action: const None(),
                             );
                           }),
