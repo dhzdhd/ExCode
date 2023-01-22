@@ -59,9 +59,9 @@
 
     if (response.status != 200) {
       alert(json.message);
+    } else {
+      location.assign(`${location.origin}/${json["uuid"]}`);
     }
-
-    location.assign(`${location.origin}/${json["uuid"]}`);
   });
 </script>
 {% endblock %}
