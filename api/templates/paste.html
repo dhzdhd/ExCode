@@ -6,14 +6,14 @@
 <header class="w-full h-16 top-0 px-[1rem] flex items-center justify-between">
   <h1 class="text-3xl">{{lang}}</h1>
   <div class="flex gap-2">
-    <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Download">
+    <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="Raw">
       <button
-        id="download"
+        id="raw"
         type="submit"
-        aria-label="Download button"
+        aria-label="Raw button"
         class="btn btn-secondary text-xl w-16"
       >
-        <i class="fa-solid fa-download"></i>
+        <i class="fa-solid fa-pager"></i>
       </button>
     </div>
     <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="JSON">
@@ -47,10 +47,8 @@
     location.assign(`${location.origin}/json${location.pathname}`);
   });
 
-  document.getElementById("download").addEventListener("click", (event) => {
-    let data = new Blob(String.raw`{{content}}`, { type: "text/plain" });
-    let url = window.URL.createObjectURL(data);
-    location.assign(url);
+  document.getElementById("raw").addEventListener("click", (event) => {
+    location.assign(`${location.origin}/raw${location.pathname}`);
   });
 
   document.getElementById("copy").addEventListener("click", (event) => {

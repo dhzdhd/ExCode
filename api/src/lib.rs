@@ -14,7 +14,7 @@ use mongodb::{
     options::{ClientOptions, FindOneOptions, ResolverConfig},
     Client, Collection,
 };
-use serde_json::Value;
+use serde_json::{json, Value};
 use shuttle_secrets::SecretStore;
 use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
@@ -31,6 +31,7 @@ async fn index() -> &'static str {
     POST /
     GET /:id
     GET /json/:id
+    GET /raw/:id
     "
 }
 
@@ -85,7 +86,7 @@ async fn get_paste(
     }
 }
 
-async fn get_raw_paste(
+async fn get_json_paste(
     Path(uuid): Path<String>,
     State(collection): State<Collection<PasteSchema>>,
 ) -> Result<Json<PasteSchema>, Error> {
@@ -96,6 +97,25 @@ async fn get_raw_paste(
     match result {
         Ok(res) => match res {
             Some(paste) => Ok(paste.into()),
+            None => Err(Error::DatabaseError(String::from(
+                "No paste found for the given ID",
+            ))),
+        },
+        Err(err) => Err(Error::DatabaseError(err.to_string())),
+    }
+}
+
+async fn get_raw_paste(
+    Path(uuid): Path<String>,
+    State(collection): State<Collection<PasteSchema>>,
+) -> Result<String, Error> {
+    let result = collection
+        .find_one(doc! {"uuid": &uuid}, FindOneOptions::default())
+        .await;
+
+    match result {
+        Ok(res) => match res {
+            Some(paste) => Ok(paste.content),
             None => Err(Error::DatabaseError(String::from(
                 "No paste found for the given ID",
             ))),
@@ -127,7 +147,8 @@ async fn axum(
         .route("/info", get(index))
         .route("/help", get(index))
         .route("/:id", get(get_paste))
-        .route("/json/:id", get(get_raw_paste))
+        .route("/json/:id", get(get_json_paste))
+        .route("/raw/:id", get(get_raw_paste))
         .with_state(collection)
         .layer(
             CorsLayer::new().allow_origin([
