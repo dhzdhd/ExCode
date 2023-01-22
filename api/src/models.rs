@@ -1,22 +1,43 @@
-use axum::Json;
+use axum::{http::StatusCode, response::IntoResponse, response::Response, Json};
 use mongodb::bson::Uuid;
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 #[derive(Deserialize, Serialize)]
-pub struct Error<'a> {
-    message: &'a str,
+pub enum Error {
+    EmptyLanguage,
+    EmptyContent,
+    DatabaseError(String),
 }
 
-impl<'a> Error<'a> {
-    pub fn new(message: &'a str) -> Self {
-        Self { message }
-    }
+impl IntoResponse for Error {
+    fn into_response(self) -> Response {
+        let (status, message) = match self {
+            Error::EmptyLanguage => (
+                StatusCode::UNPROCESSABLE_ENTITY,
+                "The language field is empty".to_string(),
+            ),
+            Error::EmptyContent => (
+                StatusCode::UNPROCESSABLE_ENTITY,
+                "The content field is empty".to_string(),
+            ),
+            Error::DatabaseError(err) => (StatusCode::UNPROCESSABLE_ENTITY, err),
+        };
 
-    pub fn to_json(&self) -> Json<Value> {
-        Json(serde_json::to_value(self).unwrap())
+        let body = Json(json!({ "message": message }));
+        (status, body).into_response()
     }
 }
+
+// impl<'a> Error<'a> {
+//     pub fn new(message: &'a str) -> Self {
+//         Self { message }
+//     }
+
+//     pub fn to_json(&self) -> Json<Value> {
+//         Json(serde_json::to_value(self).unwrap())
+//     }
+// }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PasteSchema {

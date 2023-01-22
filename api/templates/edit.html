@@ -57,6 +57,10 @@
 
     const json = await response.json();
 
+    if (response.status != 200) {
+      alert(json.message);
+    }
+
     location.assign(`${location.origin}/${json["uuid"]}`);
   });
 </script>

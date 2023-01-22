@@ -22,7 +22,7 @@ use tower_http::cors::CorsLayer;
 use models::{Error, PasteExtractor, PasteSchema};
 use templates::{EditTemplate, ErrorTemplate, HtmlTemplate, PasteTemplate};
 
-// TODO fix style of input, add validators
+// TODO add validators
 
 async fn index() -> &'static str {
     "Pastebin service
@@ -41,9 +41,12 @@ async fn get_editor() -> impl IntoResponse {
 async fn create_paste(
     State(collection): State<Collection<PasteSchema>>,
     Json(payload): Json<PasteExtractor>,
-) -> Json<Value> {
-    if payload.lang.trim().is_empty() || payload.content.trim().is_empty() {
-        return Error::new("Empty fields!").to_json();
+) -> Result<Json<PasteSchema>, Error> {
+    if payload.lang.trim().is_empty() {
+        return Err(Error::EmptyLanguage);
+    }
+    if payload.content.trim().is_empty() {
+        return Err(Error::EmptyContent);
     }
 
     let schema = PasteSchema::new(payload.lang, payload.content);
@@ -51,8 +54,8 @@ async fn create_paste(
     let result = collection.insert_one(&schema, None).await;
 
     match result {
-        Ok(_) => schema.to_json(),
-        Err(err) => Error::new(err.to_string().as_str()).to_json(),
+        Ok(_) => Ok(schema.into()),
+        Err(err) => Err(Error::DatabaseError(err.to_string())),
     }
 }
 
@@ -85,17 +88,19 @@ async fn get_paste(
 async fn get_raw_paste(
     Path(uuid): Path<String>,
     State(collection): State<Collection<PasteSchema>>,
-) -> Json<Value> {
+) -> Result<Json<PasteSchema>, Error> {
     let result = collection
         .find_one(doc! {"uuid": &uuid}, FindOneOptions::default())
         .await;
 
     match result {
         Ok(res) => match res {
-            Some(paste) => paste.to_json(),
-            None => Error::new("No paste found for the given ID").to_json(),
+            Some(paste) => Ok(paste.into()),
+            None => Err(Error::DatabaseError(String::from(
+                "No paste found for the given ID",
+            ))),
         },
-        Err(err) => Error::new(err.to_string().as_str()).to_json(),
+        Err(err) => Err(Error::DatabaseError(err.to_string())),
     }
 }
 
