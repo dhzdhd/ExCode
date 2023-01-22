@@ -14,15 +14,12 @@ use mongodb::{
     options::{ClientOptions, FindOneOptions, ResolverConfig},
     Client, Collection,
 };
-use serde_json::{json, Value};
 use shuttle_secrets::SecretStore;
 use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 
 use models::{Error, PasteExtractor, PasteSchema};
 use templates::{EditTemplate, ErrorTemplate, HtmlTemplate, PasteTemplate};
-
-// TODO add validators
 
 async fn index() -> &'static str {
     "Pastebin service
