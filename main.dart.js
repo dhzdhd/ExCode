@@ -50705,13 +50705,13 @@ return null},
 $S:10}
 A.aa_.prototype={
 $1(a){var s=this.a
-return A.qo(s,new A.ei(new A.uB("Copy",new A.a9Y(a,s),null),t.pS),"Uploaded to hastebin. The url expires after a few days!")},
+return A.qo(s,new A.ei(new A.uB("Copy",new A.a9Y(a,s),null),t.pS),"Uploaded to pastebin. The url expires after a few days!")},
 $S:10}
 A.a9Y.prototype={
 $0(){return A.aNl(this.a).bM(new A.a9X(this.b),t.P)},
 $S:0}
 A.a9X.prototype={
-$1(a){A.qo(this.a,B.d2,"Copied hastebin url to clipboard")},
+$1(a){A.qo(this.a,B.d2,"Copied pastebin url to clipboard")},
 $S:40}
 A.a0e.prototype={}
 A.Ck.prototype={
