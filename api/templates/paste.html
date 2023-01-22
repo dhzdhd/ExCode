@@ -18,7 +18,7 @@
     </div>
     <div class="tooltip tooltip-bottom tooltip-secondary" data-tip="JSON">
       <button
-        id="raw"
+        id="json"
         type="submit"
         aria-label="View JSON button"
         class="btn btn-secondary text-xl w-16"
@@ -43,8 +43,8 @@
 </main>
 
 <script>
-  document.getElementById("raw").addEventListener("click", (event) => {
-    location.assign(`${location.origin}/raw${location.pathname}`);
+  document.getElementById("json").addEventListener("click", (event) => {
+    location.assign(`${location.origin}/json${location.pathname}`);
   });
 
   document.getElementById("download").addEventListener("click", (event) => {

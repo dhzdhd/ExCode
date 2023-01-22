@@ -30,7 +30,7 @@ async fn index() -> &'static str {
     GET /
     POST /
     GET /:id
-    GET /raw/:id
+    GET /json/:id
     "
 }
 
@@ -127,7 +127,7 @@ async fn axum(
         .route("/info", get(index))
         .route("/help", get(index))
         .route("/:id", get(get_paste))
-        .route("/raw/:id", get(get_raw_paste))
+        .route("/json/:id", get(get_raw_paste))
         .with_state(collection)
         .layer(
             CorsLayer::new().allow_origin([
