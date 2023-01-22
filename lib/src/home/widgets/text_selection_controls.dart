@@ -34,23 +34,6 @@ class CustomTextSelectionControls extends TextSelectionControls {
     ClipboardStatusNotifier? clipboardStatus,
     Offset? lastSecondaryTapDownPosition,
   ) {
-    // ! Deprecate later
-    // final TextSelectionPoint startTextSelectionPoint = endpoints[0];
-    // final TextSelectionPoint endTextSelectionPoint =
-    //     endpoints.length > 1 ? endpoints[1] : endpoints[0];
-    // final Offset anchorAbove = Offset(
-    //   globalEditableRegion.left + selectionMidpoint.dx,
-    //   globalEditableRegion.top +
-    //       startTextSelectionPoint.point.dy -
-    //       textLineHeight -
-    //       _kToolbarContentDistance,
-    // );
-    // final Offset anchorBelow = Offset(
-    //   globalEditableRegion.left + selectionMidpoint.dx,
-    //   globalEditableRegion.top +
-    //       endTextSelectionPoint.point.dy +
-    //       _kToolbarContentDistanceBelow,
-    // );
     return _TextSelectionControlsToolbar(
       globalEditableRegion: globalEditableRegion,
       textLineHeight: textLineHeight,

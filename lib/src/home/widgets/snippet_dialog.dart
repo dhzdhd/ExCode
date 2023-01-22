@@ -185,7 +185,6 @@ class _BottomBarDialogWidgetState
                       )
                       .toList(),
                   onReorder: (oldIndex, newIndex) async {
-                    // ! Removed setState
                     await ref
                         .watch(snippetBarStateProvider.notifier)
                         .reorder(oldIndex, newIndex);
@@ -333,7 +332,6 @@ class _AddSnippetDialogWidgetState
                                   ),
                                 ));
                           } else {
-                            // setState(() {
                             await ref
                                 .watch(snippetBarStateProvider.notifier)
                                 .edit(
@@ -346,7 +344,6 @@ class _AddSnippetDialogWidgetState
                                     ),
                                   ),
                                 );
-                            // });
                           }
                           Navigator.of(context).pop();
                         }

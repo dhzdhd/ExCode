@@ -4,7 +4,7 @@ mod templates;
 use askama::Template;
 use axum::{
     extract::{Path, State},
-    http::{HeaderValue, StatusCode},
+    http::StatusCode,
     response::{Html, IntoResponse},
     routing::get,
     Json, Router,
