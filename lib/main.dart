@@ -21,6 +21,7 @@ void main() async {
 
   initDioClient();
   await initCloudStorage();
+  await initFileStorage();
   await initDatabase();
   await ApiHandler.initRuntimeVersionData();
   await SettingsService.initPrefs();

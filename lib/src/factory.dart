@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:excode/src/settings/services/update_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 late final Dio dio;
 late final Box box;
 late final PackageInfo packageInfo;
 late final SupabaseClient supabase;
+late final Option<Directory> appDocumentsDirectory;
 
 void initDioClient() {
   dio = Dio();
@@ -35,4 +41,18 @@ Future<void> initPackageInfo() async {
 
 Future<void> initDownloader() async {
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+}
+
+Future<void> initFileStorage() async {
+  if (kIsWeb) {
+    appDocumentsDirectory = const None();
+  } else {
+    final directory = await getApplicationDocumentsDirectory();
+
+    if (await directory.exists()) {
+      appDocumentsDirectory = Some(directory);
+    } else {
+      appDocumentsDirectory = const None();
+    }
+  }
 }

@@ -2,3 +2,4 @@
 Secrets.toml
 target/
 main.js
+build/

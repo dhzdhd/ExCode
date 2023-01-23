@@ -49,7 +49,6 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
               .setContent(const None(), lang);
         },
       ),
-      automaticallyImplyLeading: false,
       actions: [
         SizedBox(
           width: 40,
