@@ -2,6 +2,14 @@ import 'package:excode/src/home/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 
+abstract class AppError {
+  final String _message;
+
+  AppError(this._message);
+
+  String get message => _message;
+}
+
 extension StringExtension on String {
   String capitalize() {
     if (this.isNotEmpty) {

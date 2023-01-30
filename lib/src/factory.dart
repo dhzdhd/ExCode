@@ -49,9 +49,11 @@ Future<void> initFileStorage() async {
   } else {
     final directory = await getApplicationDocumentsDirectory();
 
-    if (await directory.exists()) {
-      appDocumentsDirectory = Some(directory);
-    } else {
+    try {
+      final docDir = await directory.create();
+      appDocumentsDirectory =
+          Some(await Directory(docDir.path + '/ExCode').create());
+    } catch (e) {
       appDocumentsDirectory = const None();
     }
   }
