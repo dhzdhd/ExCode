@@ -29,8 +29,8 @@ final lightTheme = ThemeDataModel(
         shape: const BeveledRectangleBorder(),
       ),
     ),
-    textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: _accentLightColor,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: _accentLightColor.withOpacity(0.15),
       selectionHandleColor: _primaryLightColor,
       cursorColor: _secondaryDarkColor,
     ),
@@ -96,8 +96,8 @@ final darkTheme = ThemeDataModel(
         shape: const BeveledRectangleBorder(),
       ),
     ),
-    textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: _accentDarkColor,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: _accentDarkColor.withOpacity(0.15),
       selectionHandleColor: _primaryDarkColor,
       cursorColor: _secondaryLightColor,
     ),
