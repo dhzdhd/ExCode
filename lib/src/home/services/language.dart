@@ -189,6 +189,7 @@ final Map<String, LangModel> langMap = {
     mode: bash,
     name: 'bash',
     lang: Language.bash,
+    ext: '.sh',
     template: '''var="Hello, World!"
 printf "%s\\n" "\$var"''',
   ),
@@ -196,6 +197,7 @@ printf "%s\\n" "\$var"''',
     mode: brainfuck,
     name: 'brainfuck',
     lang: Language.brainfuck,
+    ext: '.bf',
     template: '''>++++++++[<+++++++++>-]<.
 >++++[<+++++++>-]<+.
 +++++++..
@@ -213,6 +215,7 @@ printf "%s\\n" "\$var"''',
     mode: clojure,
     name: 'clojure',
     lang: Language.clojure,
+    ext: '.clj',
     template: '''(defn hello [] (print "Hello, World!"))
 (hello)''',
   ),
@@ -221,6 +224,7 @@ printf "%s\\n" "\$var"''',
     mode: markdown,
     name: 'cobol',
     lang: Language.cobol,
+    ext: '.cbl',
     template: '''IDENTIFICATION DIVISION.
 PROGRAM-ID. HELLO-WORLD.
 
@@ -232,12 +236,14 @@ PROCEDURE DIVISION.
     mode: coffeescript,
     name: 'typescript',
     lang: Language.coffeeScript,
+    ext: '.coffee',
     template: '''console.log("Hello, World!")''',
   ),
   'crystal': LangModel(
     mode: crystal,
     name: 'crystal',
     lang: Language.crystal,
+    ext: '.cr',
     template: '''"Hello, World!".each_char do |char|
   print char
 end
@@ -248,6 +254,7 @@ print '\\n'
     mode: dart,
     name: 'dart',
     lang: Language.dart,
+    ext: '.dart',
     template: '''void main() {
     print('Hello, World!');
 }''',
@@ -256,12 +263,14 @@ print '\\n'
     mode: typescript,
     name: 'typescript',
     lang: Language.typeScript,
+    ext: '.ts',
     template: '''console.log("Hello, World!");''',
   ),
   'javascript': LangModel(
     mode: javascript,
     name: 'javascript',
     lang: Language.javaScript,
+    ext: '.js',
     template: '''console.log("Hello, World!");''',
   ),
   'basic.net': LangModel(
@@ -269,6 +278,7 @@ print '\\n'
     mode: basic,
     name: 'basic',
     lang: Language.basic,
+    ext: '.vb',
     template: '''10 PRINT "Hello, World!"''',
   ),
   'fsharp.net': LangModel(
@@ -276,6 +286,7 @@ print '\\n'
     mode: fsharp,
     name: 'fsharp',
     lang: Language.fSharp,
+    ext: '.fs',
     template: '''printfn "Hello, World!"''',
   ),
   'csharp.net': LangModel(
@@ -283,30 +294,35 @@ print '\\n'
     mode: cs,
     name: 'csharp',
     lang: Language.cSharp,
+    ext: '.cs',
     template: '''Console.WriteLine("Hello, World!");''',
   ),
   'fsi': LangModel(
     mode: fsharp,
     name: 'fsi',
     lang: Language.fsi,
+    ext: '.fsx',
     template: '''printfn "Hello, World!"''',
   ),
   'dragon': LangModel(
     mode: markdown,
     name: 'dragon',
     lang: Language.dragon,
+    ext: '.dgn',
     template: '''show "Hello, World!"''',
   ),
   'elixir': LangModel(
     mode: elixir,
     name: 'elixir',
     lang: Language.elixir,
+    ext: '.ex',
     template: '''IO.puts("Hello, World!")''',
   ),
   'emacs': LangModel(
     mode: lisp,
     name: 'emacs',
     lang: Language.emacs,
+    ext: '.el',
     template: '''(princ "Hello, World!")''',
   ),
   'erlang': LangModel(
@@ -314,6 +330,7 @@ print '\\n'
     mode: erlang,
     name: 'erlang',
     lang: Language.erlang,
+    ext: '.erl',
     template: '''-module(hello).
 -export([hello_world/0]).
 
@@ -324,18 +341,21 @@ hello_world() -> io:fwrite("Hello, World!\\n").''',
     mode: markdown,
     name: 'forth',
     lang: Language.forth,
+    ext: '.fth',
     template: '''." Hello, World!" CR''',
   ),
   'freebasic': LangModel(
     mode: basic,
     name: 'freebasic',
     lang: Language.freebasic,
+    ext: '.bas',
     template: '''Print "Hello, World!"''',
   ),
   'awk': LangModel(
     mode: awk,
     name: 'awk',
     lang: Language.awk,
+    ext: '.awk',
     template: '''BEGIN { print "Hello, World!" }''',
   ),
   'gawk': LangModel(
@@ -343,12 +363,14 @@ hello_world() -> io:fwrite("Hello, World!\\n").''',
     mode: awk,
     name: 'gawk',
     lang: Language.gawk,
+    ext: '.awk',
     template: '''BEGIN { print "Hello, World!" }''',
   ),
   'c': LangModel(
     mode: cpp,
     name: 'c',
     lang: Language.c,
+    ext: '.c',
     template: '''#include <stdio.h>
 
 int main()
@@ -360,6 +382,7 @@ int main()
     mode: cpp,
     name: 'cpp',
     lang: Language.cpp,
+    ext: '.cpp',
     template: '''#include <iostream>
 
 int main()
@@ -372,6 +395,7 @@ int main()
     mode: d,
     name: 'd',
     lang: Language.d,
+    ext: '.d',
     template: '''import std.stdio;
 
 void main() {
@@ -382,6 +406,7 @@ void main() {
     mode: fortran,
     name: 'fortran',
     lang: Language.fortran,
+    ext: '.f',
     template: '''program Hello
   print *, "Hello, World!"
 end program Hello''',
@@ -390,6 +415,7 @@ end program Hello''',
     mode: go,
     name: 'go',
     lang: Language.go,
+    ext: '.go',
     template: '''package main
 import "fmt"
 
@@ -401,18 +427,21 @@ func main() {
     mode: markdown,
     name: 'golfscript',
     lang: Language.golfScript,
+    ext: '.gs',
     template: ''''Hello, World!\'''',
   ),
   'groovy': LangModel(
     mode: groovy,
     name: 'groovy',
     lang: Language.groovy,
+    ext: '.groovy',
     template: '''println "Hello, World!"''',
   ),
   'haskell': LangModel(
     mode: haskell,
     name: 'haskell',
     lang: Language.haskell,
+    ext: '.hs',
     template: '''main :: IO ()
 main = putStrLn "Hello, World!"''',
   ),
@@ -420,6 +449,7 @@ main = putStrLn "Hello, World!"''',
     mode: verilog,
     name: 'verilog',
     lang: Language.verilog,
+    ext: '.v',
     template: '''module HELLO_WORLD();
   initial begin
     \$display("Hello, World!");
@@ -431,12 +461,14 @@ endmodule''',
     mode: markdown,
     name: 'japt',
     lang: Language.japt,
+    ext: '.js',
     template: '''"Hello, World!''',
   ),
   'java': LangModel(
     mode: java,
     name: 'java',
     lang: Language.java,
+    ext: '.java',
     template: '''public class Main {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
@@ -447,12 +479,14 @@ endmodule''',
     mode: julia,
     name: 'julia',
     lang: Language.julia,
+    ext: '.jl',
     template: '''println("Hello, World!")''',
   ),
   'kotlin': LangModel(
     mode: kotlin,
     name: 'kotlin',
     lang: Language.kotlin,
+    ext: '.kt',
     template: '''fun main() {
     println("Hello, World!")
 }''',
@@ -461,12 +495,14 @@ endmodule''',
     mode: lisp,
     name: 'lisp',
     lang: Language.lisp,
+    ext: '.lisp',
     template: '''(print "Hello, World!")''',
   ),
   'llvm_ir': LangModel(
     mode: llvm,
     name: 'llvm',
     lang: Language.llvm,
+    ext: '.ll',
     template:
         '''@.str = private unnamed_addr constant [13 x i8] c"Hello World\\0A\\00"
 
@@ -486,12 +522,14 @@ define i32 @main() { ; i32()*
     mode: lua,
     name: 'lua',
     lang: Language.lua,
+    ext: '.lua',
     template: '''print("Hello, World!")''',
   ),
   'nasm': LangModel(
     mode: x86Asm,
     name: 'nasm',
     lang: Language.nasm,
+    ext: '.asm',
     template: '''SECTION .DATA
 	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
@@ -515,6 +553,7 @@ _start:
     mode: x86Asm,
     name: 'nasm64',
     lang: Language.nasm64,
+    ext: '.asm',
     template: '''SECTION .DATA
 	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
@@ -538,6 +577,7 @@ _start:
     mode: nimrod,
     name: 'nim',
     lang: Language.nim,
+    ext: '.nim',
     template: '''echo "Hello, World!"''',
   ),
   'ocaml': LangModel(
@@ -545,18 +585,21 @@ _start:
     mode: ocaml,
     name: 'ocaml',
     lang: Language.oCaml,
+    ext: '.ml',
     template: '''println("Hello, World!")''',
   ),
   'octave': LangModel(
     mode: matlab,
     name: 'matlab',
     lang: Language.matlab,
+    ext: '.m',
     template: '''disp('Hello, World!');''',
   ),
   'osabie': LangModel(
     mode: markdown,
     name: 'osabie',
     lang: Language.osabie,
+    ext: '.abe',
     template: '''"Hello, World!''',
   ),
   'pascal': LangModel(
@@ -564,6 +607,7 @@ _start:
     mode: markdown,
     name: 'pascal',
     lang: Language.pascal,
+    ext: '.pas',
     template: '''program Hello;
 begin
   writeln ('Hello, World!');
@@ -573,12 +617,14 @@ end.''',
     mode: perl,
     name: 'perl',
     lang: Language.perl,
+    ext: '.pl',
     template: '''print "Hello, World!\\n";''',
   ),
   'php': LangModel(
     mode: php,
     name: 'php',
     lang: Language.php,
+    ext: '.php',
     template: '''Hello, World!''',
   ),
   'ponylang': LangModel(
@@ -586,6 +632,7 @@ end.''',
     mode: pony,
     name: 'ponylang',
     lang: Language.ponylang,
+    ext: '.pony',
     template: '''actor Main
   new create(env: Env) =>
     env.out.print("Hello, world!")''',
@@ -595,30 +642,35 @@ end.''',
     mode: prolog,
     name: 'prolog',
     lang: Language.prolog,
+    ext: '.pl',
     template: '''main() :- write("Hello, World!"), nl.''',
   ),
   'powershell': LangModel(
     mode: powershell,
     name: 'powershell',
     lang: Language.powershell,
+    ext: '.ps',
     template: ''''Hello, World!\'''',
   ),
   'python2': LangModel(
     mode: python,
     name: 'python2',
     lang: Language.python2,
+    ext: '.py',
     template: '''print 'Hello, World!\'''',
   ),
   'python': LangModel(
     mode: python,
     name: 'python',
     lang: Language.python,
+    ext: '.py',
     template: '''print("Hello, World!")''',
   ),
   'racket': LangModel(
     mode: scheme,
     name: 'racket',
     lang: Language.racket,
+    ext: '.rkt',
     template: '''#lang racket
 (displayln "Hello, World!")''',
   ),
@@ -626,30 +678,35 @@ end.''',
     mode: perl,
     name: 'raku',
     lang: Language.raku,
+    ext: '.raku',
     template: '''say 'Hello, World!';''',
   ),
   'rockstar': LangModel(
     mode: markdown,
     name: 'rockstar',
     lang: Language.rockstar,
+    ext: '.rock',
     template: '''Say "Hello, World!"''',
   ),
   'rscript': LangModel(
     mode: r,
     name: 'r',
     lang: Language.r,
+    ext: '.r',
     template: '''print("Hello, World!")''',
   ),
   'ruby': LangModel(
     mode: ruby,
     name: 'ruby',
     lang: Language.ruby,
+    ext: '.rb',
     template: '''puts "Hello, World!"''',
   ),
   'rust': LangModel(
     mode: rust,
     name: 'rust',
     lang: Language.rust,
+    ext: '.rs',
     template: '''fn main() {
     println!("Hello, World!");
 }''',
@@ -659,6 +716,7 @@ end.''',
     mode: scala,
     name: 'scala',
     lang: Language.scala,
+    ext: '.scala',
     template: '''object Hello {
     def main(args: Array[String]) = {
         println("Hello, World!")
@@ -670,12 +728,14 @@ end.''',
     mode: smalltalk,
     name: 'smalltalk',
     lang: Language.smallTalk,
+    ext: '.cs',
     template: '''Transcript show: 'Hello, world!'.''',
   ),
   'sqlite3': LangModel(
     mode: sql,
     name: 'sqlite3',
     lang: Language.sqlite3,
+    ext: '.sqlite',
     template: '''CREATE TABLE helloworld (phrase TEXT);
 INSERT INTO helloworld VALUES ("Hello, World!");
 SELECT * FROM helloworld;
@@ -685,12 +745,14 @@ SELECT * FROM helloworld;
     mode: swift,
     name: 'swift',
     lang: Language.swift,
+    ext: '.swift',
     template: '''print("Hello, World!")''',
   ),
   'vlang': LangModel(
     mode: markdown,
     name: 'vlang',
     lang: Language.vlang,
+    ext: '.v',
     template: '''fn main() {
     println('Hello, World!')
 }''',
@@ -699,6 +761,7 @@ SELECT * FROM helloworld;
     mode: markdown,
     name: 'zig',
     lang: Language.zig,
+    ext: '.zig',
     template: '''const std = @import("std");
 
 pub fn main() !void {

@@ -11,6 +11,7 @@ class LangModel with _$LangModel {
     required String name,
     required Language lang,
     required String template,
+    required String ext,
     // required String ext,
   }) = _LangModel;
 }

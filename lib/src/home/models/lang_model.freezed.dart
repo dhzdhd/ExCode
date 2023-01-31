@@ -20,6 +20,7 @@ mixin _$LangModel {
   String get name => throw _privateConstructorUsedError;
   Language get lang => throw _privateConstructorUsedError;
   String get template => throw _privateConstructorUsedError;
+  String get ext => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LangModelCopyWith<LangModel> get copyWith =>
@@ -31,7 +32,8 @@ abstract class $LangModelCopyWith<$Res> {
   factory $LangModelCopyWith(LangModel value, $Res Function(LangModel) then) =
       _$LangModelCopyWithImpl<$Res, LangModel>;
   @useResult
-  $Res call({Mode mode, String name, Language lang, String template});
+  $Res call(
+      {Mode mode, String name, Language lang, String template, String ext});
 }
 
 /// @nodoc
@@ -51,6 +53,7 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
     Object? name = null,
     Object? lang = null,
     Object? template = null,
+    Object? ext = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
@@ -69,6 +72,10 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
           ? _value.template
           : template // ignore: cast_nullable_to_non_nullable
               as String,
+      ext: null == ext
+          ? _value.ext
+          : ext // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -80,7 +87,8 @@ abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
       __$$_LangModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Mode mode, String name, Language lang, String template});
+  $Res call(
+      {Mode mode, String name, Language lang, String template, String ext});
 }
 
 /// @nodoc
@@ -98,6 +106,7 @@ class __$$_LangModelCopyWithImpl<$Res>
     Object? name = null,
     Object? lang = null,
     Object? template = null,
+    Object? ext = null,
   }) {
     return _then(_$_LangModel(
       mode: null == mode
@@ -116,6 +125,10 @@ class __$$_LangModelCopyWithImpl<$Res>
           ? _value.template
           : template // ignore: cast_nullable_to_non_nullable
               as String,
+      ext: null == ext
+          ? _value.ext
+          : ext // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -127,7 +140,8 @@ class _$_LangModel implements _LangModel {
       {required this.mode,
       required this.name,
       required this.lang,
-      required this.template});
+      required this.template,
+      required this.ext});
 
   @override
   final Mode mode;
@@ -137,10 +151,12 @@ class _$_LangModel implements _LangModel {
   final Language lang;
   @override
   final String template;
+  @override
+  final String ext;
 
   @override
   String toString() {
-    return 'LangModel(mode: $mode, name: $name, lang: $lang, template: $template)';
+    return 'LangModel(mode: $mode, name: $name, lang: $lang, template: $template, ext: $ext)';
   }
 
   @override
@@ -152,11 +168,12 @@ class _$_LangModel implements _LangModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.lang, lang) || other.lang == lang) &&
             (identical(other.template, template) ||
-                other.template == template));
+                other.template == template) &&
+            (identical(other.ext, ext) || other.ext == ext));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode, name, lang, template);
+  int get hashCode => Object.hash(runtimeType, mode, name, lang, template, ext);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +187,8 @@ abstract class _LangModel implements LangModel {
       {required final Mode mode,
       required final String name,
       required final Language lang,
-      required final String template}) = _$_LangModel;
+      required final String template,
+      required final String ext}) = _$_LangModel;
 
   @override
   Mode get mode;
@@ -180,6 +198,8 @@ abstract class _LangModel implements LangModel {
   Language get lang;
   @override
   String get template;
+  @override
+  String get ext;
   @override
   @JsonKey(ignore: true)
   _$$_LangModelCopyWith<_$_LangModel> get copyWith =>
