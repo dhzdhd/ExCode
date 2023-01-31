@@ -11,24 +11,45 @@ class FileError extends AppError {
 class FileService {
   static TaskEither<FileError, File> createOrUpdateFile(
       String name, String content) {
-    print('$appDocumentsDirectory$name');
-    final file = File('$appDocumentsDirectory$name.txt');
+    return TaskEither.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      print('${r.path}/$name.txt');
+      final file = File('${r.path}/$name.txt');
 
-    return TaskEither.tryCatch(() => file.writeAsString(content),
-        (error, stackTrace) => FileError('Failed to update file'));
+      return TaskEither.tryCatch(
+        () => file.writeAsString(content),
+        (error, stackTrace) => FileError('Failed to update file'),
+      );
+    });
   }
 
   static TaskEither<FileError, String> readFile(String name) {
-    final file = File('$appDocumentsDirectory$name.txt');
+    return TaskEither.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      final file = File('${r.path}/$name.txt');
 
-    return TaskEither.tryCatch(() => file.readAsString(),
-        (error, stackTrace) => FileError('Failed to read file'));
+      return TaskEither.tryCatch(
+        () => file.readAsString(),
+        (error, stackTrace) => FileError('Failed to read file'),
+      );
+    });
   }
 
   static TaskEither<FileError, FileSystemEntity> deleteFile(String name) {
-    final file = File('$appDocumentsDirectory$name.txt');
+    return TaskEither.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      final file = File('${r.path}/$name.txt');
 
-    return TaskEither.tryCatch(() => file.delete(),
-        (error, stackTrace) => FileError('Failed to delete file'));
+      return TaskEither.tryCatch(
+        () => file.delete(),
+        (error, stackTrace) => FileError('Failed to delete file'),
+      );
+    });
   }
 }

@@ -18,13 +18,12 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
         ]);
 
   TaskEither<FileError, String> add(FileModel file) {
-    var newState = state;
+    final newState = state;
 
     if (newState.any((element) => element.name == file.name)) {
       return TaskEither.left(
           FileError('File with the same name already exists!'));
     }
-
     final res = FileService.createOrUpdateFile(file.name, file.content);
     return res.map((r) {
       newState.add(file);
