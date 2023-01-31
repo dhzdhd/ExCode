@@ -10203,12 +10203,13 @@ aFg:function aFg(){},
 JY:function JY(a,b){this.a=a
 this.b=b},
 a68:function a68(){},
-bi(a,b,c,d){return new A.JZ(b,c,a,d)},
-JZ:function JZ(a,b,c,d){var _=this
+bi(a,b,c,d,e){return new A.JZ(c,d,b,e,a)},
+JZ:function JZ(a,b,c,d,e){var _=this
 _.a=a
 _.b=b
 _.c=c
-_.d=d},
+_.d=d
+_.e=e},
 oR:function oR(a,b){this.a=a
 this.b=b},
 b3t(a){var s=J.as(a)
@@ -53821,19 +53822,20 @@ dr(){return A.P(["stdInArgs",this.a,"cmdLineArgs",this.b],t.N,t.z)}}
 A.a68.prototype={}
 A.JZ.prototype={
 j(a){var s=this
-return"LangModel(mode: "+s.a.j(0)+", name: "+s.b+", lang: "+s.c.j(0)+", template: "+s.d+")"},
+return"LangModel(mode: "+s.a.j(0)+", name: "+s.b+", lang: "+s.c.j(0)+", template: "+s.d+", ext: "+s.e+")"},
 k(a,b){var s,r=this
 if(b==null)return!1
 if(r!==b)if(J.a7(b)===A.z(r))if(b instanceof A.JZ){s=b.a===r.a
 if(s||s){s=b.b===r.b
 if(s||s){s=b.c===r.c
 if(s||s){s=b.d===r.d
-s=s||s}else s=!1}else s=!1}else s=!1}else s=!1
+if(s||s){s=b.e===r.e
+s=s||s}else s=!1}else s=!1}else s=!1}else s=!1}else s=!1
 else s=!1
 else s=!0
 return s},
 gv(a){var s=this
-return A.a_(A.z(s),s.a,s.b,s.c,s.d,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a)},
+return A.a_(A.z(s),s.a,s.b,s.c,s.d,s.e,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a)},
 $ib0P:1}
 A.oR.prototype={
 j(a){return"OutputModel(output: "+this.a+", error: "+this.b+")"},
@@ -117645,51 +117647,51 @@ s($,"bx3","aUM",()=>A.kt(new A.aTE(),t.i1,t.y4))
 s($,"bwz","bar",()=>{var q=null
 A.b5U()
 return new A.EY(new A.aT4(),q,q,q,q,q,A.a8("EY<id>"))})
-s($,"bwL","lW",()=>{var q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,c0="typescript",c1='console.log("Hello, World!");',c2='printfn "Hello, World!"',c3='BEGIN { print "Hello, World!" }',c4="'Hello, World!'",c5='"Hello, World!',c6='println("Hello, World!")',c7='print("Hello, World!")',c8="SECTION .DATA\n\thello:     db 'Hello, World!',10\n\thelloLen:  equ $-hello\n\nSECTION .TEXT\n\tGLOBAL _start\n\n_start:\n\tmov eax,4            ; 'write' system call = 4\n\tmov ebx,1            ; file descriptor 1 = STDOUT\n\tmov ecx,hello        ; string to write\n\tmov edx,helloLen     ; length of string to write\n\tint 80h              ; call the kernel\n\n\t; Terminate program\n\tmov eax,1            ; 'exit' system call\n\tmov ebx,0            ; exit with error code 0\n\tint 80h              ; call the kernel",c9=A.bi(B.xA,$.ba8(),"bash",'var="Hello, World!"\nprintf "%s\\n" "$var"'),d0=A.bi(B.xB,$.baa(),"brainfuck",">++++++++[<+++++++++>-]<.\n>++++[<+++++++>-]<+.\n+++++++..\n+++.\n>>++++++[<+++++++>-]<++.\n------------.\n>++++++[<+++++++++>-]<+.\n<.\n+++.\n------.\n--------.\n>>>++++[<++++++++>-]<+."),d1=A.bi(B.xM,$.bac(),"clojure",'(defn hello [] (print "Hello, World!"))\n(hello)'),d2=$.baC(),d3=A.bi(B.xX,d2,"cobol",'IDENTIFICATION DIVISION.\nPROGRAM-ID. HELLO-WORLD.\n\nPROCEDURE DIVISION.\n  DISPLAY "Hello, World!".\n  STOP RUN.'),d4=A.bi(B.y7,$.bad(),c0,'console.log("Hello, World!")'),d5=A.bi(B.yi,$.baf(),"crystal","\"Hello, World!\".each_char do |char|\n  print char\nend\nprint '\\n'\n"),d6=A.bi(B.yt,$.bai(),"dart","void main() {\n    print('Hello, World!');\n}"),d7=A.bi(B.yx,$.baZ(),c0,c1),d8=A.bi(B.yy,$.baw(),"javascript",c1),d9=$.ba9(),e0=A.bi(B.yz,d9,"basic",'10 PRINT "Hello, World!"'),e1=$.baq(),e2=A.bi(B.xC,e1,"fsharp",c2),e3=A.bi(B.xD,$.bag(),"csharp",'Console.WriteLine("Hello, World!");')
-e1=A.bi(B.xE,e1,"fsi",c2)
-q=A.bi(B.xF,d2,"dragon",'show "Hello, World!"')
-p=A.bi(B.xG,$.bak(),"elixir",'IO.puts("Hello, World!")')
+s($,"bwL","lW",()=>{var q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,c0="typescript",c1='console.log("Hello, World!");',c2='printfn "Hello, World!"',c3='BEGIN { print "Hello, World!" }',c4="'Hello, World!'",c5='"Hello, World!',c6='println("Hello, World!")',c7='print("Hello, World!")',c8="SECTION .DATA\n\thello:     db 'Hello, World!',10\n\thelloLen:  equ $-hello\n\nSECTION .TEXT\n\tGLOBAL _start\n\n_start:\n\tmov eax,4            ; 'write' system call = 4\n\tmov ebx,1            ; file descriptor 1 = STDOUT\n\tmov ecx,hello        ; string to write\n\tmov edx,helloLen     ; length of string to write\n\tint 80h              ; call the kernel\n\n\t; Terminate program\n\tmov eax,1            ; 'exit' system call\n\tmov ebx,0            ; exit with error code 0\n\tint 80h              ; call the kernel",c9=A.bi(".sh",B.xA,$.ba8(),"bash",'var="Hello, World!"\nprintf "%s\\n" "$var"'),d0=A.bi(".bf",B.xB,$.baa(),"brainfuck",">++++++++[<+++++++++>-]<.\n>++++[<+++++++>-]<+.\n+++++++..\n+++.\n>>++++++[<+++++++>-]<++.\n------------.\n>++++++[<+++++++++>-]<+.\n<.\n+++.\n------.\n--------.\n>>>++++[<++++++++>-]<+."),d1=A.bi(".clj",B.xM,$.bac(),"clojure",'(defn hello [] (print "Hello, World!"))\n(hello)'),d2=$.baC(),d3=A.bi(".cbl",B.xX,d2,"cobol",'IDENTIFICATION DIVISION.\nPROGRAM-ID. HELLO-WORLD.\n\nPROCEDURE DIVISION.\n  DISPLAY "Hello, World!".\n  STOP RUN.'),d4=A.bi(".coffee",B.y7,$.bad(),c0,'console.log("Hello, World!")'),d5=A.bi(".cr",B.yi,$.baf(),"crystal","\"Hello, World!\".each_char do |char|\n  print char\nend\nprint '\\n'\n"),d6=A.bi(".dart",B.yt,$.bai(),"dart","void main() {\n    print('Hello, World!');\n}"),d7=A.bi(".ts",B.yx,$.baZ(),c0,c1),d8=A.bi(".js",B.yy,$.baw(),"javascript",c1),d9=$.ba9(),e0=A.bi(".vb",B.yz,d9,"basic",'10 PRINT "Hello, World!"'),e1=$.baq(),e2=A.bi(".fs",B.xC,e1,"fsharp",c2),e3=A.bi(".cs",B.xD,$.bag(),"csharp",'Console.WriteLine("Hello, World!");')
+e1=A.bi(".fsx",B.xE,e1,"fsi",c2)
+q=A.bi(".dgn",B.xF,d2,"dragon",'show "Hello, World!"')
+p=A.bi(".ex",B.xG,$.bak(),"elixir",'IO.puts("Hello, World!")')
 o=$.baz()
-n=A.bi(B.xH,o,"emacs",'(princ "Hello, World!")')
-m=A.bi(B.xI,$.bam(),"erlang",'-module(hello).\n-export([hello_world/0]).\n\nhello_world() -> io:fwrite("Hello, World!\\n").')
-l=A.bi(B.xJ,d2,"forth",'." Hello, World!" CR')
-d9=A.bi(B.xK,d9,"freebasic",'Print "Hello, World!"')
+n=A.bi(".el",B.xH,o,"emacs",'(princ "Hello, World!")')
+m=A.bi(".erl",B.xI,$.bam(),"erlang",'-module(hello).\n-export([hello_world/0]).\n\nhello_world() -> io:fwrite("Hello, World!\\n").')
+l=A.bi(".fth",B.xJ,d2,"forth",'." Hello, World!" CR')
+d9=A.bi(".bas",B.xK,d9,"freebasic",'Print "Hello, World!"')
 k=$.ba7()
-j=A.bi(B.xL,k,"awk",c3)
-k=A.bi(B.xN,k,"gawk",c3)
+j=A.bi(".awk",B.xL,k,"awk",c3)
+k=A.bi(".awk",B.xN,k,"gawk",c3)
 i=$.bae()
-h=A.bi(B.xO,i,"c",'#include <stdio.h>\n\nint main()\n{\n    printf("Hello, World!\\n");\n}')
-i=A.bi(B.xP,i,"cpp",'#include <iostream>\n\nint main()\n{\n  std::cout << "Hello, World!\\n";\n  return 0;\n}')
-g=A.bi(B.xQ,$.bah(),"d",'import std.stdio;\n\nvoid main() {\n    writeln("Hello, World!");\n}')
-f=A.bi(B.xR,$.bap(),"fortran",'program Hello\n  print *, "Hello, World!"\nend program Hello')
-e=A.bi(B.xS,$.bas(),"go",'package main\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, World!")\n}')
-d=A.bi(B.xT,d2,"golfscript",c4)
-c=A.bi(B.xU,$.bat(),"groovy",'println "Hello, World!"')
-b=A.bi(B.xV,$.bau(),"haskell",'main :: IO ()\nmain = putStrLn "Hello, World!"')
-a=A.bi(B.xW,$.bb0(),"verilog",'module HELLO_WORLD();\n  initial begin\n    $display("Hello, World!");\n    $finish;\n  end\nendmodule')
-a0=A.bi(B.xY,d2,"japt",c5)
-a1=A.bi(B.xZ,$.bav(),"java",'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}')
-a2=A.bi(B.y_,$.bax(),"julia",c6)
-a3=A.bi(B.y0,$.bay(),"kotlin",'fun main() {\n    println("Hello, World!")\n}')
-o=A.bi(B.y1,o,"lisp",'(print "Hello, World!")')
-a4=A.bi(B.y2,$.baA(),"llvm",'@.str = private unnamed_addr constant [13 x i8] c"Hello World\\0A\\00"\n\ndeclare i32 @puts(i8* nocapture) nounwind\n\ndefine i32 @main() { ; i32()*\n    %cast210 = getelementptr [13 x i8],[13 x i8]* @.str, i64 0, i64 0\n\n    call i32 @puts(i8* %cast210)\n    ret i32 0\n}\n\n!0 = !{i32 42, null, !"string"}\n!foo = !{!0}')
-a5=A.bi(B.y3,$.baB(),"lua",c7)
+h=A.bi(".c",B.xO,i,"c",'#include <stdio.h>\n\nint main()\n{\n    printf("Hello, World!\\n");\n}')
+i=A.bi(".cpp",B.xP,i,"cpp",'#include <iostream>\n\nint main()\n{\n  std::cout << "Hello, World!\\n";\n  return 0;\n}')
+g=A.bi(".d",B.xQ,$.bah(),"d",'import std.stdio;\n\nvoid main() {\n    writeln("Hello, World!");\n}')
+f=A.bi(".f",B.xR,$.bap(),"fortran",'program Hello\n  print *, "Hello, World!"\nend program Hello')
+e=A.bi(".go",B.xS,$.bas(),"go",'package main\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, World!")\n}')
+d=A.bi(".gs",B.xT,d2,"golfscript",c4)
+c=A.bi(".groovy",B.xU,$.bat(),"groovy",'println "Hello, World!"')
+b=A.bi(".hs",B.xV,$.bau(),"haskell",'main :: IO ()\nmain = putStrLn "Hello, World!"')
+a=A.bi(".v",B.xW,$.bb0(),"verilog",'module HELLO_WORLD();\n  initial begin\n    $display("Hello, World!");\n    $finish;\n  end\nendmodule')
+a0=A.bi(".js",B.xY,d2,"japt",c5)
+a1=A.bi(".java",B.xZ,$.bav(),"java",'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}')
+a2=A.bi(".jl",B.y_,$.bax(),"julia",c6)
+a3=A.bi(".kt",B.y0,$.bay(),"kotlin",'fun main() {\n    println("Hello, World!")\n}')
+o=A.bi(".lisp",B.y1,o,"lisp",'(print "Hello, World!")')
+a4=A.bi(".ll",B.y2,$.baA(),"llvm",'@.str = private unnamed_addr constant [13 x i8] c"Hello World\\0A\\00"\n\ndeclare i32 @puts(i8* nocapture) nounwind\n\ndefine i32 @main() { ; i32()*\n    %cast210 = getelementptr [13 x i8],[13 x i8]* @.str, i64 0, i64 0\n\n    call i32 @puts(i8* %cast210)\n    ret i32 0\n}\n\n!0 = !{i32 42, null, !"string"}\n!foo = !{!0}')
+a5=A.bi(".lua",B.y3,$.baB(),"lua",c7)
 a6=$.bb4()
-a7=A.bi(B.y4,a6,"nasm",c8)
-a6=A.bi(B.y5,a6,"nasm64",c8)
-a8=A.bi(B.y6,$.baE(),"nim",'echo "Hello, World!"')
-a9=A.bi(B.y8,$.baG(),"ocaml",c6)
-b0=A.bi(B.y9,$.baD(),"matlab","disp('Hello, World!');")
-b1=A.bi(B.ya,d2,"osabie",c5)
-b2=A.bi(B.yb,d2,"pascal","program Hello;\nbegin\n  writeln ('Hello, World!');\nend.")
+a7=A.bi(".asm",B.y4,a6,"nasm",c8)
+a6=A.bi(".asm",B.y5,a6,"nasm64",c8)
+a8=A.bi(".nim",B.y6,$.baE(),"nim",'echo "Hello, World!"')
+a9=A.bi(".ml",B.y8,$.baG(),"ocaml",c6)
+b0=A.bi(".m",B.y9,$.baD(),"matlab","disp('Hello, World!');")
+b1=A.bi(".abe",B.ya,d2,"osabie",c5)
+b2=A.bi(".pas",B.yb,d2,"pascal","program Hello;\nbegin\n  writeln ('Hello, World!');\nend.")
 b3=$.baH()
-b4=A.bi(B.yc,b3,"perl",'print "Hello, World!\\n";')
-b5=A.bi(B.yd,$.baI(),"php","Hello, World!")
-b6=A.bi(B.ye,$.baM(),"ponylang",'actor Main\n  new create(env: Env) =>\n    env.out.print("Hello, world!")')
-b7=A.bi(B.yf,$.baO(),"prolog",'main() :- write("Hello, World!"), nl.')
-b8=A.bi(B.yg,$.baN(),"powershell",c4)
+b4=A.bi(".pl",B.yc,b3,"perl",'print "Hello, World!\\n";')
+b5=A.bi(".php",B.yd,$.baI(),"php","Hello, World!")
+b6=A.bi(".pony",B.ye,$.baM(),"ponylang",'actor Main\n  new create(env: Env) =>\n    env.out.print("Hello, world!")')
+b7=A.bi(".pl",B.yf,$.baO(),"prolog",'main() :- write("Hello, World!"), nl.')
+b8=A.bi(".ps",B.yg,$.baN(),"powershell",c4)
 b9=$.baP()
-return A.P(["bash",c9,"brainfuck",d0,"clojure",d1,"cobol",d3,"coffeescript",d4,"crystal",d5,"dart",d6,"typescript",d7,"javascript",d8,"basic.net",e0,"fsharp.net",e2,"csharp.net",e3,"fsi",e1,"dragon",q,"elixir",p,"emacs",n,"erlang",m,"forth",l,"freebasic",d9,"awk",j,"gawk",k,"c",h,"c++",i,"d",g,"fortran",f,"go",e,"golfscript",d,"groovy",c,"haskell",b,"iverilog",a,"japt",a0,"java",a1,"julia",a2,"kotlin",a3,"lisp",o,"llvm_ir",a4,"lua",a5,"nasm",a7,"nasm64",a6,"nim",a8,"ocaml",a9,"octave",b0,"osabie",b1,"pascal",b2,"perl",b4,"php",b5,"ponylang",b6,"prolog",b7,"powershell",b8,"python2",A.bi(B.yh,b9,"python2","print 'Hello, World!'"),"python",A.bi(B.yj,b9,"python",c7),"racket",A.bi(B.yk,$.baU(),"racket",'#lang racket\n(displayln "Hello, World!")'),"raku",A.bi(B.yl,b3,"raku","say 'Hello, World!';"),"rockstar",A.bi(B.ym,d2,"rockstar",'Say "Hello, World!"'),"rscript",A.bi(B.yn,$.baQ(),"r",c7),"ruby",A.bi(B.yo,$.baR(),"ruby",'puts "Hello, World!"'),"rust",A.bi(B.yp,$.baS(),"rust",'fn main() {\n    println!("Hello, World!");\n}'),"scala",A.bi(B.yq,$.baT(),"scala",'object Hello {\n    def main(args: Array[String]) = {\n        println("Hello, World!")\n    }\n}'),"smalltalk",A.bi(B.yr,$.baV(),"smalltalk","Transcript show: 'Hello, world!'."),"sqlite3",A.bi(B.ys,$.baW(),"sqlite3",'CREATE TABLE helloworld (phrase TEXT);\nINSERT INTO helloworld VALUES ("Hello, World!");\nSELECT * FROM helloworld;\n'),"swift",A.bi(B.yu,$.baX(),"swift",c7),"vlang",A.bi(B.yv,d2,"vlang","fn main() {\n    println('Hello, World!')\n}"),"zig",A.bi(B.yw,d2,"zig",'const std = @import("std");\n\npub fn main() !void {\n    const stdout = std.io.getStdOut().writer();\n    try stdout.print("Hello, {s}!\\n", .{"World"});\n}')],t.N,A.a8("b0P"))})
+return A.P(["bash",c9,"brainfuck",d0,"clojure",d1,"cobol",d3,"coffeescript",d4,"crystal",d5,"dart",d6,"typescript",d7,"javascript",d8,"basic.net",e0,"fsharp.net",e2,"csharp.net",e3,"fsi",e1,"dragon",q,"elixir",p,"emacs",n,"erlang",m,"forth",l,"freebasic",d9,"awk",j,"gawk",k,"c",h,"c++",i,"d",g,"fortran",f,"go",e,"golfscript",d,"groovy",c,"haskell",b,"iverilog",a,"japt",a0,"java",a1,"julia",a2,"kotlin",a3,"lisp",o,"llvm_ir",a4,"lua",a5,"nasm",a7,"nasm64",a6,"nim",a8,"ocaml",a9,"octave",b0,"osabie",b1,"pascal",b2,"perl",b4,"php",b5,"ponylang",b6,"prolog",b7,"powershell",b8,"python2",A.bi(".py",B.yh,b9,"python2","print 'Hello, World!'"),"python",A.bi(".py",B.yj,b9,"python",c7),"racket",A.bi(".rkt",B.yk,$.baU(),"racket",'#lang racket\n(displayln "Hello, World!")'),"raku",A.bi(".raku",B.yl,b3,"raku","say 'Hello, World!';"),"rockstar",A.bi(".rock",B.ym,d2,"rockstar",'Say "Hello, World!"'),"rscript",A.bi(".r",B.yn,$.baQ(),"r",c7),"ruby",A.bi(".rb",B.yo,$.baR(),"ruby",'puts "Hello, World!"'),"rust",A.bi(".rs",B.yp,$.baS(),"rust",'fn main() {\n    println!("Hello, World!");\n}'),"scala",A.bi(".scala",B.yq,$.baT(),"scala",'object Hello {\n    def main(args: Array[String]) = {\n        println("Hello, World!")\n    }\n}'),"smalltalk",A.bi(".cs",B.yr,$.baV(),"smalltalk","Transcript show: 'Hello, world!'."),"sqlite3",A.bi(".sqlite",B.ys,$.baW(),"sqlite3",'CREATE TABLE helloworld (phrase TEXT);\nINSERT INTO helloworld VALUES ("Hello, World!");\nSELECT * FROM helloworld;\n'),"swift",A.bi(".swift",B.yu,$.baX(),"swift",c7),"vlang",A.bi(".v",B.yv,d2,"vlang","fn main() {\n    println('Hello, World!')\n}"),"zig",A.bi(".zig",B.yw,d2,"zig",'const std = @import("std");\n\npub fn main() !void {\n    const stdout = std.io.getStdOut().writer();\n    try stdout.print("Hello, {s}!\\n", .{"World"});\n}')],t.N,A.a8("b0P"))})
 s($,"bv8","nq",()=>A.a6(u.o))
 s($,"bxo","pC",()=>A.kt(new A.aU3(),t.zy,t.XR))
 s($,"bxw","iv",()=>A.kt(new A.aU9(),t.Dh,t.d))
