@@ -36,7 +36,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         showSearchBox: true,
         selectedItem: langMap[editorLanguage]!.lang,
         items: Language.values,
-        itemAsString: (Language? e) => e.toString().substring(10).capitalize(),
+        itemAsString: (Language? e) => e.toString().substring(9).capitalize(),
         onChanged: (val) {
           final lang = ApiHandler.getNameFromLang(val!).match<String>(
             (l) => 'python',

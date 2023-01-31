@@ -24,6 +24,7 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       return TaskEither.left(
           FileError('File with the same name already exists!'));
     }
+    // ! Add file extensions
     final res = FileService.createOrUpdateFile(file.name, file.content);
     return res.map((r) {
       newState.add(file);
