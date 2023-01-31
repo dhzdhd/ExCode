@@ -35,166 +35,160 @@ class _BottomBarDialogWidgetState
   Widget build(BuildContext context) {
     final data = ref.watch(snippetBarStateProvider);
 
-    return Dialog(
-      insetPadding: const EdgeInsets.all(50),
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            Consumer(builder: (context, ref, child) {
-              return Expanded(
-                child: ReorderableListView(
-                  header: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Snippets',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const AddSnippetDialogWidget(
-                              option: SnippetDialogOption.add,
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.add),
-                        label: const Text('Add'),
-                      )
-                    ],
-                  ),
-                  buildDefaultDragHandles: false,
-                  shrinkWrap: true,
-                  children: data
-                      .map(
-                        (e) => Container(
-                          key: Key(e.name),
-                          color: ref.watch(themeStateProvider).secondaryColor,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color:
-                                    ref.watch(themeStateProvider).primaryColor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      e.name,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                    child: ReorderableDragStartListener(
-                                      index: data.indexOf(e),
-                                      child: PopupMenuButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: const Icon(Icons.drag_handle),
-                                        itemBuilder: (context) {
-                                          return [
-                                            PopupMenuItem(
-                                              child: Row(
-                                                children: const [
-                                                  Text('Edit'),
-                                                  Spacer(),
-                                                  Icon(Icons.edit)
-                                                ],
-                                              ),
-                                              onTap: () {
-                                                Future.delayed(
-                                                  const Duration(seconds: 0),
-                                                  () => showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        AddSnippetDialogWidget(
-                                                      option:
-                                                          SnippetDialogOption
-                                                              .edit,
-                                                      oldModel: e,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            PopupMenuItem(
-                                              child: Row(
-                                                children: const [
-                                                  Text('Delete'),
-                                                  Spacer(),
-                                                  Icon(Icons.delete)
-                                                ],
-                                              ),
-                                              onTap: () {
-                                                Future.delayed(
-                                                  const Duration(seconds: 0),
-                                                  () => showDialog(
-                                                    context: context,
-                                                    builder: ((context) =>
-                                                        AlertDialog(
-                                                          title: const Text(
-                                                              'Confirm delete'),
-                                                          actions: [
-                                                            ElevatedButton(
-                                                              onPressed: () =>
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop(),
-                                                              child: const Text(
-                                                                  'Cancel'),
-                                                            ),
-                                                            ElevatedButton(
-                                                              onPressed: () {
-                                                                ref
-                                                                    .watch(snippetBarStateProvider
-                                                                        .notifier)
-                                                                    .delete(
-                                                                        e.name);
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: const Text(
-                                                                  'Okay'),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ),
-                                                );
-                                              },
-                                            )
-                                          ];
-                                        },
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onReorder: (oldIndex, newIndex) async {
-                    await ref
-                        .watch(snippetBarStateProvider.notifier)
-                        .reorder(oldIndex, newIndex);
-                  },
+    return SimpleDialog(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Snippets',
+            style: TextStyle(fontSize: 20),
+          ),
+          OutlinedButton.icon(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => const AddSnippetDialogWidget(
+                  option: SnippetDialogOption.add,
                 ),
               );
-            }),
-          ],
-        ),
+            },
+            icon: const Icon(Icons.add),
+            label: const Text('Add'),
+          )
+        ],
       ),
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height - 200,
+          width: 500,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+            child: ReorderableListView(
+              buildDefaultDragHandles: false,
+              shrinkWrap: true,
+              children: data
+                  .map(
+                    (e) => Container(
+                      key: Key(e.name),
+                      color: ref.watch(themeStateProvider).secondaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: ref.watch(themeStateProvider).primaryColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Text(
+                                  e.name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 20.0),
+                                child: ReorderableDragStartListener(
+                                  index: data.indexOf(e),
+                                  child: PopupMenuButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: const Icon(Icons.drag_handle),
+                                    itemBuilder: (context) {
+                                      return [
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: const [
+                                              Text('Edit'),
+                                              Spacer(),
+                                              Icon(Icons.edit)
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Future.delayed(
+                                              const Duration(seconds: 0),
+                                              () => showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AddSnippetDialogWidget(
+                                                  option:
+                                                      SnippetDialogOption.edit,
+                                                  oldModel: e,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: const [
+                                              Text('Delete'),
+                                              Spacer(),
+                                              Icon(Icons.delete)
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Future.delayed(
+                                              const Duration(seconds: 0),
+                                              () => showDialog(
+                                                context: context,
+                                                builder: ((context) =>
+                                                    AlertDialog(
+                                                      title: const Text(
+                                                          'Confirm delete'),
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                          child: const Text(
+                                                              'Cancel'),
+                                                        ),
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            ref
+                                                                .watch(
+                                                                    snippetBarStateProvider
+                                                                        .notifier)
+                                                                .delete(e.name);
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Okay'),
+                                                        ),
+                                                      ],
+                                                    )),
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      ];
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onReorder: (oldIndex, newIndex) async {
+                await ref
+                    .watch(snippetBarStateProvider.notifier)
+                    .reorder(oldIndex, newIndex);
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
