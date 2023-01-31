@@ -5,7 +5,7 @@ import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:fpdart/fpdart.dart';
 
-enum Languages {
+enum Language {
   bash,
   brainfuck,
   clojure,
@@ -85,14 +85,14 @@ class ApiHandler {
     }
   }
 
-  static Either<Languages, Languages> getLangFromName(String name) {
+  static Either<Language, Language> getLangFromName(String name) {
     return Either.tryCatch(
       () => langMap[name]!.lang,
       ((_, __) => langMap[defaultLanguage]!.lang),
     );
   }
 
-  static Either<String, String> getNameFromLang(Languages lang) {
+  static Either<String, String> getNameFromLang(Language lang) {
     return Either.tryCatch(
       () =>
           langMap.keys.firstWhere((element) => langMap[element]!.lang == lang),
@@ -104,7 +104,7 @@ class ApiHandler {
     return content.replaceAll('\u{00B7}', ' ');
   }
 
-  static Future<OutputModel> executeCode(Languages lang, String content) async {
+  static Future<OutputModel> executeCode(Language lang, String content) async {
     late final Response<Map<String, dynamic>> res;
 
     final langString = getNameFromLang(lang).match<String>((l) => l, (r) => r);

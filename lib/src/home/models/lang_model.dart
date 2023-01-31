@@ -9,7 +9,8 @@ class LangModel with _$LangModel {
   const factory LangModel({
     required Mode mode,
     required String name,
-    required Languages lang,
-    required String baseCode,
+    required Language lang,
+    required String template,
+    // required String ext,
   }) = _LangModel;
 }

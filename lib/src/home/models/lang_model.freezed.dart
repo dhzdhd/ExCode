@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LangModel {
   Mode get mode => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  Languages get lang => throw _privateConstructorUsedError;
-  String get baseCode => throw _privateConstructorUsedError;
+  Language get lang => throw _privateConstructorUsedError;
+  String get template => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LangModelCopyWith<LangModel> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $LangModelCopyWith<$Res> {
   factory $LangModelCopyWith(LangModel value, $Res Function(LangModel) then) =
       _$LangModelCopyWithImpl<$Res, LangModel>;
   @useResult
-  $Res call({Mode mode, String name, Languages lang, String baseCode});
+  $Res call({Mode mode, String name, Language lang, String template});
 }
 
 /// @nodoc
@@ -50,7 +50,7 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
     Object? mode = null,
     Object? name = null,
     Object? lang = null,
-    Object? baseCode = null,
+    Object? template = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
@@ -64,10 +64,10 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
       lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
-              as Languages,
-      baseCode: null == baseCode
-          ? _value.baseCode
-          : baseCode // ignore: cast_nullable_to_non_nullable
+              as Language,
+      template: null == template
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -80,7 +80,7 @@ abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
       __$$_LangModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Mode mode, String name, Languages lang, String baseCode});
+  $Res call({Mode mode, String name, Language lang, String template});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$_LangModelCopyWithImpl<$Res>
     Object? mode = null,
     Object? name = null,
     Object? lang = null,
-    Object? baseCode = null,
+    Object? template = null,
   }) {
     return _then(_$_LangModel(
       mode: null == mode
@@ -111,10 +111,10 @@ class __$$_LangModelCopyWithImpl<$Res>
       lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
-              as Languages,
-      baseCode: null == baseCode
-          ? _value.baseCode
-          : baseCode // ignore: cast_nullable_to_non_nullable
+              as Language,
+      template: null == template
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -127,20 +127,20 @@ class _$_LangModel implements _LangModel {
       {required this.mode,
       required this.name,
       required this.lang,
-      required this.baseCode});
+      required this.template});
 
   @override
   final Mode mode;
   @override
   final String name;
   @override
-  final Languages lang;
+  final Language lang;
   @override
-  final String baseCode;
+  final String template;
 
   @override
   String toString() {
-    return 'LangModel(mode: $mode, name: $name, lang: $lang, baseCode: $baseCode)';
+    return 'LangModel(mode: $mode, name: $name, lang: $lang, template: $template)';
   }
 
   @override
@@ -151,12 +151,12 @@ class _$_LangModel implements _LangModel {
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.lang, lang) || other.lang == lang) &&
-            (identical(other.baseCode, baseCode) ||
-                other.baseCode == baseCode));
+            (identical(other.template, template) ||
+                other.template == template));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode, name, lang, baseCode);
+  int get hashCode => Object.hash(runtimeType, mode, name, lang, template);
 
   @JsonKey(ignore: true)
   @override
@@ -169,17 +169,17 @@ abstract class _LangModel implements LangModel {
   const factory _LangModel(
       {required final Mode mode,
       required final String name,
-      required final Languages lang,
-      required final String baseCode}) = _$_LangModel;
+      required final Language lang,
+      required final String template}) = _$_LangModel;
 
   @override
   Mode get mode;
   @override
   String get name;
   @override
-  Languages get lang;
+  Language get lang;
   @override
-  String get baseCode;
+  String get template;
   @override
   @JsonKey(ignore: true)
   _$$_LangModelCopyWith<_$_LangModel> get copyWith =>

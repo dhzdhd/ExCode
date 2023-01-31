@@ -12,7 +12,7 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       : super([
           FileModel(
             name: 'main',
-            content: langMap['python']!.baseCode,
+            content: langMap['python']!.template,
             language: 'python',
           ),
         ]);

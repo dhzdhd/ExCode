@@ -188,15 +188,15 @@ final Map<String, LangModel> langMap = {
   'bash': LangModel(
     mode: bash,
     name: 'bash',
-    lang: Languages.bash,
-    baseCode: '''var="Hello, World!"
+    lang: Language.bash,
+    template: '''var="Hello, World!"
 printf "%s\\n" "\$var"''',
   ),
   'brainfuck': LangModel(
     mode: brainfuck,
     name: 'brainfuck',
-    lang: Languages.brainfuck,
-    baseCode: '''>++++++++[<+++++++++>-]<.
+    lang: Language.brainfuck,
+    template: '''>++++++++[<+++++++++>-]<.
 >++++[<+++++++>-]<+.
 +++++++..
 +++.
@@ -212,16 +212,16 @@ printf "%s\\n" "\$var"''',
   'clojure': LangModel(
     mode: clojure,
     name: 'clojure',
-    lang: Languages.clojure,
-    baseCode: '''(defn hello [] (print "Hello, World!"))
+    lang: Language.clojure,
+    template: '''(defn hello [] (print "Hello, World!"))
 (hello)''',
   ),
   'cobol': LangModel(
     // ! Compiler output
     mode: markdown,
     name: 'cobol',
-    lang: Languages.cobol,
-    baseCode: '''IDENTIFICATION DIVISION.
+    lang: Language.cobol,
+    template: '''IDENTIFICATION DIVISION.
 PROGRAM-ID. HELLO-WORLD.
 
 PROCEDURE DIVISION.
@@ -231,14 +231,14 @@ PROCEDURE DIVISION.
   'coffeescript': LangModel(
     mode: coffeescript,
     name: 'typescript',
-    lang: Languages.coffeeScript,
-    baseCode: '''console.log("Hello, World!")''',
+    lang: Language.coffeeScript,
+    template: '''console.log("Hello, World!")''',
   ),
   'crystal': LangModel(
     mode: crystal,
     name: 'crystal',
-    lang: Languages.crystal,
-    baseCode: '''"Hello, World!".each_char do |char|
+    lang: Language.crystal,
+    template: '''"Hello, World!".each_char do |char|
   print char
 end
 print '\\n'
@@ -247,74 +247,74 @@ print '\\n'
   'dart': LangModel(
     mode: dart,
     name: 'dart',
-    lang: Languages.dart,
-    baseCode: '''void main() {
+    lang: Language.dart,
+    template: '''void main() {
     print('Hello, World!');
 }''',
   ),
   'typescript': LangModel(
     mode: typescript,
     name: 'typescript',
-    lang: Languages.typeScript,
-    baseCode: '''console.log("Hello, World!");''',
+    lang: Language.typeScript,
+    template: '''console.log("Hello, World!");''',
   ),
   'javascript': LangModel(
     mode: javascript,
     name: 'javascript',
-    lang: Languages.javaScript,
-    baseCode: '''console.log("Hello, World!");''',
+    lang: Language.javaScript,
+    template: '''console.log("Hello, World!");''',
   ),
   'basic.net': LangModel(
     // !
     mode: basic,
     name: 'basic',
-    lang: Languages.basic,
-    baseCode: '''10 PRINT "Hello, World!"''',
+    lang: Language.basic,
+    template: '''10 PRINT "Hello, World!"''',
   ),
   'fsharp.net': LangModel(
     // ! Compiler output
     mode: fsharp,
     name: 'fsharp',
-    lang: Languages.fSharp,
-    baseCode: '''printfn "Hello, World!"''',
+    lang: Language.fSharp,
+    template: '''printfn "Hello, World!"''',
   ),
   'csharp.net': LangModel(
     // !
     mode: cs,
     name: 'csharp',
-    lang: Languages.cSharp,
-    baseCode: '''Console.WriteLine("Hello, World!");''',
+    lang: Language.cSharp,
+    template: '''Console.WriteLine("Hello, World!");''',
   ),
   'fsi': LangModel(
     mode: fsharp,
     name: 'fsi',
-    lang: Languages.fsi,
-    baseCode: '''printfn "Hello, World!"''',
+    lang: Language.fsi,
+    template: '''printfn "Hello, World!"''',
   ),
   'dragon': LangModel(
     mode: markdown,
     name: 'dragon',
-    lang: Languages.dragon,
-    baseCode: '''show "Hello, World!"''',
+    lang: Language.dragon,
+    template: '''show "Hello, World!"''',
   ),
   'elixir': LangModel(
     mode: elixir,
     name: 'elixir',
-    lang: Languages.elixir,
-    baseCode: '''IO.puts("Hello, World!")''',
+    lang: Language.elixir,
+    template: '''IO.puts("Hello, World!")''',
   ),
   'emacs': LangModel(
     mode: lisp,
     name: 'emacs',
-    lang: Languages.emacs,
-    baseCode: '''(princ "Hello, World!")''',
+    lang: Language.emacs,
+    template: '''(princ "Hello, World!")''',
   ),
   'erlang': LangModel(
     // !
     mode: erlang,
     name: 'erlang',
-    lang: Languages.erlang,
-    baseCode: '''-module(hello).
+    lang: Language.erlang,
+    template: '''-module(hello).
 -export([hello_world/0]).
 
 hello_world() -> io:fwrite("Hello, World!\\n").''',
@@ -323,33 +323,33 @@ hello_world() -> io:fwrite("Hello, World!\\n").''',
     // ! Compiler output
     mode: markdown,
     name: 'forth',
-    lang: Languages.forth,
-    baseCode: '''." Hello, World!" CR''',
+    lang: Language.forth,
+    template: '''." Hello, World!" CR''',
   ),
   'freebasic': LangModel(
     mode: basic,
     name: 'freebasic',
-    lang: Languages.freebasic,
-    baseCode: '''Print "Hello, World!"''',
+    lang: Language.freebasic,
+    template: '''Print "Hello, World!"''',
   ),
   'awk': LangModel(
     mode: awk,
     name: 'awk',
-    lang: Languages.awk,
-    baseCode: '''BEGIN { print "Hello, World!" }''',
+    lang: Language.awk,
+    template: '''BEGIN { print "Hello, World!" }''',
   ),
   'gawk': LangModel(
     // ! No version
     mode: awk,
     name: 'gawk',
-    lang: Languages.gawk,
-    baseCode: '''BEGIN { print "Hello, World!" }''',
+    lang: Language.gawk,
+    template: '''BEGIN { print "Hello, World!" }''',
   ),
   'c': LangModel(
     mode: cpp,
     name: 'c',
-    lang: Languages.c,
-    baseCode: '''#include <stdio.h>
+    lang: Language.c,
+    template: '''#include <stdio.h>
 
 int main()
 {
@@ -359,8 +359,8 @@ int main()
   'c++': LangModel(
     mode: cpp,
     name: 'cpp',
-    lang: Languages.cpp,
-    baseCode: '''#include <iostream>
+    lang: Language.cpp,
+    template: '''#include <iostream>
 
 int main()
 {
@@ -371,8 +371,8 @@ int main()
   'd': LangModel(
     mode: d,
     name: 'd',
-    lang: Languages.d,
-    baseCode: '''import std.stdio;
+    lang: Language.d,
+    template: '''import std.stdio;
 
 void main() {
     writeln("Hello, World!");
@@ -381,16 +381,16 @@ void main() {
   'fortran': LangModel(
     mode: fortran,
     name: 'fortran',
-    lang: Languages.fortran,
-    baseCode: '''program Hello
+    lang: Language.fortran,
+    template: '''program Hello
   print *, "Hello, World!"
 end program Hello''',
   ),
   'go': LangModel(
     mode: go,
     name: 'go',
-    lang: Languages.go,
-    baseCode: '''package main
+    lang: Language.go,
+    template: '''package main
 import "fmt"
 
 func main() {
@@ -400,27 +400,27 @@ func main() {
   'golfscript': LangModel(
     mode: markdown,
     name: 'golfscript',
-    lang: Languages.golfScript,
-    baseCode: ''''Hello, World!\'''',
+    lang: Language.golfScript,
+    template: ''''Hello, World!\'''',
   ),
   'groovy': LangModel(
     mode: groovy,
     name: 'groovy',
-    lang: Languages.groovy,
-    baseCode: '''println "Hello, World!"''',
+    lang: Language.groovy,
+    template: '''println "Hello, World!"''',
   ),
   'haskell': LangModel(
     mode: haskell,
     name: 'haskell',
-    lang: Languages.haskell,
-    baseCode: '''main :: IO ()
+    lang: Language.haskell,
+    template: '''main :: IO ()
 main = putStrLn "Hello, World!"''',
   ),
   'iverilog': LangModel(
     mode: verilog,
     name: 'verilog',
-    lang: Languages.verilog,
-    baseCode: '''module HELLO_WORLD();
+    lang: Language.verilog,
+    template: '''module HELLO_WORLD();
   initial begin
     \$display("Hello, World!");
     \$finish;
@@ -430,14 +430,14 @@ endmodule''',
   'japt': LangModel(
     mode: markdown,
     name: 'japt',
-    lang: Languages.japt,
-    baseCode: '''"Hello, World!''',
+    lang: Language.japt,
+    template: '''"Hello, World!''',
   ),
   'java': LangModel(
     mode: java,
     name: 'java',
-    lang: Languages.java,
-    baseCode: '''public class Main {
+    lang: Language.java,
+    template: '''public class Main {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
   }
@@ -446,28 +446,28 @@ endmodule''',
   'julia': LangModel(
     mode: julia,
     name: 'julia',
-    lang: Languages.julia,
-    baseCode: '''println("Hello, World!")''',
+    lang: Language.julia,
+    template: '''println("Hello, World!")''',
   ),
   'kotlin': LangModel(
     mode: kotlin,
     name: 'kotlin',
-    lang: Languages.kotlin,
-    baseCode: '''fun main() {
+    lang: Language.kotlin,
+    template: '''fun main() {
     println("Hello, World!")
 }''',
   ),
   'lisp': LangModel(
     mode: lisp,
     name: 'lisp',
-    lang: Languages.lisp,
-    baseCode: '''(print "Hello, World!")''',
+    lang: Language.lisp,
+    template: '''(print "Hello, World!")''',
   ),
   'llvm_ir': LangModel(
     mode: llvm,
     name: 'llvm',
-    lang: Languages.llvm,
-    baseCode:
+    lang: Language.llvm,
+    template:
         '''@.str = private unnamed_addr constant [13 x i8] c"Hello World\\0A\\00"
 
 declare i32 @puts(i8* nocapture) nounwind
@@ -485,14 +485,14 @@ define i32 @main() { ; i32()*
   'lua': LangModel(
     mode: lua,
     name: 'lua',
-    lang: Languages.lua,
-    baseCode: '''print("Hello, World!")''',
+    lang: Language.lua,
+    template: '''print("Hello, World!")''',
   ),
   'nasm': LangModel(
     mode: x86Asm,
     name: 'nasm',
-    lang: Languages.nasm,
-    baseCode: '''SECTION .DATA
+    lang: Language.nasm,
+    template: '''SECTION .DATA
 	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
 
@@ -514,8 +514,8 @@ _start:
   'nasm64': LangModel(
     mode: x86Asm,
     name: 'nasm64',
-    lang: Languages.nasm64,
-    baseCode: '''SECTION .DATA
+    lang: Language.nasm64,
+    template: '''SECTION .DATA
 	hello:     db 'Hello, World!',10
 	helloLen:  equ \$-hello
 
@@ -537,34 +537,34 @@ _start:
   'nim': LangModel(
     mode: nimrod,
     name: 'nim',
-    lang: Languages.nim,
-    baseCode: '''echo "Hello, World!"''',
+    lang: Language.nim,
+    template: '''echo "Hello, World!"''',
   ),
   'ocaml': LangModel(
     // !
     mode: ocaml,
     name: 'ocaml',
-    lang: Languages.oCaml,
-    baseCode: '''println("Hello, World!")''',
+    lang: Language.oCaml,
+    template: '''println("Hello, World!")''',
   ),
   'octave': LangModel(
     mode: matlab,
     name: 'matlab',
-    lang: Languages.matlab,
-    baseCode: '''disp('Hello, World!');''',
+    lang: Language.matlab,
+    template: '''disp('Hello, World!');''',
   ),
   'osabie': LangModel(
     mode: markdown,
     name: 'osabie',
-    lang: Languages.osabie,
-    baseCode: '''"Hello, World!''',
+    lang: Language.osabie,
+    template: '''"Hello, World!''',
   ),
   'pascal': LangModel(
     // ! Compiler output
     mode: markdown,
     name: 'pascal',
-    lang: Languages.pascal,
-    baseCode: '''program Hello;
+    lang: Language.pascal,
+    template: '''program Hello;
 begin
   writeln ('Hello, World!');
 end.''',
@@ -572,21 +572,21 @@ end.''',
   'perl': LangModel(
     mode: perl,
     name: 'perl',
-    lang: Languages.perl,
-    baseCode: '''print "Hello, World!\\n";''',
+    lang: Language.perl,
+    template: '''print "Hello, World!\\n";''',
   ),
   'php': LangModel(
     mode: php,
     name: 'php',
-    lang: Languages.php,
-    baseCode: '''Hello, World!''',
+    lang: Language.php,
+    template: '''Hello, World!''',
   ),
   'ponylang': LangModel(
     // !
     mode: pony,
     name: 'ponylang',
-    lang: Languages.ponylang,
-    baseCode: '''actor Main
+    lang: Language.ponylang,
+    template: '''actor Main
   new create(env: Env) =>
     env.out.print("Hello, world!")''',
   ),
@@ -594,63 +594,63 @@ end.''',
     // ! No output
     mode: prolog,
     name: 'prolog',
-    lang: Languages.prolog,
-    baseCode: '''main() :- write("Hello, World!"), nl.''',
+    lang: Language.prolog,
+    template: '''main() :- write("Hello, World!"), nl.''',
   ),
   'powershell': LangModel(
     mode: powershell,
     name: 'powershell',
-    lang: Languages.powershell,
-    baseCode: ''''Hello, World!\'''',
+    lang: Language.powershell,
+    template: ''''Hello, World!\'''',
   ),
   'python2': LangModel(
     mode: python,
     name: 'python2',
-    lang: Languages.python2,
-    baseCode: '''print 'Hello, World!\'''',
+    lang: Language.python2,
+    template: '''print 'Hello, World!\'''',
   ),
   'python': LangModel(
     mode: python,
     name: 'python',
-    lang: Languages.python,
-    baseCode: '''print("Hello, World!")''',
+    lang: Language.python,
+    template: '''print("Hello, World!")''',
   ),
   'racket': LangModel(
     mode: scheme,
     name: 'racket',
-    lang: Languages.racket,
-    baseCode: '''#lang racket
+    lang: Language.racket,
+    template: '''#lang racket
 (displayln "Hello, World!")''',
   ),
   'raku': LangModel(
     mode: perl,
     name: 'raku',
-    lang: Languages.raku,
-    baseCode: '''say 'Hello, World!';''',
+    lang: Language.raku,
+    template: '''say 'Hello, World!';''',
   ),
   'rockstar': LangModel(
     mode: markdown,
     name: 'rockstar',
-    lang: Languages.rockstar,
-    baseCode: '''Say "Hello, World!"''',
+    lang: Language.rockstar,
+    template: '''Say "Hello, World!"''',
   ),
   'rscript': LangModel(
     mode: r,
     name: 'r',
-    lang: Languages.r,
-    baseCode: '''print("Hello, World!")''',
+    lang: Language.r,
+    template: '''print("Hello, World!")''',
   ),
   'ruby': LangModel(
     mode: ruby,
     name: 'ruby',
-    lang: Languages.ruby,
-    baseCode: '''puts "Hello, World!"''',
+    lang: Language.ruby,
+    template: '''puts "Hello, World!"''',
   ),
   'rust': LangModel(
     mode: rust,
     name: 'rust',
-    lang: Languages.rust,
-    baseCode: '''fn main() {
+    lang: Language.rust,
+    template: '''fn main() {
     println!("Hello, World!");
 }''',
   ),
@@ -658,8 +658,8 @@ end.''',
     // !
     mode: scala,
     name: 'scala',
-    lang: Languages.scala,
-    baseCode: '''object Hello {
+    lang: Language.scala,
+    template: '''object Hello {
     def main(args: Array[String]) = {
         println("Hello, World!")
     }
@@ -669,14 +669,14 @@ end.''',
     // ! Compiler output
     mode: smalltalk,
     name: 'smalltalk',
-    lang: Languages.smallTalk,
-    baseCode: '''Transcript show: 'Hello, world!'.''',
+    lang: Language.smallTalk,
+    template: '''Transcript show: 'Hello, world!'.''',
   ),
   'sqlite3': LangModel(
     mode: sql,
     name: 'sqlite3',
-    lang: Languages.sqlite3,
-    baseCode: '''CREATE TABLE helloworld (phrase TEXT);
+    lang: Language.sqlite3,
+    template: '''CREATE TABLE helloworld (phrase TEXT);
 INSERT INTO helloworld VALUES ("Hello, World!");
 SELECT * FROM helloworld;
 ''',
@@ -684,22 +684,22 @@ SELECT * FROM helloworld;
   'swift': LangModel(
     mode: swift,
     name: 'swift',
-    lang: Languages.swift,
-    baseCode: '''print("Hello, World!")''',
+    lang: Language.swift,
+    template: '''print("Hello, World!")''',
   ),
   'vlang': LangModel(
     mode: markdown,
     name: 'vlang',
-    lang: Languages.vlang,
-    baseCode: '''fn main() {
+    lang: Language.vlang,
+    template: '''fn main() {
     println('Hello, World!')
 }''',
   ),
   'zig': LangModel(
     mode: markdown,
     name: 'zig',
-    lang: Languages.zig,
-    baseCode: '''const std = @import("std");
+    lang: Language.zig,
+    template: '''const std = @import("std");
 
 pub fn main() !void {
     const stdout = std.io.getStdOut().writer();

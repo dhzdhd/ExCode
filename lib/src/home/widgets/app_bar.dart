@@ -30,13 +30,13 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         ref.watch(settingsProvider.select((value) => value.isLocked));
 
     return AppBar(
-      title: DropdownSearch<Languages>(
+      title: DropdownSearch<Language>(
         mode: Mode.MENU,
         popupBackgroundColor: globalTheme.primaryColor,
         showSearchBox: true,
         selectedItem: langMap[editorLanguage]!.lang,
-        items: Languages.values,
-        itemAsString: (Languages? e) => e.toString().substring(10).capitalize(),
+        items: Language.values,
+        itemAsString: (Language? e) => e.toString().substring(10).capitalize(),
         onChanged: (val) {
           final lang = ApiHandler.getNameFromLang(val!).match<String>(
             (l) => 'python',

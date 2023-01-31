@@ -123,12 +123,12 @@ class _EditorThemeNotifier extends StateNotifier<String> {
 class _EditorContentModel extends StateNotifier<String> {
   _EditorContentModel(StateNotifierProviderRef<_EditorContentModel, String> ref)
       : super(box.get('${ref.watch(editorLanguageStateProvider)}code') ??
-            langMap[ref.watch(editorLanguageStateProvider)]!.baseCode);
+            langMap[ref.watch(editorLanguageStateProvider)]!.template);
 
   void setContent(Option<String> content, [lang]) {
     // TODO Find a better way to do this
     content.match((t) => state = t, () {
-      final content = box.get('${lang}code') ?? langMap[lang]!.baseCode;
+      final content = box.get('${lang}code') ?? langMap[lang]!.template;
       state = content;
     });
   }

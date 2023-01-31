@@ -44,7 +44,7 @@ class _OutputContentNotifier extends StateNotifier<OutputModel> {
           error: '-',
         ));
 
-  Future<void> setOutput(Languages lang, String content) async {
+  Future<void> setOutput(Language lang, String content) async {
     ref.watch(outputIsLoadingProvider.notifier).setIsLoading();
     state = await ApiHandler.executeCode(lang, content);
     ref.watch(outputIsLoadingProvider.notifier).setIsLoading();

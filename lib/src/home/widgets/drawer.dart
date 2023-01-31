@@ -102,7 +102,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                           name: _nameController.text,
                                           content:
                                               langMap[_languageController.text]!
-                                                  .baseCode,
+                                                  .template,
                                           language: _languageController.text,
                                         ))
                                         .run()
