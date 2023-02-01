@@ -9,6 +9,8 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ! Remove appbar for large screen sizes and add file drawer to the left.
+
 class HomeView extends ConsumerWidget {
   static const routeName = '/';
   const HomeView({Key? key}) : super(key: key);

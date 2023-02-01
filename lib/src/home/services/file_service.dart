@@ -4,8 +4,14 @@ import 'package:excode/src/factory.dart';
 import 'package:excode/src/helpers.dart';
 import 'package:fpdart/fpdart.dart';
 
-class FileError extends AppError {
-  FileError(String message) : super(message);
+class FileError implements Error {
+  FileError(this._message);
+
+  final String _message;
+  String get message => _message;
+
+  @override
+  StackTrace? get stackTrace => StackTrace.fromString(_message);
 }
 
 class FileService {
