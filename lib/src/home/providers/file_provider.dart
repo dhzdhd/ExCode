@@ -39,9 +39,9 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
 
     final res = FileService.deleteFile(file);
     return res.map((r) {
-      state = newState;
       newState =
           newState.where((element) => element.name != file.name).toList();
+      state = newState;
 
       return r.path;
     });

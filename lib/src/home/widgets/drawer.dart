@@ -153,7 +153,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                     (e) => ListTile(
                       tileColor: globalTheme.secondaryColor,
                       title: Text(e.name),
-                      subtitle: Text(e.language),
+                      subtitle: Text(e.language.capitalize()),
                       trailing: PopupMenuButton(
                         itemBuilder: (context) {
                           return [
@@ -174,7 +174,30 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                   Icon(Icons.edit)
                                 ],
                               ),
-                            )
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                children: const [
+                                  Text('Delete'),
+                                  Spacer(),
+                                  Icon(Icons.delete)
+                                ],
+                              ),
+                              onTap: () async {
+                                await fileNotifier
+                                    .remove(e)
+                                    .run()
+                                    .then((value) {
+                                  value.match(
+                                    (l) => context.showErrorSnackBar(l.message),
+                                    (r) => context.showSuccessSnackBar(
+                                      content: 'Successfully deleted file',
+                                      action: const None(),
+                                    ),
+                                  );
+                                });
+                              },
+                            ),
                           ];
                         },
                       ),
