@@ -9,6 +9,7 @@ class FileModel with _$FileModel {
     required String name,
     required String content,
     required String language,
+    required String ext,
   }) = _FileModel;
 
   factory FileModel.fromJson(Map<String, dynamic> json) =>

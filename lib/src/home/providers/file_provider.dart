@@ -11,10 +11,10 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
   _FilesNotifier()
       : super([
           FileModel(
-            name: 'main',
-            content: langMap['python']!.template,
-            language: 'python',
-          ),
+              name: 'main',
+              content: langMap['python']!.template,
+              language: 'python',
+              ext: '.py'),
         ]);
 
   TaskEither<FileError, String> add(FileModel file) {
@@ -24,8 +24,8 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       return TaskEither.left(
           FileError('File with the same name already exists!'));
     }
-    // ! Add file extensions
-    final res = FileService.createOrUpdateFile(file.name, file.content);
+
+    final res = FileService.createOrUpdateFile(file);
     return res.map((r) {
       newState.add(file);
       state = newState;
@@ -34,13 +34,14 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
     });
   }
 
-  TaskEither<FileError, String> remove(String name) {
+  TaskEither<FileError, String> remove(FileModel file) {
     var newState = state;
 
-    final res = FileService.deleteFile(name);
+    final res = FileService.deleteFile(file);
     return res.map((r) {
       state = newState;
-      newState = newState.where((element) => element.name != name).toList();
+      newState =
+          newState.where((element) => element.name != file.name).toList();
 
       return r.path;
     });

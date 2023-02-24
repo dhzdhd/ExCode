@@ -16,6 +16,7 @@ class SnippetService {
         .toList();
 
     return storedCharList ??
+        // Default snippet configuration
         const [
           SnippetModel(name: '( )', value: '()', length: 1),
           SnippetModel(name: '{ }', value: '{}', length: 1),

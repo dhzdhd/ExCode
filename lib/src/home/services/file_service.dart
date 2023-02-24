@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:excode/src/factory.dart';
-import 'package:excode/src/helpers.dart';
+import 'package:excode/src/home/models/file_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 class FileError implements Error {
@@ -15,45 +15,44 @@ class FileError implements Error {
 }
 
 class FileService {
-  static TaskEither<FileError, File> createOrUpdateFile(
-      String name, String content) {
+  static TaskEither<FileError, File> createOrUpdateFile(FileModel file) {
     return TaskEither.fromOption(
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
     ).flatMap((r) {
-      print('${r.path}/$name.txt');
-      final file = File('${r.path}/$name.txt');
+      print('${r.path}/${file.name}${file.ext}');
+      final file_ = File('${r.path}/${file.name}${file.ext}');
 
       return TaskEither.tryCatch(
-        () => file.writeAsString(content),
+        () => file_.writeAsString(file.content),
         (error, stackTrace) => FileError('Failed to update file'),
       );
     });
   }
 
-  static TaskEither<FileError, String> readFile(String name) {
+  static TaskEither<FileError, String> readFile(FileModel file) {
     return TaskEither.fromOption(
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
     ).flatMap((r) {
-      final file = File('${r.path}/$name.txt');
+      final file_ = File('${r.path}/${file.name}${file.ext}');
 
       return TaskEither.tryCatch(
-        () => file.readAsString(),
+        () => file_.readAsString(),
         (error, stackTrace) => FileError('Failed to read file'),
       );
     });
   }
 
-  static TaskEither<FileError, FileSystemEntity> deleteFile(String name) {
+  static TaskEither<FileError, FileSystemEntity> deleteFile(FileModel file) {
     return TaskEither.fromOption(
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
     ).flatMap((r) {
-      final file = File('${r.path}/$name.txt');
+      final file_ = File('${r.path}/${file.name}${file.ext}');
 
       return TaskEither.tryCatch(
-        () => file.delete(),
+        () => file_.delete(),
         (error, stackTrace) => FileError('Failed to delete file'),
       );
     });

@@ -23,6 +23,7 @@ mixin _$FileModel {
   String get name => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
+  String get ext => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $FileModelCopyWith<$Res> {
   factory $FileModelCopyWith(FileModel value, $Res Function(FileModel) then) =
       _$FileModelCopyWithImpl<$Res, FileModel>;
   @useResult
-  $Res call({String name, String content, String language});
+  $Res call({String name, String content, String language, String ext});
 }
 
 /// @nodoc
@@ -54,6 +55,7 @@ class _$FileModelCopyWithImpl<$Res, $Val extends FileModel>
     Object? name = null,
     Object? content = null,
     Object? language = null,
+    Object? ext = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -68,6 +70,10 @@ class _$FileModelCopyWithImpl<$Res, $Val extends FileModel>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
+      ext: null == ext
+          ? _value.ext
+          : ext // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -79,7 +85,7 @@ abstract class _$$_FileModelCopyWith<$Res> implements $FileModelCopyWith<$Res> {
       __$$_FileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String content, String language});
+  $Res call({String name, String content, String language, String ext});
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ class __$$_FileModelCopyWithImpl<$Res>
     Object? name = null,
     Object? content = null,
     Object? language = null,
+    Object? ext = null,
   }) {
     return _then(_$_FileModel(
       name: null == name
@@ -110,6 +117,10 @@ class __$$_FileModelCopyWithImpl<$Res>
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as String,
+      ext: null == ext
+          ? _value.ext
+          : ext // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -118,7 +129,10 @@ class __$$_FileModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FileModel implements _FileModel {
   const _$_FileModel(
-      {required this.name, required this.content, required this.language});
+      {required this.name,
+      required this.content,
+      required this.language,
+      required this.ext});
 
   factory _$_FileModel.fromJson(Map<String, dynamic> json) =>
       _$$_FileModelFromJson(json);
@@ -129,10 +143,12 @@ class _$_FileModel implements _FileModel {
   final String content;
   @override
   final String language;
+  @override
+  final String ext;
 
   @override
   String toString() {
-    return 'FileModel(name: $name, content: $content, language: $language)';
+    return 'FileModel(name: $name, content: $content, language: $language, ext: $ext)';
   }
 
   @override
@@ -143,12 +159,13 @@ class _$_FileModel implements _FileModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.language, language) ||
-                other.language == language));
+                other.language == language) &&
+            (identical(other.ext, ext) || other.ext == ext));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, content, language);
+  int get hashCode => Object.hash(runtimeType, name, content, language, ext);
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +185,8 @@ abstract class _FileModel implements FileModel {
   const factory _FileModel(
       {required final String name,
       required final String content,
-      required final String language}) = _$_FileModel;
+      required final String language,
+      required final String ext}) = _$_FileModel;
 
   factory _FileModel.fromJson(Map<String, dynamic> json) =
       _$_FileModel.fromJson;
@@ -179,6 +197,8 @@ abstract class _FileModel implements FileModel {
   String get content;
   @override
   String get language;
+  @override
+  String get ext;
   @override
   @JsonKey(ignore: true)
   _$$_FileModelCopyWith<_$_FileModel> get copyWith =>

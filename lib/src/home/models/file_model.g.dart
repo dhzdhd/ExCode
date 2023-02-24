@@ -10,6 +10,7 @@ _$_FileModel _$$_FileModelFromJson(Map<String, dynamic> json) => _$_FileModel(
       name: json['name'] as String,
       content: json['content'] as String,
       language: json['language'] as String,
+      ext: json['ext'] as String,
     );
 
 Map<String, dynamic> _$$_FileModelToJson(_$_FileModel instance) =>
@@ -17,4 +18,5 @@ Map<String, dynamic> _$$_FileModelToJson(_$_FileModel instance) =>
       'name': instance.name,
       'content': instance.content,
       'language': instance.language,
+      'ext': instance.ext,
     };
