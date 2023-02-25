@@ -10,6 +10,17 @@ import 'package:path/path.dart';
 
 final filesProvider = StateNotifierProvider<_FilesNotifier, List<FileModel>>(
     (ref) => _FilesNotifier());
+final activeFileProvider =
+    StateNotifierProvider<_ActiveFileNotifier, Option<FileModel>>(
+        (ref) => _ActiveFileNotifier());
+
+class _ActiveFileNotifier extends StateNotifier<Option<FileModel>> {
+  _ActiveFileNotifier() : super(const None());
+
+  void set({required Option<FileModel> file}) {
+    state = file;
+  }
+}
 
 class _FilesNotifier extends StateNotifier<List<FileModel>> {
   _FilesNotifier() : super(_getExistingFiles());

@@ -125,7 +125,7 @@ class _EditorContentModel extends StateNotifier<String> {
       : super(box.get('${ref.watch(editorLanguageStateProvider)}code') ??
             langMap[ref.watch(editorLanguageStateProvider)]!.template);
 
-  void setContent(Option<String> content, [lang]) {
+  void setContent(Option<String> content, [String? lang]) {
     // TODO Find a better way to do this
     content.match((t) => state = t, () {
       final content = box.get('${lang}code') ?? langMap[lang]!.template;

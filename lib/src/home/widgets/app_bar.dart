@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
+import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -29,27 +30,31 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
         ref.watch(settingsProvider.select((value) => value.isSaveOnRun));
     final isLocked =
         ref.watch(settingsProvider.select((value) => value.isLocked));
+    final activeFile = ref.watch(activeFileProvider);
 
     return AppBar(
       automaticallyImplyLeading: !kIsWeb,
-      title: DropdownSearch<Language>(
-        mode: Mode.MENU,
-        popupBackgroundColor: globalTheme.primaryColor,
-        showSearchBox: true,
-        selectedItem: langMap[editorLanguage]!.lang,
-        items: Language.values,
-        itemAsString: (Language? e) => e.toString().substring(9).capitalize(),
-        onChanged: (val) {
-          final lang = ApiHandler.getNameFromLang(val!).match<String>(
-            (l) => 'python',
-            (r) => r,
-          );
+      title: activeFile.match(
+        (t) => Text(t.language.capitalize()),
+        () => DropdownSearch<Language>(
+          mode: Mode.MENU,
+          popupBackgroundColor: globalTheme.primaryColor,
+          showSearchBox: true,
+          selectedItem: langMap[editorLanguage]!.lang,
+          items: Language.values,
+          itemAsString: (Language? e) => e.toString().substring(9).capitalize(),
+          onChanged: (val) {
+            final lang = ApiHandler.getNameFromLang(val!).match<String>(
+              (l) => 'python',
+              (r) => r,
+            );
 
-          ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
-          ref
-              .watch(editorContentStateProvider.notifier)
-              .setContent(const None(), lang);
-        },
+            ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
+            ref
+                .watch(editorContentStateProvider.notifier)
+                .setContent(const None(), lang);
+          },
+        ),
       ),
       actions: [
         SizedBox(

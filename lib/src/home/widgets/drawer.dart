@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/file_model.dart';
+import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -212,7 +213,17 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                           ];
                         },
                       ),
-                      onTap: () => print('hi'),
+                      onTap: () {
+                        ref
+                            .watch(editorLanguageStateProvider.notifier)
+                            .setLanguage(e.language);
+                        ref
+                            .watch(editorContentStateProvider.notifier)
+                            .setContent(Some(e.content));
+                        ref
+                            .watch(activeFileProvider.notifier)
+                            .set(file: Some(e));
+                      },
                     ),
                   )
                   .toList(),
@@ -225,7 +236,9 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
               textColor: globalTheme.accentColor,
               style: ListTileStyle.list,
               title: const Text('No file mode'),
-              onTap: () {},
+              onTap: () {
+                ref.watch(activeFileProvider.notifier).set(file: const None());
+              },
             ),
           ),
         ],
