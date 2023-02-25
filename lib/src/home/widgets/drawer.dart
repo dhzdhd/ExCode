@@ -40,6 +40,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
   Widget build(BuildContext context) {
     final globalTheme = ref.watch(themeStateProvider);
     final fileNotifier = ref.watch(filesProvider.notifier);
+    final activeFile = ref.watch(activeFileProvider);
 
     return Drawer(
       backgroundColor: globalTheme.primaryColor,
@@ -154,9 +155,17 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                   .map(
                     (e) => ListTile(
                       tileColor: globalTheme.secondaryColor,
+                      selected: activeFile == Some(e),
+                      selectedTileColor: globalTheme.accentColor,
                       title: Text(e.name),
                       subtitle: Text(e.language.capitalize()),
                       trailing: PopupMenuButton(
+                        icon: Icon(
+                          Icons.adaptive.more,
+                          color: activeFile == Some(e)
+                              ? globalTheme.primaryColor
+                              : null,
+                        ),
                         itemBuilder: (context) {
                           return [
                             PopupMenuItem(
