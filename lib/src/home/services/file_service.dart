@@ -29,7 +29,41 @@ class FileService {
     });
   }
 
-  static TaskEither<FileError, String> readFile(FileModel file) {
+  static TaskEither<FileError, String> readFile({
+    required String name,
+    required String ext,
+  }) {
+    return TaskEither.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      final file_ = File('${r.path}/$name$ext');
+
+      return TaskEither.tryCatch(
+        () => file_.readAsString(),
+        (error, stackTrace) => FileError('Failed to read file'),
+      );
+    });
+  }
+
+  static Either<FileError, String> readFileSync({
+    required String name,
+    required String ext,
+  }) {
+    return Either.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      final file_ = File('${r.path}/$name$ext');
+
+      return Either.tryCatch(
+        () => file_.readAsStringSync(),
+        (error, stackTrace) => FileError('Failed to read file'),
+      );
+    });
+  }
+
+  static TaskEither<FileError, File> saveFile(FileModel file) {
     return TaskEither.fromOption(
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
@@ -37,8 +71,8 @@ class FileService {
       final file_ = File('${r.path}/${file.name}${file.ext}');
 
       return TaskEither.tryCatch(
-        () => file_.readAsString(),
-        (error, stackTrace) => FileError('Failed to read file'),
+        () => file_.writeAsString(file.content),
+        (error, stackTrace) => FileError('Failed to write to file'),
       );
     });
   }

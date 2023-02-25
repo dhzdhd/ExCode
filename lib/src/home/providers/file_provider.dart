@@ -32,11 +32,20 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
     return files.map((file) {
       final lang = langMap.values
           .firstWhere((element) => element.ext == extension(file.path, 2));
+      final name = basename(file.path).split('.')[0];
+      final ext = extension(file.path, 2);
+      final content =
+          FileService.readFileSync(name: name, ext: extension(file.path, 2))
+              .match(
+        (l) => lang.template,
+        (r) => r,
+      );
       return FileModel(
-          name: basename(file.path).split('.')[0],
-          content: lang.template,
-          language: lang.name,
-          ext: extension(file.path, 2));
+        name: name,
+        content: content,
+        language: lang.name,
+        ext: ext,
+      );
     }).toList();
   }
 
@@ -86,6 +95,17 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
             ext: oldFile.ext,
           ))
           .toList();
+
+      return r.path;
+    });
+  }
+
+  TaskEither<FileError, String> save(FileModel file) {
+    var newState = state;
+
+    final res = FileService.saveFile(file);
+    return res.map((r) {
+      state = newState.filter((t) => t.name != file.name).append(file).toList();
 
       return r.path;
     });

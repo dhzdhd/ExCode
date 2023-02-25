@@ -1,6 +1,8 @@
 import 'package:excode/src/cloud/services/cloud_store.dart';
 import 'package:excode/src/factory.dart';
+import 'package:excode/src/home/models/file_model.dart';
 import 'package:excode/src/home/models/snippet_model.dart';
+import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/services/snippet_service.dart';
 import 'package:flutter/material.dart';
@@ -121,9 +123,11 @@ class _EditorThemeNotifier extends StateNotifier<String> {
 }
 
 class _EditorContentModel extends StateNotifier<String> {
-  _EditorContentModel(StateNotifierProviderRef<_EditorContentModel, String> ref)
+  _EditorContentModel(this.ref)
       : super(box.get('${ref.watch(editorLanguageStateProvider)}code') ??
             langMap[ref.watch(editorLanguageStateProvider)]!.template);
+
+  final StateNotifierProviderRef<_EditorContentModel, String> ref;
 
   void setContent(Option<String> content, [String? lang]) {
     // TODO Find a better way to do this
@@ -134,7 +138,18 @@ class _EditorContentModel extends StateNotifier<String> {
   }
 
   Future<void> saveContent(String lang, String content) async {
-    await box.put('${lang}code', content);
+    print(content);
+    ref.watch(activeFileProvider).match(
+        (t) async => await ref
+            .watch(filesProvider.notifier)
+            .save(FileModel(
+              name: t.name,
+              content: content,
+              language: t.language,
+              ext: t.ext,
+            ))
+            .run(),
+        () async => await box.put('${lang}code', content));
   }
 
   void addContent(String content, TextPosition pos) {
