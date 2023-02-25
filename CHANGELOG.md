@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.1.0 | 25-02-2023
+
+### Additions
+
+- Added local file support which includes creating, renaming, writing to and deleting files (not available for web).
+- Added a file and no file mode with no file mode being the default (Check the drawer to enable/disable it).
+
+### Fixes / Improvements
+
+- Improved text selection colors
+- Improved errors
+- Fixed snippet dialog size
+
 ## 1.0.0 | 22-01-2023
 
 ### Fixes / Improvements
