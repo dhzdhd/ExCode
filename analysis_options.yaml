@@ -26,3 +26,5 @@ linter:
     prefer_single_quotes: true
     unnecessary_this: false
     non_constant_identifier_names: false
+    deprecated_member_use: false
+    unnecessary_import: false
