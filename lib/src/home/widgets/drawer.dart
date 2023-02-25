@@ -42,11 +42,11 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
 
     return Drawer(
       backgroundColor: globalTheme.primaryColor,
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
+      child: Column(
+        children: [
+          AppBar(
             automaticallyImplyLeading: false,
-            floating: true,
+            // floating: true,
             title: Text(
               appDocumentsDirectory.match((t) => t.path, () => ''),
               overflow: TextOverflow.fade,
@@ -146,9 +146,9 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
               ),
             ],
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              ref
+          Expanded(
+            child: ListView(
+              children: ref
                   .watch(filesProvider)
                   .map(
                     (e) => ListTile(
@@ -217,7 +217,17 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                   )
                   .toList(),
             ),
-          )
+          ),
+          SizedBox(
+            height: 50,
+            child: ListTile(
+              tileColor: globalTheme.secondaryColor,
+              textColor: globalTheme.accentColor,
+              style: ListTileStyle.list,
+              title: const Text('No file mode'),
+              onTap: () {},
+            ),
+          ),
         ],
       ),
     );
