@@ -1,7 +1,6 @@
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/home/models/file_model.dart';
 import 'package:excode/src/home/providers/file_provider.dart';
-import 'package:excode/src/home/views/home_view.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
