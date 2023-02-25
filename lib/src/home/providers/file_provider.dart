@@ -58,4 +58,24 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       return r.path;
     });
   }
+
+  TaskEither<FileError, String> rename(FileModel file, String name) {
+    var newState = state;
+
+    final res = FileService.renameFile(file, name);
+    return res.map((r) {
+      final oldFile =
+          newState.singleWhere((element) => element.name == file.name);
+      state = newState
+          .filter((t) => t.name != file.name)
+          .append(FileModel(
+              name: name,
+              content: oldFile.content,
+              language: oldFile.language,
+              ext: oldFile.ext))
+          .toList();
+
+      return r.path;
+    });
+  }
 }

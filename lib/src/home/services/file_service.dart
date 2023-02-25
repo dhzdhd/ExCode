@@ -56,4 +56,18 @@ class FileService {
       );
     });
   }
+
+  static TaskEither<FileError, File> renameFile(FileModel file, String name) {
+    return TaskEither.fromOption(
+      appDocumentsDirectory,
+      () => FileError('File storage not supported on this platform'),
+    ).flatMap((r) {
+      final file_ = File('${r.path}/${file.name}${file.ext}');
+
+      return TaskEither.tryCatch(
+        () => file_.rename('${r.path}/$name${file.ext}'),
+        (error, stackTrace) => FileError('Failed to delete file'),
+      );
+    });
+  }
 }
