@@ -239,6 +239,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
               title: const Text('No file mode'),
               onTap: () {
                 ref.watch(activeFileProvider.notifier).set(file: const None());
+                Navigator.of(context).pop();
               },
             ),
           ),
