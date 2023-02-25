@@ -223,6 +223,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                         ref
                             .watch(activeFileProvider.notifier)
                             .set(file: Some(e));
+                        Navigator.of(context).pop();
                       },
                     ),
                   )
