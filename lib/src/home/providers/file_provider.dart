@@ -20,12 +20,12 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
 
     return files.map((file) {
       final lang = langMap.values
-          .firstWhere((element) => element.ext == extension(file.path));
+          .firstWhere((element) => element.ext == extension(file.path, 2));
       return FileModel(
           name: basename(file.path).split('.')[0],
           content: lang.template,
           language: lang.name,
-          ext: extension(file.path));
+          ext: extension(file.path, 2));
     }).toList();
   }
 
