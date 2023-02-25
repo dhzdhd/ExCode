@@ -20,7 +20,6 @@ class FileService {
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
     ).flatMap((r) {
-      print('${r.path}/${file.name}${file.ext}');
       final file_ = File('${r.path}/${file.name}${file.ext}');
 
       return TaskEither.tryCatch(

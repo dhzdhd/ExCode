@@ -1,21 +1,33 @@
+import 'dart:io';
+
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/file_model.dart';
 import 'package:excode/src/home/services/file_service.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path/path.dart';
 
 final filesProvider = StateNotifierProvider<_FilesNotifier, List<FileModel>>(
     (ref) => _FilesNotifier());
 
 class _FilesNotifier extends StateNotifier<List<FileModel>> {
-  _FilesNotifier()
-      : super([
-          FileModel(
-              name: 'main',
-              content: langMap['python']!.template,
-              language: 'python',
-              ext: '.py'),
-        ]);
+  _FilesNotifier() : super(_getExistingFiles());
+
+  static List<FileModel> _getExistingFiles() {
+    late final List<FileSystemEntity> files =
+        appDocumentsDirectory.match((r) => r.listSync().toList(), () => []);
+
+    return files.map((file) {
+      final lang = langMap.values
+          .firstWhere((element) => element.ext == extension(file.path));
+      return FileModel(
+          name: basename(file.path).split('.')[0],
+          content: lang.template,
+          language: lang.name,
+          ext: extension(file.path));
+    }).toList();
+  }
 
   TaskEither<FileError, String> add(FileModel file) {
     final newState = state;
