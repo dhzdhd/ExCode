@@ -7,6 +7,7 @@ import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/views/home_view.dart';
+import 'package:excode/src/home/widgets/file_rename_dialog.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -61,80 +62,82 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                         context: context,
                         builder: (context) => SimpleDialog(
                           title: const Text('New file'),
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 24.0),
+                          contentPadding: const EdgeInsets.all(24.0),
                           children: [
                             // ! Add validators
                             Form(
-                                child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: TextFormField(
-                                    controller: _nameController,
-                                    decoration: InputDecoration(
-                                      label: const Text('File name'),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: globalTheme.accentColor,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: TextFormField(
+                                      controller: _nameController,
+                                      decoration: InputDecoration(
+                                        label: const Text('File name'),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: globalTheme.accentColor,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 24.0),
-                                  child: DropdownSearch<String>(
-                                    mode: Mode.MENU,
-                                    popupBackgroundColor:
-                                        globalTheme.primaryColor,
-                                    showSearchBox: true,
-                                    selectedItem: language,
-                                    items: Language.values
-                                        .map((e) => e.toString().substring(9))
-                                        .toList(),
-                                    itemAsString: (String? e) =>
-                                        e.toString().capitalize(),
-                                    onChanged: (val) {
-                                      setState(() {
-                                        language = val!;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                OutlinedButton(
-                                  onPressed: () async {
-                                    await fileNotifier
-                                        .add(FileModel(
-                                          name: _nameController.text,
-                                          content: langMap[language]!.template,
-                                          language: language,
-                                          ext: langMap[language]!.ext,
-                                        ))
-                                        .run()
-                                        .then(
-                                      (value) {
-                                        value.match(
-                                          (l) => context
-                                              .showErrorSnackBar(l.message),
-                                          (r) => context.showSuccessSnackBar(
-                                            content:
-                                                'Successfully created file',
-                                            action: const None(),
-                                          ),
-                                        );
-                                        Navigator.of(context).popUntil(
-                                          ModalRoute.withName(
-                                            HomeView.routeName,
-                                          ),
-                                        );
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 24.0),
+                                    child: DropdownSearch<String>(
+                                      mode: Mode.MENU,
+                                      popupBackgroundColor:
+                                          globalTheme.primaryColor,
+                                      showSearchBox: true,
+                                      selectedItem: language,
+                                      items: Language.values
+                                          .map((e) => e.toString().substring(9))
+                                          .toList(),
+                                      itemAsString: (String? e) =>
+                                          e.toString().capitalize(),
+                                      onChanged: (val) {
+                                        setState(() {
+                                          language = val!;
+                                        });
                                       },
-                                    );
-                                  },
-                                  child: const Text('Submit'),
-                                )
-                              ],
-                            ))
+                                    ),
+                                  ),
+                                  OutlinedButton(
+                                    onPressed: () async {
+                                      await fileNotifier
+                                          .add(FileModel(
+                                            name: _nameController.text,
+                                            content:
+                                                langMap[language]!.template,
+                                            language: language,
+                                            ext: langMap[language]!.ext,
+                                          ))
+                                          .run()
+                                          .then(
+                                        (value) {
+                                          value.match(
+                                            (l) => context
+                                                .showErrorSnackBar(l.message),
+                                            (r) => context.showSuccessSnackBar(
+                                              content:
+                                                  'Successfully created file',
+                                              action: const None(),
+                                            ),
+                                          );
+                                          Navigator.of(context).popUntil(
+                                            ModalRoute.withName(
+                                              HomeView.routeName,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: const Text('Submit'),
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       );
@@ -174,6 +177,16 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                   Icon(Icons.edit)
                                 ],
                               ),
+                              onTap: () {
+                                Future.delayed(
+                                  const Duration(seconds: 0),
+                                  () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        FileRenameDialogWidget(file: e),
+                                  ),
+                                );
+                              },
                             ),
                             PopupMenuItem(
                               child: Row(

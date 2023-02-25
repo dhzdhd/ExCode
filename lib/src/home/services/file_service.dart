@@ -66,7 +66,7 @@ class FileService {
 
       return TaskEither.tryCatch(
         () => file_.rename('${r.path}/$name${file.ext}'),
-        (error, stackTrace) => FileError('Failed to delete file'),
+        (error, stackTrace) => FileError('Failed to rename file'),
       );
     });
   }

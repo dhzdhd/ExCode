@@ -69,10 +69,11 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       state = newState
           .filter((t) => t.name != file.name)
           .append(FileModel(
-              name: name,
-              content: oldFile.content,
-              language: oldFile.language,
-              ext: oldFile.ext))
+            name: name,
+            content: oldFile.content,
+            language: oldFile.language,
+            ext: oldFile.ext,
+          ))
           .toList();
 
       return r.path;
