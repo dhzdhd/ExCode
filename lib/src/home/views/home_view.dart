@@ -6,6 +6,7 @@ import 'package:excode/src/home/widgets/drawer.dart';
 import 'package:excode/src/home/widgets/editor.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,7 +26,7 @@ class HomeView extends ConsumerWidget {
 
     return Scaffold(
       appBar: const AppBarWidget(),
-      drawer: const DrawerWidget(),
+      drawer: kIsWeb ? null : const DrawerWidget(),
       body: const EditorWidget(),
       floatingActionButton: LayoutBuilder(builder: (context, constraints) {
         return Visibility(
