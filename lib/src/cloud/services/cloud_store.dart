@@ -17,8 +17,8 @@ Future<void> saveToCloud({
   final user = supabase.auth.currentUser;
 
   final _settings = settings.match(
-    (t) => t,
     () => ref.watch(settingsProvider),
+    (t) => t,
   );
 
   if (user != null && _settings.isSaveToCloud) {
@@ -26,8 +26,8 @@ Future<void> saveToCloud({
       CloudModel(
         settings: _settings,
         snippets: snippets.match(
-          (t) => t,
           () => ref.watch(snippetBarStateProvider),
+          (t) => t,
         ),
       ),
       user.email!,

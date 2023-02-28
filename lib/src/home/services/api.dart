@@ -125,7 +125,10 @@ class ApiHandler {
       print(data);
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
-      return OutputModel(output: 'No output', error: err.message);
+      return OutputModel(
+        output: 'No output',
+        error: err.message ?? 'Unknown error',
+      );
     }
 
     print(res.data);

@@ -35,11 +35,10 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: !kIsWeb,
       title: activeFile.match(
-        (t) => Text(t.language.capitalize()),
         () => DropdownSearch<Language>(
-          mode: Mode.MENU,
-          popupBackgroundColor: globalTheme.primaryColor,
-          showSearchBox: true,
+          // mode: Mode.MENU,
+          // popupBackgroundColor: globalTheme.primaryColor,
+          // showSearchBox: true,
           selectedItem: langMap[editorLanguage]!.lang,
           items: Language.values,
           itemAsString: (Language? e) => e.toString().substring(9).capitalize(),
@@ -55,6 +54,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 .setContent(const None(), lang);
           },
         ),
+        (t) => Text(t.language.capitalize()),
       ),
       actions: [
         SizedBox(

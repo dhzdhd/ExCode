@@ -27,7 +27,7 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
 
   static List<FileModel> _getExistingFiles() {
     late final List<FileSystemEntity> files =
-        appDocumentsDirectory.match((r) => r.listSync().toList(), () => []);
+        appDocumentsDirectory.match(() => [], (r) => r.listSync().toList());
 
     return files.map((file) {
       final lang = langMap.values

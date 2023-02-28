@@ -50,7 +50,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
             automaticallyImplyLeading: false,
             // floating: true,
             title: Text(
-              appDocumentsDirectory.match((t) => t.path, () => ''),
+              appDocumentsDirectory.match(() => '', (t) => t.path),
               overflow: TextOverflow.fade,
             ),
             actions: [
@@ -86,10 +86,10 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                     padding:
                                         const EdgeInsets.only(bottom: 24.0),
                                     child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      popupBackgroundColor:
-                                          globalTheme.primaryColor,
-                                      showSearchBox: true,
+                                      // mode: Mode.MENU,
+                                      // popupBackgroundColor:
+                                      //     globalTheme.primaryColor,
+                                      // showSearchBox: true,
                                       selectedItem: language,
                                       items: Language.values
                                           .map((e) => e.toString().substring(9))

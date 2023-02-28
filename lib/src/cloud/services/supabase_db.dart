@@ -9,7 +9,7 @@ class CloudDatabase {
       CloudModel model, String email) async {
     final response = await supabase
         .from(_databaseName)
-        .upsert({'email': email, 'data': model.toJson()}).execute();
+        .upsert({'email': email, 'data': model.toJson()});
 
     if (response.hasError) {
       return Left(response.error!.message);
@@ -31,8 +31,7 @@ class CloudDatabase {
     final response = await supabase
         .from(_databaseName)
         .select()
-        .filter('email', 'eq', email)
-        .execute();
+        .filter('email', 'eq', email);
 
     if (response.hasError) {
       print(response.error!.message);
@@ -53,7 +52,7 @@ class CloudDatabase {
 
   // * For testing only
   static Future<Either<String, List<dynamic>>> fetchAll() async {
-    final response = await supabase.from(_databaseName).select().execute();
+    final response = await supabase.from(_databaseName).select();
 
     if (response.hasError) {
       return Left(response.error!.message);
@@ -64,11 +63,8 @@ class CloudDatabase {
 
   // * For testing only
   static Future<Either<String, String>> delete(String email) async {
-    final response = await supabase
-        .from(_databaseName)
-        .delete()
-        .eq('email', email)
-        .execute();
+    final response =
+        await supabase.from(_databaseName).delete().eq('email', email);
 
     if (response.hasError) {
       return Left(response.error!.message);

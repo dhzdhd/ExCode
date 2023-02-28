@@ -131,25 +131,29 @@ class _EditorContentModel extends StateNotifier<String> {
 
   void setContent(Option<String> content, [String? lang]) {
     // TODO Find a better way to do this
-    content.match((t) => state = t, () {
-      final content = box.get('${lang}code') ?? langMap[lang]!.template;
-      state = content;
-    });
+    content.match(
+      () {
+        final content = box.get('${lang}code') ?? langMap[lang]!.template;
+        state = content;
+      },
+      (t) => state = t,
+    );
   }
 
   Future<void> saveContent(String lang, String content) async {
     print(content);
     ref.watch(activeFileProvider).match(
-        (t) async => await ref
-            .watch(filesProvider.notifier)
-            .save(FileModel(
-              name: t.name,
-              content: content,
-              language: t.language,
-              ext: t.ext,
-            ))
-            .run(),
-        () async => await box.put('${lang}code', content));
+          () async => await box.put('${lang}code', content),
+          (t) async => await ref
+              .watch(filesProvider.notifier)
+              .save(FileModel(
+                name: t.name,
+                content: content,
+                language: t.language,
+                ext: t.ext,
+              ))
+              .run(),
+        );
   }
 
   void addContent(String content, TextPosition pos) {

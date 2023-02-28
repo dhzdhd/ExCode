@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
@@ -8,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'home/views/home_view.dart';
 import 'settings/views/settings_view.dart';
@@ -21,20 +22,20 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyApp extends ConsumerState<MyApp> {
-  late final GotrueSubscription _authSub;
+  late final StreamSubscription _authSub;
 
   @override
   void initState() {
     super.initState();
-    _authSub = supabase.auth.onAuthStateChange((event, session) {
-      ref.watch(authStateProvider.notifier).setUser(session?.user);
+    _authSub = supabase.auth.onAuthStateChange.listen((data) {
+      ref.watch(authStateProvider.notifier).setUser(data.session?.user);
     });
     initPackageInfo();
   }
 
   @override
   void dispose() {
-    _authSub.data?.unsubscribe();
+    _authSub.cancel();
     super.dispose();
   }
 
