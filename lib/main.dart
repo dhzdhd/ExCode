@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:leak_tracker/leak_tracker.dart';
 
 import 'src/factory.dart';
 import 'package:flutter/material.dart';
@@ -30,5 +31,13 @@ void main() async {
     await initDownloader();
   }
 
-  runApp(const ProviderScope(child: MyApp()));
+  if (kDebugMode) {
+    enableLeakTracking();
+    MemoryAllocations.instance.addListener(
+      (ObjectEvent event) => dispatchObjectEvent(event.toMap()),
+    );
+    runApp(const ProviderScope(child: MyApp()));
+  } else {
+    runApp(const ProviderScope(child: MyApp()));
+  }
 }
