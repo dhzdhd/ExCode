@@ -7,7 +7,6 @@ import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/input_dialog.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
-import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/paste.dart';
 import 'package:excode/src/settings/views/settings_view.dart';
 import 'package:flutter/foundation.dart';
@@ -25,7 +24,6 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final editorLanguage = ref.watch(editorLanguageStateProvider);
-    final globalTheme = ref.watch(themeStateProvider);
     final isSaveOnRun =
         ref.watch(settingsProvider.select((value) => value.isSaveOnRun));
     final isLocked =

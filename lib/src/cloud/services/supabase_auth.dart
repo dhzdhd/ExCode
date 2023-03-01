@@ -21,7 +21,7 @@ class Auth {
   }
 
   static Future<Either<String, String>> signOut() async {
-    final response = await supabase.auth.signOut();
+    final _ = await supabase.auth.signOut();
 
     return const Right('Successfully signed out!');
   }

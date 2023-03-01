@@ -2,6 +2,8 @@ import 'package:excode/src/cloud/models/cloud_model.dart';
 import 'package:excode/src/factory.dart';
 import 'package:fpdart/fpdart.dart';
 
+// ! hasError was called on null error
+
 class CloudDatabase {
   static const _databaseName = 'editor';
 
