@@ -1,4 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:catcher/catcher.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
@@ -31,14 +32,28 @@ void main() async {
     await initDownloader();
   }
 
+  // ! Make release config with sentry and discord
+  CatcherOptions debugOptions =
+      CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
+  CatcherOptions releaseOptions =
+      CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
+
   if (kDebugMode) {
     // ! Update package to enable links https://pub.dev/packages/leak_tracker
     enableLeakTracking();
     MemoryAllocations.instance.addListener(
       (ObjectEvent event) => dispatchObjectEvent(event.toMap()),
     );
-    runApp(const ProviderScope(child: MyApp()));
+    Catcher(
+      rootWidget: const ProviderScope(child: MyApp()),
+      debugConfig: debugOptions,
+      releaseConfig: releaseOptions,
+    );
   } else {
-    runApp(const ProviderScope(child: MyApp()));
+    Catcher(
+      rootWidget: const ProviderScope(child: MyApp()),
+      debugConfig: debugOptions,
+      releaseConfig: releaseOptions,
+    );
   }
 }
