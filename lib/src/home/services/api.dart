@@ -127,7 +127,7 @@ class ApiHandler {
     } on DioError catch (err) {
       return OutputModel(
         output: 'No output',
-        error: err.message ?? 'Unknown error',
+        error: err.message,
       );
     }
 

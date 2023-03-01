@@ -5,8 +5,10 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   app_links
   bitsdojo_window_windows
+  catcher
   connectivity_plus
   desktop_drop
+  sentry_flutter
   sqlite3_flutter_libs
   url_launcher_windows
 )

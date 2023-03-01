@@ -32,6 +32,7 @@ void main() async {
   }
 
   if (kDebugMode) {
+    // ! Update package to enable links https://pub.dev/packages/leak_tracker
     enableLeakTracking();
     MemoryAllocations.instance.addListener(
       (ObjectEvent event) => dispatchObjectEvent(event.toMap()),
