@@ -4,6 +4,7 @@ import 'package:excode/src/home/models/output_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 enum Language {
   bash,
@@ -122,12 +123,18 @@ class ApiHandler {
     };
 
     try {
+      final a = 5 / 0;
+    } catch (err, st) {
+      await Sentry.captureException(err, stackTrace: st);
+    }
+
+    try {
       print(data);
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
       return OutputModel(
         output: 'No output',
-        error: err.message,
+        error: err.message ?? 'Error',
       );
     }
 

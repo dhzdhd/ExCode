@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_linux
-  catcher
   desktop_drop
   sentry_flutter
   sqlite3_flutter_libs

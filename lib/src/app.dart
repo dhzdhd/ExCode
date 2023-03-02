@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:catcher/catcher.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/views/auth_view.dart';
@@ -45,7 +44,6 @@ class _MyApp extends ConsumerState<MyApp> {
     return MaterialApp(
       title: 'ExCode',
       restorationScopeId: 'app',
-      navigatorKey: Catcher.navigatorKey,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
