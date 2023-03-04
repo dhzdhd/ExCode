@@ -663,7 +663,7 @@ end.''',
     mode: python,
     name: 'python',
     lang: Language.python,
-    ext: '.py3.py',
+    ext: '.py',
     template: '''print("Hello, World!")''',
   ),
   'racket': LangModel(
