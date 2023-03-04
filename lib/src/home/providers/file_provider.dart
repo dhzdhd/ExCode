@@ -30,33 +30,44 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
         appDocumentsDirectory.match(() => [], (r) => r.listSync().toList());
 
     return files.map((file) {
-      final lang = langMap.values
-          .firstWhere((element) => element.ext == extension(file.path, 2));
-      final name = basename(file.path).split('.')[0];
       final ext = extension(file.path, 2);
-      final content =
-          FileService.readFileSync(name: name, ext: extension(file.path, 2))
-              .match(
+      final lang = langMap.values.firstWhere((element) => element.ext == ext);
+      final name = basename(file.path).split('.')[0];
+      final content = FileService.readFileSync(name: name, ext: ext).match(
         (l) => lang.template,
         (r) => r,
       );
+      final path = Uri.file(file.absolute.path);
       return FileModel(
         name: name,
         content: content,
         language: lang.name,
         ext: ext,
+        path: path,
       );
     }).toList();
   }
 
-  TaskEither<FileError, String> add(FileModel file) {
+  TaskEither<FileError, String> add({
+    required String name,
+    required String language,
+  }) {
     final newState = state;
 
-    if (newState.any((element) => element.name == file.name)) {
+    if (newState.any((element) => element.name == name)) {
       return TaskEither.left(
           FileError('File with the same name already exists!'));
     }
 
+    final ext = langMap[language]!.ext;
+    final file = FileModel(
+      name: name,
+      content: langMap[language]!.template,
+      language: language,
+      ext: ext,
+      path: Uri.file(
+          '${appDocumentsDirectory.toNullable().toString()}/$name$ext'),
+    );
     final res = FileService.createOrUpdateFile(file);
     return res.map((r) {
       newState.add(file);
@@ -93,6 +104,9 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
             content: oldFile.content,
             language: oldFile.language,
             ext: oldFile.ext,
+            path: Uri.file(
+              oldFile.path.toString().replaceFirst(oldFile.name, name),
+            ),
           ))
           .toList();
 

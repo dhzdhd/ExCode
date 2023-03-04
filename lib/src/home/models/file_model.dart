@@ -10,6 +10,7 @@ class FileModel with _$FileModel {
     required String content,
     required String language,
     required String ext,
+    required Uri path,
   }) = _FileModel;
 
   factory FileModel.fromJson(Map<String, dynamic> json) =>

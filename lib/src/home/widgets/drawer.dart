@@ -106,13 +106,10 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                   OutlinedButton(
                                     onPressed: () async {
                                       await fileNotifier
-                                          .add(FileModel(
+                                          .add(
                                             name: _nameController.text,
-                                            content:
-                                                langMap[language]!.template,
                                             language: language,
-                                            ext: langMap[language]!.ext,
-                                          ))
+                                          )
                                           .run()
                                           .then(
                                         (value) {

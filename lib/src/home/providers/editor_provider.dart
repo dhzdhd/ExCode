@@ -151,6 +151,7 @@ class _EditorContentModel extends StateNotifier<String> {
                 content: content,
                 language: t.language,
                 ext: t.ext,
+                path: t.path,
               ))
               .run(),
         );
