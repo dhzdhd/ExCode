@@ -60,9 +60,10 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                 children: [
                   IconButton(
                     onPressed: () async {
+                      print(langList.map((e) => e.ext.substring(1)).toList());
                       // ! move to provider/service
                       final res = await FilePicker.platform.pickFiles(
-                        type: FileType.any,
+                        type: FileType.custom,
                         allowedExtensions:
                             langList.map((e) => e.ext.substring(1)).toList(),
                         dialogTitle: 'Open File',
