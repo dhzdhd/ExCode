@@ -34,17 +34,11 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
       automaticallyImplyLeading: !kIsWeb,
       title: activeFile.match(
         () => DropdownSearch<Language>(
-          // mode: Mode.MENU,
-          // popupBackgroundColor: globalTheme.primaryColor,
-          // showSearchBox: true,
-          selectedItem: langMap[editorLanguage]!.lang,
+          selectedItem: getLangFromName(editorLanguage).lang,
           items: Language.values,
           itemAsString: (Language? e) => e.toString().substring(9).capitalize(),
           onChanged: (val) {
-            final lang = ApiHandler.getNameFromLang(val!).match<String>(
-              (l) => 'python',
-              (r) => r,
-            );
+            final String lang = getLangFromEnum(val!).name;
 
             ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
             ref
@@ -68,7 +62,7 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
                 : const Icon(Icons.play_arrow),
             onPressed: () async {
               await ref.watch(outputContentStateProvider.notifier).setOutput(
-                    langMap[editorLanguage]!.lang,
+                    getLangFromName(editorLanguage).lang,
                     ref.watch(editorContentStateProvider),
                   );
               ref.watch(outputIsVisibleStateProvider.notifier).showOutput();

@@ -16,17 +16,14 @@ class FileError implements Error {
 
 class FileService {
   static TaskEither<FileError, File> createOrUpdateFile(FileModel file) {
-    return TaskEither.fromOption(
-      appDocumentsDirectory,
-      () => FileError('File storage not supported on this platform'),
-    ).flatMap((r) {
-      final file_ = File('${r.path}/${file.name}${file.ext}');
+    final file_ = File.fromUri(file.path);
 
-      return TaskEither.tryCatch(
-        () => file_.writeAsString(file.content),
-        (error, stackTrace) => FileError('Failed to update file'),
-      );
-    });
+    return TaskEither.tryCatch(
+      () => file_.writeAsString(file.content),
+      (error, stackTrace) {
+        return FileError('Failed to update file');
+      },
+    );
   }
 
   static TaskEither<FileError, String> readFile({
@@ -46,15 +43,12 @@ class FileService {
     });
   }
 
-  static Either<FileError, String> readFileSync({
-    required String name,
-    required String ext,
-  }) {
+  static Either<FileError, String> readFileSync({required Uri path}) {
     return Either.fromOption(
       appDocumentsDirectory,
       () => FileError('File storage not supported on this platform'),
     ).flatMap((r) {
-      final file_ = File('${r.path}/$name$ext');
+      final file_ = File.fromUri(path);
 
       return Either.tryCatch(
         () => file_.readAsStringSync(),

@@ -5,13 +5,16 @@ import 'package:excode/src/home/models/file_model.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/services/api.dart';
+import 'package:excode/src/home/services/file_service.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/views/home_view.dart';
 import 'package:excode/src/home/widgets/file_rename_dialog.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path/path.dart';
 
 class DrawerWidget extends ConsumerStatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class DrawerWidget extends ConsumerStatefulWidget {
 
 class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
   late final TextEditingController _nameController;
-  String language = 'python';
+  Language language = Language.python;
 
   @override
   void initState() {
@@ -48,7 +51,6 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
         children: [
           AppBar(
             automaticallyImplyLeading: false,
-            // floating: true,
             title: Text(
               appDocumentsDirectory.match(() => '', (t) => t.path),
               overflow: TextOverflow.fade,
@@ -56,6 +58,39 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
             actions: [
               Row(
                 children: [
+                  IconButton(
+                    onPressed: () async {
+                      // ! move to provider/service
+                      final res = await FilePicker.platform.pickFiles(
+                        type: FileType.any,
+                        allowedExtensions:
+                            langList.map((e) => e.ext.substring(1)).toList(),
+                        dialogTitle: 'Open File',
+                        initialDirectory:
+                            appDocumentsDirectory.toNullable().toString(),
+                        lockParentWindow: true,
+                      );
+
+                      if (res != null) {
+                        final path = res.files.first.path!;
+                        final ext = extension(path, 2);
+
+                        final file = FileModel(
+                          name: path.split('.')[0],
+                          content:
+                              FileService.readFileSync(path: Uri.file(path))
+                                      .toOption()
+                                      .toNullable() ??
+                                  '',
+                          language: getLangFromExt(ext).name,
+                          ext: ext,
+                          path: Uri.file(path),
+                        );
+                        fileNotifier.addOne(file: file);
+                      }
+                    },
+                    icon: const Icon(Icons.file_open_outlined),
+                  ),
                   IconButton(
                     onPressed: () {
                       showDialog(
@@ -85,17 +120,13 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                   Padding(
                                     padding:
                                         const EdgeInsets.only(bottom: 24.0),
-                                    child: DropdownSearch<String>(
-                                      // mode: Mode.MENU,
-                                      // popupBackgroundColor:
-                                      //     globalTheme.primaryColor,
-                                      // showSearchBox: true,
+                                    child: DropdownSearch<Language>(
                                       selectedItem: language,
-                                      items: Language.values
-                                          .map((e) => e.toString().substring(9))
-                                          .toList(),
-                                      itemAsString: (String? e) =>
-                                          e.toString().capitalize(),
+                                      items: Language.values,
+                                      itemAsString: (Language? e) => e
+                                          .toString()
+                                          .substring(9)
+                                          .capitalize(),
                                       onChanged: (val) {
                                         setState(() {
                                           language = val!;
@@ -106,9 +137,10 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                   OutlinedButton(
                                     onPressed: () async {
                                       await fileNotifier
-                                          .add(
+                                          .create(
                                             name: _nameController.text,
-                                            language: language,
+                                            language:
+                                                getLangFromEnum(language).name,
                                           )
                                           .run()
                                           .then(
@@ -122,11 +154,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                               action: const None(),
                                             ),
                                           );
-                                          Navigator.of(context).popUntil(
-                                            ModalRoute.withName(
-                                              HomeView.routeName,
-                                            ),
-                                          );
+                                          Navigator.of(context).pop();
                                         },
                                       );
                                     },
@@ -157,12 +185,6 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                       title: Text(e.name),
                       subtitle: Text(e.language.capitalize()),
                       trailing: PopupMenuButton(
-                        icon: Icon(
-                          Icons.adaptive.more,
-                          color: activeFile == Some(e)
-                              ? globalTheme.primaryColor
-                              : null,
-                        ),
                         itemBuilder: (context) {
                           return [
                             PopupMenuItem(

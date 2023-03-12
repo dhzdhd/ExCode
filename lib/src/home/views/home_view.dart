@@ -40,8 +40,9 @@ class HomeView extends ConsumerWidget {
                       await ref
                           .watch(outputContentStateProvider.notifier)
                           .setOutput(
-                            langMap[ref.watch(editorLanguageStateProvider)]!
-                                .lang,
+                            getLangFromName(
+                              ref.watch(editorLanguageStateProvider),
+                            ).lang,
                             ref.watch(editorContentStateProvider),
                           );
                       ref

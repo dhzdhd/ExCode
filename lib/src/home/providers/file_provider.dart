@@ -31,9 +31,10 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
 
     return files.map((file) {
       final ext = extension(file.path, 2);
-      final lang = langMap.values.firstWhere((element) => element.ext == ext);
+      final lang = getLangFromExt(ext);
       final name = basename(file.path).split('.')[0];
-      final content = FileService.readFileSync(name: name, ext: ext).match(
+      final content =
+          FileService.readFileSync(path: Uri.file(file.absolute.path)).match(
         (l) => lang.template,
         (r) => r,
       );
@@ -48,7 +49,7 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
     }).toList();
   }
 
-  TaskEither<FileError, String> add({
+  TaskEither<FileError, String> create({
     required String name,
     required String language,
   }) {
@@ -59,14 +60,16 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
           FileError('File with the same name already exists!'));
     }
 
-    final ext = langMap[language]!.ext;
+    final langModel = getLangFromName(language);
+    final ext = langModel.ext;
+    final pathStr =
+        '${appDocumentsDirectory.toNullable()!.absolute.path}/$name$ext';
     final file = FileModel(
       name: name,
-      content: langMap[language]!.template,
+      content: langModel.template,
       language: language,
       ext: ext,
-      path: Uri.file(
-          '${appDocumentsDirectory.toNullable().toString()}/$name$ext'),
+      path: Uri.file(pathStr),
     );
     final res = FileService.createOrUpdateFile(file);
     return res.map((r) {
@@ -75,6 +78,20 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
 
       return r.path;
     });
+  }
+
+  Either<FileError, String> addOne({
+    required FileModel file,
+  }) {
+    final newState = state;
+
+    if (newState.any((element) => element.name == file.name)) {
+      return Either.left(FileError('File with the same name already exists!'));
+    }
+
+    newState.add(file);
+    state = newState;
+    return Either.right('Success');
   }
 
   TaskEither<FileError, String> remove(FileModel file) {

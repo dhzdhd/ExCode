@@ -86,20 +86,20 @@ class ApiHandler {
     }
   }
 
-  static Either<Language, Language> getLangFromName(String name) {
-    return Either.tryCatch(
-      () => langMap[name]!.lang,
-      ((_, __) => langMap[defaultLanguage]!.lang),
-    );
-  }
+  // static Either<Language, Language> getLangFromName(String name) {
+  //   return Either.tryCatch(
+  //     () => langMap[name]!.lang,
+  //     ((_, __) => defaultLanguage),
+  //   );
+  // }
 
-  static Either<String, String> getNameFromLang(Language lang) {
-    return Either.tryCatch(
-      () =>
-          langMap.keys.firstWhere((element) => langMap[element]!.lang == lang),
-      (_, __) => defaultLanguage,
-    );
-  }
+  // static Either<String, String> getNameFromLang(Language lang) {
+  //   return Either.tryCatch(
+  //     () =>
+  //         langMap.keys.firstWhere((element) => langMap[element]!.lang == lang),
+  //     (_, __) => defaultLanguage,
+  //   );
+  // }
 
   static String sanitizeContent(String content) {
     return content.replaceAll('\u{00B7}', ' ');
@@ -108,7 +108,7 @@ class ApiHandler {
   static Future<OutputModel> executeCode(Language lang, String content) async {
     late final Response<Map<String, dynamic>> res;
 
-    final langString = getNameFromLang(lang).match<String>((l) => l, (r) => r);
+    final String langString = getLangFromEnum(lang).name;
     final inputArgs = InputService.fetch();
     final data = {
       'language': langString,
@@ -121,12 +121,6 @@ class ApiHandler {
       'compile_timeout': 10000,
       'run_timeout': 3000,
     };
-
-    try {
-      final a = 5 / 0;
-    } catch (err, st) {
-      await Sentry.captureException(err, stackTrace: st);
-    }
 
     try {
       print(data);

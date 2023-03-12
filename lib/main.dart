@@ -34,15 +34,17 @@ void main() async {
     MemoryAllocations.instance.addListener(
       (ObjectEvent event) => dispatchObjectEvent(event.toMap()),
     );
-  }
 
-  await SentryFlutter.init(
-    (options) {
-      options.dsn = dotenv.env['SENTRY_DSN'];
-      options.tracesSampleRate = 1.0;
-    },
-    appRunner: () => runApp(const ProviderScope(child: MyApp())),
-  );
+    runApp(const ProviderScope(child: MyApp()));
+  } else {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = dotenv.env['SENTRY_DSN'];
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(const ProviderScope(child: MyApp())),
+    );
+  }
 
   if ([TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]
       .contains(defaultTargetPlatform)) {

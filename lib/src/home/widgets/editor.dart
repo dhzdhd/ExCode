@@ -52,7 +52,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(themeStateProvider);
-    final editorTheme = ref.watch(editorLanguageStateProvider);
+    final language = ref.watch(editorLanguageStateProvider);
     final content = ref.watch(editorContentStateProvider);
     final isTabBarVisible =
         ref.watch(settingsProvider.select((value) => value.isTabBarVisible));
@@ -83,7 +83,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
               _CodeFieldWidget(
                 theme: langThemeMap[
                     getEnumFromString(ref.watch(editorThemeStateProvider))]!,
-                lang: langMap[editorTheme]!.mode,
+                lang: getLangFromName(language).mode,
                 content: content,
                 patternMap: patternMap,
               ),
@@ -108,7 +108,7 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
                 _CodeFieldWidget(
                   theme: langThemeMap[
                       getEnumFromString(ref.watch(editorThemeStateProvider))]!,
-                  lang: langMap[editorTheme]!.mode,
+                  lang: getLangFromName(language).mode,
                   content: content,
                   patternMap: patternMap,
                 ),
