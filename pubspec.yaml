@@ -45,6 +45,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   file_picker: ^5.2.5
   url_launcher: ^6.1.10
+  flutter_code_editor: ^0.2.12
 
 dev_dependencies:
   flutter_test:

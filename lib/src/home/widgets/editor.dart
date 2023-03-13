@@ -1,15 +1,14 @@
-import 'package:code_text_field/code_text_field.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
-import 'package:excode/src/home/widgets/code_field.dart';
 import 'package:excode/src/home/widgets/drag_drop_dialog.dart';
 import 'package:excode/src/home/widgets/output.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/home/widgets/snippet_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:highlight/highlight.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -149,7 +148,6 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
     super.initState();
     _focusNode = FocusNode();
     _controller = CodeController(
-      theme: widget.theme,
       language: widget.lang,
       text: widget.content,
       patternMap: widget.patternMap,
@@ -161,13 +159,11 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
     final _selection = ref.watch(cursorSelectionStateProvider);
 
     super.didUpdateWidget(oldWidget);
-    if (widget.theme != _controller.theme ||
-        widget.lang != _controller.language ||
+    if (widget.lang != _controller.language ||
         widget.content != _controller.text ||
         widget.patternMap != _controller.patternMap) {
       _controller = CodeController(
         text: widget.content,
-        theme: widget.theme,
         language: widget.lang,
         patternMap: widget.patternMap,
       );
@@ -206,16 +202,46 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                     }),
                   );
                 },
-                child: CodeFieldWidget(
-                  enabled: !isLocked,
-                  focusNode: _focusNode,
-                  textStyle:
-                      TextStyle(fontFamily: 'FiraCode', fontSize: fontSize),
-                  controller: _controller,
-                  onChanged: (value) => ref
-                      .watch(editorContentStateProvider.notifier)
-                      .setContent(Some(value)),
-                  wrap: isWordWrapped,
+                // child: CodeFieldWidget(
+                //   enabled: !isLocked,
+                //   focusNode: _focusNode,
+                //   textStyle:
+                //       TextStyle(fontFamily: 'FiraCode', fontSize: fontSize),
+                //   controller: _controller,
+                //   onChanged: (value) => ref
+                //       .watch(editorContentStateProvider.notifier)
+                //       .setContent(Some(value)),
+                //   wrap: isWordWrapped,
+                // ),
+                child: CodeTheme(
+                  data: CodeThemeData(styles: widget.theme),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraints.maxHeight),
+                        child: CodeField(
+                          // ! Add text matching
+                          controller: _controller,
+                          wrap: isWordWrapped,
+                          enabled: !isLocked,
+                          focusNode: _focusNode,
+                          textStyle: TextStyle(
+                              fontFamily: 'FiraCode', fontSize: fontSize),
+                          gutterStyle: GutterStyle(
+                            // ! Fix line number padding
+                            textStyle: TextStyle(fontSize: fontSize),
+                            width: 80,
+                            margin: 5,
+                          ),
+                          onChanged: (value) => ref
+                              .watch(editorContentStateProvider.notifier)
+                              .setContent(Some(value)),
+                          // expands: true,
+                        ),
+                      ),
+                    );
+                  }),
                 ),
               ),
             ),
