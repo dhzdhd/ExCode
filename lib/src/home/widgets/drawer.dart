@@ -7,7 +7,6 @@ import 'package:excode/src/home/providers/file_provider.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/home/services/file_service.dart';
 import 'package:excode/src/home/services/language.dart';
-import 'package:excode/src/home/views/home_view.dart';
 import 'package:excode/src/home/widgets/file_rename_dialog.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -60,7 +59,6 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                 children: [
                   IconButton(
                     onPressed: () async {
-                      print(langList.map((e) => e.ext.substring(1)).toList());
                       // ! move to provider/service
                       final res = await FilePicker.platform.pickFiles(
                         type: FileType.custom,
@@ -75,15 +73,16 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                       if (res != null) {
                         final path = res.files.first.path!;
                         final ext = extension(path, 2);
+                        final language = getLangFromExt(ext);
 
+                        final fileEither =
+                            await FileService.readFile(path: Uri.file(path))
+                                .run();
                         final file = FileModel(
                           name: path.split('.')[0],
-                          content:
-                              FileService.readFileSync(path: Uri.file(path))
-                                      .toOption()
-                                      .toNullable() ??
-                                  '',
-                          language: getLangFromExt(ext).name,
+                          content: fileEither.toOption().toNullable() ??
+                              language.template,
+                          language: language.name,
                           ext: ext,
                           path: Uri.file(path),
                         );

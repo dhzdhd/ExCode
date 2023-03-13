@@ -26,35 +26,22 @@ class FileService {
     );
   }
 
-  static TaskEither<FileError, String> readFile({
-    required String name,
-    required String ext,
-  }) {
-    return TaskEither.fromOption(
-      appDocumentsDirectory,
-      () => FileError('File storage not supported on this platform'),
-    ).flatMap((r) {
-      final file_ = File('${r.path}/$name$ext');
+  static TaskEither<FileError, String> readFile({required Uri path}) {
+    final file_ = File.fromUri(path);
 
-      return TaskEither.tryCatch(
-        () => file_.readAsString(),
-        (error, stackTrace) => FileError('Failed to read file'),
-      );
-    });
+    return TaskEither.tryCatch(
+      () => file_.readAsString(),
+      (error, stackTrace) => FileError('Failed to read file'),
+    );
   }
 
   static Either<FileError, String> readFileSync({required Uri path}) {
-    return Either.fromOption(
-      appDocumentsDirectory,
-      () => FileError('File storage not supported on this platform'),
-    ).flatMap((r) {
-      final file_ = File.fromUri(path);
+    final file_ = File.fromUri(path);
 
-      return Either.tryCatch(
-        () => file_.readAsStringSync(),
-        (error, stackTrace) => FileError('Failed to read file'),
-      );
-    });
+    return Either.tryCatch(
+      () => file_.readAsStringSync(),
+      (error, stackTrace) => FileError('Failed to read file'),
+    );
   }
 
   static TaskEither<FileError, File> saveFile(FileModel file) {
