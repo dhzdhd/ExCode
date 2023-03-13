@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends ConsumerStatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -199,7 +200,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                             PopupMenuItem(
                               child: Row(
                                 children: const [
-                                  Text('Edit'),
+                                  Text('Rename'),
                                   Spacer(),
                                   Icon(Icons.edit)
                                 ],
@@ -211,6 +212,25 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                     context: context,
                                     builder: (context) =>
                                         FileRenameDialogWidget(file: e),
+                                  ),
+                                );
+                              },
+                            ),
+                            PopupMenuItem(
+                              child: Row(
+                                children: const [
+                                  Text('Open'),
+                                  Spacer(),
+                                  Icon(Icons.open_in_new_sharp)
+                                ],
+                              ),
+                              onTap: () {
+                                final segments = e.path.pathSegments;
+                                launchUrl(
+                                  Uri.file(
+                                    segments
+                                        .sublist(0, segments.length - 1)
+                                        .join('/'),
                                   ),
                                 );
                               },
