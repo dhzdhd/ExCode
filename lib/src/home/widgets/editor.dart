@@ -202,6 +202,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                     }),
                   );
                 },
+                // * Old implementation
                 // child: CodeFieldWidget(
                 //   enabled: !isLocked,
                 //   focusNode: _focusNode,

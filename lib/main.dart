@@ -15,7 +15,9 @@ import 'src/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: '.env');
+  if (!kIsWeb) {
+    await dotenv.load(fileName: '.env');
+  }
 
   initDioClient();
   await initCloudStorage();
@@ -36,7 +38,7 @@ void main() async {
     );
 
     runApp(const ProviderScope(child: MyApp()));
-  } else {
+  } else if (!kIsWeb) {
     await SentryFlutter.init(
       (options) {
         options.dsn = dotenv.env['SENTRY_DSN'];
@@ -44,6 +46,8 @@ void main() async {
       },
       appRunner: () => runApp(const ProviderScope(child: MyApp())),
     );
+  } else {
+    runApp(const ProviderScope(child: MyApp()));
   }
 
   if ([TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]
