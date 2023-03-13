@@ -77,7 +77,7 @@ flutter:
 
   assets:
     - assets/images/
-    - .env
+    - dotenv
 
 # flutter pub run msix:create
 msix_config:

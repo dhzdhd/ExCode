@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb) {
-    await dotenv.load(fileName: '.env');
+    await dotenv.load(fileName: 'dotenv');
   }
 
   initDioClient();
