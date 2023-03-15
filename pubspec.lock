@@ -297,6 +297,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: b36c7f7e24c0bdf1bf9a3da461c837d1de64b9f8beb190c9011d8c72a3dfd745
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.2"
   dart_style:
     dependency: transitive
     description:
@@ -443,6 +451,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_native_splash:
+    dependency: "direct main"
+    description:
+      name: flutter_native_splash
+      sha256: af665ef80a213a9ed502845a3d7a61b9acca4100ee7e9f067a7440bc3acd6730
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.19"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -581,6 +597,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "79d498e6d6761925a34ee5ea8fa6dfef38607781d2fa91e37523474282af55cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.2"
   http:
     dependency: transitive
     description:
