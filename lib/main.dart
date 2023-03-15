@@ -2,7 +2,6 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:leak_tracker/leak_tracker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -14,10 +13,6 @@ import 'src/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (!kIsWeb) {
-    await dotenv.load(fileName: 'dotenv');
-  }
 
   initDioClient();
   await initCloudStorage();
@@ -41,7 +36,8 @@ void main() async {
   } else if (!kIsWeb) {
     await SentryFlutter.init(
       (options) {
-        options.dsn = dotenv.env['SENTRY_DSN'];
+        options.dsn =
+            'https://62b5987538494d3880e80002e190ac98@o4504764245344256.ingest.sentry.io/4504764250521600';
         options.tracesSampleRate = 1.0;
       },
       appRunner: () => runApp(const ProviderScope(child: MyApp())),
