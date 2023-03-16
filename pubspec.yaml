@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^6.1.10
   flutter_code_editor: ^0.2.12
   flutter_native_splash: ^2.2.19
+  after_layout: ^1.2.0
 
 dev_dependencies:
   flutter_test:

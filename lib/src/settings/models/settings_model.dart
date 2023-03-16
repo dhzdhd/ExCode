@@ -15,6 +15,7 @@ class SettingsModel with _$SettingsModel {
     required bool isFloatingRunVisible,
     required bool isSaveOnRun,
     required bool isSaveToCloud,
+    required bool isSentryEnabled,
   }) = _SettingsModel;
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) =>

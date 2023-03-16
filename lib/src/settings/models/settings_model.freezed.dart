@@ -29,6 +29,7 @@ mixin _$SettingsModel {
   bool get isFloatingRunVisible => throw _privateConstructorUsedError;
   bool get isSaveOnRun => throw _privateConstructorUsedError;
   bool get isSaveToCloud => throw _privateConstructorUsedError;
+  bool get isSentryEnabled => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +51,8 @@ abstract class $SettingsModelCopyWith<$Res> {
       bool isTabBarVisible,
       bool isFloatingRunVisible,
       bool isSaveOnRun,
-      bool isSaveToCloud});
+      bool isSaveToCloud,
+      bool isSentryEnabled});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
     Object? isFloatingRunVisible = null,
     Object? isSaveOnRun = null,
     Object? isSaveToCloud = null,
+    Object? isSentryEnabled = null,
   }) {
     return _then(_value.copyWith(
       tabSize: null == tabSize
@@ -108,6 +111,10 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
           ? _value.isSaveToCloud
           : isSaveToCloud // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSentryEnabled: null == isSentryEnabled
+          ? _value.isSentryEnabled
+          : isSentryEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -128,7 +135,8 @@ abstract class _$$_SettingsModelCopyWith<$Res>
       bool isTabBarVisible,
       bool isFloatingRunVisible,
       bool isSaveOnRun,
-      bool isSaveToCloud});
+      bool isSaveToCloud,
+      bool isSentryEnabled});
 }
 
 /// @nodoc
@@ -150,6 +158,7 @@ class __$$_SettingsModelCopyWithImpl<$Res>
     Object? isFloatingRunVisible = null,
     Object? isSaveOnRun = null,
     Object? isSaveToCloud = null,
+    Object? isSentryEnabled = null,
   }) {
     return _then(_$_SettingsModel(
       tabSize: null == tabSize
@@ -184,6 +193,10 @@ class __$$_SettingsModelCopyWithImpl<$Res>
           ? _value.isSaveToCloud
           : isSaveToCloud // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSentryEnabled: null == isSentryEnabled
+          ? _value.isSentryEnabled
+          : isSentryEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -199,7 +212,8 @@ class _$_SettingsModel implements _SettingsModel {
       required this.isTabBarVisible,
       required this.isFloatingRunVisible,
       required this.isSaveOnRun,
-      required this.isSaveToCloud});
+      required this.isSaveToCloud,
+      required this.isSentryEnabled});
 
   factory _$_SettingsModel.fromJson(Map<String, dynamic> json) =>
       _$$_SettingsModelFromJson(json);
@@ -221,10 +235,12 @@ class _$_SettingsModel implements _SettingsModel {
   final bool isSaveOnRun;
   @override
   final bool isSaveToCloud;
+  @override
+  final bool isSentryEnabled;
 
   @override
   String toString() {
-    return 'SettingsModel(tabSize: $tabSize, fontSize: $fontSize, isLocked: $isLocked, isWordWrapped: $isWordWrapped, isTabBarVisible: $isTabBarVisible, isFloatingRunVisible: $isFloatingRunVisible, isSaveOnRun: $isSaveOnRun, isSaveToCloud: $isSaveToCloud)';
+    return 'SettingsModel(tabSize: $tabSize, fontSize: $fontSize, isLocked: $isLocked, isWordWrapped: $isWordWrapped, isTabBarVisible: $isTabBarVisible, isFloatingRunVisible: $isFloatingRunVisible, isSaveOnRun: $isSaveOnRun, isSaveToCloud: $isSaveToCloud, isSentryEnabled: $isSentryEnabled)';
   }
 
   @override
@@ -246,7 +262,9 @@ class _$_SettingsModel implements _SettingsModel {
             (identical(other.isSaveOnRun, isSaveOnRun) ||
                 other.isSaveOnRun == isSaveOnRun) &&
             (identical(other.isSaveToCloud, isSaveToCloud) ||
-                other.isSaveToCloud == isSaveToCloud));
+                other.isSaveToCloud == isSaveToCloud) &&
+            (identical(other.isSentryEnabled, isSentryEnabled) ||
+                other.isSentryEnabled == isSentryEnabled));
   }
 
   @JsonKey(ignore: true)
@@ -260,7 +278,8 @@ class _$_SettingsModel implements _SettingsModel {
       isTabBarVisible,
       isFloatingRunVisible,
       isSaveOnRun,
-      isSaveToCloud);
+      isSaveToCloud,
+      isSentryEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -285,7 +304,8 @@ abstract class _SettingsModel implements SettingsModel {
       required final bool isTabBarVisible,
       required final bool isFloatingRunVisible,
       required final bool isSaveOnRun,
-      required final bool isSaveToCloud}) = _$_SettingsModel;
+      required final bool isSaveToCloud,
+      required final bool isSentryEnabled}) = _$_SettingsModel;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
       _$_SettingsModel.fromJson;
@@ -306,6 +326,8 @@ abstract class _SettingsModel implements SettingsModel {
   bool get isSaveOnRun;
   @override
   bool get isSaveToCloud;
+  @override
+  bool get isSentryEnabled;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>

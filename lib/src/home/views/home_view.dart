@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:after_layout/after_layout.dart';
+import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
@@ -12,12 +16,28 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ! Remove appbar for large screen sizes and add file drawer to the left.
 
-class HomeView extends ConsumerWidget {
+class HomeView extends ConsumerStatefulWidget {
   static const routeName = '/';
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView>
+    with AfterLayoutMixin<HomeView> {
+  late final bool firstLaunch;
+
+  @override
+  void initState() {
+    super.initState();
+
+    firstLaunch = box.get('firstLaunch', defaultValue: true);
+    box.put('firstLaunch', false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final globalTheme = ref.watch(themeStateProvider);
     final isFloatingRunVisible = ref
         .watch(settingsProvider.select((value) => value.isFloatingRunVisible));
@@ -74,5 +94,59 @@ class HomeView extends ConsumerWidget {
         );
       }),
     );
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    // ! Change condition
+    if (!firstLaunch) {
+      Future.delayed(
+        Duration.zero,
+        () => showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return SimpleDialog(
+              title: const Text('Sentry Error Tracker'),
+              contentPadding: const EdgeInsets.all(24),
+              children: [
+                const Text(
+                  '''This app uses the open source platform - Sentry to track errors in the app.
+This feature is completely optional and is disabled by default.
+The platform tracks the device information and the error that occured in the app.
+This helps the developer to quickly fix any bugs encountered.''',
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Enable Sentry',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Switch(value: true, onChanged: (bool value) {}),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: OutlinedButton(
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      );
+    }
   }
 }
