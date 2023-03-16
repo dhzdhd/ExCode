@@ -31,6 +31,7 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
                   'isFloatingRunVisible': false,
                   'isSaveOnRun': true,
                   'isSaveToCloud': false,
+                  'isSentryEnabled': false,
                 })));
 
   Future<void> _saveToStorage(SettingsModel state) async {
@@ -122,6 +123,17 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
 
   Future<void> setSaveToCloud() async {
     final newState = state.copyWith(isSaveToCloud: !state.isSaveToCloud);
+    state = newState;
+    await _saveToStorage(newState);
+    await saveToCloud(
+      settings: Some(newState),
+      snippets: const None(),
+      ref: ref,
+    );
+  }
+
+  Future<void> setSentry() async {
+    final newState = state.copyWith(isSentryEnabled: !state.isSentryEnabled);
     state = newState;
     await _saveToStorage(newState);
     await saveToCloud(

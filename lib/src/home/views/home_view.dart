@@ -98,8 +98,15 @@ class _HomeViewState extends ConsumerState<HomeView>
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
+    showSentryDialog();
+  }
+
+  void showSentryDialog() {
     // ! Change condition
     if (!firstLaunch) {
+      final isSentryEnabled =
+          ref.watch(settingsProvider.select((value) => value.isSentryEnabled));
+
       Future.delayed(
         Duration.zero,
         () => showDialog(
@@ -125,9 +132,21 @@ This helps the developer to quickly fix any bugs encountered.''',
                         'Enable Sentry',
                         style: TextStyle(fontSize: 20),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Switch(value: true, onChanged: (bool value) {}),
+                      Consumer(
+                        builder: (_, ref, __) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Switch(
+                                // ! Does not work
+                                value: isSentryEnabled,
+                                onChanged: (a) async {
+                                  print(isSentryEnabled);
+                                  await ref
+                                      .watch(settingsProvider.notifier)
+                                      .setSentry();
+                                }),
+                          );
+                        },
                       ),
                     ],
                   ),
