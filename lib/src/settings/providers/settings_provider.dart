@@ -17,8 +17,12 @@ enum TabEnum {
 }
 
 bool getSentryFromStorage() {
-  return SettingsModel.fromJson(Map<String, dynamic>.from(box.get('settings')))
-      .isSentryEnabled;
+  if (box.get('settings') != null) {
+    return SettingsModel.fromJson(
+            Map<String, dynamic>.from(box.get('settings')))
+        .isSentryEnabled;
+  }
+  return false;
 }
 
 class _SettingsNotifier extends StateNotifier<SettingsModel> {
