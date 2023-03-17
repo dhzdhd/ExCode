@@ -42,6 +42,8 @@ class SettingsView extends HookConsumerWidget {
         .watch(settingsProvider.select((value) => value.isFloatingRunVisible));
     final isSaveToCloud =
         ref.watch(settingsProvider.select((value) => value.isSaveToCloud));
+    final isSentryEnabled =
+        ref.watch(settingsProvider.select((value) => value.isSentryEnabled));
 
     return Scaffold(
       appBar: AppBar(
@@ -197,6 +199,18 @@ class SettingsView extends HookConsumerWidget {
                         onChanged: (val) async {
                           await settingsNotifier.setFloatingRunVisibility();
                         }),
+                  ),
+                  Visibility(
+                    visible: !kIsWeb,
+                    child: ListTile(
+                      leading: const Icon(Icons.monitor_heart_outlined),
+                      title: const Text('Enable Sentry'),
+                      trailing: Switch(
+                          value: isSentryEnabled,
+                          onChanged: (val) async {
+                            await settingsNotifier.setSentry();
+                          }),
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),

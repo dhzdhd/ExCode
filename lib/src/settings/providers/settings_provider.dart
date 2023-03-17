@@ -16,6 +16,11 @@ enum TabEnum {
   final String space;
 }
 
+bool getSentryFromStorage() {
+  return SettingsModel.fromJson(Map<String, dynamic>.from(box.get('settings')))
+      .isSentryEnabled;
+}
+
 class _SettingsNotifier extends StateNotifier<SettingsModel> {
   final StateNotifierProviderRef<_SettingsNotifier, SettingsModel> ref;
 
@@ -132,15 +137,11 @@ class _SettingsNotifier extends StateNotifier<SettingsModel> {
     );
   }
 
-  Future<void> setSentry() async {
-    final newState = state.copyWith(isSentryEnabled: !state.isSentryEnabled);
+  Future<void> setSentry([bool? value]) async {
+    final newState =
+        state.copyWith(isSentryEnabled: value ?? !state.isSentryEnabled);
     state = newState;
     await _saveToStorage(newState);
-    await saveToCloud(
-      settings: Some(newState),
-      snippets: const None(),
-      ref: ref,
-    );
   }
 
   void setLocked() {

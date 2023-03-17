@@ -103,63 +103,41 @@ class _HomeViewState extends ConsumerState<HomeView>
 
   void showSentryDialog() {
     // ! Change condition
-    if (!firstLaunch) {
-      final isSentryEnabled =
-          ref.watch(settingsProvider.select((value) => value.isSentryEnabled));
-
+    if (firstLaunch && !getSentryFromStorage()) {
       Future.delayed(
         Duration.zero,
         () => showDialog(
           barrierDismissible: false,
           context: context,
           builder: (context) {
-            return SimpleDialog(
+            return AlertDialog(
               title: const Text('Sentry Error Tracker'),
               contentPadding: const EdgeInsets.all(24),
-              children: [
-                const Text(
-                  '''This app uses the open source platform - Sentry to track errors in the app.
+              content: const Text(
+                '''This app uses the open source platform - Sentry to track errors in the app.
 This feature is completely optional and is disabled by default.
 The platform tracks the device information and the error that occured in the app.
 This helps the developer to quickly fix any bugs encountered.''',
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Enable Sentry',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Consumer(
-                        builder: (_, ref, __) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Switch(
-                                // ! Does not work
-                                value: isSentryEnabled,
-                                onChanged: (a) async {
-                                  print(isSentryEnabled);
-                                  await ref
-                                      .watch(settingsProvider.notifier)
-                                      .setSentry();
-                                }),
-                          );
-                        },
-                      ),
-                    ],
+              ),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.only(left: 15, right: 15)),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(fontSize: 16),
                   ),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: OutlinedButton(
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
+                OutlinedButton(
+                  child: const Text(
+                    'Enable Sentry',
+                    style: TextStyle(fontSize: 16),
                   ),
+                  onPressed: () {
+                    ref.watch(settingsProvider.notifier).setSentry(true);
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
             );
