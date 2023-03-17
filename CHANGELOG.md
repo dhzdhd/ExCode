@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.2.0 | 17-03-2023
+
+### Additions
+
+- Added Sentry monitoring and error catching service.
+- Added option to open local files in the editor.
+- Added a splash screen for mobile devices.
+- Added tooltips for better accessibility on desktop.
+
+### Fixes / Improvements
+
+- Updated the SDK and packages which added Material 3 to some widgets like the Switch.
+- Changed the Python 3 extension to .py for better accessibility.
+- Improved the editor widget which now includes error detection, autocomplete and more features.
+
 ## 1.1.0 | 25-02-2023
 
 ### Additions
