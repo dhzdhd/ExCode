@@ -24,7 +24,6 @@ class CloudDatabase {
     } on RangeError catch (_) {
       return const Left('Data could not be sent to the cloud!');
     } catch (ex) {
-      print(ex);
       return Left(ex.toString());
     }
   }
@@ -36,7 +35,6 @@ class CloudDatabase {
         .filter('email', 'eq', email);
 
     if (response.hasError) {
-      print(response.error!.message);
       return Left(response.error!.message);
     }
 
@@ -47,7 +45,6 @@ class CloudDatabase {
     } on RangeError catch (_) {
       return const Left('Data not present on the cloud!');
     } catch (ex) {
-      print(ex);
       return const Left('error');
     }
   }

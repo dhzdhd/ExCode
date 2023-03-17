@@ -1,6 +1,5 @@
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,11 +40,13 @@ class CustomTextSelectionControls extends TextSelectionControls {
       endpoints: endpoints,
       delegate: delegate,
       clipboardStatus: clipboardStatus,
-      handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
-      handleCopy: canCopy(delegate) ? () => handleCopy(delegate) : null,
-      handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
-      handleSelectAll:
-          canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
+      handleCut: null, // canCut(delegate) ? () => handleCut(delegate) : null,
+      handleCopy:
+          null, // canCopy(delegate) ? () => handleCopy(delegate) : null,
+      handlePaste:
+          null, // canPaste(delegate) ? () => handlePaste(delegate) : null,
+      handleSelectAll: null,
+      // canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
     );
   }
 

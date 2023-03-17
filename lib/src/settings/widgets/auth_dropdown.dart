@@ -91,14 +91,15 @@ class AuthDropDownWidget extends ConsumerWidget {
                           final user = supabase.auth.currentUser;
                           if (ref.watch(settingsProvider).isSaveToCloud &&
                               user != null) {
-                            final res = await CloudDatabase.upsert(
+                            // final res =
+                            await CloudDatabase.upsert(
                               CloudModel(
                                 settings: ref.watch(settingsProvider),
                                 snippets: ref.watch(snippetBarStateProvider),
                               ),
                               user.email!,
                             );
-                            res.match((l) => print(l), (r) => print(r));
+                            // res.match((l) => print(l), (r) => print(r));
                           }
 
                           context.showSuccessSnackBar(

@@ -142,7 +142,6 @@ class _EditorContentModel extends StateNotifier<String> {
   }
 
   Future<void> saveContent(String lang, String content) async {
-    print(content);
     ref.watch(activeFileProvider).match(
           () async => await box.put('${lang}code', content),
           (t) async => await ref

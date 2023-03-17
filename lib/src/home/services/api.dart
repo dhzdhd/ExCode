@@ -3,8 +3,6 @@ import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/output_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 enum Language {
   bash,
@@ -123,7 +121,6 @@ class ApiHandler {
     };
 
     try {
-      print(data);
       res = await dio.post(_executeUrl, data: data);
     } on DioError catch (err) {
       return OutputModel(
@@ -132,7 +129,7 @@ class ApiHandler {
       );
     }
 
-    print(res.data);
+    // print(res.data);
 
     if (res.data!['run']['stdout'].isEmpty) {
       res.data!['run']['stdout'] = 'No output';

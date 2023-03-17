@@ -18,18 +18,13 @@ class _CloudNotifier extends AsyncNotifier<CloudModel> {
         await CloudDatabase.fetch(supabase.auth.currentUser!.email!);
     return response.match(
       (l) {
-        print('left');
-        print(l);
         final model = CloudModel(
           settings: ref.read(settingsProvider),
           snippets: ref.read(snippetBarStateProvider),
         );
-        print(model.toJson());
         return model;
       },
       (r) {
-        print('right');
-        print(r);
         return r;
       },
     );
