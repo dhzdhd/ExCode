@@ -44,6 +44,8 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
     final globalTheme = ref.watch(themeStateProvider);
     final fileNotifier = ref.watch(filesProvider.notifier);
     final activeFile = ref.watch(activeFileProvider);
+    final docDir = appDocumentsDirectory.match(
+        () => '', (t) => t.path.replaceAll('\\', '/'));
 
     return Drawer(
       backgroundColor: globalTheme.primaryColor,
@@ -51,14 +53,18 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
         children: [
           AppBar(
             automaticallyImplyLeading: false,
-            title: Text(
-              appDocumentsDirectory.match(() => '', (t) => t.path),
-              overflow: TextOverflow.fade,
+            title: Tooltip(
+              message: docDir,
+              child: Text(
+                docDir,
+                overflow: TextOverflow.fade,
+              ),
             ),
             actions: [
               Row(
                 children: [
                   IconButton(
+                    tooltip: 'Open file',
                     onPressed: () async {
                       // ! move to provider/service
                       final res = await FilePicker.platform.pickFiles(
@@ -93,6 +99,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                     icon: const Icon(Icons.file_open_outlined),
                   ),
                   IconButton(
+                    tooltip: 'New file',
                     onPressed: () {
                       showDialog(
                         context: context,

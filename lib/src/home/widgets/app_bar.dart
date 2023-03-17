@@ -51,41 +51,45 @@ class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
       actions: [
         SizedBox(
           width: 40,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(elevation: 0),
-            child: ref.watch(outputIsLoadingProvider)
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.play_arrow),
-            onPressed: () async {
-              await ref.watch(outputContentStateProvider.notifier).setOutput(
-                    getLangFromName(editorLanguage).lang,
-                    ref.watch(editorContentStateProvider),
-                  );
-              ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
-              if (isSaveOnRun) {
-                await ref
-                    .watch(editorContentStateProvider.notifier)
-                    .saveContent(
-                      ref.read(editorLanguageStateProvider),
-                      ref.read(editorContentStateProvider),
+          child: Tooltip(
+            message: 'Run code',
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(elevation: 0),
+              child: ref.watch(outputIsLoadingProvider)
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.play_arrow),
+              onPressed: () async {
+                await ref.watch(outputContentStateProvider.notifier).setOutput(
+                      getLangFromName(editorLanguage).lang,
+                      ref.watch(editorContentStateProvider),
                     );
-              }
-            },
-            onLongPress: () async {
-              showDialog(
-                context: context,
-                builder: ((context) {
-                  return const InputDialogWidget();
-                }),
-              );
-            },
+                ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+                if (isSaveOnRun) {
+                  await ref
+                      .watch(editorContentStateProvider.notifier)
+                      .saveContent(
+                        ref.read(editorLanguageStateProvider),
+                        ref.read(editorContentStateProvider),
+                      );
+                }
+              },
+              onLongPress: () async {
+                showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return const InputDialogWidget();
+                  }),
+                );
+              },
+            ),
           ),
         ),
         IconButton(
+          tooltip: 'Settings',
           icon: const Icon(Icons.settings),
           onPressed: () {
             Navigator.restorablePushNamed(context, SettingsView.routeName);

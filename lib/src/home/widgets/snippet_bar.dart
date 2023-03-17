@@ -66,6 +66,7 @@ class SnippetBarWidget extends ConsumerWidget {
             ),
           ),
           IconButton(
+            tooltip: 'Edit snippets',
             onPressed: () {
               showDialog(
                 context: context,
