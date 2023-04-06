@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
@@ -216,24 +218,37 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 // ),
                 child: CodeTheme(
                   data: CodeThemeData(styles: widget.theme),
-                  child: CodeField(
-                    // ! Add text matching
-                    controller: _controller,
-                    wrap: isWordWrapped,
-                    enabled: !isLocked,
-                    focusNode: _focusNode,
-                    textStyle:
-                        TextStyle(fontFamily: 'FiraCode', fontSize: fontSize),
-                    gutterStyle: GutterStyle(
-                      // ! Fix line number padding
-                      textStyle: TextStyle(fontSize: fontSize),
-                      width: 80,
-                      margin: 5,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: SizedBox(
+                      height: fontSize * 3 + 1000,
+                      child: CodeField(
+                        // ! Add text matching
+                        controller: _controller,
+                        wrap: isWordWrapped,
+                        enabled: !isLocked,
+                        focusNode: _focusNode,
+                        expands: true,
+                        maxLines: null,
+                        textStyle: TextStyle(
+                            fontFamily: 'FiraCode', fontSize: fontSize),
+                        gutterStyle: GutterStyle(
+                          textStyle: TextStyle(
+                            fontFamily: 'FiraCode',
+                            fontSize: fontSize,
+                            height: 1.5,
+                          ),
+                          width: 80,
+                          margin: 5,
+                        ),
+                        onChanged: (value) => ref
+                            .watch(editorContentStateProvider.notifier)
+                            .setContent(
+                              Some(value),
+                            ),
+                        // expands: true,
+                      ),
                     ),
-                    onChanged: (value) => ref
-                        .watch(editorContentStateProvider.notifier)
-                        .setContent(Some(value)),
-                    expands: true,
                   ),
                 ),
               ),

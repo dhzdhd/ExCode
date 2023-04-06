@@ -410,10 +410,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_code_editor
-      sha256: a220a7dcd197d793f46f2c2132551128bb41b1ccc08f7afb781223e1b5e400a1
+      sha256: "85d0d159ce4f33f3aabedea92c0bdc1ad05c6931bba80ac46660f90c7ab6255c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.12"
+    version: "0.2.14"
   flutter_downloader:
     dependency: "direct main"
     description:
