@@ -15,7 +15,6 @@ use mongodb::{
     Client, Collection,
 };
 use shuttle_secrets::SecretStore;
-use sync_wrapper::SyncWrapper;
 use tower_http::cors::CorsLayer;
 
 use models::{Error, PasteExtractor, PasteSchema};
@@ -121,10 +120,8 @@ async fn get_raw_paste(
     }
 }
 
-#[shuttle_service::main]
-async fn axum(
-    #[shuttle_secrets::Secrets] secret_store: SecretStore,
-) -> shuttle_service::ShuttleAxum {
+#[shuttle_runtime::main]
+async fn axum(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> shuttle_axum::ShuttleAxum {
     let mut client_options = ClientOptions::parse_with_resolver_config(
         secret_store.get("MONGO_URL").unwrap(),
         ResolverConfig::cloudflare(),
@@ -148,7 +145,6 @@ async fn axum(
         .route("/raw/:id", get(get_raw_paste))
         .with_state(collection)
         .layer(CorsLayer::permissive());
-    let sync_wrapper = SyncWrapper::new(router);
 
-    Ok(sync_wrapper)
+    Ok(router.into())
 }
