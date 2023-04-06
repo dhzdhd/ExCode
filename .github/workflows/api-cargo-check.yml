@@ -19,6 +19,10 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Setup protoc
+        run: |
+          apt-get install protobuf-compiler
+
       - name: Run cargo check
         run: |
           cd api/
