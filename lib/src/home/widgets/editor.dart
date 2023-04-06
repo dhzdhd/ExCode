@@ -216,33 +216,25 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                 // ),
                 child: CodeTheme(
                   data: CodeThemeData(styles: widget.theme),
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minHeight: constraints.maxHeight),
-                        child: CodeField(
-                          // ! Add text matching
-                          controller: _controller,
-                          wrap: isWordWrapped,
-                          enabled: !isLocked,
-                          focusNode: _focusNode,
-                          textStyle: TextStyle(
-                              fontFamily: 'FiraCode', fontSize: fontSize),
-                          gutterStyle: GutterStyle(
-                            // ! Fix line number padding
-                            textStyle: TextStyle(fontSize: fontSize),
-                            width: 80,
-                            margin: 5,
-                          ),
-                          onChanged: (value) => ref
-                              .watch(editorContentStateProvider.notifier)
-                              .setContent(Some(value)),
-                          // expands: true,
-                        ),
-                      ),
-                    );
-                  }),
+                  child: CodeField(
+                    // ! Add text matching
+                    controller: _controller,
+                    wrap: isWordWrapped,
+                    enabled: !isLocked,
+                    focusNode: _focusNode,
+                    textStyle:
+                        TextStyle(fontFamily: 'FiraCode', fontSize: fontSize),
+                    gutterStyle: GutterStyle(
+                      // ! Fix line number padding
+                      textStyle: TextStyle(fontSize: fontSize),
+                      width: 80,
+                      margin: 5,
+                    ),
+                    onChanged: (value) => ref
+                        .watch(editorContentStateProvider.notifier)
+                        .setContent(Some(value)),
+                    expands: true,
+                  ),
                 ),
               ),
             ),
