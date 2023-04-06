@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:excode/src/home/providers/editor_provider.dart';
 import 'package:excode/src/home/providers/output_provider.dart';
