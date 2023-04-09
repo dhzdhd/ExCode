@@ -57506,7 +57506,7 @@ $S:9}
 A.pB.prototype={}
 A.ql.prototype={}
 A.aIG.prototype={
-$1(a){return J.h(J.an(a,"name"),"app.apk")},
+$1(a){return J.h(J.an(a,"name"),"app-arm64-v8a-release.apk")},
 $S:52}
 A.a3p.prototype={
 iX(a3,a4){var s,r,q,p,o,n,m,l,k,j,i,h,g,f=null,e=$.GX.YE(new A.u3(B.ui,t.Kf),t.V_),d=a4.aJ($.agU(),t.N),c=a4.aJ($.kr(),t.Cz),b=$.oj(),a=a4.aJ(b.gdB(),t.zy),a0=b.$ti,a1=t.Cy,a2=a4.aJ(new A.da(b,new A.aCE(),a0.h("da<h3.0,fC>")),a1)
