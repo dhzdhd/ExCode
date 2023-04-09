@@ -219,7 +219,10 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     child: SizedBox(
-                      height: fontSize * 3 + 1000,
+                      // Line height * Number of lines + Extra space
+                      height:
+                          fontSize * 3 * _controller.text.split('\n').length +
+                              1000,
                       child: CodeField(
                         // ! Add text matching
                         controller: _controller,
