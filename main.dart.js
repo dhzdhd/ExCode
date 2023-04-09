@@ -56955,19 +56955,21 @@ m(){var s=this.x
 s===$&&A.c()
 s.m()
 this.aI()},
-I(a){var s,r=this,q=null,p="FiraCode",o=r.gcJ(),n=$.oj(),m=A.n(n),l=m.h("da<h3.0,z>"),k=t.y,j=o.aJ(new A.da(n,new A.aLC(),l),k),i=r.gcJ().aJ(new A.da(n,new A.aLD(),m.h("da<h3.0,a4>")),t.i)
-r.gcJ().aJ(new A.da(n,new A.aLE(),l),k)
-k=A.b5p(r.a.e)
-l=r.x
+I(a){var s,r,q=this,p=null,o="FiraCode",n=q.gcJ(),m=$.oj(),l=A.n(m),k=l.h("da<h3.0,z>"),j=t.y,i=n.aJ(new A.da(m,new A.aLC(),k),j),h=q.gcJ().aJ(new A.da(m,new A.aLD(),l.h("da<h3.0,a4>")),t.i)
+q.gcJ().aJ(new A.da(m,new A.aLE(),k),j)
+j=A.b5p(q.a.e)
+k=q.x
+k===$&&A.c()
+k=k.a.a.split("\n").length
+m=q.x
+l=q.w
 l===$&&A.c()
-n=r.w
-n===$&&A.c()
-m=A.fZ(q,q,q,q,q,q,q,q,p,q,q,i,q,q,q,q,q,!0,q,q,q,q,q,q,q,q)
-o=A.fZ(q,q,q,q,q,q,q,q,p,q,q,i,q,q,q,q,1.5,!0,q,q,q,q,q,q,q,q)
-s=t.p
-o=A.f2(A.a([A.kC(new A.G9(new A.Fg(k,A.a3x(A.d7(new A.Fe(q,!0,l,m,!j,new A.aLF(r),n,new A.Yj(80,B.ts,o,q,q,5,!0,!0,!0),q),i*3+1000,q),q,B.ab,q,B.hk,B.N),q),new A.aLG(a),q),1),new A.a3R(r.x,q)],s),B.ac,B.a5,B.ao)
-n=r.gcJ().aJ($.kr(),t.Cz).c.a
-return new A.eI(B.bb,q,B.bj,B.C,A.a([o,A.M5(A.iP(A.zG(B.xV,A.a6(B.d.bl(76.5),n>>>16&255,n>>>8&255,n&255),50),q,q),j)],s),q)}}
+n=A.fZ(p,p,p,p,p,p,p,p,o,p,p,h,p,p,p,p,p,!0,p,p,p,p,p,p,p,p)
+s=A.fZ(p,p,p,p,p,p,p,p,o,p,p,h,p,p,p,p,1.5,!0,p,p,p,p,p,p,p,p)
+r=t.p
+k=A.f2(A.a([A.kC(new A.G9(new A.Fg(j,A.a3x(A.d7(new A.Fe(p,!0,m,n,!i,new A.aLF(q),l,new A.Yj(80,B.ts,s,p,p,5,!0,!0,!0),p),h*3*k+1000,p),p,B.ab,p,B.hk,B.N),p),new A.aLG(a),p),1),new A.a3R(q.x,p)],r),B.ac,B.a5,B.ao)
+s=q.gcJ().aJ($.kr(),t.Cz).c.a
+return new A.eI(B.bb,p,B.bj,B.C,A.a([k,A.M5(A.iP(A.zG(B.xV,A.a6(B.d.bl(76.5),s>>>16&255,s>>>8&255,s&255),50),p,p),i)],r),p)}}
 A.aLC.prototype={
 $1(a){return a.gqQ()},
 $S:19}
