@@ -14,7 +14,7 @@ class UpdateService {
 
     final List assetData = res.data![0]['assets']!;
     _latestVersionUrl = assetData
-        .where((element) => element['name'] == 'app.apk')
+        .where((element) => element['name'] == 'app-arm64-v8a-release.apk')
         .toList()[0]['browser_download_url'];
   }
 
