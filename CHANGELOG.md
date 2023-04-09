@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.2.2 | 09-04-2023
+
+### Fixes / Improvements
+
+- Fixed editor line number clipping off after a certain limit.
+- Fixed GitHub update link.
+
 ## 1.2.1 | 06-04-2023
 
 ### Fixes / Improvements
