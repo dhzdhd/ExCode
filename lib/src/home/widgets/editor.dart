@@ -274,7 +274,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                                 },
                               ),
                               ContextMenuButtonItem(
-                                label: 'Replace',
+                                label: 'Replace all instances',
                                 onPressed: () async {
                                   await showDialog(
                                     context: context,
