@@ -244,10 +244,27 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                         ),
                         onChanged: (value) => ref
                             .watch(editorContentStateProvider.notifier)
-                            .setContent(
-                              Some(value),
+                            .setContent(Some(value)),
+                        contextMenuBuilder: (context, editableTextState) {
+                          final TextEditingValue _ =
+                              editableTextState.textEditingValue;
+                          final List<ContextMenuButtonItem> buttonItems =
+                              editableTextState.contextMenuButtonItems;
+                          buttonItems.addAll([
+                            ContextMenuButtonItem(
+                              label: 'Find',
+                              onPressed: () {},
                             ),
-                        // expands: true,
+                            ContextMenuButtonItem(
+                              label: 'Replace',
+                              onPressed: () {},
+                            ),
+                          ]);
+                          return AdaptiveTextSelectionToolbar.buttonItems(
+                            anchors: editableTextState.contextMenuAnchors,
+                            buttonItems: buttonItems,
+                          );
+                        },
                       ),
                     ),
                   ),
