@@ -57037,7 +57037,7 @@ A.aLN.prototype={
 $2(a,b){var s=b.a.c.a,r=b.ga_h(),q=s.b,p=B.b.S(s.a,q.a,q.b)
 if(p.length!==0){s=this.a
 q=J.eu(s)?"Find":"Reset matching"
-B.c.F(r,A.a([new A.fP(new A.aLH(s,this.b,p),B.x4,q),new A.fP(new A.aLI(a,p),B.x4,"Replace")],t.ZD))}return new A.ur(r,b.ga_g(),null)},
+B.c.F(r,A.a([new A.fP(new A.aLH(s,this.b,p),B.x4,q),new A.fP(new A.aLI(a,p),B.x4,"Replace all instances")],t.ZD))}return new A.ur(r,b.ga_g(),null)},
 $S:726}
 A.aLH.prototype={
 $0(){var s=this.b,r=t.N,q=t.em
