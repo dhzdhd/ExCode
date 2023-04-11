@@ -409,10 +409,11 @@ packages:
   flutter_code_editor:
     dependency: "direct main"
     description:
-      name: flutter_code_editor
-      sha256: "85d0d159ce4f33f3aabedea92c0bdc1ad05c6931bba80ac46660f90c7ab6255c"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "079e111465d27b542e22c50f525b9c06c42a64e6"
+      url: "https://github.com/dhzdhd/flutter-code-editor-package.git"
+    source: git
     version: "0.2.14"
   flutter_downloader:
     dependency: "direct main"
