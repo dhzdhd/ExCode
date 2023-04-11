@@ -4,6 +4,7 @@ import 'package:excode/src/home/providers/output_provider.dart';
 import 'package:excode/src/home/services/language.dart';
 import 'package:excode/src/home/widgets/drag_drop_dialog.dart';
 import 'package:excode/src/home/widgets/output.dart';
+import 'package:excode/src/home/widgets/replace_dialog.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/home/widgets/snippet_bar.dart';
@@ -187,6 +188,8 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         ref.watch(settingsProvider.select((value) => value.fontSize));
     final isWordWrapped =
         ref.watch(settingsProvider.select((value) => value.isWordWrapped));
+    final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
+    final matchTextMap = ref.watch(matchTextStateProvider);
 
     return Stack(
       children: [
@@ -246,20 +249,43 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                             .watch(editorContentStateProvider.notifier)
                             .setContent(Some(value)),
                         contextMenuBuilder: (context, editableTextState) {
-                          final TextEditingValue _ =
+                          final TextEditingValue value =
                               editableTextState.textEditingValue;
                           final List<ContextMenuButtonItem> buttonItems =
                               editableTextState.contextMenuButtonItems;
-                          buttonItems.addAll([
-                            ContextMenuButtonItem(
-                              label: 'Find',
-                              onPressed: () {},
-                            ),
-                            ContextMenuButtonItem(
-                              label: 'Replace',
-                              onPressed: () {},
-                            ),
-                          ]);
+
+                          final selectedText =
+                              value.selection.textInside(value.text);
+
+                          if (selectedText.isNotEmpty) {
+                            buttonItems.addAll([
+                              ContextMenuButtonItem(
+                                label: matchTextMap.isEmpty
+                                    ? 'Find'
+                                    : 'Reset matching',
+                                onPressed: () {
+                                  if (matchTextMap.isEmpty) {
+                                    matchTextNotifier.addPattern(
+                                      pattern: selectedText,
+                                    );
+                                  } else {
+                                    matchTextNotifier.reset();
+                                  }
+                                },
+                              ),
+                              ContextMenuButtonItem(
+                                label: 'Replace',
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        ReplaceDialogWidget(text: selectedText),
+                                  );
+                                },
+                              ),
+                            ]);
+                          }
+
                           return AdaptiveTextSelectionToolbar.buttonItems(
                             anchors: editableTextState.contextMenuAnchors,
                             buttonItems: buttonItems,
