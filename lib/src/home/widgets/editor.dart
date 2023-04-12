@@ -14,6 +14,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:highlight/highlight.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EditorWidget extends StatefulHookConsumerWidget {
   const EditorWidget({Key? key}) : super(key: key);
@@ -256,6 +257,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
 
                           final selectedText =
                               value.selection.textInside(value.text);
+                          final lang = ref.watch(editorLanguageStateProvider);
 
                           if (selectedText.isNotEmpty) {
                             buttonItems.addAll([
@@ -283,6 +285,18 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                                   );
                                 },
                               ),
+                              if (selectedText.split(' ').length == 1)
+                                ContextMenuButtonItem(
+                                  label: 'Web search',
+                                  onPressed: () async {
+                                    final link = Uri.https(
+                                      'google.com',
+                                      'search',
+                                      {'q': '$selectedText in $lang language'},
+                                    );
+                                    await launchUrl(link);
+                                  },
+                                ),
                             ]);
                           }
 
