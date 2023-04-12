@@ -225,7 +225,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
                       // Line height * Number of lines + Extra space
                       height:
                           fontSize * 3 * _controller.text.split('\n').length +
-                              1000,
+                              2000,
                       child: CodeField(
                         // ! Add text matching
                         controller: _controller,
