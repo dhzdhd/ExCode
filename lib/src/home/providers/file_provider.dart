@@ -72,6 +72,7 @@ class _FilesNotifier extends StateNotifier<List<FileModel>> {
       path: Uri.file(pathStr),
     );
     final res = FileService.createOrUpdateFile(file);
+
     return res.map((r) {
       newState.add(file);
       state = newState;

@@ -45,7 +45,10 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
     final fileNotifier = ref.watch(filesProvider.notifier);
     final activeFile = ref.watch(activeFileProvider);
     final docDir = appDocumentsDirectory.match(
-        () => '', (t) => t.path.replaceAll('\\', '/'));
+      () => '',
+      (t) => t.path.replaceAll('\\', '/'),
+    );
+    final files = ref.watch(filesProvider);
 
     return Drawer(
       backgroundColor: globalTheme.primaryColor,
@@ -153,6 +156,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                           .run()
                                           .then(
                                         (value) {
+                                          Navigator.of(context).pop();
                                           value.match(
                                             (l) => context
                                                 .showErrorSnackBar(l.message),
@@ -162,7 +166,6 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                                               action: const None(),
                                             ),
                                           );
-                                          Navigator.of(context).pop();
                                         },
                                       );
                                     },
@@ -183,8 +186,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
           ),
           Expanded(
             child: ListView(
-              children: ref
-                  .watch(filesProvider)
+              children: files
                   .map(
                     (e) => ListTile(
                       tileColor: globalTheme.secondaryColor,
