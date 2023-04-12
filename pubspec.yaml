@@ -47,7 +47,7 @@ dependencies:
   flutter_code_editor:
     git:
       url: https://github.com/dhzdhd/flutter-code-editor-package.git
-      ref: f218a37
+      ref: 4294a37
   flutter_native_splash: ^2.2.19
   after_layout: ^1.2.0
 
