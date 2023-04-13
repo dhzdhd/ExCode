@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.3.0 | 13-04-2023
+
+### Additions
+
+- Added three new options to the text selection context menu
+  - Find (currently not working as intended)
+  - Replace
+  - Web search
+- Added highlighting to the line number corresponding to the line the cursor is currently on
+
+### Fixes / Improvements
+
+- Increased editor height (was too small on bigger displays)
+
 ## 1.2.2 | 09-04-2023
 
 ### Fixes / Improvements
