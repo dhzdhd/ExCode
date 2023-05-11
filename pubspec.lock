@@ -410,11 +410,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "4294a37"
-      resolved-ref: "4294a378ba1ed51c3a08e515148c2260d0e5c8d2"
+      ref: "391a498"
+      resolved-ref: "391a498091f3d31795042f86d9934c7147834e8a"
       url: "https://github.com/dhzdhd/flutter-code-editor-package.git"
     source: git
-    version: "0.2.15"
+    version: "0.2.23"
   flutter_downloader:
     dependency: "direct main"
     description:

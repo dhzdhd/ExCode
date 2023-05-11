@@ -197,9 +197,9 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                       trailing: PopupMenuButton(
                         itemBuilder: (context) {
                           return [
-                            PopupMenuItem(
+                            const PopupMenuItem(
                               child: Row(
-                                children: const [
+                                children: [
                                   Text('Save'),
                                   Spacer(),
                                   Icon(Icons.save)
@@ -207,8 +207,8 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                               ),
                             ),
                             PopupMenuItem(
-                              child: Row(
-                                children: const [
+                              child: const Row(
+                                children: [
                                   Text('Rename'),
                                   Spacer(),
                                   Icon(Icons.edit)
@@ -226,8 +226,8 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                               },
                             ),
                             PopupMenuItem(
-                              child: Row(
-                                children: const [
+                              child: const Row(
+                                children: [
                                   Text('Open'),
                                   Spacer(),
                                   Icon(Icons.open_in_new_sharp)
@@ -245,8 +245,8 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
                               },
                             ),
                             PopupMenuItem(
-                              child: Row(
-                                children: const [
+                              child: const Row(
+                                children: [
                                   Text('Delete'),
                                   Spacer(),
                                   Icon(Icons.delete)

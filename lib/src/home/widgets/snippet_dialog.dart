@@ -100,8 +100,8 @@ class _BottomBarDialogWidgetState
                                     itemBuilder: (context) {
                                       return [
                                         PopupMenuItem(
-                                          child: Row(
-                                            children: const [
+                                          child: const Row(
+                                            children: [
                                               Text('Edit'),
                                               Spacer(),
                                               Icon(Icons.edit)
@@ -123,8 +123,8 @@ class _BottomBarDialogWidgetState
                                           },
                                         ),
                                         PopupMenuItem(
-                                          child: Row(
-                                            children: const [
+                                          child: const Row(
+                                            children: [
                                               Text('Delete'),
                                               Spacer(),
                                               Icon(Icons.delete)

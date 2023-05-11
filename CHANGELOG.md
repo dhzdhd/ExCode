@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 For currently known issues, check the [GitHub issues tab](https://github.com/dhzdhd/ExCode/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
+## 1.3.1 | 11-05-2023
+
+### Fixes / Improvements
+
+- Improved load times in web builds thanks to Flutter 3.10.
+- Fixed errors occuring when inserting snippets after autocompleted text.
+- Some editor improvements
+
+### Known issues
+
+- Newlines do not automatically scroll the view.
+- Inserting snippets after autocompleted text deletes the autocompleted part of the text.
+
 ## 1.3.0 | 13-04-2023
 
 ### Additions
