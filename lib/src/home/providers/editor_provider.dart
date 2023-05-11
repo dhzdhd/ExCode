@@ -159,9 +159,13 @@ class _EditorContentModel extends StateNotifier<String> {
 
   void addContent(String content, TextPosition pos) {
     final offset = pos.offset == -1 ? 0 : pos.offset;
-    state = state.substring(0, offset) +
-        content +
-        state.substring(offset, state.length);
+    if (pos.offset > state.length) {
+      state = state + content;
+    } else {
+      state = state.substring(0, offset) +
+          content +
+          state.substring(offset, state.length);
+    }
   }
 
   void replaceAll(String old, String new_) {

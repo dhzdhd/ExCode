@@ -170,8 +170,15 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         patternMap: widget.patternMap,
       );
       _focusNode.requestFocus();
-      _controller.selection = _controller.selection
-          .copyWith(baseOffset: _selection, extentOffset: _selection);
+      if (_selection <= _controller.text.length) {
+        _controller.selection = _controller.selection
+            .copyWith(baseOffset: _selection, extentOffset: _selection);
+      } else {
+        _controller.selection = _controller.selection.copyWith(
+          baseOffset: _controller.text.length,
+          extentOffset: _controller.text.length,
+        );
+      }
     }
   }
 
