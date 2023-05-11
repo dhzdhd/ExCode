@@ -2,9 +2,9 @@ name: Dart analyze and format
 
 on:
   push:
-    branches: [ "master", "stable" ]
+    branches: ["master", "stable"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   analyze:
@@ -17,13 +17,13 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: "stable"
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Verify formatting
-        run: flutter format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
