@@ -58463,10 +58463,13 @@ $1(a){if($.b6P==null)$.b6P=new A.anI()
 return A.baq(new A.aRn(this.a),$.bfK().ga4H(),t.Iw)},
 $S:549}
 A.aRn.prototype={
-$2(a,b){if(!J.f(b.b,B.nJ))switch(this.a.a){case"/settings":return B.awM
-case"/":return B.Pu
-case"/auth":return B.awK
-default:return B.Pu}else return B.awL},
+$2(a,b){var s,r
+if(!J.f(b.b,B.nJ)){s=this.a.a
+$label0$0:{if("/settings"===s){r=B.awM
+break $label0$0}if("/"===s){r=B.Pu
+break $label0$0}if("/auth"===s){r=B.awK
+break $label0$0}r=B.Pu
+break $label0$0}return r}else return B.awL},
 $S:550}
 A.pP.prototype={
 jb(a,b){var s,r=null,q=b.aM($.kA(),t.Cz),p=t.p,o=A.a([],p)
