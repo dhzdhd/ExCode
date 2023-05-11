@@ -8,7 +8,6 @@ import 'package:excode/src/factory.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'home/views/home_view.dart';
@@ -45,11 +44,6 @@ class _MyApp extends ConsumerState<MyApp> {
       title: 'ExCode',
       restorationScopeId: 'app',
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
       supportedLocales: const [
         Locale('en'),
       ],
