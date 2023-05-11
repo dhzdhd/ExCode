@@ -67,16 +67,15 @@ class _MyApp extends ConsumerState<MyApp> {
               stream: Connectivity().onConnectivityChanged,
               builder: (context, AsyncSnapshot<ConnectivityResult> snapshot) {
                 if (snapshot.data != ConnectivityResult.none) {
-                  switch (routeSettings.name) {
-                    case SettingsView.routeName:
-                      return const TitleBarWidget(child: SettingsView());
-                    case HomeView.routeName:
-                      return const TitleBarWidget(child: HomeView());
-                    case AuthView.routeName:
-                      return const TitleBarWidget(child: AuthView());
-                    default:
-                      return const TitleBarWidget(child: HomeView());
-                  }
+                  return switch (routeSettings.name) {
+                    SettingsView.routeName =>
+                      const TitleBarWidget(child: SettingsView()),
+                    HomeView.routeName =>
+                      const TitleBarWidget(child: HomeView()),
+                    AuthView.routeName =>
+                      const TitleBarWidget(child: AuthView()),
+                    _ => const TitleBarWidget(child: HomeView())
+                  };
                 } else {
                   return const TitleBarWidget(
                     child: Scaffold(
