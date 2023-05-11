@@ -15,7 +15,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
-class AppBarWidget extends HookConsumerWidget with PreferredSizeWidget {
+class AppBarWidget extends HookConsumerWidget implements PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
 
   @override
