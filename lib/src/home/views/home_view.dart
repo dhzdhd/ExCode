@@ -135,7 +135,7 @@ This helps the developer to quickly fix any bugs encountered.''',
                     style: TextStyle(fontSize: 16),
                   ),
                   onPressed: () {
-                    ref.watch(settingsProvider.notifier).setSentry(true);
+                    ref.read(settingsProvider.notifier).setSentry(true);
                     Navigator.of(context).pop();
                   },
                 ),

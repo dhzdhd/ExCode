@@ -193,7 +193,7 @@ class _TextSelectionControlsToolbarState
 
   @override
   Widget build(BuildContext context) {
-    final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
+    final matchTextNotifier = ref.read(matchTextStateProvider.notifier);
     final matchTextMap = ref.watch(matchTextStateProvider);
     final value = widget.delegate.textEditingValue;
 

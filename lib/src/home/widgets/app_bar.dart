@@ -40,9 +40,9 @@ class AppBarWidget extends HookConsumerWidget implements PreferredSizeWidget {
           onChanged: (val) {
             final String lang = getLangFromEnum(val!).name;
 
-            ref.watch(editorLanguageStateProvider.notifier).setLanguage(lang);
+            ref.read(editorLanguageStateProvider.notifier).setLanguage(lang);
             ref
-                .watch(editorContentStateProvider.notifier)
+                .read(editorContentStateProvider.notifier)
                 .setContent(const None(), lang);
           },
         ),
@@ -63,11 +63,11 @@ class AppBarWidget extends HookConsumerWidget implements PreferredSizeWidget {
                     )
                   : const Icon(Icons.play_arrow),
               onPressed: () async {
-                await ref.watch(outputContentStateProvider.notifier).setOutput(
+                await ref.read(outputContentStateProvider.notifier).setOutput(
                       getLangFromName(editorLanguage).lang,
                       ref.watch(editorContentStateProvider),
                     );
-                ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+                ref.read(outputIsVisibleStateProvider.notifier).showOutput();
                 if (isSaveOnRun) {
                   await ref
                       .watch(editorContentStateProvider.notifier)

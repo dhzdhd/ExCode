@@ -10,7 +10,7 @@ class FontSizeButtonWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final fontSize =
         ref.watch(settingsProvider.select((value) => value.fontSize));
-    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settingsNotifier = ref.read(settingsProvider.notifier);
 
     return SizedBox(
       width: 160,

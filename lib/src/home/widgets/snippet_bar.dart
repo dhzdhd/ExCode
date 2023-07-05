@@ -37,7 +37,7 @@ class SnippetBarWidget extends ConsumerWidget {
                           .setCursorSelection(
                             controller.selection.baseOffset + spaces.length,
                           );
-                      ref.watch(editorContentStateProvider.notifier).addContent(
+                      ref.read(editorContentStateProvider.notifier).addContent(
                             spaces,
                             controller.selection.base,
                           );

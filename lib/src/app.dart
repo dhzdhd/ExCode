@@ -27,7 +27,7 @@ class _MyApp extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
     _authSub = supabase.auth.onAuthStateChange.listen((data) {
-      ref.watch(authStateProvider.notifier).setUser(data.session?.user);
+      ref.read(authStateProvider.notifier).setUser(data.session?.user);
     });
     initPackageInfo();
   }

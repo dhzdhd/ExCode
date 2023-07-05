@@ -7,7 +7,7 @@ class RadioButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settingsNotifier = ref.read(settingsProvider.notifier);
 
     return Row(
       children: [

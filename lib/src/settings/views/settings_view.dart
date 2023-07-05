@@ -27,7 +27,7 @@ class SettingsView extends HookConsumerWidget {
     final theme = useState(ThemeMode.system);
     final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
-    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settingsNotifier = ref.read(settingsProvider.notifier);
     final tabSize =
         ref.watch(settingsProvider.select((value) => value.tabSize));
     final isTabBarVisible =

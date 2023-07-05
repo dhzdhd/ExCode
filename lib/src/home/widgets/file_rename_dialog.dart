@@ -36,7 +36,7 @@ class _FileRenameDialogWidgetState
   @override
   Widget build(BuildContext context) {
     final globalTheme = ref.watch(themeStateProvider);
-    final fileNotifier = ref.watch(filesProvider.notifier);
+    final fileNotifier = ref.read(filesProvider.notifier);
 
     return SimpleDialog(
       title: const Text('Rename file'),

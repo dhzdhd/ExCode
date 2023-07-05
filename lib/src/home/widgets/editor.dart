@@ -29,10 +29,10 @@ class _EditorWidgetState extends ConsumerState<EditorWidget>
 
   void tabListener() {
     if (_tabController.index == 0) {
-      ref.watch(outputIsVisibleStateProvider.notifier).hideOutput();
+      ref.read(outputIsVisibleStateProvider.notifier).hideOutput();
     }
     if (_tabController.index == 1) {
-      ref.watch(outputIsVisibleStateProvider.notifier).showOutput();
+      ref.read(outputIsVisibleStateProvider.notifier).showOutput();
     }
   }
 
@@ -196,7 +196,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         ref.watch(settingsProvider.select((value) => value.fontSize));
     final isWordWrapped =
         ref.watch(settingsProvider.select((value) => value.isWordWrapped));
-    final matchTextNotifier = ref.watch(matchTextStateProvider.notifier);
+    final matchTextNotifier = ref.read(matchTextStateProvider.notifier);
     final matchTextMap = ref.watch(matchTextStateProvider);
 
     return Stack(

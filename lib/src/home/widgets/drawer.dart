@@ -295,7 +295,7 @@ class _DrawerWidgetState extends ConsumerState<DrawerWidget> {
               style: ListTileStyle.list,
               title: const Text('No file mode'),
               onTap: () {
-                ref.watch(activeFileProvider.notifier).set(file: const None());
+                ref.read(activeFileProvider.notifier).set(file: const None());
                 Navigator.of(context).pop();
               },
             ),

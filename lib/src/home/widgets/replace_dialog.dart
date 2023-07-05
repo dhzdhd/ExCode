@@ -29,7 +29,7 @@ class _ReplaceDialogWidgetState extends ConsumerState<ReplaceDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final contentNotifier = ref.watch(editorContentStateProvider.notifier);
+    final contentNotifier = ref.read(editorContentStateProvider.notifier);
 
     return SimpleDialog(
       title: const Text('Replace text'),

@@ -45,8 +45,8 @@ class _OutputContentNotifier extends StateNotifier<OutputModel> {
         ));
 
   Future<void> setOutput(Language lang, String content) async {
-    ref.watch(outputIsLoadingProvider.notifier).setIsLoading();
+    ref.read(outputIsLoadingProvider.notifier).setIsLoading();
     state = await ApiHandler.executeCode(lang, content);
-    ref.watch(outputIsLoadingProvider.notifier).setIsLoading();
+    ref.read(outputIsLoadingProvider.notifier).setIsLoading();
   }
 }
