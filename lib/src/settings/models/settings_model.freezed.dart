@@ -120,11 +120,11 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
 }
 
 /// @nodoc
-abstract class _$$_SettingsModelCopyWith<$Res>
+abstract class _$$SettingsModelImplCopyWith<$Res>
     implements $SettingsModelCopyWith<$Res> {
-  factory _$$_SettingsModelCopyWith(
-          _$_SettingsModel value, $Res Function(_$_SettingsModel) then) =
-      __$$_SettingsModelCopyWithImpl<$Res>;
+  factory _$$SettingsModelImplCopyWith(
+          _$SettingsModelImpl value, $Res Function(_$SettingsModelImpl) then) =
+      __$$SettingsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -140,11 +140,11 @@ abstract class _$$_SettingsModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SettingsModelCopyWithImpl<$Res>
-    extends _$SettingsModelCopyWithImpl<$Res, _$_SettingsModel>
-    implements _$$_SettingsModelCopyWith<$Res> {
-  __$$_SettingsModelCopyWithImpl(
-      _$_SettingsModel _value, $Res Function(_$_SettingsModel) _then)
+class __$$SettingsModelImplCopyWithImpl<$Res>
+    extends _$SettingsModelCopyWithImpl<$Res, _$SettingsModelImpl>
+    implements _$$SettingsModelImplCopyWith<$Res> {
+  __$$SettingsModelImplCopyWithImpl(
+      _$SettingsModelImpl _value, $Res Function(_$SettingsModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -160,7 +160,7 @@ class __$$_SettingsModelCopyWithImpl<$Res>
     Object? isSaveToCloud = null,
     Object? isSentryEnabled = null,
   }) {
-    return _then(_$_SettingsModel(
+    return _then(_$SettingsModelImpl(
       tabSize: null == tabSize
           ? _value.tabSize
           : tabSize // ignore: cast_nullable_to_non_nullable
@@ -203,8 +203,8 @@ class __$$_SettingsModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SettingsModel implements _SettingsModel {
-  const _$_SettingsModel(
+class _$SettingsModelImpl implements _SettingsModel {
+  const _$SettingsModelImpl(
       {required this.tabSize,
       required this.fontSize,
       required this.isLocked,
@@ -215,8 +215,8 @@ class _$_SettingsModel implements _SettingsModel {
       required this.isSaveToCloud,
       required this.isSentryEnabled});
 
-  factory _$_SettingsModel.fromJson(Map<String, dynamic> json) =>
-      _$$_SettingsModelFromJson(json);
+  factory _$SettingsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SettingsModelImplFromJson(json);
 
   @override
   final TabEnum tabSize;
@@ -247,7 +247,7 @@ class _$_SettingsModel implements _SettingsModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SettingsModel &&
+            other is _$SettingsModelImpl &&
             (identical(other.tabSize, tabSize) || other.tabSize == tabSize) &&
             (identical(other.fontSize, fontSize) ||
                 other.fontSize == fontSize) &&
@@ -284,12 +284,12 @@ class _$_SettingsModel implements _SettingsModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>
-      __$$_SettingsModelCopyWithImpl<_$_SettingsModel>(this, _$identity);
+  _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
+      __$$SettingsModelImplCopyWithImpl<_$SettingsModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SettingsModelToJson(
+    return _$$SettingsModelImplToJson(
       this,
     );
   }
@@ -305,10 +305,10 @@ abstract class _SettingsModel implements SettingsModel {
       required final bool isFloatingRunVisible,
       required final bool isSaveOnRun,
       required final bool isSaveToCloud,
-      required final bool isSentryEnabled}) = _$_SettingsModel;
+      required final bool isSentryEnabled}) = _$SettingsModelImpl;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
-      _$_SettingsModel.fromJson;
+      _$SettingsModelImpl.fromJson;
 
   @override
   TabEnum get tabSize;
@@ -330,6 +330,6 @@ abstract class _SettingsModel implements SettingsModel {
   bool get isSentryEnabled;
   @override
   @JsonKey(ignore: true)
-  _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>
+  _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

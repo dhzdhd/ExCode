@@ -81,10 +81,11 @@ class _$LangModelCopyWithImpl<$Res, $Val extends LangModel>
 }
 
 /// @nodoc
-abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
-  factory _$$_LangModelCopyWith(
-          _$_LangModel value, $Res Function(_$_LangModel) then) =
-      __$$_LangModelCopyWithImpl<$Res>;
+abstract class _$$LangModelImplCopyWith<$Res>
+    implements $LangModelCopyWith<$Res> {
+  factory _$$LangModelImplCopyWith(
+          _$LangModelImpl value, $Res Function(_$LangModelImpl) then) =
+      __$$LangModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -92,11 +93,11 @@ abstract class _$$_LangModelCopyWith<$Res> implements $LangModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LangModelCopyWithImpl<$Res>
-    extends _$LangModelCopyWithImpl<$Res, _$_LangModel>
-    implements _$$_LangModelCopyWith<$Res> {
-  __$$_LangModelCopyWithImpl(
-      _$_LangModel _value, $Res Function(_$_LangModel) _then)
+class __$$LangModelImplCopyWithImpl<$Res>
+    extends _$LangModelCopyWithImpl<$Res, _$LangModelImpl>
+    implements _$$LangModelImplCopyWith<$Res> {
+  __$$LangModelImplCopyWithImpl(
+      _$LangModelImpl _value, $Res Function(_$LangModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +109,7 @@ class __$$_LangModelCopyWithImpl<$Res>
     Object? template = null,
     Object? ext = null,
   }) {
-    return _then(_$_LangModel(
+    return _then(_$LangModelImpl(
       mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
@@ -135,8 +136,8 @@ class __$$_LangModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LangModel implements _LangModel {
-  const _$_LangModel(
+class _$LangModelImpl implements _LangModel {
+  const _$LangModelImpl(
       {required this.mode,
       required this.name,
       required this.lang,
@@ -163,7 +164,7 @@ class _$_LangModel implements _LangModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LangModel &&
+            other is _$LangModelImpl &&
             (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.lang, lang) || other.lang == lang) &&
@@ -178,8 +179,8 @@ class _$_LangModel implements _LangModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LangModelCopyWith<_$_LangModel> get copyWith =>
-      __$$_LangModelCopyWithImpl<_$_LangModel>(this, _$identity);
+  _$$LangModelImplCopyWith<_$LangModelImpl> get copyWith =>
+      __$$LangModelImplCopyWithImpl<_$LangModelImpl>(this, _$identity);
 }
 
 abstract class _LangModel implements LangModel {
@@ -188,7 +189,7 @@ abstract class _LangModel implements LangModel {
       required final String name,
       required final Language lang,
       required final String template,
-      required final String ext}) = _$_LangModel;
+      required final String ext}) = _$LangModelImpl;
 
   @override
   Mode get mode;
@@ -202,6 +203,6 @@ abstract class _LangModel implements LangModel {
   String get ext;
   @override
   @JsonKey(ignore: true)
-  _$$_LangModelCopyWith<_$_LangModel> get copyWith =>
+  _$$LangModelImplCopyWith<_$LangModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

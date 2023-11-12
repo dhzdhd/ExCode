@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:excode/src/factory.dart';
 import 'package:excode/src/home/models/output_model.dart';
+import 'package:excode/src/home/models/piston_model.dart';
 import 'package:excode/src/home/services/input_service.dart';
 import 'package:excode/src/home/services/language.dart';
+import 'package:fpdart/fpdart.dart';
 
 enum Language {
   bash,
@@ -131,38 +133,89 @@ class ApiHandler {
 
     // print(res.data);
 
-    if (res.data!['run']['stdout'].isEmpty) {
-      res.data!['run']['stdout'] = 'No output';
-    }
-    if (res.data!['run']['stderr'].isEmpty) {
-      res.data!['run']['stderr'] = 'No errors';
-    }
+    Option<PistonModel> runModel = None();
+    Option<PistonModel> compileModel = None();
 
-    if (res.data!.containsKey('compile')) {
-      if (res.data!['compile']['stdout'].isEmpty &&
-          res.data!['compile']['stderr'].isEmpty) {
-        return OutputModel(
-          output: res.data!['run']['stdout'],
-          error: res.data!['run']['stderr'],
-        );
-      } else {
-        if (res.data!['compile']['stdout'].isEmpty) {
-          res.data!['compile']['stdout'] = 'No output';
-        }
-        if (res.data!['compile']['stderr'].isEmpty) {
-          res.data!['compile']['stderr'] = 'No errors';
-        }
-
-        return OutputModel(
-          output: res.data!['compile']['stdout'],
-          error: res.data!['compile']['stderr'],
-        );
-      }
+    if (res.data
+        case {
+          'run': {
+            'stdout': String stdout,
+            'stderr': String stderr,
+            'output': String output,
+            'code': String code,
+            'signal': String signal
+          }
+        }) {
+      runModel = Some(PistonModel(
+        stdout: stdout,
+        stderr: stderr,
+        output: output,
+        code: code,
+        signal: signal,
+      ));
     }
 
-    return OutputModel(
-      output: res.data!['run']['stdout'],
-      error: res.data!['run']['stderr'],
-    );
+    if (res.data
+        case {
+          'compile': {
+            'stdout': String stdout,
+            'stderr': String stderr,
+            'output': String output,
+            'code': String code,
+            'signal': String signal
+          }
+        }) {
+      compileModel = Some(PistonModel(
+        stdout: stdout,
+        stderr: stderr,
+        output: output,
+        code: code,
+        signal: signal,
+      ));
+    }
+
+    return switch (compileModel) {
+      Some(value: PistonModel cModel) when runModel.isNone() =>
+        OutputModel(output: cModel.stdout, error: cModel.stderr),
+      _ => switch (runModel) {
+          Some(value: PistonModel rModel) =>
+            OutputModel(output: rModel.stdout, error: rModel.stderr),
+          None() => const OutputModel(output: '', error: '')
+        },
+    };
+
+    // if (res.data!['run']['stdout'].isEmpty) {
+    //   res.data!['run']['stdout'] = 'No output';
+    // }
+    // if (res.data!['run']['stderr'].isEmpty) {
+    //   res.data!['run']['stderr'] = 'No errors';
+    // }
+
+    // if (res.data!.containsKey('compile')) {
+    //   if (res.data!['compile']['stdout'].isEmpty &&
+    //       res.data!['compile']['stderr'].isEmpty) {
+    //     return OutputModel(
+    //       output: res.data!['run']['stdout'],
+    //       error: res.data!['run']['stderr'],
+    //     );
+    //   } else {
+    //     if (res.data!['compile']['stdout'].isEmpty) {
+    //       res.data!['compile']['stdout'] = 'No output';
+    //     }
+    //     if (res.data!['compile']['stderr'].isEmpty) {
+    //       res.data!['compile']['stderr'] = 'No errors';
+    //     }
+
+    //     return OutputModel(
+    //       output: res.data!['compile']['stdout'],
+    //       error: res.data!['compile']['stderr'],
+    //     );
+    //   }
+    // }
+
+    // return OutputModel(
+    //   output: res.data!['run']['stdout'],
+    //   error: res.data!['run']['stderr'],
+    // );
   }
 }

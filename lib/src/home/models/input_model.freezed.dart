@@ -68,22 +68,22 @@ class _$InputModelCopyWithImpl<$Res, $Val extends InputModel>
 }
 
 /// @nodoc
-abstract class _$$_InputModelCopyWith<$Res>
+abstract class _$$InputModelImplCopyWith<$Res>
     implements $InputModelCopyWith<$Res> {
-  factory _$$_InputModelCopyWith(
-          _$_InputModel value, $Res Function(_$_InputModel) then) =
-      __$$_InputModelCopyWithImpl<$Res>;
+  factory _$$InputModelImplCopyWith(
+          _$InputModelImpl value, $Res Function(_$InputModelImpl) then) =
+      __$$InputModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String stdInArgs, String cmdLineArgs});
 }
 
 /// @nodoc
-class __$$_InputModelCopyWithImpl<$Res>
-    extends _$InputModelCopyWithImpl<$Res, _$_InputModel>
-    implements _$$_InputModelCopyWith<$Res> {
-  __$$_InputModelCopyWithImpl(
-      _$_InputModel _value, $Res Function(_$_InputModel) _then)
+class __$$InputModelImplCopyWithImpl<$Res>
+    extends _$InputModelCopyWithImpl<$Res, _$InputModelImpl>
+    implements _$$InputModelImplCopyWith<$Res> {
+  __$$InputModelImplCopyWithImpl(
+      _$InputModelImpl _value, $Res Function(_$InputModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_InputModelCopyWithImpl<$Res>
     Object? stdInArgs = null,
     Object? cmdLineArgs = null,
   }) {
-    return _then(_$_InputModel(
+    return _then(_$InputModelImpl(
       stdInArgs: null == stdInArgs
           ? _value.stdInArgs
           : stdInArgs // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$_InputModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_InputModel implements _InputModel {
-  const _$_InputModel({required this.stdInArgs, required this.cmdLineArgs});
+class _$InputModelImpl implements _InputModel {
+  const _$InputModelImpl({required this.stdInArgs, required this.cmdLineArgs});
 
-  factory _$_InputModel.fromJson(Map<String, dynamic> json) =>
-      _$$_InputModelFromJson(json);
+  factory _$InputModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InputModelImplFromJson(json);
 
   @override
   final String stdInArgs;
@@ -127,7 +127,7 @@ class _$_InputModel implements _InputModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_InputModel &&
+            other is _$InputModelImpl &&
             (identical(other.stdInArgs, stdInArgs) ||
                 other.stdInArgs == stdInArgs) &&
             (identical(other.cmdLineArgs, cmdLineArgs) ||
@@ -141,12 +141,12 @@ class _$_InputModel implements _InputModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_InputModelCopyWith<_$_InputModel> get copyWith =>
-      __$$_InputModelCopyWithImpl<_$_InputModel>(this, _$identity);
+  _$$InputModelImplCopyWith<_$InputModelImpl> get copyWith =>
+      __$$InputModelImplCopyWithImpl<_$InputModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_InputModelToJson(
+    return _$$InputModelImplToJson(
       this,
     );
   }
@@ -155,10 +155,10 @@ class _$_InputModel implements _InputModel {
 abstract class _InputModel implements InputModel {
   const factory _InputModel(
       {required final String stdInArgs,
-      required final String cmdLineArgs}) = _$_InputModel;
+      required final String cmdLineArgs}) = _$InputModelImpl;
 
   factory _InputModel.fromJson(Map<String, dynamic> json) =
-      _$_InputModel.fromJson;
+      _$InputModelImpl.fromJson;
 
   @override
   String get stdInArgs;
@@ -166,6 +166,6 @@ abstract class _InputModel implements InputModel {
   String get cmdLineArgs;
   @override
   @JsonKey(ignore: true)
-  _$$_InputModelCopyWith<_$_InputModel> get copyWith =>
+  _$$InputModelImplCopyWith<_$InputModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

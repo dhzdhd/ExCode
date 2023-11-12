@@ -6,14 +6,14 @@ part of 'snippet_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SnippetModel _$$_SnippetModelFromJson(Map<String, dynamic> json) =>
-    _$_SnippetModel(
+_$SnippetModelImpl _$$SnippetModelImplFromJson(Map<String, dynamic> json) =>
+    _$SnippetModelImpl(
       name: json['name'] as String,
       value: json['value'] as String,
       length: json['length'] as int,
     );
 
-Map<String, dynamic> _$$_SnippetModelToJson(_$_SnippetModel instance) =>
+Map<String, dynamic> _$$SnippetModelImplToJson(_$SnippetModelImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'value': instance.value,

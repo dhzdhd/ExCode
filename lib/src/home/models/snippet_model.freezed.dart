@@ -74,22 +74,22 @@ class _$SnippetModelCopyWithImpl<$Res, $Val extends SnippetModel>
 }
 
 /// @nodoc
-abstract class _$$_SnippetModelCopyWith<$Res>
+abstract class _$$SnippetModelImplCopyWith<$Res>
     implements $SnippetModelCopyWith<$Res> {
-  factory _$$_SnippetModelCopyWith(
-          _$_SnippetModel value, $Res Function(_$_SnippetModel) then) =
-      __$$_SnippetModelCopyWithImpl<$Res>;
+  factory _$$SnippetModelImplCopyWith(
+          _$SnippetModelImpl value, $Res Function(_$SnippetModelImpl) then) =
+      __$$SnippetModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String value, int length});
 }
 
 /// @nodoc
-class __$$_SnippetModelCopyWithImpl<$Res>
-    extends _$SnippetModelCopyWithImpl<$Res, _$_SnippetModel>
-    implements _$$_SnippetModelCopyWith<$Res> {
-  __$$_SnippetModelCopyWithImpl(
-      _$_SnippetModel _value, $Res Function(_$_SnippetModel) _then)
+class __$$SnippetModelImplCopyWithImpl<$Res>
+    extends _$SnippetModelCopyWithImpl<$Res, _$SnippetModelImpl>
+    implements _$$SnippetModelImplCopyWith<$Res> {
+  __$$SnippetModelImplCopyWithImpl(
+      _$SnippetModelImpl _value, $Res Function(_$SnippetModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_SnippetModelCopyWithImpl<$Res>
     Object? value = null,
     Object? length = null,
   }) {
-    return _then(_$_SnippetModel(
+    return _then(_$SnippetModelImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -118,12 +118,12 @@ class __$$_SnippetModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SnippetModel implements _SnippetModel {
-  const _$_SnippetModel(
+class _$SnippetModelImpl implements _SnippetModel {
+  const _$SnippetModelImpl(
       {required this.name, required this.value, required this.length});
 
-  factory _$_SnippetModel.fromJson(Map<String, dynamic> json) =>
-      _$$_SnippetModelFromJson(json);
+  factory _$SnippetModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SnippetModelImplFromJson(json);
 
   @override
   final String name;
@@ -141,7 +141,7 @@ class _$_SnippetModel implements _SnippetModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SnippetModel &&
+            other is _$SnippetModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.length, length) || other.length == length));
@@ -154,12 +154,12 @@ class _$_SnippetModel implements _SnippetModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SnippetModelCopyWith<_$_SnippetModel> get copyWith =>
-      __$$_SnippetModelCopyWithImpl<_$_SnippetModel>(this, _$identity);
+  _$$SnippetModelImplCopyWith<_$SnippetModelImpl> get copyWith =>
+      __$$SnippetModelImplCopyWithImpl<_$SnippetModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SnippetModelToJson(
+    return _$$SnippetModelImplToJson(
       this,
     );
   }
@@ -169,10 +169,10 @@ abstract class _SnippetModel implements SnippetModel {
   const factory _SnippetModel(
       {required final String name,
       required final String value,
-      required final int length}) = _$_SnippetModel;
+      required final int length}) = _$SnippetModelImpl;
 
   factory _SnippetModel.fromJson(Map<String, dynamic> json) =
-      _$_SnippetModel.fromJson;
+      _$SnippetModelImpl.fromJson;
 
   @override
   String get name;
@@ -182,6 +182,6 @@ abstract class _SnippetModel implements SnippetModel {
   int get length;
   @override
   @JsonKey(ignore: true)
-  _$$_SnippetModelCopyWith<_$_SnippetModel> get copyWith =>
+  _$$SnippetModelImplCopyWith<_$SnippetModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

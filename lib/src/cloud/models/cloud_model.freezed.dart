@@ -78,11 +78,11 @@ class _$CloudModelCopyWithImpl<$Res, $Val extends CloudModel>
 }
 
 /// @nodoc
-abstract class _$$_CloudModelCopyWith<$Res>
+abstract class _$$CloudModelImplCopyWith<$Res>
     implements $CloudModelCopyWith<$Res> {
-  factory _$$_CloudModelCopyWith(
-          _$_CloudModel value, $Res Function(_$_CloudModel) then) =
-      __$$_CloudModelCopyWithImpl<$Res>;
+  factory _$$CloudModelImplCopyWith(
+          _$CloudModelImpl value, $Res Function(_$CloudModelImpl) then) =
+      __$$CloudModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SettingsModel settings, List<SnippetModel> snippets});
@@ -92,11 +92,11 @@ abstract class _$$_CloudModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CloudModelCopyWithImpl<$Res>
-    extends _$CloudModelCopyWithImpl<$Res, _$_CloudModel>
-    implements _$$_CloudModelCopyWith<$Res> {
-  __$$_CloudModelCopyWithImpl(
-      _$_CloudModel _value, $Res Function(_$_CloudModel) _then)
+class __$$CloudModelImplCopyWithImpl<$Res>
+    extends _$CloudModelCopyWithImpl<$Res, _$CloudModelImpl>
+    implements _$$CloudModelImplCopyWith<$Res> {
+  __$$CloudModelImplCopyWithImpl(
+      _$CloudModelImpl _value, $Res Function(_$CloudModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +105,7 @@ class __$$_CloudModelCopyWithImpl<$Res>
     Object? settings = null,
     Object? snippets = null,
   }) {
-    return _then(_$_CloudModel(
+    return _then(_$CloudModelImpl(
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -120,13 +120,13 @@ class __$$_CloudModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CloudModel implements _CloudModel {
-  const _$_CloudModel(
+class _$CloudModelImpl implements _CloudModel {
+  const _$CloudModelImpl(
       {required this.settings, required final List<SnippetModel> snippets})
       : _snippets = snippets;
 
-  factory _$_CloudModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CloudModelFromJson(json);
+  factory _$CloudModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CloudModelImplFromJson(json);
 
   @override
   final SettingsModel settings;
@@ -147,7 +147,7 @@ class _$_CloudModel implements _CloudModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CloudModel &&
+            other is _$CloudModelImpl &&
             (identical(other.settings, settings) ||
                 other.settings == settings) &&
             const DeepCollectionEquality().equals(other._snippets, _snippets));
@@ -161,12 +161,12 @@ class _$_CloudModel implements _CloudModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CloudModelCopyWith<_$_CloudModel> get copyWith =>
-      __$$_CloudModelCopyWithImpl<_$_CloudModel>(this, _$identity);
+  _$$CloudModelImplCopyWith<_$CloudModelImpl> get copyWith =>
+      __$$CloudModelImplCopyWithImpl<_$CloudModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CloudModelToJson(
+    return _$$CloudModelImplToJson(
       this,
     );
   }
@@ -175,10 +175,10 @@ class _$_CloudModel implements _CloudModel {
 abstract class _CloudModel implements CloudModel {
   const factory _CloudModel(
       {required final SettingsModel settings,
-      required final List<SnippetModel> snippets}) = _$_CloudModel;
+      required final List<SnippetModel> snippets}) = _$CloudModelImpl;
 
   factory _CloudModel.fromJson(Map<String, dynamic> json) =
-      _$_CloudModel.fromJson;
+      _$CloudModelImpl.fromJson;
 
   @override
   SettingsModel get settings;
@@ -186,6 +186,6 @@ abstract class _CloudModel implements CloudModel {
   List<SnippetModel> get snippets;
   @override
   @JsonKey(ignore: true)
-  _$$_CloudModelCopyWith<_$_CloudModel> get copyWith =>
+  _$$CloudModelImplCopyWith<_$CloudModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

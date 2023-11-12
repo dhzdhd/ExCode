@@ -6,8 +6,8 @@ part of 'cloud_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CloudModel _$$_CloudModelFromJson(Map<String, dynamic> json) =>
-    _$_CloudModel(
+_$CloudModelImpl _$$CloudModelImplFromJson(Map<String, dynamic> json) =>
+    _$CloudModelImpl(
       settings:
           SettingsModel.fromJson(json['settings'] as Map<String, dynamic>),
       snippets: (json['snippets'] as List<dynamic>)
@@ -15,7 +15,7 @@ _$_CloudModel _$$_CloudModelFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_CloudModelToJson(_$_CloudModel instance) =>
+Map<String, dynamic> _$$CloudModelImplToJson(_$CloudModelImpl instance) =>
     <String, dynamic>{
       'settings': instance.settings,
       'snippets': instance.snippets,

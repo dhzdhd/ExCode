@@ -161,7 +161,8 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
-                            ref.read(authStateProvider.notifier).setUser(r);
+                            // TODO: Fix auth model
+                            // ref.read(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context.showSuccessSnackBar(
                               content:
@@ -179,7 +180,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
-                            ref.read(authStateProvider.notifier).setUser(r);
+                            // ref.read(authStateProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context.showSuccessSnackBar(
                               content: 'Successfully logged in!',

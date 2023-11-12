@@ -86,10 +86,11 @@ class _$FileModelCopyWithImpl<$Res, $Val extends FileModel>
 }
 
 /// @nodoc
-abstract class _$$_FileModelCopyWith<$Res> implements $FileModelCopyWith<$Res> {
-  factory _$$_FileModelCopyWith(
-          _$_FileModel value, $Res Function(_$_FileModel) then) =
-      __$$_FileModelCopyWithImpl<$Res>;
+abstract class _$$FileModelImplCopyWith<$Res>
+    implements $FileModelCopyWith<$Res> {
+  factory _$$FileModelImplCopyWith(
+          _$FileModelImpl value, $Res Function(_$FileModelImpl) then) =
+      __$$FileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -97,11 +98,11 @@ abstract class _$$_FileModelCopyWith<$Res> implements $FileModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FileModelCopyWithImpl<$Res>
-    extends _$FileModelCopyWithImpl<$Res, _$_FileModel>
-    implements _$$_FileModelCopyWith<$Res> {
-  __$$_FileModelCopyWithImpl(
-      _$_FileModel _value, $Res Function(_$_FileModel) _then)
+class __$$FileModelImplCopyWithImpl<$Res>
+    extends _$FileModelCopyWithImpl<$Res, _$FileModelImpl>
+    implements _$$FileModelImplCopyWith<$Res> {
+  __$$FileModelImplCopyWithImpl(
+      _$FileModelImpl _value, $Res Function(_$FileModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -113,7 +114,7 @@ class __$$_FileModelCopyWithImpl<$Res>
     Object? ext = null,
     Object? path = null,
   }) {
-    return _then(_$_FileModel(
+    return _then(_$FileModelImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,16 +141,16 @@ class __$$_FileModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FileModel implements _FileModel {
-  const _$_FileModel(
+class _$FileModelImpl implements _FileModel {
+  const _$FileModelImpl(
       {required this.name,
       required this.content,
       required this.language,
       required this.ext,
       required this.path});
 
-  factory _$_FileModel.fromJson(Map<String, dynamic> json) =>
-      _$$_FileModelFromJson(json);
+  factory _$FileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FileModelImplFromJson(json);
 
   @override
   final String name;
@@ -171,7 +172,7 @@ class _$_FileModel implements _FileModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FileModel &&
+            other is _$FileModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.language, language) ||
@@ -188,12 +189,12 @@ class _$_FileModel implements _FileModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FileModelCopyWith<_$_FileModel> get copyWith =>
-      __$$_FileModelCopyWithImpl<_$_FileModel>(this, _$identity);
+  _$$FileModelImplCopyWith<_$FileModelImpl> get copyWith =>
+      __$$FileModelImplCopyWithImpl<_$FileModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FileModelToJson(
+    return _$$FileModelImplToJson(
       this,
     );
   }
@@ -205,10 +206,10 @@ abstract class _FileModel implements FileModel {
       required final String content,
       required final String language,
       required final String ext,
-      required final Uri path}) = _$_FileModel;
+      required final Uri path}) = _$FileModelImpl;
 
   factory _FileModel.fromJson(Map<String, dynamic> json) =
-      _$_FileModel.fromJson;
+      _$FileModelImpl.fromJson;
 
   @override
   String get name;
@@ -222,6 +223,6 @@ abstract class _FileModel implements FileModel {
   Uri get path;
   @override
   @JsonKey(ignore: true)
-  _$$_FileModelCopyWith<_$_FileModel> get copyWith =>
+  _$$FileModelImplCopyWith<_$FileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

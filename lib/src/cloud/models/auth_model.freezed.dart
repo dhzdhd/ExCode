@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'auth_model.dart';
 
@@ -14,15 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AuthModel _$AuthModelFromJson(Map<String, dynamic> json) {
-  return _AuthModel.fromJson(json);
-}
-
 /// @nodoc
 mixin _$AuthModel {
   User? get user => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AuthModelCopyWith<AuthModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -61,21 +56,22 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
 }
 
 /// @nodoc
-abstract class _$$_AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
-  factory _$$_AuthModelCopyWith(
-          _$_AuthModel value, $Res Function(_$_AuthModel) then) =
-      __$$_AuthModelCopyWithImpl<$Res>;
+abstract class _$$AuthModelImplCopyWith<$Res>
+    implements $AuthModelCopyWith<$Res> {
+  factory _$$AuthModelImplCopyWith(
+          _$AuthModelImpl value, $Res Function(_$AuthModelImpl) then) =
+      __$$AuthModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({User? user});
 }
 
 /// @nodoc
-class __$$_AuthModelCopyWithImpl<$Res>
-    extends _$AuthModelCopyWithImpl<$Res, _$_AuthModel>
-    implements _$$_AuthModelCopyWith<$Res> {
-  __$$_AuthModelCopyWithImpl(
-      _$_AuthModel _value, $Res Function(_$_AuthModel) _then)
+class __$$AuthModelImplCopyWithImpl<$Res>
+    extends _$AuthModelCopyWithImpl<$Res, _$AuthModelImpl>
+    implements _$$AuthModelImplCopyWith<$Res> {
+  __$$AuthModelImplCopyWithImpl(
+      _$AuthModelImpl _value, $Res Function(_$AuthModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -83,7 +79,7 @@ class __$$_AuthModelCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
   }) {
-    return _then(_$_AuthModel(
+    return _then(_$AuthModelImpl(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -93,12 +89,9 @@ class __$$_AuthModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_AuthModel implements _AuthModel {
-  const _$_AuthModel({required this.user});
 
-  factory _$_AuthModel.fromJson(Map<String, dynamic> json) =>
-      _$$_AuthModelFromJson(json);
+class _$AuthModelImpl implements _AuthModel {
+  const _$AuthModelImpl({required this.user});
 
   @override
   final User? user;
@@ -112,38 +105,27 @@ class _$_AuthModel implements _AuthModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AuthModel &&
+            other is _$AuthModelImpl &&
             (identical(other.user, user) || other.user == user));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AuthModelCopyWith<_$_AuthModel> get copyWith =>
-      __$$_AuthModelCopyWithImpl<_$_AuthModel>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AuthModelToJson(
-      this,
-    );
-  }
+  _$$AuthModelImplCopyWith<_$AuthModelImpl> get copyWith =>
+      __$$AuthModelImplCopyWithImpl<_$AuthModelImpl>(this, _$identity);
 }
 
 abstract class _AuthModel implements AuthModel {
-  const factory _AuthModel({required final User? user}) = _$_AuthModel;
-
-  factory _AuthModel.fromJson(Map<String, dynamic> json) =
-      _$_AuthModel.fromJson;
+  const factory _AuthModel({required final User? user}) = _$AuthModelImpl;
 
   @override
   User? get user;
   @override
   @JsonKey(ignore: true)
-  _$$_AuthModelCopyWith<_$_AuthModel> get copyWith =>
+  _$$AuthModelImplCopyWith<_$AuthModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

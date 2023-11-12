@@ -63,22 +63,22 @@ class _$OutputModelCopyWithImpl<$Res, $Val extends OutputModel>
 }
 
 /// @nodoc
-abstract class _$$_OutputModelCopyWith<$Res>
+abstract class _$$OutputModelImplCopyWith<$Res>
     implements $OutputModelCopyWith<$Res> {
-  factory _$$_OutputModelCopyWith(
-          _$_OutputModel value, $Res Function(_$_OutputModel) then) =
-      __$$_OutputModelCopyWithImpl<$Res>;
+  factory _$$OutputModelImplCopyWith(
+          _$OutputModelImpl value, $Res Function(_$OutputModelImpl) then) =
+      __$$OutputModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String output, String error});
 }
 
 /// @nodoc
-class __$$_OutputModelCopyWithImpl<$Res>
-    extends _$OutputModelCopyWithImpl<$Res, _$_OutputModel>
-    implements _$$_OutputModelCopyWith<$Res> {
-  __$$_OutputModelCopyWithImpl(
-      _$_OutputModel _value, $Res Function(_$_OutputModel) _then)
+class __$$OutputModelImplCopyWithImpl<$Res>
+    extends _$OutputModelCopyWithImpl<$Res, _$OutputModelImpl>
+    implements _$$OutputModelImplCopyWith<$Res> {
+  __$$OutputModelImplCopyWithImpl(
+      _$OutputModelImpl _value, $Res Function(_$OutputModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_OutputModelCopyWithImpl<$Res>
     Object? output = null,
     Object? error = null,
   }) {
-    return _then(_$_OutputModel(
+    return _then(_$OutputModelImpl(
       output: null == output
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_OutputModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OutputModel implements _OutputModel {
-  const _$_OutputModel({required this.output, required this.error});
+class _$OutputModelImpl implements _OutputModel {
+  const _$OutputModelImpl({required this.output, required this.error});
 
   @override
   final String output;
@@ -119,7 +119,7 @@ class _$_OutputModel implements _OutputModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OutputModel &&
+            other is _$OutputModelImpl &&
             (identical(other.output, output) || other.output == output) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -130,14 +130,14 @@ class _$_OutputModel implements _OutputModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OutputModelCopyWith<_$_OutputModel> get copyWith =>
-      __$$_OutputModelCopyWithImpl<_$_OutputModel>(this, _$identity);
+  _$$OutputModelImplCopyWith<_$OutputModelImpl> get copyWith =>
+      __$$OutputModelImplCopyWithImpl<_$OutputModelImpl>(this, _$identity);
 }
 
 abstract class _OutputModel implements OutputModel {
   const factory _OutputModel(
       {required final String output,
-      required final String error}) = _$_OutputModel;
+      required final String error}) = _$OutputModelImpl;
 
   @override
   String get output;
@@ -145,6 +145,6 @@ abstract class _OutputModel implements OutputModel {
   String get error;
   @override
   @JsonKey(ignore: true)
-  _$$_OutputModelCopyWith<_$_OutputModel> get copyWith =>
+  _$$OutputModelImplCopyWith<_$OutputModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
