@@ -415,6 +415,14 @@ packages:
       url: "https://github.com/dhzdhd/flutter-code-editor-package.git"
     source: git
     version: "0.2.23"
+  flutter_downloader:
+    dependency: "direct main"
+    description:
+      name: flutter_downloader
+      sha256: "4a03c705dc60b4f537796da937c80fd5bff63b175f4dd99e1539ab3ad5dbeda0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.11.4"
   flutter_highlight:
     dependency: "direct main"
     description:

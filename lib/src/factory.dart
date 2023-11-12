@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:flutter/foundation.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -40,7 +40,7 @@ Future<void> initPackageInfo() async {
 }
 
 Future<void> initDownloader() async {
-  // await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
 }
 
 Future<void> initFileStorage() async {
