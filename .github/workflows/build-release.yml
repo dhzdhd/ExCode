@@ -20,7 +20,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.0"
+          flutter-version: "3.13.9"
           channel: "stable"
 
       - name: Build Linux
@@ -47,7 +47,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.0"
+          flutter-version: "3.13.9"
           channel: "stable"
 
       - name: Build Android apps
@@ -74,7 +74,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.0"
+          flutter-version: "3.13.9"
           channel: "stable"
 
       - name: Build Windows
@@ -100,7 +100,7 @@ jobs:
   #     - name: Setup flutter
   #       uses: subosito/flutter-action@v2
   #       with:
-  #         flutter-version: '3.10.0'
+  #         flutter-version: '3.13.9'
   #         channel: 'stable'
 
   #     - name: Build MacOS
