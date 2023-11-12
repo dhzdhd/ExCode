@@ -9,6 +9,7 @@ const _accentLightColor = Color.fromARGB(255, 85, 136, 156);
 const _primaryLightColor = Color.fromARGB(255, 227, 245, 255);
 const _secondaryLightColor = Color.fromARGB(255, 244, 247, 255);
 final lightTheme = ThemeDataModel(
+  mode: CustomThemeMode.light,
   primaryColor: _primaryLightColor,
   secondaryColor: _secondaryLightColor,
   invertedColor: _primaryDarkColor,
@@ -77,6 +78,7 @@ const _accentDarkColor = Color.fromARGB(255, 100, 255, 218);
 const _primaryDarkColor = Color.fromARGB(255, 9, 28, 50);
 const _secondaryDarkColor = Color.fromARGB(255, 25, 41, 60);
 final darkTheme = ThemeDataModel(
+  mode: CustomThemeMode.dark,
   primaryColor: _primaryDarkColor,
   secondaryColor: _secondaryDarkColor,
   invertedColor: _primaryLightColor,
@@ -147,6 +149,7 @@ class ThemeDataModel {
   final Color invertedColor;
   final Color accentColor;
   final ThemeData theme;
+  final CustomThemeMode mode;
 
   ThemeDataModel({
     required this.primaryColor,
@@ -154,29 +157,31 @@ class ThemeDataModel {
     required this.invertedColor,
     required this.accentColor,
     required this.theme,
+    required this.mode,
   });
 }
 
+enum CustomThemeMode { light, dark }
+
 ThemeDataModel getThemeFromString(String? theme) {
-  return theme == null
-      ? ThemeMode.system == ThemeMode.dark
-          ? darkTheme
-          : lightTheme
-      : theme == 'dark'
-          ? darkTheme
-          : lightTheme;
+  return switch (theme) {
+    'dark' => darkTheme,
+    'light' => lightTheme,
+    _ => lightTheme,
+  };
 }
 
 class _ThemeModel extends StateNotifier<ThemeDataModel> {
   _ThemeModel() : super(getThemeFromString(SettingsService.getTheme()));
 
-  void changeTheme(ThemeMode mode) {
-    if (mode == ThemeMode.light) {
-      SettingsService.setTheme('light');
-      state = lightTheme;
-    } else {
-      SettingsService.setTheme('dark');
-      state = darkTheme;
+  void changeTheme(CustomThemeMode mode) {
+    switch (mode) {
+      case CustomThemeMode.light:
+        SettingsService.setTheme('light');
+        state = lightTheme;
+      case CustomThemeMode.dark:
+        SettingsService.setTheme('dark');
+        state = darkTheme;
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
-import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:leak_tracker/leak_tracker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -20,7 +19,6 @@ void main() async {
   await initFileStorage();
   await initDatabase();
   await ApiHandler.initRuntimeVersionData();
-  await SettingsService.initPrefs();
 
   if (defaultTargetPlatform == TargetPlatform.android) {
     await initDownloader();

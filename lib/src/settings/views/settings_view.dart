@@ -26,9 +26,9 @@ class SettingsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = useState(ThemeMode.system);
     final editorTheme = ref.watch(editorThemeStateProvider);
     final globalTheme = ref.watch(themeStateProvider);
+
     final settingsNotifier = ref.read(settingsProvider.notifier);
     final tabSize =
         ref.watch(settingsProvider.select((value) => value.tabSize));
@@ -68,18 +68,17 @@ class SettingsView extends HookConsumerWidget {
                     leading: const Icon(Icons.palette),
                     title: const Text('Theme'),
                     trailing: StyledDropdownContainer(
-                      child: DropdownButton<ThemeMode>(
+                      child: DropdownButton<CustomThemeMode>(
                         dropdownColor: globalTheme.primaryColor,
                         focusColor: globalTheme.secondaryColor,
                         isExpanded: true,
                         onChanged: ((val) {
-                          theme.value = val!;
                           ref
                               .watch(themeStateProvider.notifier)
-                              .changeTheme(theme.value);
+                              .changeTheme(val!);
                         }),
-                        value: theme.value,
-                        items: ThemeMode.values
+                        value: globalTheme.mode,
+                        items: CustomThemeMode.values
                             .map((e) => DropdownMenuItem(
                                   value: e,
                                   child: Text(e.name.capitalize()),
