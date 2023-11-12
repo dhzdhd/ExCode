@@ -17,7 +17,7 @@ class CustomPasteBin {
 
       final pasteUrl = '$baseUrl/${res.data["uuid"]!}';
       return Either.right(pasteUrl);
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return Either.left('Error in making the paste!');
     }
   }

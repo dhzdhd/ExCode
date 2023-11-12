@@ -37,7 +37,7 @@ dependencies:
   fpdart: ^0.6.0
   supabase_flutter: ^1.9.0
   desktop_drop: ^0.4.1
-  flutter_downloader: ^1.10.2
+  # flutter_downloader: ^1.11.4
   flutter_svg: ^2.0.5
   leak_tracker: ^5.0.0
   sentry_flutter: ^7.5.2

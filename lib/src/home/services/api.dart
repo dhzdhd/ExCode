@@ -122,7 +122,7 @@ class ApiHandler {
 
     try {
       res = await dio.post(_executeUrl, data: data);
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       return OutputModel(
         output: 'No output',
         error: err.message ?? 'Error',
