@@ -3,7 +3,7 @@ import 'package:excode/src/home/services/api.dart';
 import 'package:excode/src/settings/providers/settings_provider.dart';
 import 'package:excode/src/settings/services/settings_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:leak_tracker/leak_tracker.dart';
+// import 'package:leak_tracker/leak_tracker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'src/factory.dart';
@@ -28,12 +28,11 @@ void main() async {
 
   if (kDebugMode) {
     // ! Update package to enable links https://pub.dev/packages/leak_tracker
-    enableLeakTracking();
-    MemoryAllocations.instance.addListener(
-      (ObjectEvent event) => dispatchObjectEvent(event.toMap()),
-    );
+    // LeakTracking.start();
 
     runApp(const ProviderScope(child: MyApp()));
+
+    // LeakTracking.stop();
   } else if (!kIsWeb && getSentryFromStorage()) {
     await SentryFlutter.init(
       (options) {
