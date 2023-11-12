@@ -7,8 +7,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FileRenameDialogWidget extends ConsumerStatefulWidget {
-  const FileRenameDialogWidget({Key? key, required this.file})
-      : super(key: key);
+  const FileRenameDialogWidget({super.key, required this.file});
 
   final FileModel file;
 
@@ -72,8 +71,9 @@ class _FileRenameDialogWidgetState
                         ),
                       );
                     });
-
-                    Navigator.of(context).pop();
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
                   },
                   child: const Text('Submit'),
                 ),

@@ -53,7 +53,7 @@ Future<void> initFileStorage() async {
       final docDir = await directory.create();
       // ! Change to URI
       appDocumentsDirectory =
-          Some(await Directory(docDir.path + '/ExCode').create());
+          Some(await Directory('${docDir.path}/ExCode').create());
     } catch (e) {
       appDocumentsDirectory = const None();
     }

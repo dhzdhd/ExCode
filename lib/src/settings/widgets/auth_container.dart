@@ -13,7 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @Deprecated('Use AuthDropDownWidget instead')
 class AuthContainerWidget extends ConsumerWidget {
-  const AuthContainerWidget({Key? key}) : super(key: key);
+  const AuthContainerWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

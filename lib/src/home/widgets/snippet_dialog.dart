@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SnippetBarDialogWidget extends ConsumerStatefulWidget {
-  const SnippetBarDialogWidget({Key? key}) : super(key: key);
+  const SnippetBarDialogWidget({super.key});
 
   @override
   ConsumerState<SnippetBarDialogWidget> createState() =>
@@ -202,8 +202,8 @@ class AddSnippetDialogWidget extends ConsumerStatefulWidget {
   final SnippetDialogOption option;
   final SnippetModel? oldModel;
 
-  const AddSnippetDialogWidget({Key? key, required this.option, this.oldModel})
-      : super(key: key);
+  const AddSnippetDialogWidget(
+      {super.key, required this.option, this.oldModel});
 
   @override
   ConsumerState<AddSnippetDialogWidget> createState() =>
@@ -245,7 +245,7 @@ class _AddSnippetDialogWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return SimpleDialog(
         title: Text(
@@ -256,8 +256,8 @@ class _AddSnippetDialogWidgetState
         contentPadding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 16.0),
         children: [
           Form(
-            key: _formKey,
-            onChanged: () => _formKey.currentState!.validate(),
+            key: formKey,
+            onChanged: () => formKey.currentState!.validate(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -314,7 +314,7 @@ class _AddSnippetDialogWidgetState
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           if (widget.option == SnippetDialogOption.add) {
                             await ref
                                 .watch(snippetBarStateProvider.notifier)
@@ -339,7 +339,9 @@ class _AddSnippetDialogWidgetState
                                   ),
                                 );
                           }
-                          Navigator.of(context).pop();
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
                         }
                       },
                       child: const Text('Save', style: TextStyle(fontSize: 16)),

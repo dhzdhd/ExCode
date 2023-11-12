@@ -8,8 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class SnippetBarWidget extends ConsumerWidget {
   final TextEditingController controller;
 
-  const SnippetBarWidget({Key? key, required this.controller})
-      : super(key: key);
+  const SnippetBarWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

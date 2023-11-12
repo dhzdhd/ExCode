@@ -17,7 +17,7 @@ import 'package:multi_split_view/multi_split_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EditorWidget extends StatefulHookConsumerWidget {
-  const EditorWidget({Key? key}) : super(key: key);
+  const EditorWidget({super.key});
 
   @override
   ConsumerState<EditorWidget> createState() => _EditorWidgetState();
@@ -130,12 +130,11 @@ class _CodeFieldWidget extends StatefulHookConsumerWidget {
   final Map<String, TextStyle> patternMap;
 
   const _CodeFieldWidget({
-    Key? key,
     required this.theme,
     required this.lang,
     required this.content,
     required this.patternMap,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<_CodeFieldWidget> createState() => _CodeFieldWidgetState();
@@ -158,7 +157,7 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
 
   @override
   void didUpdateWidget(_CodeFieldWidget oldWidget) {
-    final _selection = ref.watch(cursorSelectionStateProvider);
+    final selection = ref.watch(cursorSelectionStateProvider);
 
     super.didUpdateWidget(oldWidget);
     if (widget.lang != _controller.language ||
@@ -170,9 +169,9 @@ class _CodeFieldWidgetState extends ConsumerState<_CodeFieldWidget> {
         patternMap: widget.patternMap,
       );
       _focusNode.requestFocus();
-      if (_selection <= _controller.text.length) {
+      if (selection <= _controller.text.length) {
         _controller.selection = _controller.selection
-            .copyWith(baseOffset: _selection, extentOffset: _selection);
+            .copyWith(baseOffset: selection, extentOffset: selection);
       } else {
         _controller.selection = _controller.selection.copyWith(
           baseOffset: _controller.text.length,

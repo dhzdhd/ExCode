@@ -18,7 +18,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   static const routeName = '/';
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   ConsumerState<HomeView> createState() => _HomeViewState();
@@ -77,6 +77,8 @@ class _HomeViewState extends ConsumerState<HomeView>
                             );
                       }
                     },
+                    backgroundColor: globalTheme.accentColor,
+                    foregroundColor: globalTheme.primaryColor,
                     child: ref.watch(outputIsLoadingProvider)
                         ? SizedBox(
                             width: 24,
@@ -87,8 +89,6 @@ class _HomeViewState extends ConsumerState<HomeView>
                             ),
                           )
                         : const Icon(Icons.play_arrow),
-                    backgroundColor: globalTheme.accentColor,
-                    foregroundColor: globalTheme.primaryColor,
                   ),
           ),
         );

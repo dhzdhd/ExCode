@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DragDropDialogWidget extends StatelessWidget {
-  const DragDropDialogWidget({Key? key}) : super(key: key);
+  const DragDropDialogWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OutputWrapperWidget extends StatefulHookConsumerWidget {
-  const OutputWrapperWidget({Key? key}) : super(key: key);
+  const OutputWrapperWidget({super.key});
 
   @override
   ConsumerState<OutputWrapperWidget> createState() =>
@@ -18,7 +18,7 @@ class _OutputWrapperWidgetState extends ConsumerState<OutputWrapperWidget> {
 }
 
 class _OutputWidget extends ConsumerWidget {
-  const _OutputWidget({Key? key}) : super(key: key);
+  const _OutputWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,11 +54,10 @@ class _OutputListItem extends StatelessWidget {
   final String content;
 
   const _OutputListItem({
-    Key? key,
     required this.icon,
     required this.title,
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

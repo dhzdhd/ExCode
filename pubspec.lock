@@ -1239,7 +1239,7 @@ packages:
     source: hosted
     version: "1.2.1"
   test:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: test
       sha256: "13b41f318e2a5751c3169137103b60c584297353d4b1761b66029bae6411fe46"

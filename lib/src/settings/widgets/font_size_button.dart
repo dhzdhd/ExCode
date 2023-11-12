@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FontSizeButtonWidget extends ConsumerWidget {
-  const FontSizeButtonWidget({Key? key}) : super(key: key);
+  const FontSizeButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,6 @@ class FontSizeButtonWidget extends ConsumerWidget {
               onPressed: () => (fontSize == 10)
                   ? null
                   : settingsNotifier.decrementFontSize(),
-              child: const Icon(Icons.text_decrease),
               style: const ButtonStyle(
                 shape: MaterialStatePropertyAll(
                   RoundedRectangleBorder(
@@ -39,6 +38,7 @@ class FontSizeButtonWidget extends ConsumerWidget {
                   ),
                 ),
               ),
+              child: const Icon(Icons.text_decrease),
             ),
             Text(
               fontSize.toStringAsFixed(0),
@@ -48,7 +48,6 @@ class FontSizeButtonWidget extends ConsumerWidget {
               onPressed: () => (fontSize == 40)
                   ? null
                   : settingsNotifier.incrementFontSize(),
-              child: const Icon(Icons.text_increase),
               style: const ButtonStyle(
                 shape: MaterialStatePropertyAll(
                   RoundedRectangleBorder(
@@ -59,6 +58,7 @@ class FontSizeButtonWidget extends ConsumerWidget {
                   ),
                 ),
               ),
+              child: const Icon(Icons.text_increase),
             ),
           ],
         ),

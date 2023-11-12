@@ -17,7 +17,7 @@ import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends ConsumerStatefulWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  const DrawerWidget({super.key});
 
   @override
   ConsumerState<DrawerWidget> createState() => _DrawerWidgetState();

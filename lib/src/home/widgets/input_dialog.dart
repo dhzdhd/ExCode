@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show None;
 
 class InputDialogWidget extends StatefulWidget {
-  const InputDialogWidget({Key? key}) : super(key: key);
+  const InputDialogWidget({super.key});
 
   @override
   State<InputDialogWidget> createState() => _InputDialogWidgetState();
@@ -66,11 +66,13 @@ class _InputDialogWidgetState extends State<InputDialogWidget> {
                   ),
                 );
 
-                Navigator.of(context).pop();
-                context.showSuccessSnackBar(
-                  content: 'Successfully saved input data!',
-                  action: const None(),
-                );
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  context.showSuccessSnackBar(
+                    content: 'Successfully saved input data!',
+                    action: const None(),
+                  );
+                }
               },
               child: const Text('Save'),
             ),

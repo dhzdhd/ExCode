@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RadioButtonWidget extends ConsumerWidget {
-  const RadioButtonWidget({Key? key}) : super(key: key);
+  const RadioButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StyledDropdownContainer extends ConsumerWidget {
-  const StyledDropdownContainer({Key? key, required this.child})
-      : super(key: key);
+  const StyledDropdownContainer({super.key, required this.child});
   final Widget child;
 
   @override

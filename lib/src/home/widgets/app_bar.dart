@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
 class AppBarWidget extends HookConsumerWidget implements PreferredSizeWidget {
-  const AppBarWidget({Key? key}) : super(key: key);
+  const AppBarWidget({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -117,8 +117,11 @@ class AppBarWidget extends HookConsumerWidget implements PreferredSizeWidget {
                         ref.read(editorLanguageStateProvider),
                         ref.read(editorContentStateProvider),
                       );
-                  context.showSuccessSnackBar(
-                      content: 'Saved to local storage!', action: const None());
+                  if (context.mounted) {
+                    context.showSuccessSnackBar(
+                        content: 'Saved to local storage!',
+                        action: const None());
+                  }
                 },
               ),
               PopupMenuItem(

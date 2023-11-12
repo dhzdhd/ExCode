@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ReplaceDialogWidget extends ConsumerStatefulWidget {
-  const ReplaceDialogWidget({Key? key, required this.text}) : super(key: key);
+  const ReplaceDialogWidget({super.key, required this.text});
 
   final String text;
 

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LangVersionDialogWidget extends ConsumerWidget {
-  const LangVersionDialogWidget({Key? key}) : super(key: key);
+  const LangVersionDialogWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SimpleDialog(
       title: const Text('Language versions'),
+      titlePadding: const EdgeInsets.all(24),
+      contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 10),
       children: ApiHandler.langVersionMap.entries
           .map(
             (e) => Container(
@@ -30,8 +32,6 @@ class LangVersionDialogWidget extends ConsumerWidget {
             ),
           )
           .toList(),
-      titlePadding: const EdgeInsets.all(24),
-      contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 10),
     );
   }
 }

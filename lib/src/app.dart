@@ -14,7 +14,7 @@ import 'home/views/home_view.dart';
 import 'settings/views/settings_view.dart';
 
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   ConsumerState<MyApp> createState() => _MyApp();
@@ -95,7 +95,7 @@ class _MyApp extends ConsumerState<MyApp> {
 class TitleBarWidget extends ConsumerWidget {
   final Widget child;
 
-  const TitleBarWidget({Key? key, required this.child}) : super(key: key);
+  const TitleBarWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -145,7 +145,7 @@ class TitleBarWidget extends ConsumerWidget {
 }
 
 class WindowButtons extends StatelessWidget {
-  const WindowButtons({Key? key, required this.theme}) : super(key: key);
+  const WindowButtons({super.key, required this.theme});
 
   final ThemeDataModel theme;
 

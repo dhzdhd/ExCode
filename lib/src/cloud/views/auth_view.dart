@@ -13,7 +13,7 @@ enum AuthType {
 }
 
 class AuthView extends StatefulHookConsumerWidget {
-  const AuthView({Key? key}) : super(key: key);
+  const AuthView({super.key});
 
   static const routeName = '/auth';
 
@@ -56,7 +56,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
   Widget build(BuildContext context) {
     final state = useState(AuthType.login);
     final globalTheme = ref.watch(themeStateProvider);
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -66,8 +66,8 @@ class _AuthViewState extends ConsumerState<AuthView> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
-          key: _formKey,
-          onChanged: () => _formKey.currentState!.validate(),
+          key: formKey,
+          onChanged: () => formKey.currentState!.validate(),
           child: ListView(
             children: [
               ListTile(
@@ -151,7 +151,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
                     right: 15, left: 15, top: 8, bottom: 8),
                 child: OutlinedButton(
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       if (state.value == AuthType.signUp) {
                         // TODO: Find alternative to set loading state
                         _toggleLoading();

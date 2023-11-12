@@ -18,7 +18,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers.dart';
 
 class SettingsView extends HookConsumerWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  const SettingsView({super.key});
 
   static const routeName = '/settings';
 
@@ -79,8 +79,8 @@ class SettingsView extends HookConsumerWidget {
                         value: theme.value,
                         items: ThemeMode.values
                             .map((e) => DropdownMenuItem(
-                                  child: Text(e.name.capitalize()),
                                   value: e,
+                                  child: Text(e.name.capitalize()),
                                 ))
                             .toList(),
                       ),
@@ -102,8 +102,8 @@ class SettingsView extends HookConsumerWidget {
                         value: getEnumFromString(editorTheme),
                         items: Themes.values
                             .map((val) => DropdownMenuItem(
-                                  child: Text(val.name.capitalize()),
                                   value: val,
+                                  child: Text(val.name.capitalize()),
                                 ))
                             .toList(),
                       ),
@@ -125,8 +125,8 @@ class SettingsView extends HookConsumerWidget {
                         items: TabEnum.values
                             .map(
                               (e) => DropdownMenuItem(
-                                child: Text(e.name.capitalize()),
                                 value: e,
+                                child: Text(e.name.capitalize()),
                               ),
                             )
                             .toList(),
@@ -226,12 +226,12 @@ class SettingsView extends HookConsumerWidget {
                               return const LangVersionDialogWidget();
                             });
                       },
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
                       child: const Text(
                         'Language versions',
                         style: TextStyle(fontSize: 16),
                       ),
-                      style:
-                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
                     ),
                   ),
                   if (defaultTargetPlatform == TargetPlatform.android)
@@ -248,12 +248,12 @@ class SettingsView extends HookConsumerWidget {
                                 );
                               });
                         },
+                        style: TextButton.styleFrom(
+                            minimumSize: const Size(0, 50)),
                         child: const Text(
                           'Check for updates',
                           style: TextStyle(fontSize: 16),
                         ),
-                        style: TextButton.styleFrom(
-                            minimumSize: const Size(0, 50)),
                       ),
                     ),
                   Padding(
@@ -267,12 +267,12 @@ class SettingsView extends HookConsumerWidget {
                           },
                         );
                       },
+                      style:
+                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
                       child: const Text(
                         'About and Credits',
                         style: TextStyle(fontSize: 16),
                       ),
-                      style:
-                          TextButton.styleFrom(minimumSize: const Size(0, 50)),
                     ),
                   )
                 ],

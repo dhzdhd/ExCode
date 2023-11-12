@@ -16,7 +16,7 @@ class CodeFieldWidget extends StatefulWidget {
   final bool enabled;
 
   const CodeFieldWidget({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onChanged,
     required this.textStyle,
@@ -24,7 +24,7 @@ class CodeFieldWidget extends StatefulWidget {
     this.initialListViewWidth = 20.0,
     this.wrap = false,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   CodeFieldWidgetState createState() => CodeFieldWidgetState();
@@ -228,8 +228,8 @@ class CodeFieldWidgetState extends State<CodeFieldWidget> {
               minWidth: max(minWidth - leftPad, 0.0),
             ),
             child: Padding(
-              child: Text(longestLine, style: textStyle),
               padding: const EdgeInsets.only(right: 16.0),
+              child: Text(longestLine, style: textStyle),
             ),
           ),
           Expanded(child: codeField)

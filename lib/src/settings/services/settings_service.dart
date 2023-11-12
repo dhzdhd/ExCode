@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService {
@@ -8,7 +10,10 @@ class SettingsService {
   }
 
   static String getTheme() {
-    return _prefs.getString('theme') ?? 'light';
+    final brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+    return _prefs.getString('theme') ?? (isDarkMode ? 'dark' : 'light');
   }
 
   static Future<void> setTheme(String theme) async {

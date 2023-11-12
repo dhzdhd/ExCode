@@ -16,7 +16,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthDropDownWidget extends ConsumerWidget {
-  const AuthDropDownWidget({Key? key}) : super(key: key);
+  const AuthDropDownWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +43,6 @@ class AuthDropDownWidget extends ConsumerWidget {
               return [
                 if (user == null)
                   PopupMenuItem(
-                    child: const Text('Login'),
                     onTap: (() {
                       // * Future added so as to not pop dialog instantly when opened
                       Future.delayed(
@@ -54,10 +53,10 @@ class AuthDropDownWidget extends ConsumerWidget {
                         ),
                       );
                     }),
+                    child: const Text('Login'),
                   ),
                 if (user != null)
                   PopupMenuItem(
-                    child: const Text('User info'),
                     onTap: (() async {
                       Future.delayed(
                         const Duration(seconds: 0),
@@ -71,10 +70,10 @@ class AuthDropDownWidget extends ConsumerWidget {
                         ),
                       );
                     }),
+                    child: const Text('User info'),
                   ),
                 if (user != null)
                   PopupMenuItem(
-                    child: const Text('Sync data'),
                     onTap: (() async {
                       final res = await CloudDatabase.fetch(user.email!);
                       res.match(
@@ -102,17 +101,19 @@ class AuthDropDownWidget extends ConsumerWidget {
                             // res.match((l) => print(l), (r) => print(r));
                           }
 
-                          context.showSuccessSnackBar(
-                            content: 'Successfully synced data!',
-                            action: const None(),
-                          );
+                          if (context.mounted) {
+                            context.showSuccessSnackBar(
+                              content: 'Successfully synced data!',
+                              action: const None(),
+                            );
+                          }
                         },
                       );
                     }),
+                    child: const Text('Sync data'),
                   ),
                 if (user != null)
                   PopupMenuItem(
-                    child: const Text('Sign out'),
                     onTap: (() async {
                       final response = await Auth.signOut();
                       response.match(
@@ -123,6 +124,7 @@ class AuthDropDownWidget extends ConsumerWidget {
                         ),
                       );
                     }),
+                    child: const Text('Sign out'),
                   ),
               ];
             }),

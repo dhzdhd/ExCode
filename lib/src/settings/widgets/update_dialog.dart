@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 
 class InfoDialogWidget extends StatefulWidget {
-  const InfoDialogWidget({Key? key, required this.isLatestVersion})
-      : super(key: key);
+  const InfoDialogWidget({super.key, required this.isLatestVersion});
 
   final bool isLatestVersion;
 

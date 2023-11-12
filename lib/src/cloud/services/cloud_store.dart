@@ -16,15 +16,15 @@ Future<void> saveToCloud({
 }) async {
   final user = supabase.auth.currentUser;
 
-  final _settings = settings.match(
+  final settingsModel = settings.match(
     () => ref.watch(settingsProvider),
     (t) => t,
   );
 
-  if (user != null && _settings.isSaveToCloud) {
+  if (user != null && settingsModel.isSaveToCloud) {
     await CloudDatabase.upsert(
       CloudModel(
-        settings: _settings,
+        settings: settingsModel,
         snippets: snippets.match(
           () => ref.watch(snippetBarStateProvider),
           (t) => t,
