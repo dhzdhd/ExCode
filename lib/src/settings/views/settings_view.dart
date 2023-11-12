@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:gap/gap.dart';
 import '../../helpers.dart';
 
 class SettingsView extends HookConsumerWidget {
@@ -212,13 +213,11 @@ class SettingsView extends HookConsumerWidget {
                           }),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                    child: Divider(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: ElevatedButton(
+                  const Gap(10),
+                  const Divider(),
+                  const Gap(10),
+                  if (defaultTargetPlatform == TargetPlatform.android)
+                    ElevatedButton(
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -233,52 +232,49 @@ class SettingsView extends HookConsumerWidget {
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
-                  ),
                   if (defaultTargetPlatform == TargetPlatform.android)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext ctx) {
-                                return InfoDialogWidget(
-                                  isLatestVersion:
-                                      UpdateService.isLatestVersion(),
-                                );
-                              });
-                        },
-                        style: TextButton.styleFrom(
-                            minimumSize: const Size(0, 50)),
-                        child: const Text(
-                          'Check for updates',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: ElevatedButton(
+                    const Gap(10),
+                  if (defaultTargetPlatform == TargetPlatform.android)
+                    ElevatedButton(
                       onPressed: () {
                         showDialog(
-                          context: context,
-                          builder: (BuildContext ctx) {
-                            return const AboutDialogWidget();
-                          },
-                        );
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return InfoDialogWidget(
+                                isLatestVersion:
+                                    UpdateService.isLatestVersion(),
+                              );
+                            });
                       },
                       style:
                           TextButton.styleFrom(minimumSize: const Size(0, 50)),
                       child: const Text(
-                        'About and Credits',
+                        'Check for updates',
                         style: TextStyle(fontSize: 16),
                       ),
+                    ),
+                  const Gap(10),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) {
+                          return const AboutDialogWidget();
+                        },
+                      );
+                    },
+                    style: TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    child: const Text(
+                      'About and Credits',
+                      style: TextStyle(fontSize: 16),
                     ),
                   )
                 ],
               ),
             ),
+            const Gap(10),
             const Divider(),
+            const Gap(10),
             if (defaultTargetPlatform != TargetPlatform.windows)
               SizedBox(
                 child: Text(

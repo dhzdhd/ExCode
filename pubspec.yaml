@@ -50,6 +50,7 @@ dependencies:
       ref: 391a498
   flutter_native_splash: ^2.3.5
   after_layout: ^1.2.0
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:
