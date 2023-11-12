@@ -6,6 +6,7 @@ import 'package:excode/src/settings/providers/theme_provider.dart';
 import 'package:excode/src/settings/services/update_service.dart';
 import 'package:excode/src/settings/widgets/about_dialog.dart';
 import 'package:excode/src/settings/widgets/auth_dropdown.dart';
+import 'package:excode/src/settings/widgets/clear_dialog.dart';
 import 'package:excode/src/settings/widgets/dropdown_button.dart';
 import 'package:excode/src/settings/widgets/font_size_button.dart';
 import 'package:excode/src/settings/widgets/update_dialog.dart';
@@ -266,6 +267,22 @@ class SettingsView extends HookConsumerWidget {
                     style: TextButton.styleFrom(minimumSize: const Size(0, 50)),
                     child: const Text(
                       'About and Credits',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  const Gap(10),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) {
+                          return const ClearDialogWidget();
+                        },
+                      );
+                    },
+                    style: TextButton.styleFrom(minimumSize: const Size(0, 50)),
+                    child: const Text(
+                      'Clear local storage',
                       style: TextStyle(fontSize: 16),
                     ),
                   )
