@@ -131,10 +131,10 @@ class ApiHandler {
       );
     }
 
-    // print(res.data);
+    print(res.data);
 
-    Option<PistonModel> runModel = None();
-    Option<PistonModel> compileModel = None();
+    Option<PistonModel> runModel = const None();
+    Option<PistonModel> compileModel = const None();
 
     if (res.data
         case {
@@ -142,8 +142,8 @@ class ApiHandler {
             'stdout': String stdout,
             'stderr': String stderr,
             'output': String output,
-            'code': String code,
-            'signal': String signal
+            'code': int? code,
+            'signal': String? signal
           }
         }) {
       runModel = Some(PistonModel(
@@ -161,8 +161,8 @@ class ApiHandler {
             'stdout': String stdout,
             'stderr': String stderr,
             'output': String output,
-            'code': String code,
-            'signal': String signal
+            'code': int? code,
+            'signal': String? signal
           }
         }) {
       compileModel = Some(PistonModel(
@@ -173,6 +173,8 @@ class ApiHandler {
         signal: signal,
       ));
     }
+
+    print(runModel);
 
     return switch (compileModel) {
       Some(value: PistonModel cModel) when runModel.isNone() =>

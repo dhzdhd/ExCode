@@ -19,8 +19,8 @@ mixin _$PistonModel {
   String get stdout => throw _privateConstructorUsedError;
   String get stderr => throw _privateConstructorUsedError;
   String get output => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
-  String get signal => throw _privateConstructorUsedError;
+  int? get code => throw _privateConstructorUsedError;
+  String? get signal => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PistonModelCopyWith<PistonModel> get copyWith =>
@@ -34,11 +34,7 @@ abstract class $PistonModelCopyWith<$Res> {
       _$PistonModelCopyWithImpl<$Res, PistonModel>;
   @useResult
   $Res call(
-      {String stdout,
-      String stderr,
-      String output,
-      String code,
-      String signal});
+      {String stdout, String stderr, String output, int? code, String? signal});
 }
 
 /// @nodoc
@@ -57,8 +53,8 @@ class _$PistonModelCopyWithImpl<$Res, $Val extends PistonModel>
     Object? stdout = null,
     Object? stderr = null,
     Object? output = null,
-    Object? code = null,
-    Object? signal = null,
+    Object? code = freezed,
+    Object? signal = freezed,
   }) {
     return _then(_value.copyWith(
       stdout: null == stdout
@@ -73,14 +69,14 @@ class _$PistonModelCopyWithImpl<$Res, $Val extends PistonModel>
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as String,
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      signal: null == signal
+              as int?,
+      signal: freezed == signal
           ? _value.signal
           : signal // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -94,11 +90,7 @@ abstract class _$$PistonModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String stdout,
-      String stderr,
-      String output,
-      String code,
-      String signal});
+      {String stdout, String stderr, String output, int? code, String? signal});
 }
 
 /// @nodoc
@@ -115,8 +107,8 @@ class __$$PistonModelImplCopyWithImpl<$Res>
     Object? stdout = null,
     Object? stderr = null,
     Object? output = null,
-    Object? code = null,
-    Object? signal = null,
+    Object? code = freezed,
+    Object? signal = freezed,
   }) {
     return _then(_$PistonModelImpl(
       stdout: null == stdout
@@ -131,14 +123,14 @@ class __$$PistonModelImplCopyWithImpl<$Res>
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as String,
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      signal: null == signal
+              as int?,
+      signal: freezed == signal
           ? _value.signal
           : signal // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -160,9 +152,9 @@ class _$PistonModelImpl implements _PistonModel {
   @override
   final String output;
   @override
-  final String code;
+  final int? code;
   @override
-  final String signal;
+  final String? signal;
 
   @override
   String toString() {
@@ -197,8 +189,8 @@ abstract class _PistonModel implements PistonModel {
       {required final String stdout,
       required final String stderr,
       required final String output,
-      required final String code,
-      required final String signal}) = _$PistonModelImpl;
+      required final int? code,
+      required final String? signal}) = _$PistonModelImpl;
 
   @override
   String get stdout;
@@ -207,9 +199,9 @@ abstract class _PistonModel implements PistonModel {
   @override
   String get output;
   @override
-  String get code;
+  int? get code;
   @override
-  String get signal;
+  String? get signal;
   @override
   @JsonKey(ignore: true)
   _$$PistonModelImplCopyWith<_$PistonModelImpl> get copyWith =>
