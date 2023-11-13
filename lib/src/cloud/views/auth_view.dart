@@ -1,4 +1,3 @@
-import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
