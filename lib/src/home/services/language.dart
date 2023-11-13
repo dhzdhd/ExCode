@@ -241,7 +241,6 @@ printf "%s\\n" "\$var"''',
 (hello)''',
   ),
   LangModel(
-    // ! Compiler output
     mode: markdown,
     name: 'cobol',
     lang: Language.cobol,
@@ -295,15 +294,19 @@ print '\\n'
     template: '''console.log("Hello, World!");''',
   ),
   LangModel(
-    // !
     mode: basic,
     name: 'basic.net',
     lang: Language.basic,
     ext: '.vb',
-    template: '''10 PRINT "Hello, World!"''',
+    template: '''Imports System
+
+Module HWModule
+   Sub Main()
+     Console.WriteLine("Hello World!")
+   End Sub
+End Module''',
   ),
   LangModel(
-    // ! Compiler output
     mode: fsharp,
     name: 'fsharp.net',
     lang: Language.fSharp,
@@ -311,12 +314,19 @@ print '\\n'
     template: '''printfn "Hello, World!"''',
   ),
   LangModel(
-    // !
     mode: cs,
     name: 'csharp.net',
     lang: Language.cSharp,
     ext: '.cs',
-    template: '''Console.WriteLine("Hello, World!");''',
+    template: '''namespace HelloWorld
+{
+    class Hello {
+        static void Main(string[] args)
+        {
+            System.Console.WriteLine("Hello World!");
+        }
+    }
+}''',
   ),
   LangModel(
     mode: fsharp,
@@ -352,10 +362,11 @@ print '\\n'
     name: 'erlang',
     lang: Language.erlang,
     ext: '.erl',
-    template: '''-module(hello).
--export([hello_world/0]).
+    template: '''-module(helloworld).
+-export([start/0]).
 
-hello_world() -> io:fwrite("Hello, World!\\n").''',
+start() ->
+   io:fwrite("Hello, world!\n").''',
   ),
   LangModel(
     // ! Compiler output
@@ -602,12 +613,11 @@ _start:
     template: '''echo "Hello, World!"''',
   ),
   LangModel(
-    // !
     mode: ocaml,
     name: 'ocaml',
     lang: Language.oCaml,
     ext: '.ml',
-    template: '''println("Hello, World!")''',
+    template: '''print_string "Hello world!\n"''',
   ),
   LangModel(
     mode: matlab,
@@ -624,7 +634,6 @@ _start:
     template: '''"Hello, World!''',
   ),
   LangModel(
-    // ! Compiler output
     mode: markdown,
     name: 'pascal',
     lang: Language.pascal,
@@ -649,7 +658,6 @@ end.''',
     template: '''Hello, World!''',
   ),
   LangModel(
-    // !
     mode: pony,
     name: 'ponylang',
     lang: Language.ponylang,
@@ -659,12 +667,12 @@ end.''',
     env.out.print("Hello, world!")''',
   ),
   LangModel(
-    // ! No output
     mode: prolog,
     name: 'prolog',
     lang: Language.prolog,
     ext: '.prolog.pl',
-    template: '''main() :- write("Hello, World!"), nl.''',
+    template: ''':- initialization(main).
+main :- write('Hello World!'), nl, halt.''',
   ),
   LangModel(
     mode: powershell,
@@ -733,19 +741,13 @@ end.''',
 }''',
   ),
   LangModel(
-    // !
     mode: scala,
     name: 'scala',
     lang: Language.scala,
     ext: '.scala',
-    template: '''object Hello {
-    def main(args: Array[String]) = {
-        println("Hello, World!")
-    }
-}''',
+    template: '''@main def hello() = println("Hello, World!")''',
   ),
   LangModel(
-    // ! Compiler output
     mode: smalltalk,
     name: 'smalltalk',
     lang: Language.smallTalk,
