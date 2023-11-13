@@ -131,8 +131,6 @@ class ApiHandler {
       );
     }
 
-    print(res.data);
-
     Option<PistonModel> runModel = const None();
     Option<PistonModel> compileModel = const None();
 
@@ -173,8 +171,6 @@ class ApiHandler {
         signal: signal,
       ));
     }
-
-    print(runModel);
 
     return switch (compileModel) {
       Some(value: PistonModel cModel) when runModel.isNone() =>
