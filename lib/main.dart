@@ -31,7 +31,7 @@ void main() async {
     runApp(const ProviderScope(child: MyApp()));
 
     // LeakTracking.stop();
-  } else if (!kIsWeb && getSentryFromStorage()) {
+  } else if (getSentryFromStorage()) {
     await SentryFlutter.init(
       (options) {
         options.dsn =

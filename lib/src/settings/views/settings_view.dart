@@ -200,17 +200,14 @@ class SettingsView extends HookConsumerWidget {
                           await settingsNotifier.setFloatingRunVisibility();
                         }),
                   ),
-                  Visibility(
-                    visible: !kIsWeb,
-                    child: ListTile(
-                      leading: const Icon(Icons.monitor_heart_outlined),
-                      title: const Text('Enable Sentry'),
-                      trailing: Switch(
-                          value: isSentryEnabled,
-                          onChanged: (val) async {
-                            await settingsNotifier.setSentry();
-                          }),
-                    ),
+                  ListTile(
+                    leading: const Icon(Icons.monitor_heart_outlined),
+                    title: const Text('Enable Sentry'),
+                    trailing: Switch(
+                        value: isSentryEnabled,
+                        onChanged: (val) async {
+                          await settingsNotifier.setSentry();
+                        }),
                   ),
                   const Gap(10),
                   const Divider(),
@@ -270,8 +267,8 @@ class SettingsView extends HookConsumerWidget {
                   ),
                   const Gap(10),
                   ElevatedButton(
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder: (BuildContext ctx) {
                           return const ClearDialogWidget();
