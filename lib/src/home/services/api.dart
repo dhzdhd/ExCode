@@ -181,39 +181,5 @@ class ApiHandler {
           None() => const OutputModel(output: '', error: '')
         },
     };
-
-    // if (res.data!['run']['stdout'].isEmpty) {
-    //   res.data!['run']['stdout'] = 'No output';
-    // }
-    // if (res.data!['run']['stderr'].isEmpty) {
-    //   res.data!['run']['stderr'] = 'No errors';
-    // }
-
-    // if (res.data!.containsKey('compile')) {
-    //   if (res.data!['compile']['stdout'].isEmpty &&
-    //       res.data!['compile']['stderr'].isEmpty) {
-    //     return OutputModel(
-    //       output: res.data!['run']['stdout'],
-    //       error: res.data!['run']['stderr'],
-    //     );
-    //   } else {
-    //     if (res.data!['compile']['stdout'].isEmpty) {
-    //       res.data!['compile']['stdout'] = 'No output';
-    //     }
-    //     if (res.data!['compile']['stderr'].isEmpty) {
-    //       res.data!['compile']['stderr'] = 'No errors';
-    //     }
-
-    //     return OutputModel(
-    //       output: res.data!['compile']['stdout'],
-    //       error: res.data!['compile']['stderr'],
-    //     );
-    //   }
-    // }
-
-    // return OutputModel(
-    //   output: res.data!['run']['stdout'],
-    //   error: res.data!['run']['stderr'],
-    // );
   }
 }

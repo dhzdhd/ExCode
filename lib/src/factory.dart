@@ -40,7 +40,11 @@ Future<void> initPackageInfo() async {
 }
 
 Future<void> initDownloader() async {
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  if (kDebugMode) {
+    await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  } else {
+    await FlutterDownloader.initialize(debug: false, ignoreSsl: false);
+  }
 }
 
 Future<void> initFileStorage() async {
