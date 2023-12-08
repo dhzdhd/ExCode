@@ -131,8 +131,10 @@ class AuthDropDownWidget extends ConsumerWidget {
             child: user == null
                 ? const Icon(Icons.person, size: size)
                 : SvgPicture.network(
-                    'https://avatars.dicebear.com/api/bottts/${email!}.svg',
+                    'https://api.dicbear.com/7.x/bottts/svg?seed=$email',
                     width: size,
+                    placeholderBuilder: (ctx) =>
+                        const Icon(Icons.person, size: size),
                   ),
           ),
         ),
