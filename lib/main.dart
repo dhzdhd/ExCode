@@ -25,12 +25,7 @@ void main() async {
   }
 
   if (kDebugMode) {
-    // ! Update package to enable links https://pub.dev/packages/leak_tracker
-    // LeakTracking.start();
-
     runApp(const ProviderScope(child: MyApp()));
-
-    // LeakTracking.stop();
   } else if (getSentryFromStorage()) {
     await SentryFlutter.init(
       (options) {
