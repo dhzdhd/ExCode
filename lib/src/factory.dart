@@ -21,7 +21,7 @@ void initDioClient() {
 }
 
 Future<void> initCloudStorage() async {
-  // ! Suspended project breaks windows release
+  // FIXME: Suspended project breaks windows release
   await Supabase.initialize(
     debug: kDebugMode,
     url: 'https://vkncfbjgekuolcmqompg.supabase.co',

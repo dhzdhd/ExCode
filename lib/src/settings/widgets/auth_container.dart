@@ -25,12 +25,12 @@ class AuthContainerWidget extends ConsumerWidget {
         child: Column(
           children: [
             Text(
-              ref.watch(authStateProvider).user?.email ?? 'Not signed in yet!',
+              ref.watch(authProvider).user?.email ?? 'Not signed in yet!',
               // .match((t) => t.email!, () => 'Not signed in yet!'),
               style: const TextStyle(fontSize: 20),
             ),
             Visibility(
-              visible: ref.watch(authStateProvider).user == null,
+              visible: ref.watch(authProvider).user == null,
               child: TextButton(
                 onPressed: () {
                   Navigator.restorablePushNamed(context, AuthView.routeName);
@@ -42,11 +42,12 @@ class AuthContainerWidget extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Visibility(
-                  visible: ref.watch(authStateProvider).user != null,
+                  visible: ref.watch(authProvider).user != null,
                   child: TextButton(
                     onPressed: () async {
                       final res = await CloudDatabase.fetch(
-                          supabase.auth.currentUser!.email!);
+                        supabase.auth.currentUser!.email!,
+                      ).run();
                       res.match((l) => context.showErrorSnackBar(l), (r) {
                         ref
                             .watch(settingsProvider.notifier)
@@ -64,10 +65,10 @@ class AuthContainerWidget extends ConsumerWidget {
                   ),
                 ),
                 Visibility(
-                  visible: ref.watch(authStateProvider).user != null,
+                  visible: ref.watch(authProvider).user != null,
                   child: TextButton(
                     onPressed: () async {
-                      final response = await Auth.signOut();
+                      final response = await AuthService.signOut();
                       response.match(
                         (l) => context.showErrorSnackBar(l),
                         (r) => context.showSuccessSnackBar(

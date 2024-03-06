@@ -1,3 +1,4 @@
+import 'package:excode/src/cloud/providers/auth_provider.dart';
 import 'package:excode/src/cloud/services/supabase_auth.dart';
 import 'package:excode/src/helpers.dart';
 import 'package:excode/src/settings/providers/theme_provider.dart';
@@ -154,14 +155,14 @@ class _AuthViewState extends ConsumerState<AuthView> {
                       if (state.value == AuthType.signUp) {
                         // TODO: Find alternative to set loading state
                         _toggleLoading();
-                        final response = await Auth.register(
+                        final response = await AuthService.register(
                             _emailController.text, _passwordController.text);
                         _toggleLoading();
                         response.match(
                           (l) => context.showErrorSnackBar(l),
                           (r) {
                             // TODO: Fix auth model
-                            // ref.read(authStateProvider.notifier).setUser(r);
+                            ref.read(authProvider.notifier).setUser(r);
                             Navigator.pop(context);
                             context.showSuccessSnackBar(
                               content:
@@ -172,8 +173,10 @@ class _AuthViewState extends ConsumerState<AuthView> {
                         );
                       } else {
                         _toggleLoading();
-                        final response = await Auth.signIn(
-                            _emailController.text, _passwordController.text);
+                        final response = await AuthService.signIn(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
                         _toggleLoading();
 
                         response.match(

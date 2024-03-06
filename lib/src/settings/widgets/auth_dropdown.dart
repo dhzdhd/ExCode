@@ -21,7 +21,7 @@ class AuthDropDownWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final globalTheme = ref.watch(themeStateProvider);
-    final user = ref.watch(authStateProvider).user;
+    final user = ref.watch(authProvider).user;
     final email = user == null
         ? null
         : const Base64Encoder().convert(user.email!.codeUnits);
@@ -75,7 +75,7 @@ class AuthDropDownWidget extends ConsumerWidget {
                 if (user != null)
                   PopupMenuItem(
                     onTap: (() async {
-                      final res = await CloudDatabase.fetch(user.email!);
+                      final res = await CloudDatabase.fetch(user.email!).run();
                       res.match(
                         (l) => context.showErrorSnackBar(l),
                         (r) async {
@@ -115,7 +115,7 @@ class AuthDropDownWidget extends ConsumerWidget {
                 if (user != null)
                   PopupMenuItem(
                     onTap: (() async {
-                      final response = await Auth.signOut();
+                      final response = await AuthService.signOut();
                       response.match(
                         (l) => context.showErrorSnackBar(l),
                         (r) => context.showSuccessSnackBar(

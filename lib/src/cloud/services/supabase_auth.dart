@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ! Add TaskEither as .error was removed :(
-class Auth {
+class AuthService {
   static Future<Either<String, User?>> register(
       String email, String password) async {
     final response =
