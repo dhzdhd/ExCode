@@ -15,7 +15,7 @@ class _CloudNotifier extends AsyncNotifier<CloudModel> {
   @override
   FutureOr<CloudModel> build() async {
     final response =
-        await CloudDatabase.fetch(supabase.auth.currentUser!.email!);
+        await CloudDatabase.fetch(supabase.auth.currentUser!.email!).run();
     return response.match(
       (l) {
         final model = CloudModel(

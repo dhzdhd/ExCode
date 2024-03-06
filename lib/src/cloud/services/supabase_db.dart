@@ -28,36 +28,34 @@ class CloudDatabase {
     }
   }
 
-  static Future<Either<String, CloudModel>> fetch(String email) async {
-    final response = await supabase
-        .from(_databaseName)
-        .select()
-        .filter('email', 'eq', email);
+  static TaskEither<String, CloudModel> fetch(String email) {
+    return TaskEither.tryCatch(() async {
+      final response = await supabase
+          .from(_databaseName)
+          .select()
+          .filter('email', 'eq', email);
 
-    if (response.hasError) {
-      return Left(response.error!.message);
-    }
-
-    try {
-      final data = response.data[0] as Map<String, dynamic>;
+      print(response);
+      final data = response[0] as Map<String, dynamic>;
       final model = CloudModel.fromJson(data['data']);
-      return Right(model);
-    } on RangeError catch (_) {
-      return const Left('Data not present on the cloud!');
-    } catch (ex) {
-      return const Left('error');
-    }
+      return model;
+    }, (error, stackTrace) {
+      if (error is RangeError) {
+        return 'Data not present on the cloud!';
+      } else {
+        return 'Error';
+      }
+    });
   }
 
   // * For testing only
-  static Future<Either<String, List<dynamic>>> fetchAll() async {
-    final response = await supabase.from(_databaseName).select();
+  static TaskEither<String, List<dynamic>> fetchAll() {
+    return TaskEither.tryCatch(() async {
+      final response = await supabase.from(_databaseName).select();
 
-    if (response.hasError) {
-      return Left(response.error!.message);
-    }
-
-    return Right(response.data);
+      print(response);
+      return response;
+    }, (error, stackTrace) => error.toString());
   }
 
   // * For testing only
